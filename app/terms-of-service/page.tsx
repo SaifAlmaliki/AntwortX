@@ -5,7 +5,7 @@ import { useLanguage } from "@/contexts/language-context";
 import { Footer } from "@/components/Footer";
 
 export default function TermsOfServicePage() {
-  const { t, direction, language } = useLanguage();
+  const { direction, language } = useLanguage();
   const isRtl = direction === 'rtl';
 
   return (

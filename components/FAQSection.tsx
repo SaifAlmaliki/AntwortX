@@ -43,7 +43,7 @@ const FAQItem = ({ question, answer, isOpen, toggleOpen, isRtl }: FAQItemProps) 
 };
 
 export const FAQSection = () => {
-  const { t, direction, language, locale } = useLanguage();
+  const { t, direction, locale } = useLanguage();
   const isRtl = direction === "rtl";
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 

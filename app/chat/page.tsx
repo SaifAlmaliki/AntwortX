@@ -75,7 +75,7 @@ export default function ChatPage() {
       try {
         const data = JSON.parse(responseText);
         responseContent = data.response || responseText;
-      } catch (parseError) {
+      } catch (error) {
         // If JSON parsing fails, use the raw text as the response
         console.log("Response is not JSON, using as plain text:", responseText);
         responseContent = responseText;

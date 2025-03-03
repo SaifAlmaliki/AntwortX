@@ -16,7 +16,7 @@ export function BrandName({
   showLink = true,
   size
 }: BrandNameProps) {
-  const { language, direction } = useLanguage();
+  const { } = useLanguage();
   
   // Determine size class based on size prop
   const sizeClass = size ? {

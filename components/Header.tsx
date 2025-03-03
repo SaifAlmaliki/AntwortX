@@ -1,7 +1,5 @@
 "use client";
 
-import Link from "next/link";
-import { useState } from "react";
 import { motion } from "framer-motion";
 import { BrandName } from "@/components/ui/BrandName";
 import { useLanguage } from "@/contexts/language-context";

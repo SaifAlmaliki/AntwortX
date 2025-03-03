@@ -6,7 +6,7 @@ import { useLanguage } from "@/contexts/language-context";
 import { Footer } from "@/components/Footer";
 
 export default function SolutionsPage() {
-  const { t, direction, language } = useLanguage();
+  const { direction, language } = useLanguage();
   
   const solutions = [
     {
