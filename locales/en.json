@@ -1,0 +1,188 @@
+{
+  "common": {
+    "language": "English",
+    "direction": "ltr"
+  },
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "contact": "Contact Us",
+    "solutions": "Solutions"
+  },
+  "home": {
+    "title": "antwortX",
+    "subtitle": "Answering Everything",
+    "description": "AI consultancy specializing in custom AI agents and tailored solutions for diverse business needs",
+    "getStarted": "Get Started",
+    "learnMore": "Learn More"
+  },
+  "hero": {
+    "title": "AI Consultancy Reimagined",
+    "description": "antwortX enables businesses to leverage custom AI agents that combine intelligence with domain-specific knowledge to deliver exceptional experiences across various use cases."
+  },
+  "howItWorks": {
+    "title": "How antwortX Works",
+    "subtitle": "Our consultancy combines advanced AI expertise with industry knowledge to transform your business with custom AI solutions.",
+    "features": {
+      "aiChat": {
+        "title": "Versatile AI Agents",
+        "description": "We develop custom AI agents for various use cases including customer support, sales assistance, internal knowledge management, and more."
+      },
+      "knowledgeBase": {
+        "title": "Knowledge Base Builder",
+        "description": "Our team helps you organize your documentation and materials to train AI agents on your specific domain knowledge."
+      },
+      "multilingual": {
+        "title": "Multilingual Support",
+        "description": "We create AI agents that communicate in multiple languages with automatic translation capabilities."
+      },
+      "learning": {
+        "title": "Continuous Learning",
+        "description": "Our AI solutions improve over time, learning from interactions to provide more accurate and helpful responses."
+      }
+    }
+  },
+  "chat": {
+    "title": "AI Agent Chat",
+    "placeholder": "Type your message here...",
+    "send": "Send",
+    "emptyState": "Start a conversation with our AI agent",
+    "loading": "Thinking...",
+    "error": "Something went wrong. Please try again."
+  },
+  "upload": {
+    "title": "Knowledge Base Builder",
+    "description": "Upload your documents to train your AI agent",
+    "dragDrop": "Drag and drop files here, or click to select",
+    "fileTypes": "Supported formats: PDF, DOCX, TXT",
+    "uploadButton": "Upload Files",
+    "processing": "Processing your documents...",
+    "success": "Files uploaded successfully",
+    "error": "Error uploading files",
+    "questions": "Extracted Information",
+    "noQuestions": "No information extracted yet"
+  },
+  "about": {
+    "title": "About antwortX",
+    "subtitle": "Pioneering custom AI agent solutions",
+    "mission": {
+      "title": "Our Mission",
+      "description": "At antwortX, we're on a mission to transform businesses through advanced AI technology. We believe organizations shouldn't have to choose between efficiency and quality when implementing AI solutions.",
+      "vision": "Our vision is to create AI agents that understand, learn, and evolve - providing intelligent solutions that feel genuinely human while delivering the consistency and scalability only machines can offer."
+    },
+    "who": {
+      "title": "Who We Are",
+      "description": "We are a team of AI experts and solution architects who have worked on groundbreaking projects across Germany, the UK, and Canada. Our passion lies in building AI agent solutions that help businesses drive more value."
+    },
+    "expertise": {
+      "title": "Our Expertise",
+      "description": "Combining deep technical knowledge with industry experience to deliver cutting-edge AI solutions",
+      "global": {
+        "title": "Global Experience",
+        "description": "Our team brings diverse perspectives from working on AI projects across three continents, giving us unique insights into global AI implementation needs."
+      },
+      "team": {
+        "title": "Cross-functional Team",
+        "description": "Our experts span AI research, software engineering, UX design, and business strategy - creating holistic solutions that excel technically and commercially."
+      },
+      "innovation": {
+        "title": "Innovation Focus",
+        "description": "We're constantly pushing boundaries, researching and implementing the latest advancements in natural language processing and conversational AI."
+      },
+      "results": {
+        "title": "Results-Driven",
+        "description": "Our solutions are designed with measurable business outcomes in mind - from improving operational efficiency to enhancing user experiences across various domains."
+      }
+    },
+    "values": {
+      "title": "Our Values",
+      "innovation": {
+        "title": "Innovation",
+        "description": "We're constantly pushing the boundaries of what's possible with AI technology."
+      },
+      "quality": {
+        "title": "Quality",
+        "description": "We're committed to delivering solutions that exceed expectations in every way."
+      },
+      "collaboration": {
+        "title": "Collaboration",
+        "description": "We work closely with our clients to ensure our solutions meet their specific needs."
+      },
+      "integrity": {
+        "title": "Integrity",
+        "description": "We believe in transparent, ethical AI development and deployment."
+      }
+    },
+    "cta": {
+      "title": "Ready to transform your business with custom AI agents?",
+      "description": "Join the organizations already using antwortX to deliver exceptional AI experiences across various use cases.",
+      "button": "Contact Us Today"
+    }
+  },
+  "contact": {
+    "title": "Contact Us",
+    "subtitle": "We'd love to hear from you. Fill out the form below and we'll get back to you as soon as possible.",
+    "name": "Your Name",
+    "email": "Your Email",
+    "subject": "Subject",
+    "message": "Message",
+    "submit": "Send Message",
+    "success": "Your message has been sent. We'll get back to you soon!",
+    "error": "There was an error sending your message. Please try again.",
+    "address": "Address",
+    "city": "47057 Duisburg, Germany",
+    "phone": "Phone",
+    "phoneNumber": "+1 (555) 123-4567",
+    "emailContact": "Email",
+    "emailAddress": "contact@antwortx.com"
+  },
+  "footer": {
+    "description": "AI consultancy specializing in custom AI agents and solutions for businesses",
+    "product": "Services",
+    "features": "Solutions",
+    "pricing": "Pricing",
+    "demo": "Request Consultation",
+    "resources": "Resources",
+    "documentation": "Case Studies",
+    "blog": "Blog",
+    "support": "Support",
+    "company": "Company",
+    "about": "About Us",
+    "careers": "Careers",
+    "contact": "Contact",
+    "legal": "Legal",
+    "terms": "Terms of Service",
+    "privacy": "Privacy Policy",
+    "copyright": " 2025 antwortX. All rights reserved."
+  },
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "subtitle": "Find answers to common questions about our AI consultancy services",
+    "questions": [
+      {
+        "question": "What is antwortX?",
+        "answer": "antwortX is a specialized AI consultancy company that offers custom AI services and solutions for businesses. We focus on creating tailored AI agents and solutions that address specific business challenges across various industries. Our expertise lies in developing intelligent AI systems that enhance operational efficiency and customer experiences."
+      },
+      {
+        "question": "How do I get started with antwortX?",
+        "answer": "Getting started is simple. Contact our consultancy team to discuss your business needs, and we'll guide you through the process of developing a custom AI solution for your specific requirements. We offer flexible engagement models to suit businesses of all sizes."
+      },
+      {
+        "question": "Can I customize my AI agents?",
+        "answer": "Absolutely! Customization is at the core of antwortX's consultancy approach. Our team works closely with you to understand your business needs and develops AI agents trained on your specific knowledge base, adjusting their behavior, capabilities, and integration points to match your exact requirements."
+      },
+      {
+        "question": "What languages do antwortX agents support?",
+        "answer": "Our AI agents support multiple languages including English, Arabic, Spanish, French, German, and many more. As a consultancy, we can develop solutions with support for additional languages based on your specific business needs."
+      },
+      {
+        "question": "How secure is my data with antwortX?",
+        "answer": "Security is our top priority. As a professional consultancy, we employ enterprise-grade security measures to protect your data, including encryption, secure access controls, and regular security audits. Your data is never used to train other clients' AI agents, ensuring complete confidentiality."
+      },
+      {
+        "question": "Do I need technical expertise to work with antwortX?",
+        "answer": "No technical expertise is required. Our consultancy team handles all the technical aspects of developing your AI solution. We provide comprehensive onboarding, training, and ongoing support to ensure your team can effectively utilize the AI systems we develop for you."
+      }
+    ]
+  }
+}
