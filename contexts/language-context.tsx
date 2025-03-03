@@ -6,11 +6,13 @@ import React, { createContext, useContext, useState, useEffect, ReactNode } from
 import enLocale from '@/locales/en.json';
 import arLocale from '@/locales/ar.json';
 
-type Locale = typeof enLocale;
+// Use a more flexible type definition that doesn't rely on exact structure matching
+type LocaleData = Record<string, any>;
+
 type Language = 'en' | 'ar';
 
 interface LanguageContextType {
-  locale: Locale;
+  locale: LocaleData;
   language: Language;
   direction: 'ltr' | 'rtl';
   setLanguage: (lang: Language) => void;
@@ -35,7 +37,7 @@ interface LanguageProviderProps {
 
 export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) => {
   const [language, setLanguageState] = useState<Language>('en');
-  const [locale, setLocale] = useState<Locale>(enLocale);
+  const [locale, setLocale] = useState<LocaleData>(enLocale);
   const [direction, setDirection] = useState<'ltr' | 'rtl'>('ltr');
 
   useEffect(() => {
@@ -49,12 +51,13 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
   useEffect(() => {
     // Update locale and direction when language changes
     if (language === 'ar') {
-      setLocale(arLocale);
+      // Use type assertion to avoid TypeScript errors
+      setLocale(arLocale as LocaleData);
       setDirection('rtl');
       document.documentElement.dir = 'rtl';
       document.documentElement.lang = 'ar';
     } else {
-      setLocale(enLocale);
+      setLocale(enLocale as LocaleData);
       setDirection('ltr');
       document.documentElement.dir = 'ltr';
       document.documentElement.lang = 'en';

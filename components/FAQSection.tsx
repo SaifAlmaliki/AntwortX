@@ -13,6 +13,11 @@ type FAQItemProps = {
   isRtl: boolean;
 };
 
+interface FAQItem {
+  question: string;
+  answer: string;
+}
+
 const FAQItem = ({ question, answer, isOpen, toggleOpen, isRtl }: FAQItemProps) => {
   return (
     <div className="border-b border-gray-700 last:border-b-0">
@@ -51,8 +56,7 @@ export const FAQSection = () => {
     setOpenIndex(openIndex === index ? null : index);
   };
 
-  // Access the FAQ items from the locale object directly
-  const faqItems = locale.faq?.questions || [];
+  const faqItems = (locale.faq?.questions || []) as FAQItem[];
 
   return (
     <section className={`py-16 bg-[#0a0a0a] ${isRtl ? 'rtl' : ''}`}>
@@ -79,7 +83,7 @@ export const FAQSection = () => {
           transition={{ duration: 0.5, delay: 0.2 }}
           className="bg-[#111] border border-[#222] rounded-lg p-6 md:p-8"
         >
-          {faqItems.map((item, index) => (
+          {faqItems.map((item: FAQItem, index: number) => (
             <FAQItem
               key={index}
               question={item.question}
