@@ -37,8 +37,8 @@ export default function TermsOfServicePage() {
             <h2>{language === 'en' ? '1. Introduction' : '1. مقدمة'}</h2>
             <p>
               {language === 'en' 
-                ? 'Welcome to antwortX ("Company", "we", "our", "us")! These Terms of Service ("Terms", "Terms of Service") govern your use of our website and AI agent platform (together or individually "Service") operated by antwortX.' 
-                : 'مرحبًا بك في antwortX ("الشركة"، "نحن"، "لنا")! تحكم شروط الخدمة هذه ("الشروط"، "شروط الخدمة") استخدامك لموقعنا الإلكتروني ومنصة وكيل الذكاء الاصطناعي (معًا أو بشكل فردي "الخدمة") التي تديرها antwortX.'}
+                ? 'Welcome to Intelligent Proxy ("Company", "we", "our", "us")! These Terms of Service ("Terms", "Terms of Service") govern your use of our website and AI agent platform (together or individually "Service") operated by Intelligent Proxy.' 
+                : 'مرحبًا بك في Intelligent Proxy ("الشركة"، "نحن"، "لنا")! تحكم شروط الخدمة هذه ("الشروط"، "شروط الخدمة") استخدامك لموقعنا الإلكتروني ومنصة وكيل الذكاء الاصطناعي (معًا أو بشكل فردي "الخدمة") التي تديرها Intelligent Proxy.'}
             </p>
             <p>
               {language === 'en' 
@@ -54,8 +54,8 @@ export default function TermsOfServicePage() {
             <h2>{language === 'en' ? '2. Communications' : '2. الاتصالات'}</h2>
             <p>
               {language === 'en' 
-                ? 'By creating an Account on our Service, you agree to subscribe to newsletters, marketing or promotional materials and other information we may send. However, you may opt out of receiving any, or all, of these communications from us by following the unsubscribe link or by emailing us at contact@antwortx.com.' 
-                : 'من خلال إنشاء حساب على خدمتنا، فإنك توافق على الاشتراك في النشرات الإخبارية أو المواد التسويقية أو الترويجية وغيرها من المعلومات التي قد نرسلها. ومع ذلك، يمكنك إلغاء الاشتراك في أي من هذه الاتصالات أو جميعها منا باتباع رابط إلغاء الاشتراك أو عن طريق مراسلتنا عبر البريد الإلكتروني على contact@antwortx.com.'}
+                ? 'By creating an Account on our Service, you agree to subscribe to newsletters, marketing or promotional materials and other information we may send. However, you may opt out of receiving any, or all, of these communications from us by following the unsubscribe link or by emailing us at contact@intelligentproxy.com.' 
+                : 'من خلال إنشاء حساب على خدمتنا، فإنك توافق على الاشتراك في النشرات الإخبارية أو المواد التسويقية أو الترويجية وغيرها من المعلومات التي قد نرسلها. ومع ذلك، يمكنك إلغاء الاشتراك في أي من هذه الاتصالات أو جميعها منا باتباع رابط إلغاء الاشتراك أو عن طريق مراسلتنا عبر البريد الإلكتروني على contact@intelligentproxy.com.'}
             </p>
 
             <h2>{language === 'en' ? '3. Subscriptions' : '3. الاشتراكات'}</h2>
@@ -66,8 +66,8 @@ export default function TermsOfServicePage() {
             </p>
             <p>
               {language === 'en' 
-                ? 'At the end of each billing period, your subscription will automatically renew under the exact same conditions unless you cancel it or antwortX cancels it. You may cancel your subscription renewal either through your online account management page or by contacting our customer support team.' 
-                : 'في نهاية كل فترة فوترة، سيتم تجديد اشتراكك تلقائيًا بنفس الشروط تمامًا ما لم تقم بإلغائه أو تقوم antwortX بإلغائه. يمكنك إلغاء تجديد اشتراكك إما من خلال صفحة إدارة حسابك عبر الإنترنت أو عن طريق الاتصال بفريق دعم العملاء لدينا.'}
+                ? 'At the end of each billing period, your subscription will automatically renew under the exact same conditions unless you cancel it or Intelligent Proxy cancels it. You may cancel your subscription renewal either through your online account management page or by contacting our customer support team.' 
+                : 'في نهاية كل فترة فوترة، سيتم تجديد اشتراكك تلقائيًا بنفس الشروط تمامًا ما لم تقم بإلغائه أو تقوم Intelligent Proxy بإلغائه. يمكنك إلغاء تجديد اشتراكك إما من خلال صفحة إدارة حسابك عبر الإنترنت أو عن طريق الاتصال بفريق دعم العملاء لدينا.'}
             </p>
 
             <h2>{language === 'en' ? '4. Content' : '4. المحتوى'}</h2>
@@ -99,8 +99,8 @@ export default function TermsOfServicePage() {
             <h2>{language === 'en' ? '7. Contact Us' : '7. اتصل بنا'}</h2>
             <p>
               {language === 'en' 
-                ? 'If you have any questions about these Terms, please contact us at contact@antwortx.com.' 
-                : 'إذا كانت لديك أي أسئلة حول هذه الشروط، يرجى الاتصال بنا على contact@antwortx.com.'}
+                ? 'If you have any questions about these Terms, please contact us at contact@intelligentproxy.com.' 
+                : 'إذا كانت لديك أي أسئلة حول هذه الشروط، يرجى الاتصال بنا على contact@intelligentproxy.com.'}
             </p>
           </div>
         </motion.div>

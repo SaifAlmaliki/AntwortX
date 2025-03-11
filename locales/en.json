@@ -10,19 +10,19 @@
     "solutions": "Solutions"
   },
   "home": {
-    "title": "antwortX",
+    "title": "Intelligent Proxy",
     "subtitle": "Answering Everything",
-    "description": "AI consultancy specializing in custom AI agents and tailored solutions for diverse business needs",
+    "description": "Comprehensive AI solutions from strategy to execution and implementation for businesses of all sizes",
     "getStarted": "Get Started",
     "learnMore": "Learn More"
   },
   "hero": {
-    "title": "AI Consultancy Reimagined",
-    "description": "antwortX enables businesses to leverage custom AI agents that combine intelligence with domain-specific knowledge to deliver exceptional experiences across various use cases."
+    "title": "AI Solutions Reimagined",
+    "description": "Intelligent Proxy enables businesses to leverage custom AI agents that combine intelligence with domain-specific knowledge to deliver exceptional experiences across various use cases."
   },
   "howItWorks": {
-    "title": "How antwortX Works",
-    "subtitle": "Our consultancy combines advanced AI expertise with industry knowledge to transform your business with custom AI solutions.",
+    "title": "How Intelligent Proxy Works",
+    "subtitle": "We provide end-to-end AI solutions from strategy to execution and implementation to transform your business with custom AI systems.",
     "features": {
       "aiChat": {
         "title": "Versatile AI Agents",
@@ -63,11 +63,11 @@
     "noQuestions": "No information extracted yet"
   },
   "about": {
-    "title": "About antwortX",
+    "title": "About Intelligent Proxy",
     "subtitle": "Pioneering custom AI agent solutions",
     "mission": {
       "title": "Our Mission",
-      "description": "At antwortX, we're on a mission to transform businesses through advanced AI technology. We believe organizations shouldn't have to choose between efficiency and quality when implementing AI solutions.",
+      "description": "At Intelligent Proxy, we're on a mission to transform businesses through advanced AI technology. We believe organizations shouldn't have to choose between efficiency and quality when implementing AI solutions.",
       "vision": "Our vision is to create AI agents that understand, learn, and evolve - providing intelligent solutions that feel genuinely human while delivering the consistency and scalability only machines can offer."
     },
     "who": {
@@ -115,7 +115,7 @@
     },
     "cta": {
       "title": "Ready to transform your business with custom AI agents?",
-      "description": "Join the organizations already using antwortX to deliver exceptional AI experiences across various use cases.",
+      "description": "Join the organizations already using Intelligent Proxy to deliver exceptional AI experiences across various use cases.",
       "button": "Contact Us Today"
     }
   },
@@ -134,10 +134,19 @@
     "phone": "Phone",
     "phoneNumber": "+1 (555) 123-4567",
     "emailContact": "Email",
-    "emailAddress": "contact@antwortx.com"
+    "emailAddress": "contact@intelligentproxy.com"
+  },
+  "newsletter": {
+    "title": "Subscribe to Our Newsletter",
+    "description": "Stay updated with our latest news, insights, and AI innovations",
+    "placeholder": "Your email address",
+    "subscribe": "Subscribe",
+    "success": "Thank you for subscribing to our newsletter!",
+    "error": "Failed to subscribe. Please try again.",
+    "invalidEmail": "Please enter a valid email address"
   },
   "footer": {
-    "description": "AI consultancy specializing in custom AI agents and solutions for businesses",
+    "description": "Comprehensive AI solutions from strategy to execution and implementation for businesses of all sizes",
     "product": "Services",
     "features": "Solutions",
     "pricing": "Pricing",
@@ -153,35 +162,35 @@
     "legal": "Legal",
     "terms": "Terms of Service",
     "privacy": "Privacy Policy",
-    "copyright": " 2025 antwortX. All rights reserved."
+    "copyright": " 2025 Intelligent Proxy. All rights reserved."
   },
   "faq": {
     "title": "Frequently Asked Questions",
-    "subtitle": "Find answers to common questions about our AI consultancy services",
+    "subtitle": "Find answers to common questions about our comprehensive AI solutions",
     "questions": [
       {
-        "question": "What is antwortX?",
-        "answer": "antwortX is a specialized AI consultancy company that offers custom AI services and solutions for businesses. We focus on creating tailored AI agents and solutions that address specific business challenges across various industries. Our expertise lies in developing intelligent AI systems that enhance operational efficiency and customer experiences."
+        "question": "What is Intelligent Proxy?",
+        "answer": "Intelligent Proxy is a specialized AI solutions company that provides end-to-end services from strategy to execution and implementation for businesses. We focus on creating tailored AI agents and solutions that address specific business challenges across various industries. Our expertise lies in developing intelligent AI systems that enhance operational efficiency and customer experiences."
       },
       {
-        "question": "How do I get started with antwortX?",
-        "answer": "Getting started is simple. Contact our consultancy team to discuss your business needs, and we'll guide you through the process of developing a custom AI solution for your specific requirements. We offer flexible engagement models to suit businesses of all sizes."
+        "question": "How do I get started with Intelligent Proxy?",
+        "answer": "Getting started is simple. Contact our team to discuss your business needs, and we'll guide you through the process of developing a custom AI solution for your specific requirements. We offer flexible engagement models to suit businesses of all sizes."
       },
       {
         "question": "Can I customize my AI agents?",
-        "answer": "Absolutely! Customization is at the core of antwortX's consultancy approach. Our team works closely with you to understand your business needs and develops AI agents trained on your specific knowledge base, adjusting their behavior, capabilities, and integration points to match your exact requirements."
+        "answer": "Absolutely! Customization is at the core of Intelligent Proxy's approach. Our team works closely with you to understand your business needs and develops AI agents trained on your specific knowledge base, adjusting their behavior, capabilities, and integration points to match your exact requirements."
       },
       {
-        "question": "What languages do antwortX agents support?",
-        "answer": "Our AI agents support multiple languages including English, Arabic, Spanish, French, German, and many more. As a consultancy, we can develop solutions with support for additional languages based on your specific business needs."
+        "question": "What languages do Intelligent Proxy agents support?",
+        "answer": "Our AI agents support multiple languages including English, Arabic, Spanish, French, German, and many more. We can develop solutions with support for additional languages based on your specific business needs."
       },
       {
-        "question": "How secure is my data with antwortX?",
-        "answer": "Security is our top priority. As a professional consultancy, we employ enterprise-grade security measures to protect your data, including encryption, secure access controls, and regular security audits. Your data is never used to train other clients' AI agents, ensuring complete confidentiality."
+        "question": "How secure is my data with Intelligent Proxy?",
+        "answer": "Security is our top priority. We employ enterprise-grade security measures to protect your data, including encryption, secure access controls, and regular security audits. Your data is never used to train other clients' AI agents, ensuring complete confidentiality."
       },
       {
-        "question": "Do I need technical expertise to work with antwortX?",
-        "answer": "No technical expertise is required. Our consultancy team handles all the technical aspects of developing your AI solution. We provide comprehensive onboarding, training, and ongoing support to ensure your team can effectively utilize the AI systems we develop for you."
+        "question": "Do I need technical expertise to work with Intelligent Proxy?",
+        "answer": "No technical expertise is required. Our team handles all the technical aspects of developing your AI solution. We provide comprehensive onboarding, training, and ongoing support to ensure your team can effectively utilize the AI systems we develop for you."
       }
     ]
   }

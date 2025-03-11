@@ -80,7 +80,7 @@ export function LogoAnimation() {
         className={`relative z-10 text-white font-bold text-xl flex items-center ${direction === 'rtl' ? 'flex-row-reverse' : ''}`}
       >
         <span className={direction === 'rtl' ? 'mr-2' : 'ml-2'}>
-          Antwort
+          Intelligent
         </span>
         <motion.span 
           className="text-blue-400"
@@ -94,7 +94,7 @@ export function LogoAnimation() {
             ease: "easeInOut"
           }}
         >
-          X
+          Proxy
         </motion.span>
       </motion.div>
     </motion.div>

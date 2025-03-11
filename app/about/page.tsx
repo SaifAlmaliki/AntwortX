@@ -72,7 +72,7 @@ export default function AboutPage() {
             className="text-center mb-16"
           >
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
-              {t("about.title") || "About AntwortX"}
+              {t("about.title") || "About Intelligent Proxy"}
             </h1>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto">
               {t("about.subtitle") || "Pioneering AI-powered customer support solutions"}
@@ -98,7 +98,7 @@ export default function AboutPage() {
                 </h2>
                 <p className="text-gray-300 mb-4">
                   {t("about.mission.description") || 
-                    "At AntwortX, we're on a mission to transform customer support through advanced AI technology. We believe businesses shouldn't have to choose between efficiency and quality when it comes to customer service."}
+                    "At Intelligent Proxy, we're on a mission to transform customer support through advanced AI technology. We believe businesses shouldn't have to choose between efficiency and quality when it comes to customer service."}
                 </p>
                 <p className="text-gray-300">
                   {t("about.mission.vision") || 
@@ -109,7 +109,7 @@ export default function AboutPage() {
                 <div className="relative w-full h-64 md:h-80">
                   <Image 
                     src="/about/mission.jpg" 
-                    alt="AntwortX Mission" 
+                    alt="Intelligent Proxy Mission" 
                     fill
                     className="object-cover rounded-xl"
                   />
@@ -293,7 +293,7 @@ export default function AboutPage() {
             </h2>
             <p className="text-white text-lg mb-8 max-w-2xl mx-auto">
               {t("about.cta.description") || 
-                "Join the businesses already using AntwortX to deliver exceptional customer experiences at scale."}
+                "Join the businesses already using Intelligent Proxy to deliver exceptional customer experiences at scale."}
             </p>
             <Link href="/contact">
               <button className="bg-white text-blue-600 font-medium px-8 py-3 rounded-lg hover:bg-gray-100 transition-colors">

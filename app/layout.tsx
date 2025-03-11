@@ -17,7 +17,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "AntwortX - Custom AI Agent Solutions",
+  title: "Intelligent Proxy - Custom AI Agent Solutions",
   description: "Create tailored AI agents for various business needs with our powerful platform",
 };
 

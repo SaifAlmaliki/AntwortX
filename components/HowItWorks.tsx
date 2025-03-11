@@ -38,20 +38,20 @@ export function HowItWorks() {
   // Function to format the title with blue X
   const formatTitleWithBlueX = (title: string) => {
     // Handle the special marker for Arabic
-    if (title.includes('Antwort_X_')) {
-      const parts = title.split('Antwort_X_');
+    if (title.includes('Intelligent_Proxy_')) {
+      const parts = title.split('Intelligent_Proxy_');
       return (
         <>
-          {parts[0]}Antwort<span className="text-blue-500">X</span>{parts[1]}
+          {parts[0]}<span className="text-white">Intelligent</span><span className="text-blue-500">Proxy</span>{parts[1]}
         </>
       );
     }
-    // Handle the regular AntwortX for English
-    else if (title.includes('AntwortX')) {
-      const parts = title.split('AntwortX');
+    // Handle the regular Intelligent Proxy for English
+    else if (title.includes('Intelligent Proxy')) {
+      const parts = title.split('Intelligent Proxy');
       return (
         <>
-          {parts[0]}Antwort<span className="text-blue-500">X</span>{parts[1]}
+          {parts[0]}<span className="text-white">Intelligent</span><span className="text-blue-500">Proxy</span>{parts[1]}
         </>
       );
     }

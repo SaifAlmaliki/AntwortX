@@ -6,17 +6,17 @@
 
 @layer base {
   :root {
-    /* AntwortX Theme Variables */
-    --antwortx-bg-primary: #060606;
-    --antwortx-bg-secondary: #0a0a0a;
-    --antwortx-bg-tertiary: #151515;
-    --antwortx-border: #222;
-    --antwortx-border-hover: #333;
-    --antwortx-text-primary: #ffffff;
-    --antwortx-text-secondary: #cccccc;
-    --antwortx-text-muted: #888888;
-    --antwortx-accent: #0070F3;
-    --antwortx-accent-hover: #0060d3;
+    /* Intelligent Proxy Theme Variables */
+    --intelligentproxy-bg-primary: #060606;
+    --intelligentproxy-bg-secondary: #0a0a0a;
+    --intelligentproxy-bg-tertiary: #151515;
+    --intelligentproxy-border: #222;
+    --intelligentproxy-border-hover: #333;
+    --intelligentproxy-text-primary: #ffffff;
+    --intelligentproxy-text-secondary: #cccccc;
+    --intelligentproxy-text-muted: #888888;
+    --intelligentproxy-accent: #0070F3;
+    --intelligentproxy-accent-hover: #0060d3;
 
     /* Default light theme variables (not used but kept for reference) */
     --background: 0 0% 100%;
@@ -123,21 +123,21 @@ html[lang="ar"] {
   }
 }
 
-/* AntwortX Custom Classes */
+/* Intelligent Proxy Custom Classes */
 @layer components {
-  .antwortx-card {
+  .intelligentproxy-card {
     @apply bg-[#0a0a0a] border-[#222] shadow-lg;
   }
   
-  .antwortx-button-primary {
+  .intelligentproxy-button-primary {
     @apply bg-blue-600 hover:bg-blue-700 text-white;
   }
   
-  .antwortx-button-secondary {
+  .intelligentproxy-button-secondary {
     @apply bg-[#2a2a2a] text-blue-300 hover:bg-[#3a3a3a] hover:text-blue-200 border border-[#444];
   }
   
-  .antwortx-input {
+  .intelligentproxy-input {
     @apply bg-[#151515] border-[#333] text-white;
   }
 }

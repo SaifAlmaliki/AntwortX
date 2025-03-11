@@ -42,7 +42,7 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
 
   useEffect(() => {
     // Check if there's a saved language preference in localStorage
-    const savedLanguage = localStorage.getItem('antwortx-language') as Language | null;
+    const savedLanguage = localStorage.getItem('intelligentproxy-language') as Language | null;
     if (savedLanguage && (savedLanguage === 'en' || savedLanguage === 'ar')) {
       setLanguageState(savedLanguage);
     }
@@ -64,7 +64,7 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
     }
 
     // Save language preference to localStorage
-    localStorage.setItem('antwortx-language', language);
+    localStorage.setItem('intelligentproxy-language', language);
   }, [language]);
 
   // Function to set language

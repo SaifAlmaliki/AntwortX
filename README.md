@@ -1,6 +1,6 @@
-# AntwortX: Custom AI Agent Platform
+# Intelligent Proxy: Comprehensive AI Solutions Platform
 
-A versatile platform for creating and deploying custom AI agents for various use cases. Built with Next.js and integrating with an n8n backend via webhooks, AntwortX allows companies to create tailored AI solutions for their specific needs.
+A comprehensive platform for AI solutions from strategy to execution and implementation. Intelligent Proxy provides end-to-end services for creating and deploying custom AI agents for various use cases. Built with Next.js and integrating with an n8n backend via webhooks, Intelligent Proxy enables companies to implement tailored AI solutions for their specific business needs.
 
 ## Features
 
@@ -21,8 +21,8 @@ A versatile platform for creating and deploying custom AI agents for various use
 
 1. Clone the repository
 ```bash
-git clone https://github.com/yourusername/antwortx.git
-cd antwortx
+git clone https://github.com/yourusername/intelligentproxy.git
+cd intelligentproxy
 ```
 
 2. Install dependencies
