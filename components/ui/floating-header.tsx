@@ -46,15 +46,15 @@ export function FloatingHeader() {
       <motion.div 
         className={`mx-auto max-w-7xl rounded-full backdrop-blur-lg transition-all duration-300 ${
           scrolled 
-            ? 'bg-transparent border-transparent' 
-            : 'bg-[#0a0a0a]/70 border border-[#333]/30'
+            ? 'bg-gradient-to-r from-[#0a1a2e]/80 to-[#0d2a4a]/80 border-[#1e3a5a]/50' 
+            : 'bg-gradient-to-r from-[#0a1a2e] to-[#0d2a4a] border border-[#1e3a5a]'
         }`}
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ type: 'spring', stiffness: 100, damping: 20 }}
         whileHover={{ 
-          boxShadow: "0 8px 32px rgba(0, 112, 243, 0.1)",
-          borderColor: "rgba(59, 130, 246, 0.3)"
+          boxShadow: "0 8px 32px rgba(0, 112, 243, 0.2)",
+          borderColor: "rgba(59, 130, 246, 0.5)"
         }}
       >
         <div className={`flex items-center justify-between px-4 py-2 ${direction === 'rtl' ? 'flex-row-reverse' : ''}`}>
@@ -71,7 +71,7 @@ export function FloatingHeader() {
                   <Button 
                     variant="ghost" 
                     size="sm" 
-                    className="text-gray-300 hover:text-white hover:bg-[#1a1a1a] rounded-full px-4 transition-all duration-200"
+                    className="text-gray-200 hover:text-white hover:bg-[#1e3a5a]/80 rounded-full px-4 transition-all duration-200"
                   >
                     <span className={`flex items-center gap-2 ${direction === 'rtl' ? 'flex-row-reverse' : ''}`}>
                       {item.icon}
@@ -93,7 +93,7 @@ export function FloatingHeader() {
               variant="ghost" 
               size="icon" 
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="text-gray-300 hover:text-white"
+              className="text-gray-200 hover:text-white hover:bg-[#1e3a5a]/80 rounded-full transition-all duration-200"
             >
               {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </Button>
@@ -105,7 +105,7 @@ export function FloatingHeader() {
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div 
-            className="md:hidden absolute top-16 left-4 right-4 rounded-xl bg-[#0a0a0a]/95 backdrop-blur-lg border border-[#333]/50 shadow-lg overflow-hidden"
+            className="md:hidden absolute top-16 left-4 right-4 rounded-xl bg-gradient-to-r from-[#0a1a2e]/95 to-[#0d2a4a]/95 backdrop-blur-lg border border-[#1e3a5a]/50 shadow-lg overflow-hidden"
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
@@ -119,7 +119,7 @@ export function FloatingHeader() {
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   <motion.div 
-                    className={`flex items-center px-3 py-2 text-base font-medium rounded-lg text-gray-300 hover:bg-[#1a1a1a] hover:text-white ${
+                    className={`flex items-center px-3 py-2 text-base font-medium rounded-lg text-gray-200 hover:bg-[#1e3a5a]/80 hover:text-white ${
                       direction === 'rtl' ? 'flex-row-reverse text-right' : ''
                     }`}
                     whileHover={{ x: direction === 'rtl' ? -5 : 5 }}

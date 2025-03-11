@@ -9,11 +9,32 @@ import Link from "next/link";
 import { Globe, Users, Lightbulb, Award } from "lucide-react";
 
 export default function AboutPage() {
-  const { t, direction } = useLanguage();
+  const { t, direction, language } = useLanguage();
   const isRtl = direction === 'rtl';
 
-  // Expertise areas
-  const expertiseAreas = [
+  // Define expertise areas for each language to ensure proper display
+  const expertiseAreas = language === 'ar' ? [
+    {
+      title: "أبحاث وتطوير الذكاء الاصطناعي",
+      description: "باحثونا ومطورونا في مجال الذكاء الاصطناعي لديهم خبرة عميقة في التعلم الآلي ومعالجة اللغة الطبيعية وأنظمة الذكاء الاصطناعي المحادثية.",
+      icon: <Lightbulb className="h-10 w-10 text-blue-500" />
+    },
+    {
+      title: "هندسة الحلول",
+      description: "مهندسو الحلول لدينا يصممون تطبيقات ذكاء اصطناعي قوية وقابلة للتوسع تتكامل بسلاسة مع أنظمة الأعمال الحالية.",
+      icon: <Globe className="h-10 w-10 text-blue-500" />
+    },
+    {
+      title: "تصميم واجهات المستخدم",
+      description: "نقوم بإنشاء واجهات بديهية تجعل تقنية الذكاء الاصطناعي سهلة الوصول والاستخدام للشركات وعملائها.",
+      icon: <Users className="h-10 w-10 text-blue-500" />
+    },
+    {
+      title: "تكامل المؤسسات",
+      description: "مع خبرتنا في نشر حلول الذكاء الاصطناعي عبر مختلف الصناعات، نضمن التنفيذ السلس في بيئات المؤسسات المعقدة.",
+      icon: <Award className="h-10 w-10 text-blue-500" />
+    }
+  ] : [
     {
       title: "AI Research & Development",
       description: "Our AI researchers and developers have deep expertise in machine learning, natural language processing, and conversational AI systems.",

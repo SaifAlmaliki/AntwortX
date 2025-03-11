@@ -77,6 +77,24 @@
     "expertise": {
       "title": "Our Expertise",
       "description": "Combining deep technical knowledge with industry experience to deliver cutting-edge AI solutions",
+      "areas": {
+        "research": {
+          "title": "AI Research & Development",
+          "description": "Our AI researchers and developers have deep expertise in machine learning, natural language processing, and conversational AI systems."
+        },
+        "architecture": {
+          "title": "Solution Architecture",
+          "description": "Our solution architects design robust, scalable AI implementations that integrate seamlessly with existing business systems."
+        },
+        "design": {
+          "title": "UX/UI Design",
+          "description": "We create intuitive interfaces that make AI technology accessible and easy to use for businesses and their customers."
+        },
+        "integration": {
+          "title": "Enterprise Integration",
+          "description": "With expertise in deploying AI solutions across various industries, we ensure smooth implementation in complex enterprise environments."
+        }
+      },
       "global": {
         "title": "Global Experience",
         "description": "Our team brings diverse perspectives from working on AI projects across three continents, giving us unique insights into global AI implementation needs."
