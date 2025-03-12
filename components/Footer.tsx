@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Github, Twitter, Linkedin } from "lucide-react";
+import { Facebook, Instagram, Linkedin } from "lucide-react";
 import { useLanguage } from "@/contexts/language-context";
 import { NewsletterSubscribe } from "./NewsletterSubscribe";
 
@@ -23,13 +23,13 @@ export function Footer() {
               {t("footer.description") || "Comprehensive AI solutions from strategy to execution and implementation for businesses of all sizes."}
             </p>
             <div className={`flex ${isRtl ? 'space-x-reverse space-x-4' : 'space-x-4'}`}>
-              <Link href="https://github.com" className="text-gray-400 hover:text-blue-500 transition-colors">
-                <Github size={20} />
+              <Link href="https://www.facebook.com/profile.php?id=61574206222119" className="text-gray-400 hover:text-blue-500 transition-colors">
+                <Facebook size={20} />
               </Link>
-              <Link href="https://twitter.com" className="text-gray-400 hover:text-blue-500 transition-colors">
-                <Twitter size={20} />
+              <Link href="https://www.instagram.com/intelligent.proxy/" className="text-gray-400 hover:text-blue-500 transition-colors">
+                <Instagram size={20} />
               </Link>
-              <Link href="https://linkedin.com" className="text-gray-400 hover:text-blue-500 transition-colors">
+              <Link href="https://www.linkedin.com/company/106535449/admin/dashboard/" className="text-gray-400 hover:text-blue-500 transition-colors">
                 <Linkedin size={20} />
               </Link>
             </div>
