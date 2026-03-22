@@ -2,21 +2,31 @@
 @tailwind components;
 @tailwind utilities;
 
-
-
 @layer base {
   :root {
-    /* Intelligent Proxy Theme Variables */
-    --intelligentproxy-bg-primary: #060606;
-    --intelligentproxy-bg-secondary: #0a0a0a;
-    --intelligentproxy-bg-tertiary: #151515;
-    --intelligentproxy-border: #222;
-    --intelligentproxy-border-hover: #333;
-    --intelligentproxy-text-primary: #ffffff;
-    --intelligentproxy-text-secondary: #cccccc;
-    --intelligentproxy-text-muted: #888888;
-    --intelligentproxy-accent: #0070F3;
-    --intelligentproxy-accent-hover: #0060d3;
+    /* Deep signal palette */
+    --page-bg: #060606;
+    --signal-cyan: #22d3ee;
+    --signal-violet: #a78bfa;
+    --signal-glow: rgba(34, 211, 238, 0.22);
+    --surface-glass: rgba(14, 18, 26, 0.72);
+    --surface-raised: rgba(20, 26, 36, 0.82);
+    --surface-inset: rgba(8, 10, 15, 0.92);
+    --border-subtle: rgba(120, 200, 255, 0.12);
+    --border-hover: rgba(100, 220, 255, 0.38);
+    --inner-highlight: rgba(255, 255, 255, 0.06);
+
+    /* Legacy aliases (mapped to new system) */
+    --intelligentproxy-bg-primary: var(--page-bg);
+    --intelligentproxy-bg-secondary: rgba(14, 18, 26, 0.9);
+    --intelligentproxy-bg-tertiary: var(--surface-inset);
+    --intelligentproxy-border: rgba(120, 200, 255, 0.12);
+    --intelligentproxy-border-hover: var(--border-hover);
+    --intelligentproxy-text-primary: #f4f7fa;
+    --intelligentproxy-text-secondary: #c4cdd6;
+    --intelligentproxy-text-muted: #8b96a5;
+    --intelligentproxy-accent: var(--signal-cyan);
+    --intelligentproxy-accent-hover: #06b6d4;
 
     /* Default light theme variables (not used but kept for reference) */
     --background: 0 0% 100%;
@@ -43,75 +53,71 @@
     --chart-3: 197 37% 24%;
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
-    --radius: 0.5rem
+    --radius: 0.5rem;
   }
-  
-  /* Make dark theme the default */
+
+  /* Dark theme default */
   :root {
-    --background: 0 0% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 0 0% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 0 0% 3.9%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 0 0% 9%;
-    --secondary: 0 0% 14.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 0 0% 14.9%;
-    --muted-foreground: 0 0% 63.9%;
-    --accent: 0 0% 14.9%;
-    --accent-foreground: 0 0% 98%;
+    --background: 222 24% 6%;
+    --foreground: 210 20% 98%;
+    --card: 222 24% 8%;
+    --card-foreground: 210 20% 98%;
+    --popover: 222 24% 8%;
+    --popover-foreground: 210 20% 98%;
+    --primary: 187 92% 55%;
+    --primary-foreground: 222 47% 7%;
+    --secondary: 222 18% 14%;
+    --secondary-foreground: 210 20% 98%;
+    --muted: 222 14% 16%;
+    --muted-foreground: 215 14% 65%;
+    --accent: 258 90% 72%;
+    --accent-foreground: 222 47% 7%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 14.9%;
-    --input: 0 0% 14.9%;
-    --ring: 0 0% 83.1%;
-    --chart-1: 220 70% 50%;
-    --chart-2: 160 60% 45%;
+    --border: 215 20% 18%;
+    --input: 215 20% 18%;
+    --ring: 187 85% 52%;
+    --chart-1: 187 80% 52%;
+    --chart-2: 258 70% 65%;
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%
+    --chart-5: 340 75% 55%;
   }
 }
 
 /* RTL Support */
 [dir="rtl"] {
-  /* Flip shadows and gradients */
   .shadow-left {
     box-shadow: 1px 0 3px rgba(0, 0, 0, 0.1);
   }
-  
+
   .shadow-right {
     box-shadow: -1px 0 3px rgba(0, 0, 0, 0.1);
   }
-  
-  /* Flip margins and paddings where needed */
+
   .ml-auto {
     margin-left: 0 !important;
     margin-right: auto !important;
   }
-  
+
   .mr-auto {
     margin-right: 0 !important;
     margin-left: auto !important;
   }
-  
-  /* Fix input fields with icons */
+
   .input-with-icon {
     padding-right: 2.5rem !important;
     padding-left: 1rem !important;
   }
-  
+
   .input-icon {
     right: 0.75rem !important;
     left: auto !important;
   }
 }
 
-/* Font settings for Arabic */
 html[lang="ar"] {
-  font-family: var(--font-geist-sans), 'Noto Sans Arabic', sans-serif;
+  font-family: var(--font-geist-sans), "Noto Sans Arabic", sans-serif;
 }
 
 @layer base {
@@ -123,22 +129,144 @@ html[lang="ar"] {
   }
 }
 
-/* Intelligent Proxy Custom Classes */
 @layer components {
+  .bg-page {
+    background-color: var(--page-bg);
+  }
+
+  .bg-atmosphere {
+    background:
+      radial-gradient(ellipse 100% 85% at 50% -25%, rgba(34, 211, 238, 0.16), transparent 55%),
+      radial-gradient(ellipse 70% 55% at 100% 15%, rgba(139, 92, 246, 0.11), transparent 50%),
+      radial-gradient(ellipse 65% 50% at 0% 85%, rgba(34, 211, 238, 0.07), transparent 48%),
+      var(--page-bg);
+  }
+
+  .noise-overlay {
+    pointer-events: none;
+    opacity: 0.035;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='256'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.45'/%3E%3C/svg%3E");
+  }
+
+  .text-gradient-signal {
+    background: linear-gradient(105deg, #5eead4 0%, #22d3ee 38%, #a78bfa 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .font-display {
+    font-family: var(--font-display), var(--font-geist-sans), system-ui, sans-serif;
+  }
+
+  .card-surface {
+    border-radius: 1rem;
+    border: 1px solid var(--border-subtle);
+    background: var(--surface-glass);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow:
+      inset 0 1px 0 0 var(--inner-highlight),
+      0 4px 24px -8px rgba(0, 0, 0, 0.45);
+    transition:
+      border-color 0.25s ease,
+      box-shadow 0.25s ease,
+      transform 0.25s ease;
+  }
+
+  .card-surface:hover {
+    border-color: var(--border-hover);
+    box-shadow:
+      inset 0 1px 0 0 var(--inner-highlight),
+      0 0 0 1px rgba(34, 211, 238, 0.12),
+      0 24px 48px -20px var(--signal-glow);
+  }
+
+  .section-glow {
+    box-shadow: 0 0 100px -24px var(--signal-glow);
+  }
+
+  .marketing-section {
+    @apply relative;
+  }
+
+  .btn-signal-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    color: var(--page-bg);
+    border-radius: 9999px;
+    padding: 0.75rem 1.5rem;
+    transition: box-shadow 0.2s ease;
+    background: linear-gradient(135deg, #22d3ee 0%, #06b6d4 45%, #6366f1 100%);
+    box-shadow: 0 0 24px -4px var(--signal-glow);
+  }
+
+  .btn-signal-primary:focus-visible {
+    outline: none;
+    box-shadow:
+      0 0 0 2px var(--page-bg),
+      0 0 0 4px rgba(34, 211, 238, 0.65);
+  }
+
+  .btn-signal-primary:hover {
+    box-shadow: 0 0 32px -2px rgba(34, 211, 238, 0.45);
+  }
+
+  .btn-signal-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    border-radius: 9999px;
+    padding: 0.75rem 1.5rem;
+    border: 1px solid var(--border-subtle);
+    color: #e0f2fe;
+    background: rgba(14, 18, 26, 0.6);
+    backdrop-filter: blur(8px);
+    transition:
+      border-color 0.2s ease,
+      color 0.2s ease,
+      background 0.2s ease;
+  }
+
+  .btn-signal-secondary:focus-visible {
+    outline: none;
+    box-shadow:
+      0 0 0 2px var(--page-bg),
+      0 0 0 4px rgba(34, 211, 238, 0.5);
+  }
+
+  .btn-signal-secondary:hover {
+    border-color: var(--border-hover);
+    color: #fff;
+    background: rgba(20, 28, 40, 0.85);
+  }
+
   .intelligentproxy-card {
-    @apply bg-[#0a0a0a] border-[#222] shadow-lg;
+    @apply card-surface;
   }
-  
+
   .intelligentproxy-button-primary {
-    @apply bg-blue-600 hover:bg-blue-700 text-white;
+    @apply btn-signal-primary;
   }
-  
+
   .intelligentproxy-button-secondary {
-    @apply bg-[#2a2a2a] text-blue-300 hover:bg-[#3a3a3a] hover:text-blue-200 border border-[#444];
+    @apply btn-signal-secondary;
   }
-  
+
   .intelligentproxy-input {
-    @apply bg-[#151515] border-[#333] text-white;
+    @apply rounded-lg border text-white placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/70 focus-visible:border-transparent;
+    background: var(--surface-inset);
+    border-color: rgba(120, 200, 255, 0.15);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
   }
 }
 
@@ -146,12 +274,18 @@ html[lang="ar"] {
 .loader {
   width: 48px;
   height: 48px;
-  border: 5px solid #FFF;
+  border: 5px solid #fff;
   border-bottom-color: transparent;
   border-radius: 50%;
   display: inline-block;
   box-sizing: border-box;
   animation: rotation 1s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loader {
+    animation: none;
+  }
 }
 
 @keyframes rotation {

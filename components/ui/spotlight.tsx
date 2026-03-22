@@ -1,20 +1,21 @@
-'use client';
-import React, { useRef, useState, useCallback, useEffect } from 'react';
-import { motion, useSpring, useTransform, SpringOptions } from 'framer-motion';
-import { cn } from '@/lib/utils';
+"use client";
+import React, { useRef, useState, useCallback, useEffect } from "react";
+import { motion, useSpring, useTransform, SpringOptions } from "framer-motion";
+import { cn } from "@/lib/utils";
 
 type SpotlightProps = {
   className?: string;
   size?: number;
   springOptions?: SpringOptions;
-  fill?: string;
+  /** Light UI: default zinc. Dark cards: use "signal" for cyan/violet glow. */
+  fill?: "white" | "signal" | "zinc";
 };
 
 export function Spotlight({
   className,
   size = 200,
   springOptions = { bounce: 0 },
-  fill,
+  fill = "zinc",
 }: SpotlightProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
@@ -30,8 +31,8 @@ export function Spotlight({
     if (containerRef.current) {
       const parent = containerRef.current.parentElement;
       if (parent) {
-        parent.style.position = 'relative';
-        parent.style.overflow = 'hidden';
+        parent.style.position = "relative";
+        parent.style.overflow = "hidden";
         setParentElement(parent);
       }
     }
@@ -50,31 +51,34 @@ export function Spotlight({
   useEffect(() => {
     if (!parentElement) return;
 
-    parentElement.addEventListener('mousemove', handleMouseMove);
-    parentElement.addEventListener('mouseenter', () => setIsHovered(true));
-    parentElement.addEventListener('mouseleave', () => setIsHovered(false));
+    const onEnter = () => setIsHovered(true);
+    const onLeave = () => setIsHovered(false);
+
+    parentElement.addEventListener("mousemove", handleMouseMove);
+    parentElement.addEventListener("mouseenter", onEnter);
+    parentElement.addEventListener("mouseleave", onLeave);
 
     return () => {
-      parentElement.removeEventListener('mousemove', handleMouseMove);
-      parentElement.removeEventListener('mouseenter', () => setIsHovered(true));
-      parentElement.removeEventListener('mouseleave', () =>
-        setIsHovered(false)
-      );
+      parentElement.removeEventListener("mousemove", handleMouseMove);
+      parentElement.removeEventListener("mouseenter", onEnter);
+      parentElement.removeEventListener("mouseleave", onLeave);
     };
   }, [parentElement, handleMouseMove]);
 
-  // Determine gradient colors based on fill prop
-  const gradientClasses = fill === 'white' 
-    ? 'from-white via-white to-transparent'
-    : 'from-zinc-50 via-zinc-100 to-zinc-200';
+  const gradientClasses =
+    fill === "white"
+      ? "from-white via-white to-transparent"
+      : fill === "signal"
+        ? "from-cyan-400/35 via-violet-500/20 to-transparent"
+        : "from-zinc-50 via-zinc-100 to-zinc-200";
 
   return (
     <motion.div
       ref={containerRef}
       className={cn(
-        'pointer-events-none absolute rounded-full bg-[radial-gradient(circle_at_center,var(--tw-gradient-stops),transparent_80%)] blur-xl transition-opacity duration-200',
+        "pointer-events-none absolute rounded-full bg-[radial-gradient(circle_at_center,var(--tw-gradient-stops),transparent_80%)] blur-xl transition-opacity duration-200",
         gradientClasses,
-        isHovered ? 'opacity-100' : 'opacity-0',
+        isHovered ? "opacity-100" : "opacity-0",
         className
       )}
       style={{

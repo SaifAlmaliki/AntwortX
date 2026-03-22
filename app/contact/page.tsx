@@ -1,14 +1,19 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { Mail, Phone, MapPin } from "lucide-react";
 import { useLanguage } from "@/contexts/language-context";
-import emailjs from '@emailjs/browser';
+import emailjs from "@emailjs/browser";
+import { cn } from "@/lib/utils";
+
+const inputClass =
+  "intelligentproxy-input w-full px-4 py-2.5 rounded-xl focus-visible:ring-2 focus-visible:ring-cyan-400";
 
 export default function ContactPage() {
   const { t, direction } = useLanguage();
-  const isRtl = direction === 'rtl';
+  const isRtl = direction === "rtl";
+  const reduceMotion = useReducedMotion();
   const [formState, setFormState] = useState({
     name: "",
     email: "",
@@ -18,7 +23,6 @@ export default function ContactPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
 
-  // Initialize EmailJS with public key
   useEffect(() => {
     emailjs.init(process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || "");
   }, []);
@@ -31,9 +35,8 @@ export default function ContactPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
+
     try {
-      // Send email using EmailJS
       const response = await emailjs.send(
         process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || "",
         process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || "",
@@ -42,16 +45,15 @@ export default function ContactPage() {
           from_email: formState.email,
           subject: formState.subject,
           message: formState.message,
-          to_email: "saif.wsm@gmail.com"
+          to_email: "saif.wsm@gmail.com",
         }
       );
 
       if (response.status !== 200) {
-        throw new Error('Failed to send message');
+        throw new Error("Failed to send message");
       }
 
       setSubmitStatus("success");
-      // Reset form after successful submission
       setFormState({
         name: "",
         email: "",
@@ -59,45 +61,41 @@ export default function ContactPage() {
         message: "",
       });
     } catch (error) {
-      console.error('Error sending message:', error);
+      console.error("Error sending message:", error);
       setSubmitStatus("error");
     } finally {
       setIsSubmitting(false);
-      // Reset status after 5 seconds
       setTimeout(() => setSubmitStatus("idle"), 5000);
     }
   };
 
   return (
-    <main className={`min-h-screen pt-24 pb-16 ${isRtl ? 'rtl' : ''}`}>
-      <div className="container mx-auto px-4 sm:px-6 max-w-7xl">
+    <main className={cn("marketing-section min-h-screen pb-16 pt-24", isRtl ? "rtl" : "")}>
+      <div className="container mx-auto max-w-7xl px-4 sm:px-6">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={reduceMotion ? false : { opacity: 0, y: 20 }}
+          animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="text-center mb-12"
+          className="mb-12 text-center"
         >
-          <h1 className="text-4xl sm:text-5xl font-bold text-white mb-4">
+          <h1 className="font-display text-4xl font-bold text-white sm:text-5xl mb-4 tracking-tight">
             {t("contact.title")}
           </h1>
-          <p className="text-lg text-gray-300 max-w-2xl mx-auto">
-            {t("contact.subtitle")}
-          </p>
+          <p className="mx-auto max-w-2xl text-lg text-slate-300">{t("contact.subtitle")}</p>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Contact Form */}
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
+            initial={reduceMotion ? false : { opacity: 0, y: 20 }}
+            animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: reduceMotion ? 0 : 0.1 }}
             className="lg:col-span-2"
           >
-            <div className="bg-[#0a0a0a] border border-[#222] rounded-xl p-6 shadow-lg">
+            <div className="card-surface section-glow rounded-2xl border-cyan-500/15 p-6 md:p-8">
               <form onSubmit={handleSubmit}>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+                <div className="mb-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
                   <div>
-                    <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-1">
+                    <label htmlFor="name" className="mb-1 block text-sm font-medium text-slate-300">
                       {t("contact.name")}
                     </label>
                     <input
@@ -107,11 +105,11 @@ export default function ContactPage() {
                       value={formState.name}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-2 bg-[#111] border border-[#333] rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className={inputClass}
                     />
                   </div>
                   <div>
-                    <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-1">
+                    <label htmlFor="email" className="mb-1 block text-sm font-medium text-slate-300">
                       {t("contact.email")}
                     </label>
                     <input
@@ -121,12 +119,12 @@ export default function ContactPage() {
                       value={formState.email}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-2 bg-[#111] border border-[#333] rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className={inputClass}
                     />
                   </div>
                 </div>
                 <div className="mb-4">
-                  <label htmlFor="subject" className="block text-sm font-medium text-gray-300 mb-1">
+                  <label htmlFor="subject" className="mb-1 block text-sm font-medium text-slate-300">
                     {t("contact.subject")}
                   </label>
                   <input
@@ -136,11 +134,11 @@ export default function ContactPage() {
                     value={formState.subject}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-2 bg-[#111] border border-[#333] rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className={inputClass}
                   />
                 </div>
                 <div className="mb-6">
-                  <label htmlFor="message" className="block text-sm font-medium text-gray-300 mb-1">
+                  <label htmlFor="message" className="mb-1 block text-sm font-medium text-slate-300">
                     {t("contact.message")}
                   </label>
                   <textarea
@@ -150,24 +148,39 @@ export default function ContactPage() {
                     onChange={handleChange}
                     required
                     rows={6}
-                    className="w-full px-4 py-2 bg-[#111] border border-[#333] rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+                    className={cn(inputClass, "resize-none")}
                   />
                 </div>
                 <div>
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className={`w-full py-3 px-6 rounded-lg font-medium transition-all duration-200 ${
-                      isSubmitting
-                        ? "bg-blue-700 text-gray-200 cursor-not-allowed"
-                        : "bg-blue-600 hover:bg-blue-700 text-white"
-                    }`}
+                    className={cn(
+                      "btn-signal-primary w-full justify-center py-3 disabled:cursor-not-allowed disabled:opacity-60"
+                    )}
                   >
                     {isSubmitting ? (
-                      <span className="flex items-center justify-center">
-                        <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      <span className="flex items-center justify-center gap-2">
+                        <svg
+                          className="h-4 w-4 animate-spin text-[#060606]"
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          aria-hidden
+                        >
+                          <circle
+                            className="opacity-25"
+                            cx="12"
+                            cy="12"
+                            r="10"
+                            stroke="currentColor"
+                            strokeWidth="4"
+                          />
+                          <path
+                            className="opacity-75"
+                            fill="currentColor"
+                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                          />
                         </svg>
                         {t("contact.submit")}...
                       </span>
@@ -178,18 +191,18 @@ export default function ContactPage() {
                 </div>
                 {submitStatus === "success" && (
                   <motion.div
-                    initial={{ opacity: 0, y: 10 }}
+                    initial={reduceMotion ? false : { opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="mt-4 p-3 bg-green-900/30 border border-green-800 rounded-lg text-green-400 text-sm"
+                    className="mt-4 rounded-xl border border-emerald-500/30 bg-emerald-950/40 p-3 text-sm text-emerald-300"
                   >
                     {t("contact.success")}
                   </motion.div>
                 )}
                 {submitStatus === "error" && (
                   <motion.div
-                    initial={{ opacity: 0, y: 10 }}
+                    initial={reduceMotion ? false : { opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="mt-4 p-3 bg-red-900/30 border border-red-800 rounded-lg text-red-400 text-sm"
+                    className="mt-4 rounded-xl border border-red-500/30 bg-red-950/40 p-3 text-sm text-red-300"
                   >
                     {t("contact.error")}
                   </motion.div>
@@ -198,44 +211,43 @@ export default function ContactPage() {
             </div>
           </motion.div>
 
-          {/* Contact Information */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
+            initial={reduceMotion ? false : { opacity: 0, y: 20 }}
+            animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: reduceMotion ? 0 : 0.2 }}
             className="lg:col-span-1"
           >
-            <div className="bg-[#0a0a0a] border border-[#222] rounded-xl p-6 shadow-lg h-full">
-              <h3 className="text-xl font-bold text-white mb-6 text-center">{t("contact.title")}</h3>
-              
-              <div className="space-y-6">
+            <div className="card-surface flex h-full flex-col rounded-2xl border-cyan-500/15 p-6 md:p-8">
+              <h3 className="font-display mb-6 text-center text-xl font-bold text-white">{t("contact.title")}</h3>
+
+              <div className="flex flex-1 flex-col justify-center space-y-8">
                 <div className="flex flex-col items-center text-center">
-                  <div className="mb-2">
-                    <MapPin className="h-6 w-6 text-blue-500" />
+                  <div className="mb-2 rounded-full bg-cyan-400/15 p-2">
+                    <MapPin className="h-6 w-6 text-cyan-400" />
                   </div>
                   <div>
                     <h4 className="text-lg font-medium text-white">{t("contact.address")}</h4>
-                    <p className="text-gray-400 mt-1">{t("contact.city")}</p>
+                    <p className="mt-1 text-slate-400">{t("contact.city")}</p>
                   </div>
                 </div>
-                
+
                 <div className="flex flex-col items-center text-center">
-                  <div className="mb-2">
-                    <Phone className="h-6 w-6 text-blue-500" />
+                  <div className="mb-2 rounded-full bg-cyan-400/15 p-2">
+                    <Phone className="h-6 w-6 text-cyan-400" />
                   </div>
                   <div>
                     <h4 className="text-lg font-medium text-white">{t("contact.phone")}</h4>
-                    <p className="text-gray-400 mt-1">{t("contact.phoneNumber")}</p>
+                    <p className="mt-1 text-slate-400">{t("contact.phoneNumber")}</p>
                   </div>
                 </div>
-                
+
                 <div className="flex flex-col items-center text-center">
-                  <div className="mb-2">
-                    <Mail className="h-6 w-6 text-blue-500" />
+                  <div className="mb-2 rounded-full bg-cyan-400/15 p-2">
+                    <Mail className="h-6 w-6 text-cyan-400" />
                   </div>
                   <div>
                     <h4 className="text-lg font-medium text-white">{t("contact.emailContact")}</h4>
-                    <p className="text-gray-400 mt-1">{t("contact.emailAddress")}</p>
+                    <p className="mt-1 text-slate-400">{t("contact.emailAddress")}</p>
                   </div>
                 </div>
               </div>

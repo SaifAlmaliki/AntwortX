@@ -22,11 +22,11 @@ export function SplineSceneBasic() {
         {/* Left content */}
         <div className={`flex-1 p-4 sm:p-6 md:p-8 relative z-10 flex flex-col justify-center ${isRtl ? 'text-right' : ''}`}>
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400">
-            {t("hero.title") || "Customer Service Reimagined"}
+            {t("hero.title") || "AI Ops & Agentic AI"}
           </h1>
           <p className="mt-2 sm:mt-4 text-sm sm:text-base md:text-lg text-neutral-300 max-w-lg">
             {(() => {
-              const description = t("hero.description") || "Intelligent Proxy combines AI intelligence with human empathy to deliver exceptional customer service experiences that build loyalty and trust.";
+              const description = t("hero.description") || "Intelligent Proxy deploys agentic AI for real operations—so teams automate workflows, connect systems, and run faster with clear oversight.";
               if (description.includes('Intelligent Proxy')) {
                 const parts = description.split('Intelligent Proxy');
                 return (

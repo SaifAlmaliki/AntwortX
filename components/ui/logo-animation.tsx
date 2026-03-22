@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { useLanguage } from '@/contexts/language-context';
 
@@ -8,27 +8,29 @@ export function LogoAnimation() {
   const [isHovered, setIsHovered] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
   const { language, direction } = useLanguage();
+  const reduceMotion = useReducedMotion();
 
   // Trigger animation periodically even when not hovered
   useEffect(() => {
+    if (reduceMotion) return;
     const interval = setInterval(() => {
       setIsAnimating(true);
       setTimeout(() => setIsAnimating(false), 2000);
     }, 8000);
-    
+
     return () => clearInterval(interval);
-  }, []);
+  }, [reduceMotion]);
 
   return (
     <motion.div 
       className="relative flex items-center"
       onHoverStart={() => setIsHovered(true)}
       onHoverEnd={() => setIsHovered(false)}
-      whileHover={{ scale: 1.05 }}
+      whileHover={reduceMotion ? undefined : { scale: 1.05 }}
     >
       {/* Animated circle behind logo */}
       <motion.div 
-        className="absolute w-10 h-10 bg-blue-500 rounded-full opacity-80"
+        className="absolute h-10 w-10 rounded-full bg-gradient-to-br from-cyan-400 to-violet-500 opacity-80"
         animate={{ 
           scale: isHovered || isAnimating ? [1, 1.2, 1] : 1,
           opacity: isHovered || isAnimating ? [0.8, 0.6, 0.8] : 0.8,
@@ -43,7 +45,7 @@ export function LogoAnimation() {
       {(isHovered || isAnimating) && (
         <>
           <motion.div 
-            className="absolute w-2 h-2 bg-blue-300 rounded-full"
+            className="absolute h-2 w-2 rounded-full bg-cyan-300"
             initial={{ x: 0, y: 0, opacity: 0 }}
             animate={{ 
               x: [0, direction === 'rtl' ? -15 : 15, direction === 'rtl' ? -20 : 20], 
@@ -53,7 +55,7 @@ export function LogoAnimation() {
             transition={{ duration: 1.5, ease: "easeOut" }}
           />
           <motion.div 
-            className="absolute w-2 h-2 bg-blue-400 rounded-full"
+            className="absolute h-2 w-2 rounded-full bg-cyan-400"
             initial={{ x: 0, y: 0, opacity: 0 }}
             animate={{ 
               x: [0, direction === 'rtl' ? 15 : -15, direction === 'rtl' ? 20 : -20], 
@@ -63,7 +65,7 @@ export function LogoAnimation() {
             transition={{ duration: 1.5, ease: "easeOut", delay: 0.1 }}
           />
           <motion.div 
-            className="absolute w-1.5 h-1.5 bg-blue-200 rounded-full"
+            className="absolute h-1.5 w-1.5 rounded-full bg-violet-300"
             initial={{ x: 0, y: 0, opacity: 0 }}
             animate={{ 
               x: [0, direction === 'rtl' ? -10 : 10, direction === 'rtl' ? -15 : 15], 
@@ -83,11 +85,11 @@ export function LogoAnimation() {
           Intelligent
         </span>
         <motion.span 
-          className="text-blue-400"
+          className="text-cyan-400"
           animate={{ 
             color: isHovered || isAnimating 
-              ? ['#60a5fa', '#3b82f6', '#60a5fa'] 
-              : '#60a5fa',
+              ? ["#22d3ee", "#a78bfa", "#22d3ee"] 
+              : "#22d3ee",
           }}
           transition={{ 
             duration: 1.5,

@@ -36,7 +36,6 @@ export function Squares({
     const ctx = canvas.getContext("2d")
     if (!ctx) return
 
-    // Set canvas background
     canvas.style.background = "#060606"
 
     const resizeCanvas = () => {

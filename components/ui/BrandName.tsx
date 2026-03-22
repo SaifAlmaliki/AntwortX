@@ -31,7 +31,7 @@ export function BrandName({
     <span className={`font-bold ${sizeClass} ${className}`}>
       {/* Use same "Intelligent Proxy" brand name for both languages */}
       <span className="text-white">Intelligent</span>
-      <span className="text-blue-500">Proxy</span>
+      <span className="text-gradient-signal">Proxy</span>
     </span>
   );
 

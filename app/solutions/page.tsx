@@ -1,97 +1,109 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import Link from "next/link";
 import { useLanguage } from "@/contexts/language-context";
 import { Footer } from "@/components/Footer";
+import { cn } from "@/lib/utils";
 
 export default function SolutionsPage() {
   const { direction, language } = useLanguage();
-  
+  const reduceMotion = useReducedMotion();
+
   const solutions = [
     {
-      title: language === 'en' ? 'Customer Service' : 'خدمة العملاء',
-      description: language === 'en' 
-        ? 'AI agents that handle customer inquiries, provide support, and resolve issues 24/7.' 
-        : 'وكلاء الذكاء الاصطناعي الذين يتعاملون مع استفسارات العملاء، ويقدمون الدعم، ويحلون المشكلات على مدار الساعة طوال أيام الأسبوع.',
+      title: language === "en" ? "AI Ops" : "عمليات الذكاء الاصطناعي",
+      description:
+        language === "en"
+          ? "Operational automation for triage, routing, and repeatable tasks—so teams resolve issues faster with consistent playbooks."
+          : "أتمتة تشغيلية للفرز والتوجيه والمهام المتكررة—لحل المشكلات أسرع بلعب تشغيلية متسقة.",
     },
     {
-      title: language === 'en' ? 'Sales Assistance' : 'مساعدة المبيعات',
-      description: language === 'en' 
-        ? 'AI agents that qualify leads, answer product questions, and guide customers through the sales process.' 
-        : 'وكلاء الذكاء الاصطناعي الذين يؤهلون العملاء المحتملين، ويجيبون على أسئلة المنتج، ويوجهون العملاء خلال عملية البيع.',
+      title: language === "en" ? "Agentic workflows" : "سير عمل وكيلي",
+      description:
+        language === "en"
+          ? "Autonomous agents that plan multi-step work, call your tools and APIs, and execute workflows with human-in-the-loop guardrails."
+          : "وكلاء مستقلون يخططون لعمل متعدد الخطوات ويستدعون أدواتك وواجهاتك وينفذون سير عمل بضوابط وإشراف بشري عند الحاجة.",
     },
     {
-      title: language === 'en' ? 'Internal Knowledge Management' : 'إدارة المعرفة الداخلية',
-      description: language === 'en' 
-        ? 'AI agents that help employees find information, documents, and answers to internal questions.' 
-        : 'وكلاء الذكاء الاصطناعي الذين يساعدون الموظفين في العثور على المعلومات والمستندات والإجابات على الأسئلة الداخلية.',
+      title: language === "en" ? "Operational knowledge" : "المعرفة التشغيلية",
+      description:
+        language === "en"
+          ? "Ground agents in runbooks, SOPs, tickets, and docs so answers and actions match how your organization actually runs."
+          : "تثبيت الوكلاء في أدلة التشغيل وإجراءات العمل والتذاكر والوثائق لتتوافق الإجابات والإجراءات مع تشغيل مؤسستك فعليًا.",
     },
     {
-      title: language === 'en' ? 'Data Analysis' : 'تحليل البيانات',
-      description: language === 'en' 
-        ? 'AI agents that analyze data, generate reports, and provide insights to help make better business decisions.' 
-        : 'وكلاء الذكاء الاصطناعي الذين يحللون البيانات وينشئون التقارير ويقدمون رؤى للمساعدة في اتخاذ قرارات أعمال أفضل.',
+      title: language === "en" ? "Insights for operators" : "رؤى للمشغلين",
+      description:
+        language === "en"
+          ? "Summaries, reports, and signals from operational data—so leaders and on-call teams decide faster with less manual digging."
+          : "ملخصات وتقارير وإشارات من البيانات التشغيلية—لاتخاذ قرارات أسرع للقادة وفرق المناوبة دون بحث يدوي مكثف.",
     },
   ];
 
   return (
     <div>
-      <main className="container mx-auto px-4 sm:px-6 py-16 max-w-7xl">
-        <div className={`text-center mb-16 ${direction === 'rtl' ? 'rtl' : ''}`}>
-          <motion.h1 
-            className="text-4xl sm:text-5xl font-bold mb-4 text-white"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+      <main className="marketing-section container mx-auto max-w-7xl px-4 py-16 sm:px-6">
+        <div className={cn("mb-16 text-center", direction === "rtl" ? "rtl" : "")}>
+          <motion.h1
+            className="font-display text-4xl font-bold text-white sm:text-5xl md:text-6xl mb-4 tracking-tight"
+            initial={reduceMotion ? false : { opacity: 0, y: 20 }}
+            animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            {language === 'en' ? 'Our Solutions' : 'حلولنا'}
+            {language === "en" ? "Our Solutions" : "حلولنا"}
           </motion.h1>
-          <motion.p 
-            className="text-xl text-gray-300 max-w-3xl mx-auto"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
+          <motion.p
+            className="mx-auto max-w-3xl text-xl text-slate-300"
+            initial={reduceMotion ? false : { opacity: 0, y: 20 }}
+            animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: reduceMotion ? 0 : 0.1 }}
           >
-            {language === 'en' 
-              ? 'Discover how our custom AI agents can transform your business across various domains' 
-              : 'اكتشف كيف يمكن لوكلاء الذكاء الاصطناعي المخصصين لدينا تحويل أعمالك عبر مختلف المجالات'}
+            {language === "en"
+              ? "AI Ops and agentic AI that connect your stack, automate work, and make day-to-day operations smarter and faster"
+              : "عمليات الذكاء الاصطناعي وذكاء وكيلي يربط أنظمتك ويؤتمت العمل ويجعل العمليات اليومية أذكى وأسرع"}
           </motion.p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8">
           {solutions.map((solution, index) => (
             <motion.div
               key={index}
-              className={`bg-[#0a0a0a] border border-[#222] rounded-lg p-8 ${direction === 'rtl' ? 'rtl text-right' : ''}`}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 + index * 0.1 }}
-              whileHover={{ 
-                boxShadow: "0 8px 32px rgba(0, 112, 243, 0.1)",
-                borderColor: "rgba(59, 130, 246, 0.3)",
-                y: -5
-              }}
+              className={cn(
+                "card-surface rounded-2xl border-cyan-500/12 p-8",
+                direction === "rtl" ? "rtl text-right" : ""
+              )}
+              initial={reduceMotion ? false : { opacity: 0, y: 22 }}
+              animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: reduceMotion ? 0 : 0.15 + index * 0.08 }}
+              whileHover={
+                reduceMotion
+                  ? undefined
+                  : {
+                      y: -4,
+                      boxShadow: "0 0 0 1px rgba(34, 211, 238, 0.2), 0 24px 48px -20px rgba(34, 211, 238, 0.2)",
+                    }
+              }
             >
-              <h2 className="text-2xl font-bold text-white mb-4">{solution.title}</h2>
-              <p className="text-gray-400">{solution.description}</p>
+              <h2 className="font-display text-2xl font-bold text-white mb-4">{solution.title}</h2>
+              <p className="leading-relaxed text-slate-400">{solution.description}</p>
             </motion.div>
           ))}
         </div>
 
         <motion.div
-          className="mt-16 text-center"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.6 }}
+          className="mt-20 text-center"
+          initial={reduceMotion ? false : { opacity: 0, y: 20 }}
+          animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: reduceMotion ? 0 : 0.5 }}
         >
-          <h2 className="text-2xl font-bold text-white mb-6">
-            {language === 'en' ? 'Ready to transform your business?' : 'هل أنت مستعد لتحويل عملك؟'}
+          <h2 className="font-display text-2xl font-bold text-white mb-6 md:text-3xl">
+            {language === "en" ? "Ready to transform your business?" : "هل أنت مستعد لتحويل عملك؟"}
           </h2>
-          <Link href="/contact">
-            <button className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-full transition-colors">
-              {language === 'en' ? 'Contact Us' : 'اتصل بنا'}
-            </button>
+          <Link href="/contact" className="inline-flex justify-center">
+            <span className="btn-signal-primary px-10 py-3 text-base">
+              {language === "en" ? "Contact Us" : "اتصل بنا"}
+            </span>
           </Link>
         </motion.div>
       </main>

@@ -30,7 +30,7 @@ export function LanguageSelector() {
         variant="ghost"
         size="sm"
         onClick={toggleDropdown}
-        className="rounded-full px-3 text-gray-300 hover:text-white hover:bg-[#1a1a1a] transition-all duration-200"
+        className="rounded-full px-3 text-slate-300 hover:text-white hover:bg-cyan-500/10 transition-all duration-200 focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#060606]"
       >
         <Globe className="h-4 w-4 mr-2" />
         <span className="mr-1">{currentLanguage.flag}</span>
@@ -45,15 +45,15 @@ export function LanguageSelector() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
-            className="absolute top-full mt-2 right-0 bg-[#0a0a0a] border border-[#333] rounded-lg shadow-lg overflow-hidden z-50 min-w-[150px]"
+            className="absolute top-full z-50 mt-2 min-w-[150px] overflow-hidden rounded-xl border border-cyan-500/20 bg-[rgba(8,12,18,0.95)] shadow-[0_0_40px_-8px_rgba(34,211,238,0.2)] backdrop-blur-xl right-0"
           >
             <div className="py-1">
               {languages.map((lang) => (
                 <motion.button
                   key={lang.code}
                   onClick={() => handleLanguageChange(lang.code as 'en' | 'ar')}
-                  className={`w-full text-left px-4 py-2 text-sm flex items-center ${
-                    language === lang.code ? 'bg-blue-900/20 text-blue-400' : 'text-gray-300 hover:bg-[#1a1a1a] hover:text-white'
+                  className={`w-full text-left px-4 py-2 text-sm flex items-center rounded-lg mx-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 ${
+                    language === lang.code ? "bg-cyan-500/15 text-cyan-300" : "text-slate-300 hover:bg-cyan-500/10 hover:text-white"
                   }`}
                   whileHover={{ x: 5 }}
                   transition={{ type: "spring", stiffness: 300 }}

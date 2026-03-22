@@ -1,39 +1,38 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { useLanguage } from "@/contexts/language-context";
 import { Footer } from "@/components/Footer";
 
 export default function TermsOfServicePage() {
   const { direction, language } = useLanguage();
-  const isRtl = direction === 'rtl';
+  const isRtl = direction === "rtl";
+  const reduceMotion = useReducedMotion();
 
   return (
-    <div className={isRtl ? 'rtl' : ''}>
-      <main className="container mx-auto px-4 sm:px-6 py-16 max-w-4xl">
+    <div className={isRtl ? "rtl" : ""}>
+      <main className="marketing-section container mx-auto max-w-4xl px-4 py-16 sm:px-6">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={reduceMotion ? false : { opacity: 0, y: 20 }}
+          animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           className="mb-12 text-center"
         >
-          <h1 className="text-4xl font-bold text-white mb-4">
-            {language === 'en' ? 'Terms of Service' : 'شروط الخدمة'}
+          <h1 className="font-display text-4xl font-bold tracking-tight text-white mb-4 md:text-5xl">
+            {language === "en" ? "Terms of Service" : "شروط الخدمة"}
           </h1>
-          <p className="text-gray-400">
-            {language === 'en' 
-              ? 'Last updated: March 2, 2025' 
-              : '2 مارس 2025 :آخر تحديث'}
+          <p className="text-slate-400">
+            {language === "en" ? "Last updated: March 2, 2025" : "2 مارس 2025 :آخر تحديث"}
           </p>
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className="bg-[#111] border border-[#222] rounded-lg p-6 sm:p-8 mb-8"
+          initial={reduceMotion ? false : { opacity: 0, y: 20 }}
+          animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: reduceMotion ? 0 : 0.1 }}
+          className="card-surface section-glow mb-8 rounded-2xl border-cyan-500/15 p-6 sm:p-8"
         >
-          <div className={`prose prose-invert max-w-none ${isRtl ? 'text-right' : ''}`}>
+          <div className={`prose prose-invert max-w-none prose-headings:font-display prose-a:text-cyan-400 prose-headings:text-white ${isRtl ? "text-right" : ""}`}>
             <h2>{language === 'en' ? '1. Introduction' : '1. مقدمة'}</h2>
             <p>
               {language === 'en' 

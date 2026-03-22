@@ -11,34 +11,34 @@
   },
   "home": {
     "title": "Intelligent Proxy",
-    "subtitle": "Answering Everything",
-    "description": "Comprehensive AI solutions from strategy to execution and implementation for businesses of all sizes",
+    "subtitle": "Operations Elevated",
+    "description": "AI Ops and agentic AI that automates workflows, connects your stack, and helps teams run smarter, faster, and more efficient operations—from the control room to the front line.",
     "getStarted": "Get Started",
     "learnMore": "Learn More"
   },
   "hero": {
-    "title": "AI Solutions Reimagined",
-    "description": "Intelligent Proxy enables businesses to leverage custom AI agents that combine intelligence with domain-specific knowledge to deliver exceptional experiences across various use cases."
+    "title": "AI Ops & Agentic AI",
+    "description": "Intelligent Proxy designs and deploys agentic AI for real-world operations—systems that reason, use tools, and orchestrate work so your teams move faster with fewer manual steps and clearer outcomes."
   },
   "howItWorks": {
-    "title": "How Intelligent Proxy Works",
-    "subtitle": "We provide end-to-end AI solutions from strategy to execution and implementation to transform your business with custom AI systems.",
+    "title": "How Intelligent Proxy Powers Operations",
+    "subtitle": "From strategy to production, we build AI Ops and agentic systems that fit your processes, tools, and governance—so operations get smarter without adding chaos.",
     "features": {
       "aiChat": {
-        "title": "Versatile AI Agents",
-        "description": "We develop custom AI agents for various use cases including customer support, sales assistance, internal knowledge management, and more."
+        "title": "Agentic AI in production",
+        "description": "We build autonomous agents that plan multi-step work, call APIs and internal tools, and execute workflows with guardrails—so routine and semi-routine operations scale without constant human babysitting."
       },
       "knowledgeBase": {
-        "title": "Knowledge Base Builder",
-        "description": "Our team helps you organize your documentation and materials to train AI agents on your specific domain knowledge."
+        "title": "Operational context & knowledge",
+        "description": "We connect agents to the knowledge operations actually use: runbooks, SOPs, tickets, docs, and system metadata—so decisions and actions stay aligned with how your organization really runs."
       },
       "multilingual": {
-        "title": "Multilingual Support",
-        "description": "We create AI agents that communicate in multiple languages with automatic translation capabilities."
+        "title": "Global teams, one playbook",
+        "description": "Deploy agents and workflows across languages and regions so distributed teams share the same operational standards and faster handoffs."
       },
       "learning": {
-        "title": "Continuous Learning",
-        "description": "Our AI solutions improve over time, learning from interactions to provide more accurate and helpful responses."
+        "title": "Continuous improvement",
+        "description": "Our systems learn from feedback, outcomes, and operational signals—tightening accuracy, reducing rework, and making your AI Ops investment compound over time."
       }
     }
   },
@@ -64,11 +64,11 @@
   },
   "about": {
     "title": "About Intelligent Proxy",
-    "subtitle": "Pioneering custom AI agent solutions",
+    "subtitle": "AI Ops and agentic AI for high-performing operations",
     "mission": {
       "title": "Our Mission",
-      "description": "At Intelligent Proxy, we're on a mission to transform businesses through advanced AI technology. We believe organizations shouldn't have to choose between efficiency and quality when implementing AI solutions.",
-      "vision": "Our vision is to create AI agents that understand, learn, and evolve - providing intelligent solutions that feel genuinely human while delivering the consistency and scalability only machines can offer."
+      "description": "At Intelligent Proxy, we're on a mission to make operations smarter, faster, and more efficient through AI Ops and agentic AI. We believe teams shouldn't trade speed for safety—or quality for scale—when they automate real work.",
+      "vision": "Our vision is agentic systems that understand context, take bounded action, and improve over time—pairing human judgment with machine consistency so operations run reliably around the clock."
     },
     "who": {
       "title": "Who We Are",
@@ -80,7 +80,7 @@
       "areas": {
         "research": {
           "title": "AI Research & Development",
-          "description": "Our AI researchers and developers have deep expertise in machine learning, natural language processing, and conversational AI systems."
+          "description": "Our AI researchers and developers have deep expertise in machine learning, NLP, and agentic AI systems built for production operations."
         },
         "architecture": {
           "title": "Solution Architecture",
@@ -88,7 +88,7 @@
         },
         "design": {
           "title": "UX/UI Design",
-          "description": "We create intuitive interfaces that make AI technology accessible and easy to use for businesses and their customers."
+          "description": "We design operator-friendly experiences so teams can supervise agents, review actions, and stay in control without fighting the tooling."
         },
         "integration": {
           "title": "Enterprise Integration",
@@ -97,7 +97,7 @@
       },
       "global": {
         "title": "Global Experience",
-        "description": "Our team brings diverse perspectives from working on AI projects across three continents, giving us unique insights into global AI implementation needs."
+        "description": "Our team brings diverse perspectives from working on AI projects across three continents, giving us unique insights into global operational and rollout requirements."
       },
       "team": {
         "title": "Cross-functional Team",
@@ -105,11 +105,11 @@
       },
       "innovation": {
         "title": "Innovation Focus",
-        "description": "We're constantly pushing boundaries, researching and implementing the latest advancements in natural language processing and conversational AI."
+        "description": "We stay at the edge of agentic AI, tool use, and workflow automation—bringing practical patterns into production, not just demos."
       },
       "results": {
         "title": "Results-Driven",
-        "description": "Our solutions are designed with measurable business outcomes in mind - from improving operational efficiency to enhancing user experiences across various domains."
+        "description": "We measure what operations care about: cycle time, error rates, throughput, and human time saved—so automation shows up in the metrics that matter."
       }
     },
     "values": {
@@ -132,8 +132,8 @@
       }
     },
     "cta": {
-      "title": "Ready to transform your business with custom AI agents?",
-      "description": "Join the organizations already using Intelligent Proxy to deliver exceptional AI experiences across various use cases.",
+      "title": "Ready to modernize operations with AI Ops and agentic AI?",
+      "description": "Talk to us about where work gets stuck today—we'll help you design agents and workflows that run faster with clear oversight.",
       "button": "Contact Us Today"
     }
   },
@@ -164,7 +164,7 @@
     "invalidEmail": "Please enter a valid email address"
   },
   "footer": {
-    "description": "Comprehensive AI solutions from strategy to execution and implementation for businesses of all sizes",
+    "description": "AI Ops and agentic AI that make operations smarter, faster, and more efficient—from integration to production.",
     "product": "Services",
     "features": "Solutions",
     "pricing": "Pricing",
@@ -184,11 +184,11 @@
   },
   "faq": {
     "title": "Frequently Asked Questions",
-    "subtitle": "Find answers to common questions about our comprehensive AI solutions",
+    "subtitle": "Find answers to common questions about our AI Ops and agentic AI services",
     "questions": [
       {
         "question": "What is Intelligent Proxy?",
-        "answer": "Intelligent Proxy is a specialized AI solutions company that provides end-to-end services from strategy to execution and implementation for businesses. We focus on creating tailored AI agents and solutions that address specific business challenges across various industries. Our expertise lies in developing intelligent AI systems that enhance operational efficiency and customer experiences."
+        "answer": "Intelligent Proxy is an AI solutions partner focused on AI Ops and agentic AI for real operations. We help organizations design, integrate, and run autonomous agents and automated workflows that connect to your tools and knowledge—so teams execute faster with stronger consistency, visibility, and governance."
       },
       {
         "question": "How do I get started with Intelligent Proxy?",
@@ -208,7 +208,7 @@
       },
       {
         "question": "Do I need technical expertise to work with Intelligent Proxy?",
-        "answer": "No technical expertise is required. Our team handles all the technical aspects of developing your AI solution. We provide comprehensive onboarding, training, and ongoing support to ensure your team can effectively utilize the AI systems we develop for you."
+        "answer": "No deep ML expertise is required on your side. We handle architecture, integration, and rollout, and we train your operators on how to supervise agents, review outcomes, and iterate safely."
       }
     ]
   }

@@ -1,46 +1,47 @@
 "use client";
 
-import { useState } from 'react';
-import { useLanguage } from '@/contexts/language-context';
-import { Send } from 'lucide-react';
-import { toast } from 'sonner';
+import { useState } from "react";
+import { useLanguage } from "@/contexts/language-context";
+import { Send } from "lucide-react";
+import { toast } from "sonner";
+import { cn } from "@/lib/utils";
 
 export function NewsletterSubscribe() {
   const { t, direction } = useLanguage();
-  const isRtl = direction === 'rtl';
-  const [email, setEmail] = useState('');
+  const isRtl = direction === "rtl";
+  const [email, setEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    if (!email || !email.includes('@')) {
-      toast.error(t('newsletter.invalidEmail'));
+
+    if (!email || !email.includes("@")) {
+      toast.error(t("newsletter.invalidEmail"));
       return;
     }
-    
+
     setIsLoading(true);
-    
+
     try {
-      const response = await fetch('/api/subscribe', {
-        method: 'POST',
+      const response = await fetch("/api/subscribe", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ email }),
       });
-      
+
       const data = await response.json();
-      
+
       if (response.ok) {
-        toast.success(t('newsletter.success'));
-        setEmail('');
+        toast.success(t("newsletter.success"));
+        setEmail("");
       } else {
-        toast.error(data.message || t('newsletter.error'));
+        toast.error(data.message || t("newsletter.error"));
       }
     } catch (error) {
-      toast.error(t('newsletter.error'));
-      console.error('Newsletter subscription error:', error);
+      toast.error(t("newsletter.error"));
+      console.error("Newsletter subscription error:", error);
     } finally {
       setIsLoading(false);
     }
@@ -48,38 +49,43 @@ export function NewsletterSubscribe() {
 
   return (
     <div className="w-full">
-      <h3 className="text-sm font-semibold text-white mb-3">{t('newsletter.title')}</h3>
-      <p className="text-gray-400 text-sm mb-4">{t('newsletter.description')}</p>
-      
-      <form onSubmit={handleSubmit} className={`flex flex-col sm:flex-row gap-2 ${isRtl ? 'sm:flex-row-reverse' : ''}`}>
+      <h3 className="text-sm font-semibold text-white mb-1 font-display">{t("newsletter.title")}</h3>
+      <p className="text-slate-400 text-sm mb-4 leading-relaxed">{t("newsletter.description")}</p>
+
+      <form
+        onSubmit={handleSubmit}
+        className={cn("flex flex-col sm:flex-row gap-2", isRtl ? "sm:flex-row-reverse" : "")}
+      >
         <input
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          placeholder={t('newsletter.placeholder')}
-          className={`flex-grow bg-[#111] border border-[#333] rounded px-3 py-2 text-white placeholder:text-gray-500 focus:outline-none focus:ring-1 focus:ring-blue-500 ${isRtl ? 'text-right' : 'text-left'}`}
+          placeholder={t("newsletter.placeholder")}
+          className={cn(
+            "flex-grow intelligentproxy-input px-3 py-2.5 text-sm",
+            isRtl ? "text-right" : "text-left"
+          )}
           disabled={isLoading}
         />
         <button
           type="submit"
           disabled={isLoading}
-          className={`px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded flex items-center justify-center transition-colors ${isLoading ? 'opacity-70 cursor-not-allowed' : ''}`}
+          className={cn(
+            "btn-signal-primary shrink-0 px-5 py-2.5 text-sm disabled:opacity-60 disabled:cursor-not-allowed",
+            "flex items-center justify-center gap-2"
+          )}
         >
           {isLoading ? (
-            <div className="h-5 w-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+            <div className="h-5 w-5 border-2 border-[#060606] border-t-transparent rounded-full animate-spin" />
+          ) : isRtl ? (
+            <>
+              {t("newsletter.subscribe")}
+              <Send size={16} />
+            </>
           ) : (
             <>
-              {isRtl ? (
-                <>
-                  {t('newsletter.subscribe')}
-                  <Send size={16} className="ml-2" />
-                </>
-              ) : (
-                <>
-                  <Send size={16} className="mr-2" />
-                  {t('newsletter.subscribe')}
-                </>
-              )}
+              <Send size={16} />
+              {t("newsletter.subscribe")}
             </>
           )}
         </button>
