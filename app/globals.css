@@ -16,17 +16,17 @@
     --border-hover: rgba(100, 220, 255, 0.38);
     --inner-highlight: rgba(255, 255, 255, 0.06);
 
-    /* Legacy aliases (mapped to new system) */
-    --intelligentproxy-bg-primary: var(--page-bg);
-    --intelligentproxy-bg-secondary: rgba(14, 18, 26, 0.9);
-    --intelligentproxy-bg-tertiary: var(--surface-inset);
-    --intelligentproxy-border: rgba(120, 200, 255, 0.12);
-    --intelligentproxy-border-hover: var(--border-hover);
-    --intelligentproxy-text-primary: #f4f7fa;
-    --intelligentproxy-text-secondary: #c4cdd6;
-    --intelligentproxy-text-muted: #8b96a5;
-    --intelligentproxy-accent: var(--signal-cyan);
-    --intelligentproxy-accent-hover: #06b6d4;
+    /* Brand theme aliases (mapped to new system) */
+    --zempar-bg-primary: var(--page-bg);
+    --zempar-bg-secondary: rgba(14, 18, 26, 0.9);
+    --zempar-bg-tertiary: var(--surface-inset);
+    --zempar-border: rgba(120, 200, 255, 0.12);
+    --zempar-border-hover: var(--border-hover);
+    --zempar-text-primary: #f4f7fa;
+    --zempar-text-secondary: #c4cdd6;
+    --zempar-text-muted: #8b96a5;
+    --zempar-accent: var(--signal-cyan);
+    --zempar-accent-hover: #06b6d4;
 
     /* Default light theme variables (not used but kept for reference) */
     --background: 0 0% 100%;
@@ -245,19 +245,19 @@ html[lang="ar"] {
     background: rgba(20, 28, 40, 0.85);
   }
 
-  .intelligentproxy-card {
+  .zempar-card {
     @apply card-surface;
   }
 
-  .intelligentproxy-button-primary {
+  .zempar-button-primary {
     @apply btn-signal-primary;
   }
 
-  .intelligentproxy-button-secondary {
+  .zempar-button-secondary {
     @apply btn-signal-secondary;
   }
 
-  .intelligentproxy-input {
+  .zempar-input {
     @apply rounded-lg border text-white placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/70 focus-visible:border-transparent;
     background: var(--surface-inset);
     border-color: rgba(120, 200, 255, 0.15);

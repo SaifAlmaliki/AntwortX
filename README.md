@@ -1,6 +1,6 @@
-# Intelligent Proxy: Comprehensive AI Solutions Platform
+# Zempar: Comprehensive AI Solutions Platform
 
-A comprehensive platform for AI solutions from strategy to execution and implementation. Intelligent Proxy provides end-to-end services for creating and deploying custom AI agents for various use cases. Built with Next.js and integrating with an n8n backend via webhooks, Intelligent Proxy enables companies to implement tailored AI solutions for their specific business needs.
+A comprehensive platform for AI solutions from strategy to execution and implementation. Zempar ([zempar.com](https://zempar.com)) provides end-to-end services for creating and deploying custom AI agents for various use cases. Built with Next.js and integrating with an n8n backend via webhooks, Zempar enables companies to implement tailored AI solutions for their specific business needs.
 
 ## Features
 
@@ -21,8 +21,8 @@ A comprehensive platform for AI solutions from strategy to execution and impleme
 
 1. Clone the repository
 ```bash
-git clone https://github.com/yourusername/intelligentproxy.git
-cd intelligentproxy
+git clone https://github.com/yourusername/zempar.git
+cd zempar
 ```
 
 2. Install dependencies

@@ -41,8 +41,9 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
   const [direction, setDirection] = useState<'ltr' | 'rtl'>('ltr');
 
   useEffect(() => {
-    // Check if there's a saved language preference in localStorage
-    const savedLanguage = localStorage.getItem('intelligentproxy-language') as Language | null;
+    const savedLanguage =
+      (localStorage.getItem('zempar-language') as Language | null) ??
+      (localStorage.getItem('intelligentproxy-language') as Language | null);
     if (savedLanguage && (savedLanguage === 'en' || savedLanguage === 'ar')) {
       setLanguageState(savedLanguage);
     }
@@ -63,8 +64,8 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
       document.documentElement.lang = 'en';
     }
 
-    // Save language preference to localStorage
-    localStorage.setItem('intelligentproxy-language', language);
+    localStorage.setItem('zempar-language', language);
+    localStorage.removeItem('intelligentproxy-language');
   }, [language]);
 
   // Function to set language

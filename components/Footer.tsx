@@ -29,8 +29,8 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8">
           <div className="lg:col-span-4">
             <div className="font-display text-2xl font-bold text-white mb-3 tracking-tight">
-              <span className="text-white">Intelligent</span>
-              <span className="text-gradient-signal">Proxy</span>
+              <span className="text-white">Zem</span>
+              <span className="text-gradient-signal">par</span>
             </div>
             <p className="text-slate-400 text-sm mb-5 max-w-sm leading-relaxed">
               {t("footer.description") ||
@@ -50,7 +50,7 @@ export function Footer() {
                 <Facebook size={20} />
               </Link>
               <Link
-                href="https://www.instagram.com/intelligent.proxy/"
+                href="https://www.instagram.com/zempar/"
                 className={cn(linkClass, "p-1")}
                 aria-label="Instagram"
               >

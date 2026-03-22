@@ -174,7 +174,10 @@ export function HeroSection() {
         )}
       >
         <motion.div
-          className="min-w-0 w-full shrink-0 lg:max-w-[min(100%,26rem)] xl:max-w-[min(100%,30rem)]"
+          className={cn(
+            "min-w-0 w-full shrink-0 lg:max-w-[min(100%,32rem)] xl:max-w-[min(100%,36rem)]",
+            direction === "rtl" ? "lg:pl-6 xl:pl-8" : "lg:pr-6 xl:pr-8"
+          )}
           initial={reduceMotion ? false : { opacity: 0, y: 24 }}
           animate={enterTarget}
           transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
@@ -184,14 +187,14 @@ export function HeroSection() {
           </p>
           <h1
             className={cn(
-              "font-display text-[clamp(1.875rem,4.2vw+0.85rem,3.5rem)] font-bold leading-[1.08] tracking-tight text-balance",
+              "font-display text-[clamp(1.875rem,4.2vw+0.85rem,3.5rem)] font-bold leading-[1.12] tracking-tight text-pretty",
               direction === "rtl" ? "text-right" : "text-left"
             )}
           >
             <span className="text-gradient-signal">{firstWord}</span>
             {restWords ? (
-              <span className="text-white hyphens-none [overflow-wrap:normal]">
-                {"\u00A0"}
+              <span className="text-white hyphens-none">
+                {" "}
                 {restWords}
               </span>
             ) : null}

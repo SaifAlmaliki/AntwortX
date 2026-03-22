@@ -23,7 +23,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Intelligent Proxy - AI Ops & Agentic AI",
+  title: "Zempar - AI Ops & Agentic AI",
   description:
     "AI Ops and agentic AI for smarter, faster, more efficient operations—workflow automation, tool-using agents, and enterprise integration.",
 };

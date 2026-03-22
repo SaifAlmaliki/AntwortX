@@ -37,25 +37,25 @@ export function HowItWorks() {
     },
   ];
 
-  const formatTitleWithBlueX = (title: string) => {
-    if (title.includes("Intelligent_Proxy_")) {
-      const parts = title.split("Intelligent_Proxy_");
+  const formatTitleWithBrandMark = (title: string) => {
+    if (title.includes("Zempar_")) {
+      const parts = title.split("Zempar_");
       return (
         <>
           {parts[0]}
-          <span className="text-white">Intelligent</span>
-          <span className="text-gradient-signal">Proxy</span>
+          <span className="text-white">Zem</span>
+          <span className="text-gradient-signal">par</span>
           {parts[1]}
         </>
       );
     }
-    if (title.includes("Intelligent Proxy")) {
-      const parts = title.split("Intelligent Proxy");
+    if (title.includes("Zempar")) {
+      const parts = title.split("Zempar");
       return (
         <>
           {parts[0]}
-          <span className="text-white">Intelligent</span>
-          <span className="text-gradient-signal">Proxy</span>
+          <span className="text-white">Zem</span>
+          <span className="text-gradient-signal">par</span>
           {parts[1]}
         </>
       );
@@ -73,7 +73,7 @@ export function HowItWorks() {
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.5 }}
         >
-          {formatTitleWithBlueX(t("howItWorks.title"))}
+          {formatTitleWithBrandMark(t("howItWorks.title"))}
         </motion.h2>
         <motion.p
           className="mx-auto mt-4 max-w-2xl text-lg text-slate-400"
@@ -90,7 +90,7 @@ export function HowItWorks() {
         {features.map((feature, index) => (
           <motion.div
             key={feature.key}
-            className={cn(index === 0 && "md:col-span-2")}
+            className="min-w-0"
             initial={reduceMotion ? false : { opacity: 0, y: 22 }}
             whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-40px" }}
@@ -103,18 +103,12 @@ export function HowItWorks() {
             <Card
               className={cn(
                 "bg-transparent text-white shadow-none card-surface group h-full border-cyan-500/10 hover:-translate-y-0.5",
-                direction === "rtl" ? "rtl" : "",
-                index === 0 && "md:p-2 md:py-1"
+                direction === "rtl" ? "rtl" : ""
               )}
             >
-              <CardHeader className={cn(direction === "rtl" ? "text-right" : "", index === 0 && "md:pb-2")}>
+              <CardHeader className={cn(direction === "rtl" ? "text-right" : "")}>
                 <div className={cn("mb-2", direction === "rtl" ? "flex justify-end" : "")}>{feature.icon}</div>
-                <CardTitle
-                  className={cn(
-                    "font-display text-xl text-white sm:text-2xl",
-                    index === 0 && "md:text-3xl"
-                  )}
-                >
+                <CardTitle className="font-display text-xl text-white sm:text-2xl">
                   {feature.title}
                 </CardTitle>
               </CardHeader>

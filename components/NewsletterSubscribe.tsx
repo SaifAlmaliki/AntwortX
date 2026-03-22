@@ -62,7 +62,7 @@ export function NewsletterSubscribe() {
           onChange={(e) => setEmail(e.target.value)}
           placeholder={t("newsletter.placeholder")}
           className={cn(
-            "flex-grow intelligentproxy-input px-3 py-2.5 text-sm",
+            "flex-grow zempar-input px-3 py-2.5 text-sm",
             isRtl ? "text-right" : "text-left"
           )}
           disabled={isLoading}

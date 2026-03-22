@@ -29,9 +29,9 @@ export function BrandName({
   // The brand name component with styling
   const brandNameContent = (
     <span className={`font-bold ${sizeClass} ${className}`}>
-      {/* Use same "Intelligent Proxy" brand name for both languages */}
-      <span className="text-white">Intelligent</span>
-      <span className="text-gradient-signal">Proxy</span>
+      {/* Same "Zempar" wordmark for both languages (Zem + par styling) */}
+      <span className="text-white">Zem</span>
+      <span className="text-gradient-signal">par</span>
     </span>
   );
 

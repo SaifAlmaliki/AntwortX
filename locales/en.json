@@ -10,7 +10,7 @@
     "solutions": "Solutions"
   },
   "home": {
-    "title": "Intelligent Proxy",
+    "title": "Zempar",
     "subtitle": "Operations Elevated",
     "description": "AI Ops and agentic AI that automates workflows, connects your stack, and helps teams run smarter, faster, and more efficient operations—from the control room to the front line.",
     "getStarted": "Get Started",
@@ -18,10 +18,10 @@
   },
   "hero": {
     "title": "AI Ops & Agentic AI",
-    "description": "Intelligent Proxy designs and deploys agentic AI for real-world operations—systems that reason, use tools, and orchestrate work so your teams move faster with fewer manual steps and clearer outcomes."
+    "description": "Zempar designs and deploys agentic AI for real-world operations—systems that reason, use tools, and orchestrate work so your teams move faster with fewer manual steps and clearer outcomes."
   },
   "howItWorks": {
-    "title": "How Intelligent Proxy Powers Operations",
+    "title": "How Zempar Powers Operations",
     "subtitle": "From strategy to production, we build AI Ops and agentic systems that fit your processes, tools, and governance—so operations get smarter without adding chaos.",
     "features": {
       "aiChat": {
@@ -63,11 +63,11 @@
     "noQuestions": "No information extracted yet"
   },
   "about": {
-    "title": "About Intelligent Proxy",
+    "title": "About Zempar",
     "subtitle": "AI Ops and agentic AI for high-performing operations",
     "mission": {
       "title": "Our Mission",
-      "description": "At Intelligent Proxy, we're on a mission to make operations smarter, faster, and more efficient through AI Ops and agentic AI. We believe teams shouldn't trade speed for safety—or quality for scale—when they automate real work.",
+      "description": "At Zempar, we're on a mission to make operations smarter, faster, and more efficient through AI Ops and agentic AI. We believe teams shouldn't trade speed for safety—or quality for scale—when they automate real work.",
       "vision": "Our vision is agentic systems that understand context, take bounded action, and improve over time—pairing human judgment with machine consistency so operations run reliably around the clock."
     },
     "who": {
@@ -152,7 +152,7 @@
     "phone": "Phone",
     "phoneNumber": "+1 (555) 123-4567",
     "emailContact": "Email",
-    "emailAddress": "contact@intelligentproxy.com"
+    "emailAddress": "contact@zempar.com"
   },
   "newsletter": {
     "title": "Subscribe to Our Newsletter",
@@ -180,34 +180,34 @@
     "legal": "Legal",
     "terms": "Terms of Service",
     "privacy": "Privacy Policy",
-    "copyright": " 2025 Intelligent Proxy. All rights reserved."
+    "copyright": " 2025 Zempar. All rights reserved."
   },
   "faq": {
     "title": "Frequently Asked Questions",
     "subtitle": "Find answers to common questions about our AI Ops and agentic AI services",
     "questions": [
       {
-        "question": "What is Intelligent Proxy?",
-        "answer": "Intelligent Proxy is an AI solutions partner focused on AI Ops and agentic AI for real operations. We help organizations design, integrate, and run autonomous agents and automated workflows that connect to your tools and knowledge—so teams execute faster with stronger consistency, visibility, and governance."
+        "question": "What is Zempar?",
+        "answer": "Zempar is an AI solutions partner focused on AI Ops and agentic AI for real operations. We help organizations design, integrate, and run autonomous agents and automated workflows that connect to your tools and knowledge—so teams execute faster with stronger consistency, visibility, and governance."
       },
       {
-        "question": "How do I get started with Intelligent Proxy?",
+        "question": "How do I get started with Zempar?",
         "answer": "Getting started is simple. Contact our team to discuss your business needs, and we'll guide you through the process of developing a custom AI solution for your specific requirements. We offer flexible engagement models to suit businesses of all sizes."
       },
       {
         "question": "Can I customize my AI agents?",
-        "answer": "Absolutely! Customization is at the core of Intelligent Proxy's approach. Our team works closely with you to understand your business needs and develops AI agents trained on your specific knowledge base, adjusting their behavior, capabilities, and integration points to match your exact requirements."
+        "answer": "Absolutely! Customization is at the core of Zempar's approach. Our team works closely with you to understand your business needs and develops AI agents trained on your specific knowledge base, adjusting their behavior, capabilities, and integration points to match your exact requirements."
       },
       {
-        "question": "What languages do Intelligent Proxy agents support?",
+        "question": "What languages do Zempar agents support?",
         "answer": "Our AI agents support multiple languages including English, Arabic, Spanish, French, German, and many more. We can develop solutions with support for additional languages based on your specific business needs."
       },
       {
-        "question": "How secure is my data with Intelligent Proxy?",
+        "question": "How secure is my data with Zempar?",
         "answer": "Security is our top priority. We employ enterprise-grade security measures to protect your data, including encryption, secure access controls, and regular security audits. Your data is never used to train other clients' AI agents, ensuring complete confidentiality."
       },
       {
-        "question": "Do I need technical expertise to work with Intelligent Proxy?",
+        "question": "Do I need technical expertise to work with Zempar?",
         "answer": "No deep ML expertise is required on your side. We handle architecture, integration, and rollout, and we train your operators on how to supervise agents, review outcomes, and iterate safely."
       }
     ]

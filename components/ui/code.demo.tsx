@@ -26,9 +26,9 @@ export function SplineSceneBasic() {
           </h1>
           <p className="mt-2 sm:mt-4 text-sm sm:text-base md:text-lg text-neutral-300 max-w-lg">
             {(() => {
-              const description = t("hero.description") || "Intelligent Proxy deploys agentic AI for real operations—so teams automate workflows, connect systems, and run faster with clear oversight.";
-              if (description.includes('Intelligent Proxy')) {
-                const parts = description.split('Intelligent Proxy');
+              const description = t("hero.description") || "Zempar deploys agentic AI for real operations—so teams automate workflows, connect systems, and run faster with clear oversight.";
+              if (description.includes('Zempar')) {
+                const parts = description.split('Zempar');
                 return (
                   <>
                     {parts[0]}<BrandName size="sm" />{parts[1]}

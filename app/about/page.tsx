@@ -89,7 +89,7 @@ export default function AboutPage() {
             className="mb-16 text-center"
           >
             <h1 className="font-display text-4xl font-bold text-white md:text-5xl lg:text-6xl mb-6 tracking-tight">
-              {t("about.title") || "About Intelligent Proxy"}
+              {t("about.title") || "About Zempar"}
             </h1>
             <p className="mx-auto max-w-3xl text-xl text-slate-300">
               {t("about.subtitle") || "AI Ops and agentic AI for high-performing operations"}
@@ -115,7 +115,7 @@ export default function AboutPage() {
                 </h2>
                 <p className="text-slate-300 mb-4 leading-relaxed">
                   {t("about.mission.description") || 
-                    "At Intelligent Proxy, we're on a mission to make operations smarter, faster, and more efficient through AI Ops and agentic AI. We believe teams shouldn't trade speed for safety—or quality for scale—when they automate real work."}
+                    "At Zempar, we're on a mission to make operations smarter, faster, and more efficient through AI Ops and agentic AI. We believe teams shouldn't trade speed for safety—or quality for scale—when they automate real work."}
                 </p>
                 <p className="text-slate-300 leading-relaxed">
                   {t("about.mission.vision") || 
@@ -126,7 +126,7 @@ export default function AboutPage() {
                 <div className="relative w-full h-64 md:h-80">
                   <Image 
                     src="/about/mission.jpg" 
-                    alt="Intelligent Proxy Mission" 
+                    alt="Zempar mission" 
                     fill
                     className="object-cover rounded-xl"
                   />

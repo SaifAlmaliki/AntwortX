@@ -8,7 +8,7 @@ import emailjs from "@emailjs/browser";
 import { cn } from "@/lib/utils";
 
 const inputClass =
-  "intelligentproxy-input w-full px-4 py-2.5 rounded-xl focus-visible:ring-2 focus-visible:ring-cyan-400";
+  "zempar-input w-full px-4 py-2.5 rounded-xl focus-visible:ring-2 focus-visible:ring-cyan-400";
 
 export default function ContactPage() {
   const { t, direction } = useLanguage();
