@@ -1,6 +1,7 @@
 "use client";
 
 import type { LucideIcon } from "lucide-react";
+import { Spotlight } from "@/components/ui/spotlight";
 import { cn } from "@/lib/utils";
 
 export type ValuePillarCardProps = {
@@ -20,18 +21,23 @@ export function ValuePillarCard({
   return (
     <div
       className={cn(
-        "flex min-h-0 min-w-0 flex-col items-center rounded-2xl border border-cyan-500/10 bg-white/[0.03] px-5 py-6 text-center shadow-none backdrop-blur-sm transition-colors hover:border-cyan-400/30",
+        "card-surface group relative flex min-h-0 min-w-0 flex-col items-center px-5 py-6 text-center",
         className
       )}
     >
+      <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-[inherit]">
+        <Spotlight size={220} fill="signal" />
+      </div>
       <div
-        className="mb-4 flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-cyan-400 to-cyan-600 text-white shadow-[0_0_24px_-4px_var(--signal-glow)]"
+        className="relative z-10 mb-4 flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-cyan-400 to-cyan-600 text-white shadow-[0_0_24px_-4px_var(--signal-glow)]"
         aria-hidden
       >
         <Icon className="h-7 w-7" strokeWidth={1.75} />
       </div>
-      <h3 className="font-display text-base font-semibold text-white sm:text-lg">{title}</h3>
-      <p className="mt-2 text-sm leading-relaxed text-slate-400 sm:text-[0.9375rem]">{description}</p>
+      <h3 className="relative z-10 font-display text-base font-semibold text-white sm:text-lg">{title}</h3>
+      <p className="relative z-10 mt-2 text-sm leading-relaxed text-slate-400 sm:text-[0.9375rem]">
+        {description}
+      </p>
     </div>
   );
 }
