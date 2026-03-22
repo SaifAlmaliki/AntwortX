@@ -28,7 +28,6 @@ function FeatureBlock({ icon, title, description, className, direction }: Featur
       <Spotlight size={220} fill="signal" />
       <div
         className={cn(
-          /* No min-h-0: with overflow-hidden on the card, shrinking this flex child clips titles */
           "relative z-10 flex min-w-0 flex-1 flex-col gap-3",
           isRtl ? "text-right" : "text-left"
         )}
@@ -264,7 +263,7 @@ export function HeroSection() {
                   icon={f.icon}
                   title={f.title}
                   description={f.description}
-                  className="min-h-[11rem] sm:min-h-[12.5rem]"
+                  className="min-h-[12.5rem] sm:min-h-[14rem]"
                   direction={direction}
                 />
               </motion.div>
