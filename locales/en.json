@@ -168,23 +168,14 @@
     "subject": "Subject",
     "message": "Message",
     "submit": "Send Message",
-    "success": "Your message has been sent. We'll get back to you soon!",
-    "error": "There was an error sending your message. Please try again.",
+    "success": "Your email app should open with your message. If it doesn't, email us at contact@zempar.com.",
+    "error": "Something went wrong. Please email us directly at contact@zempar.com.",
     "address": "Address",
     "city": "47057 Duisburg, Germany",
     "phone": "Phone",
     "phoneNumber": "+1 (555) 123-4567",
     "emailContact": "Email",
     "emailAddress": "contact@zempar.com"
-  },
-  "newsletter": {
-    "title": "Subscribe to Our Newsletter",
-    "description": "Stay updated with our latest news, insights, and AI innovations",
-    "placeholder": "Your email address",
-    "subscribe": "Subscribe",
-    "success": "Thank you for subscribing to our newsletter!",
-    "error": "Failed to subscribe. Please try again.",
-    "invalidEmail": "Please enter a valid email address"
   },
   "footer": {
     "description": "AI Ops and agentic AI that make operations smarter, faster, and more efficient—from integration to production.",

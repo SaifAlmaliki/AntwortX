@@ -28,25 +28,10 @@ npm run lint     # Run ESLint
 **Styling:** Tailwind CSS with CSS variables for theming (defined in `app/globals.css`). All theme colors reference variables like `hsl(var(--background))`.
 
 **Backend Integration:**
-- Newsletter subscriptions → Kit.com API via `app/api/subscribe/route.ts` (server-side, uses `KIT_API_KEY`, `KIT_NEWSLETTER_ID`, `KIT_API_URL`)
-- Contact form → EmailJS (client-side, env vars: `NEXT_PUBLIC_EMAILJS_*`)
-- AI agent backend → n8n via webhook (`NEXT_PUBLIC_N8N_WEBHOOK_URL`)
-
-### Environment Variables
-
-| Variable | Purpose |
-|---|---|
-| `KIT_API_KEY` | Kit.com newsletter API key |
-| `KIT_NEWSLETTER_ID` | Kit.com subscriber list ID |
-| `KIT_API_URL` | Kit.com API base URL |
-| `NEXT_PUBLIC_EMAILJS_SERVICE_ID` | EmailJS service ID |
-| `NEXT_PUBLIC_EMAILJS_TEMPLATE_ID` | EmailJS template ID |
-| `NEXT_PUBLIC_EMAILJS_PUBLIC_KEY` | EmailJS public key |
-| `NEXT_PUBLIC_N8N_WEBHOOK_URL` | n8n webhook for AI requests |
+- Contact form → opens the visitor’s email client via `mailto:` (no third-party email API)
 
 ### Notes
 
 - `next.config.ts` has `eslint.ignoreDuringBuilds: true` — ESLint errors won't block builds
 - Spline 3D scenes are used in hero/demo components (`@splinetool/react-spline`)
 - Framer Motion handles page and component animations
-- Socket.io-client is installed but not actively used in current routes

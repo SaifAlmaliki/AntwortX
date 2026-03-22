@@ -1,10 +1,9 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { Mail, Phone, MapPin } from "lucide-react";
 import { useLanguage } from "@/contexts/language-context";
-import emailjs from "@emailjs/browser";
 import { cn } from "@/lib/utils";
 
 const inputClass =
@@ -23,36 +22,20 @@ export default function ContactPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
 
-  useEffect(() => {
-    emailjs.init(process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || "");
-  }, []);
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormState((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
 
     try {
-      const response = await emailjs.send(
-        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || "",
-        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || "",
-        {
-          from_name: formState.name,
-          from_email: formState.email,
-          subject: formState.subject,
-          message: formState.message,
-          to_email: "saif.wsm@gmail.com",
-        }
-      );
-
-      if (response.status !== 200) {
-        throw new Error("Failed to send message");
-      }
-
+      const to = t("contact.emailAddress");
+      const subject = formState.subject;
+      const body = `Name: ${formState.name}\nEmail: ${formState.email}\n\n${formState.message}`;
+      window.location.href = `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
       setSubmitStatus("success");
       setFormState({
         name: "",
@@ -61,7 +44,7 @@ export default function ContactPage() {
         message: "",
       });
     } catch (error) {
-      console.error("Error sending message:", error);
+      console.error("Error opening mail client:", error);
       setSubmitStatus("error");
     } finally {
       setIsSubmitting(false);

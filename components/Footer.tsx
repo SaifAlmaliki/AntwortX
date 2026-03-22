@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { Facebook, Instagram, Linkedin } from "lucide-react";
 import { useLanguage } from "@/contexts/language-context";
-import { NewsletterSubscribe } from "./NewsletterSubscribe";
 import { cn } from "@/lib/utils";
 
 export function Footer() {
@@ -27,7 +26,7 @@ export function Footer() {
       />
       <div className="container mx-auto px-4 sm:px-6 max-w-7xl">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8">
-          <div className="lg:col-span-4">
+          <div className="lg:col-span-6">
             <div className="font-display text-2xl font-bold text-white mb-3 tracking-tight">
               <span className="text-white">Zem</span>
               <span className="text-gradient-signal">par</span>
@@ -66,7 +65,7 @@ export function Footer() {
             </div>
           </div>
 
-          <div className="lg:col-span-2">
+          <div className="lg:col-span-3">
             <h3 className="text-xs font-semibold uppercase tracking-wider text-cyan-200/80 mb-4">
               {t("footer.product")}
             </h3>
@@ -89,7 +88,7 @@ export function Footer() {
             </ul>
           </div>
 
-          <div className="lg:col-span-2">
+          <div className="lg:col-span-3">
             <h3 className="text-xs font-semibold uppercase tracking-wider text-cyan-200/80 mb-4">
               {t("footer.company")}
             </h3>
@@ -110,12 +109,6 @@ export function Footer() {
                 </Link>
               </li>
             </ul>
-          </div>
-
-          <div className="lg:col-span-4">
-            <div className="card-surface section-glow rounded-2xl p-5 border-cyan-500/15">
-              <NewsletterSubscribe />
-            </div>
           </div>
         </div>
 
