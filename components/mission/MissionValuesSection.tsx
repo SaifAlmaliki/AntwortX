@@ -43,22 +43,21 @@ export function MissionValuesSection() {
 
   return (
     <section
-      className="marketing-section relative overflow-hidden rounded-3xl border border-cyan-500/15 bg-[var(--surface-glass)] px-5 py-12 shadow-[inset_0_1px_0_0_var(--inner-highlight)] backdrop-blur-xl sm:px-8 sm:py-14 md:px-10 md:py-16"
+      className="marketing-section relative rounded-3xl border border-cyan-500/15 bg-[var(--surface-glass)] px-5 py-12 shadow-[inset_0_1px_0_0_var(--inner-highlight)] backdrop-blur-xl sm:px-8 sm:py-14 md:px-10 md:py-16"
       aria-labelledby="mission-section-heading"
     >
-      <div
-        className="pointer-events-none absolute inset-0 opacity-[0.4]"
-        aria-hidden
-        style={{
-          backgroundImage:
-            "radial-gradient(1px 1px at 20% 30%, rgba(255,255,255,0.45) 0, transparent 100%), radial-gradient(1px 1px at 60% 70%, rgba(34,211,238,0.75) 0, transparent 100%), radial-gradient(1px 1px at 80% 20%, rgba(167,139,250,0.35) 0, transparent 100%)",
-          backgroundSize: "100% 100%",
-        }}
-      />
-      <div
-        className="pointer-events-none absolute inset-0 bg-gradient-to-br from-cyan-400/[0.08] via-transparent to-violet-500/[0.06]"
-        aria-hidden
-      />
+      {/* Clip decorative backgrounds to the section boundary without clipping text */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-[inherit]" aria-hidden>
+        <div
+          className="absolute inset-0 opacity-[0.4]"
+          style={{
+            backgroundImage:
+              "radial-gradient(1px 1px at 20% 30%, rgba(255,255,255,0.45) 0, transparent 100%), radial-gradient(1px 1px at 60% 70%, rgba(34,211,238,0.75) 0, transparent 100%), radial-gradient(1px 1px at 80% 20%, rgba(167,139,250,0.35) 0, transparent 100%)",
+            backgroundSize: "100% 100%",
+          }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-br from-cyan-400/[0.08] via-transparent to-violet-500/[0.06]" />
+      </div>
 
       <div
         className={cn(

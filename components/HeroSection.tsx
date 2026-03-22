@@ -21,11 +21,13 @@ function FeatureBlock({ icon, title, description, className, direction }: Featur
   return (
     <div
       className={cn(
-        "card-surface group relative flex h-full min-w-0 w-full flex-col overflow-hidden p-5 sm:p-6",
+        "card-surface group relative flex h-full min-w-0 w-full flex-col p-5 sm:p-6",
         className
       )}
     >
-      <Spotlight size={220} fill="signal" />
+      <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-[inherit]">
+        <Spotlight size={220} fill="signal" />
+      </div>
       <div
         className={cn(
           "relative z-10 flex min-w-0 flex-1 flex-col gap-3",
@@ -34,13 +36,13 @@ function FeatureBlock({ icon, title, description, className, direction }: Featur
       >
         <div
           className={cn(
-            "flex gap-3",
+            "flex gap-3 pb-0.5",
             isRtl ? "flex-row-reverse" : "flex-row",
             "items-start"
           )}
         >
           <div className="shrink-0 pt-0.5 text-cyan-400">{icon}</div>
-          <h3 className="min-w-0 flex-1 pb-0.5 font-display text-base font-semibold leading-normal text-white sm:text-lg text-pretty hyphens-none">
+          <h3 className="min-w-0 flex-1 font-display text-base font-semibold leading-[1.4] text-white sm:text-lg text-pretty hyphens-none">
             {title}
           </h3>
         </div>
