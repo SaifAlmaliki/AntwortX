@@ -21,14 +21,15 @@ function FeatureBlock({ icon, title, description, className, direction }: Featur
   return (
     <div
       className={cn(
-        "card-surface group relative flex h-full min-h-0 min-w-0 w-full flex-col overflow-hidden p-5 sm:p-6",
+        "card-surface group relative flex h-full min-w-0 w-full flex-col overflow-hidden p-5 sm:p-6",
         className
       )}
     >
       <Spotlight size={220} fill="signal" />
       <div
         className={cn(
-          "relative z-10 flex min-h-0 min-w-0 flex-1 flex-col gap-3",
+          /* No min-h-0: with overflow-hidden on the card, shrinking this flex child clips titles */
+          "relative z-10 flex min-w-0 flex-1 flex-col gap-3",
           isRtl ? "text-right" : "text-left"
         )}
       >
@@ -40,7 +41,7 @@ function FeatureBlock({ icon, title, description, className, direction }: Featur
           )}
         >
           <div className="shrink-0 pt-0.5 text-cyan-400">{icon}</div>
-          <h3 className="min-w-0 flex-1 font-display text-base font-semibold leading-snug text-white sm:text-lg text-pretty hyphens-none">
+          <h3 className="min-w-0 flex-1 pb-0.5 font-display text-base font-semibold leading-normal text-white sm:text-lg text-pretty hyphens-none">
             {title}
           </h3>
         </div>
@@ -250,7 +251,7 @@ export function HeroSection() {
             {features.map((f, index) => (
               <motion.div
                 key={f.key}
-                className="min-h-0 min-w-0"
+                className="min-w-0"
                 initial={reduceMotion ? false : { opacity: 0, y: 16 }}
                 animate={enterTarget}
                 transition={{

@@ -102,13 +102,13 @@ export function HowItWorks() {
           >
             <Card
               className={cn(
-                "bg-transparent text-white shadow-none card-surface group h-full border-cyan-500/10 hover:-translate-y-0.5",
+                "overflow-visible bg-transparent text-white shadow-none card-surface group h-full border-cyan-500/10 hover:-translate-y-0.5",
                 direction === "rtl" ? "rtl" : ""
               )}
             >
-              <CardHeader className={cn(direction === "rtl" ? "text-right" : "")}>
+              <CardHeader className={cn("overflow-visible", direction === "rtl" ? "text-right" : "")}>
                 <div className={cn("mb-2", direction === "rtl" ? "flex justify-end" : "")}>{feature.icon}</div>
-                <CardTitle className="font-display text-xl text-white sm:text-2xl">
+                <CardTitle className="font-display text-xl leading-relaxed text-white sm:text-2xl sm:leading-relaxed pb-0.5">
                   {feature.title}
                 </CardTitle>
               </CardHeader>

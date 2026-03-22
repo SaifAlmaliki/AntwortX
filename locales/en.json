@@ -20,6 +20,29 @@
     "title": "AI Ops & Agentic AI",
     "description": "Zempar designs and deploys agentic AI for real-world operations—systems that reason, use tools, and orchestrate work so your teams move faster with fewer manual steps and clearer outcomes."
   },
+  "missionSection": {
+    "title": "Our Mission",
+    "body": "We empower industries to embrace digital transformation through innovative IIoT solutions, advanced AI capabilities, and comprehensive training programs. Our goal is to help businesses become more efficient, sustainable, and competitive in the global market.",
+    "cta": "Work with Us",
+    "cards": {
+      "innovation": {
+        "title": "Innovation First",
+        "description": "We constantly push the boundaries of what's possible in industrial technology."
+      },
+      "partnership": {
+        "title": "Client Partnership",
+        "description": "We build lasting relationships by truly understanding our clients' needs."
+      },
+      "excellence": {
+        "title": "Excellence",
+        "description": "We maintain the highest standards in everything we do."
+      },
+      "reliability": {
+        "title": "Reliability",
+        "description": "Our solutions are built to be dependable and secure."
+      }
+    }
+  },
   "howItWorks": {
     "title": "How Zempar Powers Operations",
     "subtitle": "From strategy to production, we build AI Ops and agentic systems that fit your processes, tools, and governance—so operations get smarter without adding chaos.",
@@ -181,6 +204,11 @@
     "terms": "Terms of Service",
     "privacy": "Privacy Policy",
     "copyright": " 2025 Zempar. All rights reserved."
+  },
+  "testimonials": {
+    "title": "Testimonials",
+    "subtitle": "Recommendations from colleagues and partners—word for word.",
+    "ratingLabel": "5 out of 5 stars"
   },
   "faq": {
     "title": "Frequently Asked Questions",
