@@ -4,6 +4,8 @@ import { Toaster } from "@/components/ui/sonner";
 import { Squares } from "@/components/ui/squares-background";
 import { FloatingHeader } from "@/components/ui/floating-header";
 import { LanguageProvider } from "@/contexts/language-context";
+import { StructuredData } from "@/components/structured-data";
+import { getSiteUrl } from "@/lib/site-url";
 import "./globals.css";
 
 const syne = Syne({
@@ -22,10 +24,28 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const siteUrl = getSiteUrl();
+const defaultTitle = "Zempar - AI Ops & Agentic AI";
+const defaultDescription =
+  "AI Ops and agentic AI for smarter, faster, more efficient operations—workflow automation, tool-using agents, and enterprise integration.";
+
 export const metadata: Metadata = {
-  title: "Zempar - AI Ops & Agentic AI",
-  description:
-    "AI Ops and agentic AI for smarter, faster, more efficient operations—workflow automation, tool-using agents, and enterprise integration.",
+  metadataBase: new URL(siteUrl),
+  title: defaultTitle,
+  description: defaultDescription,
+  openGraph: {
+    title: defaultTitle,
+    description: defaultDescription,
+    url: siteUrl,
+    siteName: "Zempar",
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: defaultTitle,
+    description: defaultDescription,
+  },
 };
 
 export default function RootLayout({
@@ -38,6 +58,7 @@ export default function RootLayout({
       <body
         className={`${syne.variable} ${geistSans.variable} ${geistMono.variable} font-sans antialiased min-h-screen bg-page text-white relative`}
       >
+        <StructuredData />
         {/* Animated grid (original look: visible #222 lines on #060606) */}
         <div className="fixed inset-0 z-0 pointer-events-none" aria-hidden>
           <Squares

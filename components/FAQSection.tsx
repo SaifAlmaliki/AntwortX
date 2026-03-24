@@ -1,18 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
-import { ChevronDown, ChevronUp } from "lucide-react";
+import { motion, useReducedMotion } from "framer-motion";
+import { ChevronDown } from "lucide-react";
 import { useLanguage } from "@/contexts/language-context";
 import { cn } from "@/lib/utils";
-
-type FAQItemProps = {
-  question: string;
-  answer: string;
-  isOpen: boolean;
-  toggleOpen: () => void;
-  isRtl: boolean;
-};
 
 interface FAQItem {
   question: string;
@@ -22,60 +14,52 @@ interface FAQItem {
 const FAQItem = ({
   question,
   answer,
-  isOpen,
-  toggleOpen,
   isRtl,
-  reduceMotion,
-}: FAQItemProps & { reduceMotion: boolean | null }) => {
+  isOpen,
+  onToggle,
+}: {
+  question: string;
+  answer: string;
+  isRtl: boolean;
+  isOpen: boolean;
+  onToggle: (nextOpen: boolean) => void;
+}) => {
   return (
-    <div className="border-b border-cyan-500/10 last:border-b-0">
-      <button
-        type="button"
-        onClick={toggleOpen}
-        aria-expanded={isOpen}
+    <details
+      className={cn(
+        "group border-b border-cyan-500/10 last:border-b-0",
+        "[&[open]_summary_.faq-chevron]:rotate-180"
+      )}
+      open={isOpen}
+      onToggle={(e) => {
+        onToggle(e.currentTarget.open);
+      }}
+    >
+      <summary
         className={cn(
-          "flex w-full items-center justify-between gap-3 py-4 text-left transition-colors rounded-lg -mx-2 px-2",
+          "flex w-full cursor-pointer list-none items-center justify-between gap-3 py-4 text-left transition-colors rounded-lg -mx-2 px-2",
+          "[&::-webkit-details-marker]:hidden",
           "hover:bg-cyan-500/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[rgba(8,10,15,0.95)]",
           isRtl && "flex-row-reverse text-right"
         )}
       >
         <h3 className="text-lg font-medium text-white font-display pr-2">{question}</h3>
-        <span className="shrink-0 text-cyan-400/80" aria-hidden>
-          {isOpen ? <ChevronUp size={22} /> : <ChevronDown size={22} />}
-        </span>
-      </button>
-      {reduceMotion ? (
-        isOpen ? (
-          <p className={cn("pb-4 text-slate-300 leading-relaxed", isRtl ? "text-right" : "")}>{answer}</p>
-        ) : null
-      ) : (
-        <AnimatePresence initial={false}>
-          {isOpen && (
-            <motion.div
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: "auto", opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-              className="overflow-hidden"
-            >
-              <p className={cn("pb-4 text-slate-300 leading-relaxed", isRtl ? "text-right" : "")}>{answer}</p>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      )}
-    </div>
+        <ChevronDown
+          className="faq-chevron shrink-0 text-cyan-400/80 transition-transform duration-300 ease-out"
+          size={22}
+          aria-hidden
+        />
+      </summary>
+      <p className={cn("pb-4 text-slate-300 leading-relaxed", isRtl ? "text-right" : "")}>{answer}</p>
+    </details>
   );
 };
 
 export const FAQSection = () => {
   const { t, direction, locale } = useLanguage();
   const isRtl = direction === "rtl";
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
   const reduceMotion = useReducedMotion();
-
-  const toggleFAQ = (index: number) => {
-    setOpenIndex(openIndex === index ? null : index);
-  };
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   const faqItems = (locale.faq?.questions || []) as FAQItem[];
 
@@ -110,10 +94,12 @@ export const FAQSection = () => {
               key={index}
               question={item.question}
               answer={item.answer}
-              isOpen={openIndex === index}
-              toggleOpen={() => toggleFAQ(index)}
               isRtl={isRtl}
-              reduceMotion={reduceMotion}
+              isOpen={openIndex === index}
+              onToggle={(nextOpen) => {
+                if (nextOpen) setOpenIndex(index);
+                else setOpenIndex((current) => (current === index ? null : current));
+              }}
             />
           ))}
         </motion.div>

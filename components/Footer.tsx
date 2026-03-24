@@ -56,7 +56,7 @@ export function Footer() {
                 <Instagram size={20} />
               </Link>
               <Link
-                href="https://www.linkedin.com/company/106535449/admin/dashboard/"
+                href="https://www.linkedin.com/company/106535449/"
                 className={cn(linkClass, "p-1")}
                 aria-label="LinkedIn"
               >
