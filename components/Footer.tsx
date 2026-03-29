@@ -33,7 +33,7 @@ export function Footer() {
             </div>
             <p className="text-slate-400 text-sm mb-5 max-w-sm leading-relaxed">
               {t("footer.description") ||
-                "Comprehensive AI solutions from strategy to execution and implementation for businesses of all sizes."}
+                "Generative Engine Optimization and SEO together—findable in search, accurately represented in LLM apps."}
             </p>
             <div
               className={cn(

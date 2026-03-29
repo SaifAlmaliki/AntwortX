@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
-import { MessageSquare, Upload, Globe, Bot } from "lucide-react";
+import { Search, FileText, Sparkles, LineChart } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useLanguage } from "@/contexts/language-context";
 import { cn } from "@/lib/utils";
@@ -12,25 +12,25 @@ export function HowItWorks() {
 
   const features = [
     {
-      icon: <MessageSquare className="h-8 w-8 text-cyan-400 md:h-9 md:w-9" />,
+      icon: <Search className="h-8 w-8 text-cyan-400 md:h-9 md:w-9" aria-hidden />,
       title: t("howItWorks.features.aiChat.title"),
       description: t("howItWorks.features.aiChat.description"),
       key: "aiChat",
     },
     {
-      icon: <Upload className="h-8 w-8 text-cyan-400 md:h-9 md:w-9" />,
+      icon: <FileText className="h-8 w-8 text-cyan-400 md:h-9 md:w-9" aria-hidden />,
       title: t("howItWorks.features.knowledgeBase.title"),
       description: t("howItWorks.features.knowledgeBase.description"),
       key: "knowledgeBase",
     },
     {
-      icon: <Globe className="h-8 w-8 text-cyan-400 md:h-9 md:w-9" />,
+      icon: <Sparkles className="h-8 w-8 text-cyan-400 md:h-9 md:w-9" aria-hidden />,
       title: t("howItWorks.features.multilingual.title"),
       description: t("howItWorks.features.multilingual.description"),
       key: "multilingual",
     },
     {
-      icon: <Bot className="h-8 w-8 text-cyan-400 md:h-9 md:w-9" />,
+      icon: <LineChart className="h-8 w-8 text-cyan-400 md:h-9 md:w-9" aria-hidden />,
       title: t("howItWorks.features.learning.title"),
       description: t("howItWorks.features.learning.description"),
       key: "learning",

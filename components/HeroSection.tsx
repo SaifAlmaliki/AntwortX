@@ -1,7 +1,8 @@
 "use client";
 
+import type { ReactNode } from "react";
 import { motion, useReducedMotion } from "framer-motion";
-import { Info, Mail, Zap, Code, Layers } from "lucide-react";
+import { Info, Mail, Search, FileText, Code, LineChart } from "lucide-react";
 import Link from "next/link";
 import { SplineSceneBasic } from "@/components/ui/code.demo";
 import { useLanguage } from "@/contexts/language-context";
@@ -61,109 +62,50 @@ type FeatureDef = {
   description: string;
 };
 
+function iconForFeatureKey(key: string, reduceMotion: boolean | null): ReactNode {
+  const chartIcon = (
+    <motion.div
+      animate={reduceMotion ? undefined : { rotate: [0, 12, 0, -12, 0] }}
+      transition={reduceMotion ? undefined : { repeat: Infinity, duration: 5, ease: "easeInOut" }}
+      className="inline-flex shrink-0 text-cyan-400"
+    >
+      <LineChart className="h-7 w-7 sm:h-8 sm:w-8" aria-hidden />
+    </motion.div>
+  );
+  switch (key) {
+    case "audit":
+      return <Search className="h-8 w-8 shrink-0 text-cyan-400" aria-hidden />;
+    case "signals":
+      return <FileText className="h-7 w-7 shrink-0 text-cyan-400 sm:h-8 sm:w-8" aria-hidden />;
+    case "technical":
+      return <Code className="h-7 w-7 shrink-0 text-cyan-400 sm:h-8 sm:w-8" aria-hidden />;
+    case "measure":
+      return chartIcon;
+    default:
+      return <Search className="h-8 w-8 shrink-0 text-cyan-400" aria-hidden />;
+  }
+}
+
 export function HeroSection() {
-  const { t, direction, language } = useLanguage();
+  const { t, direction, locale } = useLanguage();
   const reduceMotion = useReducedMotion();
   const subtitle = t("home.subtitle");
   const firstWord = subtitle.split(" ")[0] ?? "";
   const restWords = subtitle.split(" ").slice(1).join(" ");
 
-  const featuresEn: FeatureDef[] = [
-    {
-      key: "custom",
-      icon: <Zap className="h-8 w-8 shrink-0" />,
-      title: "Agentic AI for ops",
-      description:
-        "Deploy tool-using agents that automate multi-step operational work with guardrails",
-    },
-    {
-      key: "integration",
-      icon: <Code className="h-7 w-7 shrink-0 sm:h-8 sm:w-8" />,
-      title: "Stack integration",
-      description: "Connect agents to your APIs, data stores, and the tools teams already use",
-    },
-    {
-      key: "kb",
-      icon: <Layers className="h-7 w-7 shrink-0 sm:h-8 sm:w-8" />,
-      title: "Operational knowledge",
-      description: "Ground agents in runbooks, SOPs, and the context operations depend on",
-    },
-    {
-      key: "secure",
-      icon: (
-        <motion.div
-          animate={reduceMotion ? undefined : { rotate: [0, 12, 0, -12, 0] }}
-          transition={reduceMotion ? undefined : { repeat: Infinity, duration: 5, ease: "easeInOut" }}
-          className="inline-flex shrink-0 text-cyan-400"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="h-7 w-7 sm:h-8 sm:w-8"
-          >
-            <path d="M12 2a4 4 0 0 0-4 4v2H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V10a2 2 0 0 0-2-2h-2V6a4 4 0 0 0-4-4z" />
-            <circle cx="12" cy="15" r="1" />
-          </svg>
-        </motion.div>
-      ),
-      title: "Secure & Private",
-      description: "Enterprise-grade security for your sensitive data",
-    },
-  ];
+  const rawCards = (locale as { home?: { featureCards?: unknown } }).home?.featureCards;
+  const featureCards = Array.isArray(rawCards)
+    ? (rawCards as { key?: string; title?: string; description?: string }[])
+    : [];
 
-  const featuresAr: FeatureDef[] = [
-    {
-      key: "custom",
-      icon: <Zap className="h-8 w-8 shrink-0" />,
-      title: "ذكاء وكيلي للعمليات",
-      description: "نشر وكلاء يستخدمون الأدوات ويؤتمتون العمل التشغيلي متعدد الخطوات بضوابط",
-    },
-    {
-      key: "integration",
-      icon: <Code className="h-7 w-7 shrink-0 sm:h-8 sm:w-8" />,
-      title: "تكامل مع المكدس",
-      description: "ربط الوكلاء بواجهات برمجة التطبيقات ومخازن البيانات والأدوات التي يعتمد عليها فريقك",
-    },
-    {
-      key: "kb",
-      icon: <Layers className="h-7 w-7 shrink-0 sm:h-8 sm:w-8" />,
-      title: "معرفة تشغيلية",
-      description: "تثبيت الوكلاء في أدلة التشغيل وإجراءات العمل والسياق الذي تعتمد عليه العمليات",
-    },
-    {
-      key: "secure",
-      icon: (
-        <motion.div
-          animate={reduceMotion ? undefined : { rotate: [0, 12, 0, -12, 0] }}
-          transition={reduceMotion ? undefined : { repeat: Infinity, duration: 5, ease: "easeInOut" }}
-          className="inline-flex shrink-0 text-cyan-400"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="h-7 w-7 sm:h-8 sm:w-8"
-          >
-            <path d="M12 2a4 4 0 0 0-4 4v2H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V10a2 2 0 0 0-2-2h-2V6a4 4 0 0 0-4-4z" />
-            <circle cx="12" cy="15" r="1" />
-          </svg>
-        </motion.div>
-      ),
-      title: "آمن وخاص",
-      description: "أمان على مستوى المؤسسات لبياناتك الحساسة",
-    },
-  ];
-
-  const features = language === "en" ? featuresEn : featuresAr;
+  const features: FeatureDef[] = featureCards
+    .filter((c) => c.key && c.title && c.description)
+    .map((c) => ({
+      key: c.key as string,
+      icon: iconForFeatureKey(c.key as string, reduceMotion),
+      title: c.title as string,
+      description: c.description as string,
+    }));
 
   const enterTarget = { opacity: 1, y: 0 };
 
@@ -185,7 +127,7 @@ export function HeroSection() {
           transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
         >
           <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-cyan-300/80 sm:tracking-[0.2em]">
-            {language === "en" ? "Smarter operations with AI" : "عمليات أذكى بالذكاء الاصطناعي"}
+            {t("home.eyebrow")}
           </p>
           <h1
             className={cn(

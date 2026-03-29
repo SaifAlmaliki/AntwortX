@@ -11,59 +11,101 @@
   },
   "home": {
     "title": "Zempar",
-    "subtitle": "Operations Elevated",
-    "description": "AI Ops and agentic AI that automates workflows, connects your stack, and helps teams run smarter, faster, and more efficient operations—from the control room to the front line.",
+    "eyebrow": "When search moves to ChatGPT, Gemini & Perplexity",
+    "subtitle": "Found in the answers",
+    "description": "People increasingly ask ChatGPT, Gemini, and Perplexity—not just Google. Classic SEO still matters for crawlability and authority, but Generative Engine Optimization (GEO) shapes whether you are cited, summarized, and recommended in AI answers. Zempar helps companies strengthen how they appear across LLM applications.",
     "getStarted": "Get Started",
-    "learnMore": "Learn More"
+    "learnMore": "Learn More",
+    "featureCards": [
+      {
+        "key": "audit",
+        "title": "LLM visibility audit",
+        "description": "See how your brand shows up in generative answers today—gaps, risks, and quick wins versus competitors."
+      },
+      {
+        "key": "signals",
+        "title": "Authority & entity signals",
+        "description": "Align messaging, facts, and structured data so models can ground accurate, citable summaries."
+      },
+      {
+        "key": "technical",
+        "title": "Technical & citation readiness",
+        "description": "Improve crawlability, schema, and source quality so search engines and retrieval pipelines can trust your content."
+      },
+      {
+        "key": "measure",
+        "title": "Measure and iterate",
+        "description": "Track prompts, citations, and narrative drift—then refine content and positioning with evidence."
+      }
+    ]
   },
   "hero": {
-    "title": "AI Ops & Agentic AI",
-    "description": "Zempar designs and deploys agentic AI for real-world operations—systems that reason, use tools, and orchestrate work so your teams move faster with fewer manual steps and clearer outcomes."
+    "title": "Generative Engine Optimization",
+    "description": "Zempar pairs SEO fundamentals with GEO—clear entities, trustworthy content, and technical signals—so your organization is represented fairly when models surface recommendations."
   },
   "missionSection": {
-    "title": "Our Mission",
-    "body": "We empower industries to embrace digital transformation through innovative IIoT solutions, advanced AI capabilities, and comprehensive training programs. Our goal is to help businesses become more efficient, sustainable, and competitive in the global market.",
+    "title": "Why GEO now",
+    "body": "The buyer journey is splitting: traditional search still drives traffic, but many decisions start inside AI assistants. We help you protect accuracy, earn citations, and stay visible as answers replace blue links—without abandoning the SEO foundation your site still needs.",
     "cta": "Work with Us",
     "cards": {
       "innovation": {
-        "title": "Innovation First",
-        "description": "We constantly push the boundaries of what's possible in industrial technology."
+        "title": "LLM discovery lens",
+        "description": "We map how your category, products, and claims appear in generative surfaces—not only rankings on a SERP."
       },
       "partnership": {
-        "title": "Client Partnership",
-        "description": "We build lasting relationships by truly understanding our clients' needs."
+        "title": "Partnership, not checklists",
+        "description": "We work with marketing, comms, and web teams to prioritize the narratives and proof points models are likely to reuse."
       },
       "excellence": {
-        "title": "Excellence",
-        "description": "We maintain the highest standards in everything we do."
+        "title": "Credible, citable content",
+        "description": "We stress-test clarity, consistency, and sourcing so AI summaries reflect you accurately—not a distorted third-party snippet."
       },
       "reliability": {
-        "title": "Reliability",
-        "description": "Our solutions are built to be dependable and secure."
+        "title": "Ongoing GEO hygiene",
+        "description": "Models and sources change; we help you monitor drift, fix misstatements, and keep structured signals up to date."
       }
     }
   },
   "howItWorks": {
-    "title": "How Zempar Powers Operations",
-    "subtitle": "From strategy to production, we build AI Ops and agentic systems that fit your processes, tools, and governance—so operations get smarter without adding chaos.",
+    "title": "How Zempar advances your GEO",
+    "subtitle": "From baseline to iteration—strategy, implementation, and measurement so you improve visibility inside LLM experiences while keeping SEO strong.",
     "features": {
       "aiChat": {
-        "title": "Agentic AI in production",
-        "description": "We build autonomous agents that plan multi-step work, call APIs and internal tools, and execute workflows with guardrails—so routine and semi-routine operations scale without constant human babysitting."
+        "title": "Baseline & gap analysis",
+        "description": "We capture how you appear across major LLM apps and traditional search for priority topics—then prioritize fixes by impact and effort."
       },
       "knowledgeBase": {
-        "title": "Operational context & knowledge",
-        "description": "We connect agents to the knowledge operations actually use: runbooks, SOPs, tickets, docs, and system metadata—so decisions and actions stay aligned with how your organization really runs."
+        "title": "Content & entity strategy",
+        "description": "We refine messaging, on-page structure, FAQs, and entity-level facts so answers have trustworthy material to cite."
       },
       "multilingual": {
-        "title": "Global teams, one playbook",
-        "description": "Deploy agents and workflows across languages and regions so distributed teams share the same operational standards and faster handoffs."
+        "title": "Implementation across surfaces",
+        "description": "We align your site, docs, and structured data with GEO goals—including multilingual and regional variants where you operate."
       },
       "learning": {
-        "title": "Continuous improvement",
-        "description": "Our systems learn from feedback, outcomes, and operational signals—tightening accuracy, reducing rework, and making your AI Ops investment compound over time."
+        "title": "Monitor, test, refine",
+        "description": "We track how narratives shift over time, validate changes with prompt sets, and tighten the loop as models and sources evolve."
       }
     }
+  },
+  "geoLead": {
+    "title": "Get your free GEO visibility report",
+    "subtitle": "Buyers now ask ChatGPT, Gemini, and Perplexity—not only Google. Strong SEO is still essential, but how your brand is summarized and cited in LLM answers is fast becoming the deciding factor. Request a complimentary report: we review your site’s GEO signals and email you a full write-up, with no obligation.",
+    "highlight": "The right time to strengthen LLM visibility is before your competitors own the narrative in AI answers.",
+    "websiteLabel": "Website URL",
+    "websitePlaceholder": "https://yourcompany.com",
+    "emailLabel": "Work email",
+    "emailPlaceholder": "you@company.com",
+    "companyLabel": "Company name (optional)",
+    "companyPlaceholder": "Acme Inc.",
+    "consent": "By submitting, you agree we may email you the report and follow up about improving your visibility in LLM applications.",
+    "submit": "Request free report",
+    "submitting": "Sending…",
+    "successSmtp": "Thank you. We received your request and will email your full GEO report within a few business days. We may also reach out to discuss how we can help you improve visibility.",
+    "successMailto": "Your email app should open with your request. If it does not, contact us at the address below with your website and work email.",
+    "errorValidation": "Please enter a valid website URL and work email.",
+    "errorNetwork": "Something went wrong. Please try again or email us directly.",
+    "errorSend": "We could not send your request automatically. Try again or use your email client."
   },
   "chat": {
     "title": "AI Agent Chat",
@@ -178,7 +220,7 @@
     "emailAddress": "contact@zempar.com"
   },
   "footer": {
-    "description": "AI Ops and agentic AI that make operations smarter, faster, and more efficient—from integration to production.",
+    "description": "Generative Engine Optimization and SEO together—so your brand is findable in search and accurately represented in ChatGPT, Gemini, Perplexity, and beyond.",
     "product": "Services",
     "features": "Solutions",
     "pricing": "Pricing",
@@ -197,37 +239,45 @@
     "copyright": " 2025 Zempar. All rights reserved."
   },
   "testimonials": {
-    "title": "Testimonials",
-    "subtitle": "Recommendations from colleagues and partners—word for word.",
+    "title": "Leadership & delivery",
+    "subtitle": "Recommendations from colleagues and partners on our team's work in enterprise and digital programs—these are not endorsements of a specific GEO product engagement.",
     "ratingLabel": "5 out of 5 stars"
   },
   "faq": {
     "title": "Frequently Asked Questions",
-    "subtitle": "Find answers to common questions about our AI Ops and agentic AI services",
+    "subtitle": "Common questions about Generative Engine Optimization (GEO), SEO, and how Zempar helps",
     "questions": [
       {
         "question": "What is Zempar?",
-        "answer": "Zempar is an AI solutions partner focused on AI Ops and agentic AI for real operations. We help organizations design, integrate, and run autonomous agents and automated workflows that connect to your tools and knowledge—so teams execute faster with stronger consistency, visibility, and governance."
+        "answer": "Zempar is a partner for Generative Engine Optimization (GEO) and modern search visibility. We help organizations improve how they are represented, cited, and summarized inside LLM applications such as ChatGPT, Gemini, and Perplexity—while keeping classic SEO foundations strong."
+      },
+      {
+        "question": "What is GEO (Generative Engine Optimization)?",
+        "answer": "GEO is the practice of improving how your brand, products, and claims show up inside AI-generated answers—not only traditional search result pages. It focuses on accurate representation, trustworthy sources, structured signals, and content that models and retrieval systems can reuse fairly."
+      },
+      {
+        "question": "How is GEO different from SEO?",
+        "answer": "SEO optimizes for ranking and discovery in search engines. GEO optimizes for inclusion and accuracy when users ask large language models for recommendations or summaries. Both matter: solid SEO usually helps GEO because crawlers, authority, and clear content still feed many AI experiences—but GEO adds a lens on narratives, citations, and how answers are composed."
       },
       {
         "question": "How do I get started with Zempar?",
-        "answer": "Getting started is simple. Contact our team to discuss your business needs, and we'll guide you through the process of developing a custom AI solution for your specific requirements. We offer flexible engagement models to suit businesses of all sizes."
+        "answer": "Contact us with your priority markets, products, and topics. We typically begin with a baseline of how you appear in both search and major LLM surfaces, then agree on a roadmap spanning content, technical signals, and measurement. Engagements are flexible for startups and global teams."
       },
       {
-        "question": "Can I customize my AI agents?",
-        "answer": "Absolutely! Customization is at the core of Zempar's approach. Our team works closely with you to understand your business needs and develops AI agents trained on your specific knowledge base, adjusting their behavior, capabilities, and integration points to match your exact requirements."
+        "question": "What do you deliver in a GEO engagement?",
+        "answer": "Deliverables vary by scope but often include audits, content and entity recommendations, structured data and site guidance, prompt-based monitoring, and a refinement cadence. We do not guarantee placement inside proprietary models—we improve the inputs and signals that make fair, citable representation more likely."
       },
       {
-        "question": "What languages do Zempar agents support?",
-        "answer": "Our AI agents support multiple languages including English, Arabic, Spanish, French, German, and many more. We can develop solutions with support for additional languages based on your specific business needs."
+        "question": "Do you support multiple languages?",
+        "answer": "Yes. GEO and SEO both need consistent facts and tone across locales. We can align English, Arabic, and other languages so generative answers stay coherent for each market you serve."
       },
       {
         "question": "How secure is my data with Zempar?",
-        "answer": "Security is our top priority. We employ enterprise-grade security measures to protect your data, including encryption, secure access controls, and regular security audits. Your data is never used to train other clients' AI agents, ensuring complete confidentiality."
+        "answer": "We treat your materials and strategy as confidential. We use enterprise-grade practices for access and handling of client information. Details are covered under contract and we do not reuse your proprietary content for other clients."
       },
       {
-        "question": "Do I need technical expertise to work with Zempar?",
-        "answer": "No deep ML expertise is required on your side. We handle architecture, integration, and rollout, and we train your operators on how to supervise agents, review outcomes, and iterate safely."
+        "question": "Do I need technical expertise on our side?",
+        "answer": "No. We work with marketing, communications, and web teams. We explain technical recommendations in plain language and coordinate with your developers or agency when implementation is needed."
       }
     ]
   }

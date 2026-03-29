@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { HeroSection } from "@/components/HeroSection";
 import { MissionValuesSection } from "@/components/mission/MissionValuesSection";
 import { HowItWorks } from "@/components/HowItWorks";
+import { GeoLeadSection } from "@/components/GeoLeadSection";
 import { TestimonialsSection } from "@/components/TestimonialsSection";
 import { FAQSection } from "@/components/FAQSection";
 import { Footer } from "@/components/Footer";
@@ -21,6 +22,7 @@ export default function Home() {
           <MissionValuesSection />
         </div>
         <HowItWorks />
+        <GeoLeadSection />
         <TestimonialsSection />
       </main>
 

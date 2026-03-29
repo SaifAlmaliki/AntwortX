@@ -44,7 +44,8 @@ export function StructuredData() {
       description: enLocale.hero.description,
       provider: { "@id": orgId },
       areaServed: "Worldwide",
-      serviceType: "AI operations consulting and agentic AI implementation",
+      serviceType:
+        "Generative Engine Optimization (GEO) consulting, SEO alignment, and LLM visibility strategy",
     },
     {
       "@context": "https://schema.org",

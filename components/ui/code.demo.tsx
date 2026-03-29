@@ -21,12 +21,12 @@ export function SplineSceneBasic() {
       <div className={`flex flex-col md:flex-row h-full ${isRtl ? 'md:flex-row-reverse' : ''}`}>
         {/* Left content */}
         <div className={`flex-1 p-4 sm:p-6 md:p-8 relative z-10 flex flex-col justify-center ${isRtl ? 'text-right' : ''}`}>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400">
-            {t("hero.title") || "AI Ops & Agentic AI"}
-          </h1>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400">
+            {t("hero.title") || "Generative Engine Optimization"}
+          </h2>
           <p className="mt-2 sm:mt-4 text-sm sm:text-base md:text-lg text-neutral-300 max-w-lg">
             {(() => {
-              const description = t("hero.description") || "Zempar deploys agentic AI for real operations—so teams automate workflows, connect systems, and run faster with clear oversight.";
+              const description = t("hero.description") || "Zempar pairs SEO with GEO so your brand is represented fairly when AI assistants surface recommendations.";
               if (description.includes('Zempar')) {
                 const parts = description.split('Zempar');
                 return (

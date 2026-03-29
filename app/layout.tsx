@@ -25,9 +25,9 @@ const geistMono = Geist_Mono({
 });
 
 const siteUrl = getSiteUrl();
-const defaultTitle = "Zempar - AI Ops & Agentic AI";
+const defaultTitle = "Zempar - Generative Engine Optimization (GEO)";
 const defaultDescription =
-  "AI Ops and agentic AI for smarter, faster, more efficient operations—workflow automation, tool-using agents, and enterprise integration.";
+  "Strengthen how your brand appears in ChatGPT, Gemini, Perplexity, and beyond. GEO plus SEO—accurate citations, trustworthy content, and technical signals.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
