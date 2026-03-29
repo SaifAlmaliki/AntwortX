@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:api.github.com)",
+      "Bash(xargs wc:*)",
+      "Read(//c/Dev/**)"
+    ]
+  }
+}

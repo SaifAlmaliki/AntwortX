@@ -5,14 +5,17 @@
  * - SMTP_HOST, SMTP_USER, SMTP_PASS
  * - SMTP_PORT (default 587; use 465 with TLS if your provider requires it)
  * - GEO_LEAD_NOTIFY_TO — internal inbox (default: contact@zempar.com)
- * - GEO_LEAD_FROM — From header (default: SMTP_USER)
+ * - GEO_LEAD_FROM — From header (default: SMTP_USER); use a domain-aligned address for best deliverability
  * - GEO_LEAD_AUTOREPLY — set to "0" or "false" to skip confirmation email to submitter
  *
+ * Internal notify email sets Reply-To to the lead's address so you can press Reply in your inbox.
  * If SMTP is not configured, POST returns JSON with `mailto` so the client can open the user's mail app.
  */
 
 import { NextRequest, NextResponse } from "next/server";
 import nodemailer from "nodemailer";
+import { inngest } from "@/lib/inngest/client";
+import { buildConfirmationHtml } from "@/lib/email/templates";
 
 export const runtime = "nodejs";
 
@@ -121,25 +124,25 @@ export async function POST(req: NextRequest) {
     await transporter.sendMail({
       from,
       to: notifyTo,
+      replyTo: email,
       subject: `[Zempar] GEO report request — ${email}`,
       text: `Website: ${website}\nEmail: ${email}\nCompany: ${company || "(not provided)"}\nTime: ${new Date().toISOString()}`,
       html: internalHtml,
     });
 
-    const autoreplyOff =
-      process.env.GEO_LEAD_AUTOREPLY === "0" ||
-      process.env.GEO_LEAD_AUTOREPLY === "false";
+    // Send immediate confirmation email and trigger async GEO analysis
+    await transporter.sendMail({
+      from,
+      to: email,
+      replyTo: notifyTo,
+      subject: `Your GEO report is being generated for ${(() => { try { return new URL(website).hostname; } catch { return website; } })()}`,
+      html: buildConfirmationHtml(website),
+    });
 
-    if (!autoreplyOff) {
-      await transporter.sendMail({
-        from,
-        to: email,
-        replyTo: notifyTo,
-        subject: "We received your GEO visibility report request",
-        text: `Thank you for requesting a free GEO visibility report for ${website}.\n\nOur team will prepare your full report and email it within a few business days. We may also reach out to discuss how we can help improve your brand's visibility in ChatGPT, Gemini, Perplexity, and similar experiences.\n\n— Zempar`,
-        html: `<p>Thank you for requesting a free GEO visibility report for <strong>${escapeHtml(website)}</strong>.</p><p>Our team will prepare your full report and email it within a few business days. We may also reach out to discuss how we can help improve your brand's visibility in ChatGPT, Gemini, Perplexity, and similar experiences.</p><p>— Zempar</p>`,
-      });
-    }
+    await inngest.send({
+      name: "geo/analysis.requested",
+      data: { url: website, email, company },
+    });
 
     return NextResponse.json({ ok: true });
   } catch (e) {
