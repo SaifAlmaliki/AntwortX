@@ -1,38 +1,27 @@
 /**
  * GEO lead capture (free report request).
  *
- * Optional SMTP (when all set, sends internal notify + optional auto-reply):
+ * Flow: validate → enqueue Inngest (`geo/analysis.requested`). The worker builds the
+ * PDF report first, then sends email (lead + internal notify). No SMTP on this route.
+ *
+ * SMTP (for Inngest worker only):
  * - SMTP_HOST, SMTP_USER, SMTP_PASS
  * - SMTP_PORT (default 587; use 465 with TLS if your provider requires it)
  * - GEO_LEAD_NOTIFY_TO — internal inbox (default: contact@zempar.com)
- * - GEO_LEAD_FROM — From header (default: SMTP_USER); use a domain-aligned address for best deliverability
- * - GEO_LEAD_AUTOREPLY — set to "0" or "false" to skip confirmation email to submitter
+ * - GEO_LEAD_FROM — From header (default: SMTP_USER)
+ * - GEO_LEAD_SKIP_EMAIL — skip all outbound mail in the worker (local dev)
+ * - SMTP_CONNECTION_TIMEOUT_MS — connect timeout (default 15000)
  *
- * Internal notify email sets Reply-To to the lead's address so you can press Reply in your inbox.
- * If SMTP is not configured, POST returns JSON with `mailto` so the client can open the user's mail app.
+ * If enqueue fails, the response may include `mailto` so the client can fall back.
  */
 
 import { NextRequest, NextResponse } from "next/server";
-import nodemailer from "nodemailer";
 import { inngest } from "@/lib/inngest/client";
-import { buildConfirmationHtml } from "@/lib/email/templates";
 
 export const runtime = "nodejs";
 
 const MAX_BODY = 16384;
 const DEFAULT_NOTIFY = "contact@zempar.com";
-
-function escapeHtml(s: string): string {
-  return s
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;");
-}
-
-function isSmtpConfigured(): boolean {
-  return Boolean(process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS);
-}
 
 function normalizeWebsite(input: unknown): string | null {
   if (typeof input !== "string") return null;
@@ -100,55 +89,16 @@ export async function POST(req: NextRequest) {
 
   const mailto = buildMailto(website, email, company);
 
-  if (!isSmtpConfigured()) {
-    return NextResponse.json({ ok: false, mailto });
-  }
-
   try {
-    const port = parseInt(process.env.SMTP_PORT || "587", 10);
-    const transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST,
-      port,
-      secure: port === 465,
-      auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS,
-      },
-    });
-
-    const notifyTo = process.env.GEO_LEAD_NOTIFY_TO || DEFAULT_NOTIFY;
-    const from = process.env.GEO_LEAD_FROM || process.env.SMTP_USER!;
-
-    const internalHtml = `<p><strong>GEO lead — free report request</strong></p><ul><li>Website: ${escapeHtml(website)}</li><li>Email: ${escapeHtml(email)}</li><li>Company: ${escapeHtml(company || "(not provided)")}</li><li>Time: ${escapeHtml(new Date().toISOString())}</li></ul>`;
-
-    await transporter.sendMail({
-      from,
-      to: notifyTo,
-      replyTo: email,
-      subject: `[Zempar] GEO report request — ${email}`,
-      text: `Website: ${website}\nEmail: ${email}\nCompany: ${company || "(not provided)"}\nTime: ${new Date().toISOString()}`,
-      html: internalHtml,
-    });
-
-    // Send immediate confirmation email and trigger async GEO analysis
-    await transporter.sendMail({
-      from,
-      to: email,
-      replyTo: notifyTo,
-      subject: `Your GEO report is being generated for ${(() => { try { return new URL(website).hostname; } catch { return website; } })()}`,
-      html: buildConfirmationHtml(website),
-    });
-
     await inngest.send({
       name: "geo/analysis.requested",
       data: { url: website, email, company },
     });
-
     return NextResponse.json({ ok: true });
   } catch (e) {
-    console.error("geo-lead send error", e);
+    console.error("geo-lead enqueue error", e);
     return NextResponse.json(
-      { error: "send_failed", mailto },
+      { error: "enqueue_failed", mailto },
       { status: 500 }
     );
   }

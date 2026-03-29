@@ -4,7 +4,10 @@ import { fetchWebsite } from "../geo/fetch-website";
 import { runAgent } from "../geo/run-agent";
 import { computeCompositeScore } from "../geo/scoring";
 import { generatePDF } from "../pdf/generate-pdf";
-import { sendReportEmail } from "../email/sender";
+import {
+  sendInternalGeoReportDelivered,
+  sendReportEmail,
+} from "../email/sender";
 import { buildAIVisibilityMessage } from "../geo/messages/ai-visibility";
 import { buildContentMessage } from "../geo/messages/content";
 import { buildTechnicalMessage } from "../geo/messages/technical";
@@ -62,14 +65,24 @@ export const geoAnalysisFunction = _inngest.createFunction(
       Promise.resolve(computeCompositeScore(agents))
     );
 
-    // Step 4: Generate PDF report
+    // Step 4: Generate PDF report (no email until this completes)
     const pdfBuffer = await step.run("generate-pdf", () =>
       generatePDF({ url, company, composite, agents })
     );
 
-    // Step 5: Send report email with PDF attachment
-    await step.run("send-report-email", () =>
+    // Step 5–6: Email only after PDF exists — lead first, then internal summary
+    const leadReceivedPdf = await step.run("send-report-to-lead", () =>
       sendReportEmail({ email, url, company, composite, pdfBuffer })
+    );
+
+    await step.run("notify-team-report-delivered", () =>
+      sendInternalGeoReportDelivered({
+        leadEmail: email,
+        url,
+        company,
+        composite,
+        leadReceivedPdf,
+      })
     );
 
     return { url, email, overallScore: composite.overall, grade: composite.grade };
