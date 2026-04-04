@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { useLanguage } from "@/contexts/language-context";
 import { cn } from "@/lib/utils";
+import { ZEMPAR_AUDIT_URL_KEY } from "@/lib/website-url";
 
 const inputClass =
   "zempar-input w-full px-4 py-2.5 rounded-xl focus-visible:ring-2 focus-visible:ring-cyan-400";
@@ -24,6 +25,18 @@ export function GeoLeadSection() {
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [successKind, setSuccessKind] = useState<"smtp" | "mailto">("smtp");
   const [errorKey, setErrorKey] = useState<string>("errorNetwork");
+
+  useEffect(() => {
+    try {
+      const pre = sessionStorage.getItem(ZEMPAR_AUDIT_URL_KEY);
+      if (pre) {
+        setWebsite(pre);
+        sessionStorage.removeItem(ZEMPAR_AUDIT_URL_KEY);
+      }
+    } catch {
+      /* private mode */
+    }
+  }, []);
 
   const resetForm = () => {
     setWebsite("");
@@ -105,7 +118,8 @@ export function GeoLeadSection() {
 
   return (
     <section
-      className="marketing-section py-12 md:py-20"
+      id="geo-lead"
+      className="marketing-section scroll-mt-24 py-12 md:py-20"
       aria-labelledby="geo-lead-heading"
     >
       <div className={cn(isRtl && "rtl")}>

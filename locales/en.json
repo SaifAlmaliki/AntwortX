@@ -88,20 +88,121 @@
       }
     }
   },
+  "aiVisibility": {
+    "title": "Why AI visibility matters for your business",
+    "subtitle": "Discovery is shifting toward AI assistants and answer engines—not only traditional search.",
+    "promptIntro": "When customers ask:",
+    "queries": [
+      "Best-rated accounting firms for small business near me",
+      "Reliable B2B SaaS for inventory and forecasting",
+      "Top vegan restaurants in Chicago with outdoor seating"
+    ],
+    "body": "Large language models recommend businesses based on how clearly you are represented across the web: facts, structure, reviews, authoritative sources, and how easily your positioning can be summarized. If models cannot confidently ground an answer about you, they may omit you—or repeat inaccurate third-party snippets.",
+    "closing": "Zempar helps organizations of every size understand and improve how they show up in this emerging discovery channel, alongside classic SEO."
+  },
+  "seoGeo": {
+    "title": "SEO vs GEO: what’s the difference?",
+    "subtitle": "Traditional SEO helps buyers find you through clickable links. Generative Engine Optimization (GEO) shapes whether AI platforms mention you directly in their answers—with accurate context and citations.",
+    "labels": {
+      "mainGoal": "Main goal",
+      "optimizes": "What it optimizes",
+      "whyMatters": "Why it matters"
+    },
+    "seo": {
+      "label": "SEO",
+      "cardSubtitle": "Traditional search engine optimization",
+      "mainGoal": "Rank higher on search engine results pages for high-intent queries.",
+      "howFindLabel": "How buyers find you",
+      "howFindHighlight": "Through clickable links and listings on the search results page.",
+      "optimizes": [
+        "Website content, information architecture, and keyword targeting",
+        "Credibility signals such as reviews, backlinks, and brand mentions",
+        "Consistent business information across directories and the open web",
+        "SEO and GEO comparison: how search rankings relate to how models describe your category"
+      ],
+      "influencesLabel": "What it influences",
+      "influencesHighlight": "Traffic and leads that arrive directly from search results to your site or listings.",
+      "whyMatters": "Helps buyers discover your business when they already know what they are looking for."
+    },
+    "geo": {
+      "label": "GEO",
+      "cardSubtitle": "Generative Engine Optimization",
+      "mainGoal": "Be included accurately in AI-generated answers and recommendations.",
+      "howFindLabel": "How buyers find you",
+      "howFindHighlight": "Mentioned or summarized directly inside the assistant’s response—not only as a link list.",
+      "optimizes": [
+        "Content clarity and structure so LLMs can extract and cite facts fairly",
+        "Positioning across AI surfaces (e.g. ChatGPT, Gemini, Perplexity) and the sources they rely on",
+        "Authority and consistency signals that affect how models interpret your brand",
+        "SEO and GEO comparison: where search strength supports—or diverges from—AI narratives"
+      ],
+      "influencesLabel": "What it influences",
+      "influencesHighlight": "Direct mentions, shortlists, and recommendations inside assistants your customers already trust.",
+      "whyMatters": "Helps buyers trust and choose your business when decisions start in conversation—not on a SERP."
+    }
+  },
+  "visibilityOfferings": {
+    "title": "How businesses work with Zempar on AI visibility",
+    "subtitle": "Choose a focused audit or an ongoing partnership. Both combine SEO fundamentals with GEO so you are findable in search and fairly represented in AI answers.",
+    "bestForLabel": "Best for:",
+    "audit": {
+      "title": "AI visibility audit",
+      "tagline": "Baseline clarity, competitors, and a prioritized roadmap",
+      "description": "A structured assessment of how your brand appears in generative answers and traditional search for your priority topics—delivered as a written report you can act on internally or with your agency.",
+      "features": [
+        "AI visibility analysis across representative prompts and topics",
+        "Competitor and category comparison (who models favor and why)",
+        "Ranking and SERP context where it affects discovery",
+        "SEO and GEO comparison for your site and key landing pages",
+        "Concrete recommendations: content, entities, structured data, and source hygiene"
+      ],
+      "bestFor": "Teams that want an evidence-based snapshot before committing to a broader program.",
+      "cta": "Request audit"
+    },
+    "growth": {
+      "badge": "Recommended",
+      "title": "AI visibility growth partnership",
+      "tagline": "Execution, measurement, and iteration with Zempar alongside your team",
+      "description": "We work as an extension of marketing, comms, and web—implementing changes, monitoring narratives, and refining as models and sources evolve.",
+      "plusLabel": "Everything in the AI visibility audit, plus:",
+      "features": [
+        "Hands-on content, FAQ, and entity alignment for citable answers",
+        "Technical and schema guidance coordinated with your developers or agency",
+        "Prompt-based monitoring and narrative drift detection over time",
+        "Regular reviews and backlog grooming tied to business outcomes",
+        "Ongoing SEO and GEO comparison reporting as the landscape shifts"
+      ],
+      "bestFor": "Organizations that want sustained improvement—not a one-off PDF.",
+      "cta": "Start partnership request"
+    }
+  },
+  "seoGeoBoth": {
+    "title": "The winning strategy? Both.",
+    "subtitle": "SEO helps customers find you. GEO helps them choose you with accurate, trustworthy context.",
+    "body": "Our methodology combines both: strong search fundamentals plus generative visibility—so you cover the full journey from discovery to conversion, no matter your industry."
+  },
+  "freeAuditCta": {
+    "heading": "Ready to see how AI views your business?",
+    "description": "Add your website URL—we’ll take you to the short form to request your free visibility audit and report.",
+    "urlLabel": "Business website URL",
+    "urlPlaceholder": "https://yourcompany.com",
+    "button": "Start free visibility audit",
+    "errorInvalidUrl": "Please enter a valid website URL (e.g. yourcompany.com or https://…)."
+  },
   "geoLead": {
-    "title": "Get your free GEO visibility report",
-    "subtitle": "Buyers now ask ChatGPT, Gemini, and Perplexity—not only Google. Strong SEO is still essential, but how your brand is summarized and cited in LLM answers is fast becoming the deciding factor. Request a complimentary report: we review your site’s GEO signals and email you a full write-up, with no obligation.",
-    "highlight": "The right time to strengthen LLM visibility is before your competitors own the narrative in AI answers.",
+    "title": "Request your free AI visibility audit",
+    "subtitle": "Customers ask ChatGPT, Gemini, and Perplexity—not only Google. Strong SEO remains essential, but how your brand is summarized and cited in AI answers increasingly shapes trust and revenue. Submit your site and work email: we review GEO and SEO signals and send a full write-up, with no obligation.",
+    "highlight": "The best time to strengthen AI visibility is before competitors own the narrative in assistant answers.",
     "websiteLabel": "Website URL",
     "websitePlaceholder": "https://yourcompany.com",
     "emailLabel": "Work email",
     "emailPlaceholder": "you@company.com",
     "companyLabel": "Company name (optional)",
     "companyPlaceholder": "Acme Inc.",
-    "consent": "By submitting, you agree we may email you the report and follow up about improving your visibility in LLM applications.",
-    "submit": "Request free report",
+    "consent": "By submitting, you agree we may email your audit report and follow up about improving your visibility in search and LLM applications.",
+    "submit": "Request free audit",
     "submitting": "Sending…",
-    "successSmtp": "Thank you. We received your request and will email your full GEO report within a few business days. We may also reach out to discuss how we can help you improve visibility.",
+    "successSmtp": "Thank you. We received your request and will email your full visibility audit within a few business days. We may also reach out to discuss how we can help you improve visibility.",
     "successMailto": "Your email app should open with your request. If it does not, contact us at the address below with your website and work email.",
     "errorValidation": "Please enter a valid website URL and work email.",
     "errorNetwork": "Something went wrong. Please try again or email us directly.",

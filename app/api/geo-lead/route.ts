@@ -17,6 +17,7 @@
 
 import { NextRequest, NextResponse } from "next/server";
 import { inngest } from "@/lib/inngest/client";
+import { normalizeWebsiteUrl } from "@/lib/website-url";
 
 export const runtime = "nodejs";
 
@@ -25,17 +26,7 @@ const DEFAULT_NOTIFY = "contact@zempar.com";
 
 function normalizeWebsite(input: unknown): string | null {
   if (typeof input !== "string") return null;
-  const t = input.trim();
-  if (!t) return null;
-  let url = t;
-  if (!/^https?:\/\//i.test(url)) url = `https://${url}`;
-  try {
-    const u = new URL(url);
-    if (u.protocol !== "http:" && u.protocol !== "https:") return null;
-    return u.href;
-  } catch {
-    return null;
-  }
+  return normalizeWebsiteUrl(input);
 }
 
 function isValidEmail(input: unknown): input is string {
