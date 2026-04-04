@@ -1,13 +1,19 @@
 {
   "common": {
     "language": "العربية",
-    "direction": "rtl"
+    "direction": "rtl",
+    "skipToMain": "تخطي إلى المحتوى الرئيسي",
+    "chooseLanguage": "اختر لغة الموقع",
+    "languageMenuLabel": "اللغات المتاحة"
   },
   "nav": {
     "home": "الرئيسية",
     "about": "حول",
     "contact": "اتصل بنا",
-    "solutions": "الحلول"
+    "solutions": "الحلول",
+    "openMenu": "فتح القائمة",
+    "closeMenu": "إغلاق القائمة",
+    "siteMenu": "تنقل الموقع"
   },
   "home": {
     "title": "Zempar",

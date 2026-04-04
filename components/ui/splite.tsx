@@ -10,17 +10,17 @@ interface SplineSceneProps {
 
 export function SplineScene({ scene, className }: SplineSceneProps) {
   return (
-    <Suspense 
-      fallback={
-        <div className="w-full h-full flex items-center justify-center">
-          <span className="loader"></span>
-        </div>
-      }
-    >
-      <Spline
-        scene={scene}
-        className={className}
-      />
-    </Suspense>
-  )
+    <div className="h-full min-h-0 w-full" aria-hidden="true">
+      <Suspense
+        fallback={
+          <div className="flex h-full w-full items-center justify-center">
+            <span className="loader" aria-hidden />
+          </div>
+        }
+      >
+        {/* Decorative 3D scene; copy lives in sibling text (see code.demo). */}
+        <Spline scene={scene} className={className} />
+      </Suspense>
+    </div>
+  );
 }

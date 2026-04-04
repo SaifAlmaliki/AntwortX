@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useId } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { Menu, X, Info, Mail, Home, Zap } from "lucide-react";
@@ -20,6 +20,7 @@ interface NavigationItem {
 export function FloatingHeader() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const mobileNavMenuId = useId();
   const { t, direction } = useLanguage();
   const reduceMotion = useReducedMotion();
 
@@ -27,7 +28,12 @@ export function FloatingHeader() {
     { name: t("nav.home"), href: "/", icon: <Home className="h-4 w-4" />, translationKey: "nav.home" },
     { name: t("nav.about"), href: "/about", icon: <Info className="h-4 w-4" />, translationKey: "nav.about" },
     { name: t("nav.contact"), href: "/contact", icon: <Mail className="h-4 w-4" />, translationKey: "nav.contact" },
-    { name: "Solutions", href: "/solutions", icon: <Zap className="h-4 w-4" />, translationKey: "nav.solutions" },
+    {
+      name: t("nav.solutions"),
+      href: "/solutions",
+      icon: <Zap className="h-4 w-4" />,
+      translationKey: "nav.solutions",
+    },
   ];
 
   useEffect(() => {
@@ -38,6 +44,15 @@ export function FloatingHeader() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setMobileMenuOpen(false);
+    };
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [mobileMenuOpen]);
 
   const navLinkClass =
     "text-slate-200 hover:text-white hover:bg-cyan-500/10 rounded-full px-4 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#060606]";
@@ -52,8 +67,10 @@ export function FloatingHeader() {
             : "border-cyan-500/15 bg-[rgba(10,14,22,0.55)]"
         )}
         initial={reduceMotion ? false : { y: -100, opacity: 0 }}
-        animate={reduceMotion ? undefined : { y: 0, opacity: 1 }}
-        transition={{ type: "spring", stiffness: 100, damping: 20 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={
+          reduceMotion ? { duration: 0 } : { type: "spring", stiffness: 100, damping: 20 }
+        }
         whileHover={
           reduceMotion
             ? undefined
@@ -115,7 +132,8 @@ export function FloatingHeader() {
               size="icon"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               aria-expanded={mobileMenuOpen}
-              aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+              aria-controls={mobileNavMenuId}
+              aria-label={mobileMenuOpen ? t("nav.closeMenu") : t("nav.openMenu")}
               className="text-slate-200 hover:text-white hover:bg-cyan-500/15 rounded-full focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#060606]"
             >
               {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -127,11 +145,16 @@ export function FloatingHeader() {
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
+            id={mobileNavMenuId}
+            role="region"
+            aria-label={t("nav.siteMenu")}
             className="md:hidden absolute top-16 left-4 right-4 rounded-2xl border border-cyan-500/20 bg-[rgba(8,12,18,0.92)] backdrop-blur-xl shadow-[0_0_48px_-12px_rgba(34,211,238,0.25)] overflow-hidden"
             initial={reduceMotion ? false : { opacity: 0, height: 0 }}
-            animate={reduceMotion ? undefined : { opacity: 1, height: "auto" }}
-            exit={reduceMotion ? undefined : { opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={reduceMotion ? { opacity: 0, transition: { duration: 0.15 } } : { opacity: 0, height: 0 }}
+            transition={
+              reduceMotion ? { duration: 0.15 } : { duration: 0.3 }
+            }
           >
             <nav className="px-2 pt-2 pb-3 space-y-1">
               {navigation.map((item) => (

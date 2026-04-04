@@ -53,7 +53,7 @@ export default function ContactPage() {
   };
 
   return (
-    <main className={cn("marketing-section min-h-screen pb-16 pt-24", isRtl ? "rtl" : "")}>
+    <div className={cn("marketing-section min-h-screen pb-16 pt-24", isRtl ? "rtl" : "")}>
       <div className="container mx-auto max-w-7xl px-4 sm:px-6">
         <motion.div
           initial={reduceMotion ? false : { opacity: 0, y: 20 }}
@@ -238,6 +238,6 @@ export default function ContactPage() {
           </motion.div>
         </div>
       </div>
-    </main>
+    </div>
   );
 }

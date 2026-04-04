@@ -43,7 +43,7 @@ export default function SolutionsPage() {
 
   return (
     <div>
-      <main className="marketing-section container mx-auto max-w-7xl px-4 py-16 sm:px-6">
+      <div className="marketing-section container mx-auto max-w-7xl px-4 py-16 sm:px-6">
         <div className={cn("mb-16 text-center", direction === "rtl" ? "rtl" : "")}>
           <motion.h1
             className="font-display text-4xl font-bold text-white sm:text-5xl md:text-6xl mb-4 tracking-tight"
@@ -106,7 +106,7 @@ export default function SolutionsPage() {
             </span>
           </Link>
         </motion.div>
-      </main>
+      </div>
 
       <Footer />
     </div>

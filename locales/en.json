@@ -1,13 +1,19 @@
 {
   "common": {
     "language": "English",
-    "direction": "ltr"
+    "direction": "ltr",
+    "skipToMain": "Skip to main content",
+    "chooseLanguage": "Choose site language",
+    "languageMenuLabel": "Available languages"
   },
   "nav": {
     "home": "Home",
     "about": "About",
     "contact": "Contact Us",
-    "solutions": "Solutions"
+    "solutions": "Solutions",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "siteMenu": "Site navigation"
   },
   "home": {
     "title": "Zempar",

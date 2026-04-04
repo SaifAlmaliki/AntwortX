@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <div>
-      <main className="container mx-auto px-4 sm:px-6 py-16 max-w-7xl">
+      <div className="container mx-auto max-w-7xl px-4 py-16 sm:px-6">
         <HeroSection />
         <AiVisibilitySection />
         <SeoGeoComparisonSection />
@@ -32,7 +32,7 @@ export default function Home() {
         <HowItWorks />
         <GeoLeadSection />
         <TestimonialsSection />
-      </main>
+      </div>
 
       <FAQSection />
 

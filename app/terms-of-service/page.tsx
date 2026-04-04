@@ -11,7 +11,7 @@ export default function TermsOfServicePage() {
 
   return (
     <div className={isRtl ? "rtl" : ""}>
-      <main className="marketing-section container mx-auto max-w-4xl px-4 py-16 sm:px-6">
+      <div className="marketing-section container mx-auto max-w-4xl px-4 py-16 sm:px-6">
         <motion.div
           initial={reduceMotion ? false : { opacity: 0, y: 20 }}
           animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
@@ -103,7 +103,7 @@ export default function TermsOfServicePage() {
             </p>
           </div>
         </motion.div>
-      </main>
+      </div>
 
       <Footer />
     </div>

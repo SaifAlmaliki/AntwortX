@@ -1,14 +1,16 @@
 "use client";
 
+import { useMemo } from "react";
 import { useLanguage } from "@/contexts/language-context";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { Globe, Users, Lightbulb, Award } from "lucide-react";
 
 export default function AboutPage() {
   const { t, direction, language } = useLanguage();
-  const isRtl = direction === 'rtl';
+  const isRtl = direction === "rtl";
+  const reduceMotion = useReducedMotion();
 
   // Define expertise areas for each language to ensure proper display
   const expertiseAreas = language === 'ar' ? [
@@ -55,27 +57,28 @@ export default function AboutPage() {
     }
   ];
 
-  // Animation variants
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1
-      }
-    }
-  };
+  const containerVariants = useMemo(
+    () => ({
+      hidden: { opacity: reduceMotion ? 1 : 0 },
+      visible: {
+        opacity: 1,
+        transition: reduceMotion ? { duration: 0 } : { staggerChildren: 0.1 },
+      },
+    }),
+    [reduceMotion]
+  );
 
-  const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        duration: 0.5
-      }
-    }
-  };
+  const itemVariants = useMemo(
+    () => ({
+      hidden: { y: reduceMotion ? 0 : 20, opacity: reduceMotion ? 1 : 0 },
+      visible: {
+        y: 0,
+        opacity: 1,
+        transition: { duration: reduceMotion ? 0 : 0.5 },
+      },
+    }),
+    [reduceMotion]
+  );
 
   return (
     <div className={`min-h-screen ${isRtl ? "rtl" : ""}`}>
@@ -83,9 +86,9 @@ export default function AboutPage() {
       <section className="marketing-section relative pt-12 pb-12 md:pt-24 md:pb-20">
         <div className="container relative z-10 mx-auto max-w-7xl px-4 sm:px-6">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={reduceMotion ? false : { opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: reduceMotion ? 0 : 0.5 }}
             className="mb-16 text-center"
           >
             <h1 className="font-display text-4xl font-bold text-white md:text-5xl lg:text-6xl mb-6 tracking-tight">
@@ -102,9 +105,9 @@ export default function AboutPage() {
       <section className="marketing-section bg-gradient-to-b from-transparent to-[rgba(6,8,12,0.5)] py-16">
         <div className="container mx-auto max-w-7xl px-4 sm:px-6">
           <motion.div
-            initial={{ opacity: 0 }}
+            initial={reduceMotion ? false : { opacity: 0 }}
             whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: reduceMotion ? 0 : 0.5 }}
             viewport={{ once: true }}
             className="card-surface section-glow rounded-2xl border-cyan-500/15 p-8 md:p-12"
           >
@@ -123,12 +126,13 @@ export default function AboutPage() {
                 </p>
               </div>
               <div className="md:w-1/2 flex justify-center">
-                <div className="relative w-full h-64 md:h-80">
-                  <Image 
-                    src="/about/mission.jpg" 
-                    alt="Zempar mission" 
+                <div className="relative h-64 w-full min-w-0 md:h-80">
+                  <Image
+                    src="/about/mission.jpg"
+                    alt="Zempar mission"
                     fill
-                    className="object-cover rounded-xl"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    className="rounded-xl object-cover"
                   />
                 </div>
               </div>
@@ -141,9 +145,9 @@ export default function AboutPage() {
       <section className="marketing-section py-16">
         <div className="container mx-auto max-w-7xl px-4 sm:px-6">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={reduceMotion ? false : { opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: reduceMotion ? 0 : 0.5 }}
             viewport={{ once: true }}
             className="mb-16 text-center"
           >
@@ -164,16 +168,18 @@ export default function AboutPage() {
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
           >
             {expertiseAreas.map((area, index) => (
-              <motion.div 
+              <motion.div
                 key={index}
                 variants={itemVariants}
-                className="card-surface flex flex-col items-center rounded-xl p-6 text-center"
+                className="card-surface flex min-w-0 flex-col items-center rounded-xl p-6 text-center"
               >
-                <div className="mb-4">
-                  {area.icon}
-                </div>
-                <h3 className="text-xl font-bold text-white mb-3">{area.title}</h3>
-                <p className="text-slate-300 leading-relaxed">{area.description}</p>
+                <div className="mb-4">{area.icon}</div>
+                <h3 className="mb-3 min-w-0 max-w-full text-pretty text-xl font-bold text-white">
+                  {area.title}
+                </h3>
+                <p className="min-w-0 max-w-full text-pretty leading-relaxed text-slate-300">
+                  {area.description}
+                </p>
               </motion.div>
             ))}
           </motion.div>
@@ -184,9 +190,9 @@ export default function AboutPage() {
       <section className="marketing-section bg-gradient-to-b from-[rgba(6,8,12,0.6)] to-transparent py-16">
         <div className="container mx-auto max-w-7xl px-4 sm:px-6">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={reduceMotion ? false : { opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: reduceMotion ? 0 : 0.5 }}
             viewport={{ once: true }}
             className="mb-16 text-center"
           >
@@ -201,21 +207,21 @@ export default function AboutPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <motion.div
-              initial={{ opacity: 0, x: -20 }}
+              initial={reduceMotion ? false : { opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5 }}
+              transition={{ duration: reduceMotion ? 0 : 0.5 }}
               viewport={{ once: true }}
-              className="card-surface rounded-xl p-8"
+              className="card-surface min-w-0 rounded-xl p-8"
             >
-              <div className="flex items-start gap-4">
-                <div className="rounded-lg bg-cyan-400/15 p-3">
-                  <Globe className="h-6 w-6 text-cyan-400" />
+              <div className="flex min-w-0 items-start gap-4">
+                <div className="shrink-0 rounded-lg bg-cyan-400/15 p-3">
+                  <Globe className="h-6 w-6 text-cyan-400" aria-hidden />
                 </div>
-                <div>
-                  <h3 className="text-xl font-bold text-white mb-3">
+                <div className="min-w-0">
+                  <h3 className="mb-3 text-pretty text-xl font-bold text-white">
                     {t("about.expertise.global.title") || "Global Experience"}
                   </h3>
-                  <p className="text-slate-300 leading-relaxed">
+                  <p className="text-pretty leading-relaxed text-slate-300">
                     {t("about.expertise.global.description") || 
                       "Our team brings diverse perspectives from working on AI projects across three continents, giving us unique insights into global operational and rollout requirements."}
                   </p>
@@ -224,21 +230,21 @@ export default function AboutPage() {
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, x: 20 }}
+              initial={reduceMotion ? false : { opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5 }}
+              transition={{ duration: reduceMotion ? 0 : 0.5 }}
               viewport={{ once: true }}
-              className="card-surface rounded-xl p-8"
+              className="card-surface min-w-0 rounded-xl p-8"
             >
-              <div className="flex items-start gap-4">
-                <div className="rounded-lg bg-cyan-400/15 p-3">
-                  <Users className="h-6 w-6 text-cyan-400" />
+              <div className="flex min-w-0 items-start gap-4">
+                <div className="shrink-0 rounded-lg bg-cyan-400/15 p-3">
+                  <Users className="h-6 w-6 text-cyan-400" aria-hidden />
                 </div>
-                <div>
-                  <h3 className="text-xl font-bold text-white mb-3">
+                <div className="min-w-0">
+                  <h3 className="mb-3 text-pretty text-xl font-bold text-white">
                     {t("about.expertise.team.title") || "Cross-functional Team"}
                   </h3>
-                  <p className="text-slate-300 leading-relaxed">
+                  <p className="text-pretty leading-relaxed text-slate-300">
                     {t("about.expertise.team.description") || 
                       "Our experts span AI research, software engineering, UX design, and business strategy - creating holistic solutions that excel technically and commercially."}
                   </p>
@@ -247,21 +253,21 @@ export default function AboutPage() {
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, x: -20 }}
+              initial={reduceMotion ? false : { opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
+              transition={{ duration: reduceMotion ? 0 : 0.5, delay: reduceMotion ? 0 : 0.1 }}
               viewport={{ once: true }}
-              className="card-surface rounded-xl p-8"
+              className="card-surface min-w-0 rounded-xl p-8"
             >
-              <div className="flex items-start gap-4">
-                <div className="rounded-lg bg-cyan-400/15 p-3">
-                  <Lightbulb className="h-6 w-6 text-cyan-400" />
+              <div className="flex min-w-0 items-start gap-4">
+                <div className="shrink-0 rounded-lg bg-cyan-400/15 p-3">
+                  <Lightbulb className="h-6 w-6 text-cyan-400" aria-hidden />
                 </div>
-                <div>
-                  <h3 className="text-xl font-bold text-white mb-3">
+                <div className="min-w-0">
+                  <h3 className="mb-3 text-pretty text-xl font-bold text-white">
                     {t("about.expertise.innovation.title") || "Innovation Focus"}
                   </h3>
-                  <p className="text-slate-300 leading-relaxed">
+                  <p className="text-pretty leading-relaxed text-slate-300">
                     {t("about.expertise.innovation.description") || 
                       "We stay at the edge of agentic AI, tool use, and workflow automation—bringing practical patterns into production, not just demos."}
                   </p>
@@ -270,21 +276,21 @@ export default function AboutPage() {
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, x: 20 }}
+              initial={reduceMotion ? false : { opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
+              transition={{ duration: reduceMotion ? 0 : 0.5, delay: reduceMotion ? 0 : 0.1 }}
               viewport={{ once: true }}
-              className="card-surface rounded-xl p-8"
+              className="card-surface min-w-0 rounded-xl p-8"
             >
-              <div className="flex items-start gap-4">
-                <div className="rounded-lg bg-cyan-400/15 p-3">
-                  <Award className="h-6 w-6 text-cyan-400" />
+              <div className="flex min-w-0 items-start gap-4">
+                <div className="shrink-0 rounded-lg bg-cyan-400/15 p-3">
+                  <Award className="h-6 w-6 text-cyan-400" aria-hidden />
                 </div>
-                <div>
-                  <h3 className="text-xl font-bold text-white mb-3">
+                <div className="min-w-0">
+                  <h3 className="mb-3 text-pretty text-xl font-bold text-white">
                     {t("about.expertise.results.title") || "Results-Driven"}
                   </h3>
-                  <p className="text-slate-300 leading-relaxed">
+                  <p className="text-pretty leading-relaxed text-slate-300">
                     {t("about.expertise.results.description") || 
                       "We measure what operations care about: cycle time, error rates, throughput, and human time saved—so automation shows up in the metrics that matter."}
                   </p>
@@ -299,26 +305,24 @@ export default function AboutPage() {
       <section className="marketing-section py-16">
         <div className="container mx-auto max-w-7xl px-4 sm:px-6">
           <motion.div
-            initial={{ opacity: 0, scale: 0.98 }}
+            initial={reduceMotion ? false : { opacity: 0, scale: 0.98 }}
             whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: reduceMotion ? 0 : 0.5 }}
             viewport={{ once: true }}
             className="section-glow rounded-2xl border border-cyan-400/25 bg-gradient-to-br from-cyan-500/90 via-sky-600/85 to-violet-600/90 p-8 text-center shadow-[0_0_60px_-12px_rgba(34,211,238,0.35)] md:p-12"
           >
-            <h2 className="font-display text-3xl font-bold text-white mb-4">
+            <h2 className="font-display mb-4 text-balance text-3xl font-bold text-white">
               {t("about.cta.title") || "Ready to modernize operations with AI Ops and agentic AI?"}
             </h2>
-            <p className="mx-auto mb-8 max-w-2xl text-lg text-white/90">
+            <p className="mx-auto mb-8 max-w-2xl text-pretty text-lg text-white/90">
               {t("about.cta.description") ||
                 "Talk to us about where work gets stuck today—we'll help you design agents and workflows that run faster with clear oversight."}
             </p>
-            <Link href="/contact">
-              <button
-                type="button"
-                className="rounded-full bg-[#060606] px-8 py-3 font-semibold text-white shadow-lg transition hover:bg-[#0c1018] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
-              >
-                {t("about.cta.button") || "Contact Us Today"}
-              </button>
+            <Link
+              href="/contact"
+              className="inline-flex min-h-[44px] min-w-0 items-center justify-center rounded-full bg-[#060606] px-8 py-3 font-semibold text-white shadow-lg transition hover:bg-[#0c1018] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
+            >
+              {t("about.cta.button") || "Contact Us Today"}
             </Link>
           </motion.div>
         </div>

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Syne, Geist, Geist_Mono } from "next/font/google";
 import { Toaster } from "@/components/ui/sonner";
 import { Squares } from "@/components/ui/squares-background";
+import { SkipToMain } from "@/components/SkipToMain";
 import { FloatingHeader } from "@/components/ui/floating-header";
 import { LanguageProvider } from "@/contexts/language-context";
 import { StructuredData } from "@/components/structured-data";
@@ -72,8 +73,11 @@ export default function RootLayout({
 
         <div className="relative z-10">
           <LanguageProvider>
+            <SkipToMain />
             <FloatingHeader />
-            <main className="pt-20">{children}</main>
+            <main id="main-content" className="pt-20" tabIndex={-1}>
+              {children}
+            </main>
             <Toaster position="bottom-right" />
           </LanguageProvider>
         </div>
