@@ -62,7 +62,7 @@ export function FloatingHeader() {
   }, [mobileMenuOpen]);
 
   const navLinkClass =
-    "text-slate-200 hover:text-white hover:bg-cyan-500/10 rounded-full px-4 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#060606]";
+    "rounded-full px-4 text-foreground/90 transition-colors hover:bg-primary/10 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background";
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 px-4 py-3">
@@ -70,8 +70,8 @@ export function FloatingHeader() {
         className={cn(
           "mx-auto max-w-7xl rounded-full border backdrop-blur-xl transition-all duration-300",
           scrolled
-            ? "border-cyan-500/20 bg-[rgba(8,12,18,0.72)] shadow-[0_0_40px_-12px_rgba(34,211,238,0.2)]"
-            : "border-cyan-500/15 bg-[rgba(10,14,22,0.55)]"
+            ? "border-primary/20 bg-card/80 shadow-signal backdrop-blur-xl"
+            : "border-primary/15 bg-card/60 backdrop-blur-xl"
         )}
         initial={reduceMotion ? false : { y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -95,7 +95,7 @@ export function FloatingHeader() {
         >
           <Link
             href="/"
-            className="flex items-center space-x-2 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#060606]"
+            className="flex items-center space-x-2 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
           >
             <LogoAnimation />
           </Link>
@@ -141,7 +141,7 @@ export function FloatingHeader() {
               aria-expanded={mobileMenuOpen}
               aria-controls={mobileNavMenuId}
               aria-label={mobileMenuOpen ? t("nav.closeMenu") : t("nav.openMenu")}
-              className="text-slate-200 hover:text-white hover:bg-cyan-500/15 rounded-full focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#060606]"
+              className="rounded-full text-foreground/90 hover:bg-primary/15 hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
             >
               {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </Button>
@@ -155,7 +155,7 @@ export function FloatingHeader() {
             id={mobileNavMenuId}
             role="region"
             aria-label={t("nav.siteMenu")}
-            className="md:hidden absolute top-16 left-4 right-4 overflow-hidden rounded-2xl border border-cyan-500/20 bg-[rgba(8,12,18,0.92)] shadow-[0_0_48px_-12px_rgba(34,211,238,0.25)] backdrop-blur-xl"
+            className="absolute left-4 right-4 top-16 overflow-hidden rounded-2xl border border-primary/20 bg-popover/95 shadow-signal-lg backdrop-blur-xl md:hidden"
             initial={reduceMotion ? false : { opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={
@@ -175,11 +175,11 @@ export function FloatingHeader() {
                   key={item.translationKey}
                   href={item.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="block rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-inset"
+                  className="block rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring"
                 >
                   <motion.div
                     className={cn(
-                      "flex items-center px-3 py-2 text-base font-medium rounded-xl text-slate-200 hover:bg-cyan-500/10 hover:text-white",
+                      "flex items-center rounded-xl px-3 py-2 text-base font-medium text-foreground/90 hover:bg-primary/10 hover:text-foreground",
                       direction === "rtl" ? "flex-row-reverse text-right" : ""
                     )}
                     whileHover={reduceMotion ? undefined : { x: direction === "rtl" ? -4 : 4 }}

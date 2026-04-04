@@ -16,7 +16,7 @@ export function TestimonialsSection() {
       <div className={cn("mb-12 text-center md:mb-16", isRtl && "rtl")}>
         <motion.h2
           id="testimonials-heading"
-          className="font-display text-3xl font-bold text-white sm:text-4xl md:text-5xl"
+          className="font-display text-3xl font-bold text-foreground sm:text-4xl md:text-5xl"
           initial={reduceMotion ? false : { opacity: 0, y: 18 }}
           whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
@@ -25,7 +25,7 @@ export function TestimonialsSection() {
           {t("testimonials.title")}
         </motion.h2>
         <motion.p
-          className="mx-auto mt-4 max-w-2xl text-lg text-slate-400"
+          className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground"
           initial={reduceMotion ? false : { opacity: 0, y: 18 }}
           whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
@@ -40,7 +40,7 @@ export function TestimonialsSection() {
           <motion.article
             key={item.name}
             className={cn(
-              "card-surface flex min-h-0 min-w-0 flex-col border border-cyan-500/10 border-b-2 border-b-amber-500/45 p-5 sm:p-6",
+              "card-surface flex min-h-0 min-w-0 flex-col border border-primary/10 border-b-2 border-b-amber-500/45 p-5 sm:p-6",
               isRtl && "text-right"
             )}
             initial={reduceMotion ? false : { opacity: 0, y: 22 }}
@@ -66,15 +66,15 @@ export function TestimonialsSection() {
             </div>
             <blockquote
               className={cn(
-                "mb-6 min-w-0 flex-1 text-sm font-normal leading-relaxed text-slate-300 sm:text-[0.9375rem]",
+                "mb-6 min-w-0 flex-1 text-sm font-normal leading-relaxed text-foreground/90 sm:text-[0.9375rem]",
                 isRtl ? "text-right" : "text-left"
               )}
             >
               <span className="italic">&ldquo;{item.quote}&rdquo;</span>
             </blockquote>
-            <footer className={cn("mt-auto border-t border-cyan-500/10 pt-4", isRtl && "text-right")}>
-              <p className="font-display font-semibold text-white">{item.name}</p>
-              <p className="mt-1 text-sm text-slate-500">{item.role}</p>
+            <footer className={cn("mt-auto border-t border-primary/10 pt-4", isRtl && "text-right")}>
+              <p className="font-display font-semibold text-foreground">{item.name}</p>
+              <p className="mt-1 text-sm text-muted-foreground/90">{item.role}</p>
             </footer>
           </motion.article>
         ))}

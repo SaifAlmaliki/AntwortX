@@ -41,20 +41,18 @@ function Column({
 }) {
   const headerClass =
     variant === "seo"
-      ? "border-cyan-500/30 bg-cyan-500/[0.08]"
-      : "border-cyan-400/20 bg-white/[0.04]";
+      ? "border-primary/30 bg-primary/[0.08]"
+      : "border-primary/20 bg-card/40";
   const boxClass =
     variant === "seo"
-      ? "border-cyan-500/15 bg-cyan-500/[0.06]"
-      : "border-white/10 bg-white/[0.03]";
+      ? "border-primary/15 bg-primary/[0.06]"
+      : "border-border/60 bg-card/30";
 
   return (
     <motion.article
       className={cn(
         "flex min-w-0 flex-col overflow-hidden rounded-2xl border text-left",
-        variant === "seo"
-          ? "border-cyan-500/25"
-          : "border-white/[0.12]",
+        variant === "seo" ? "border-primary/25" : "border-border/50",
         isRtl && "text-right"
       )}
       initial={reduceMotion ? false : { opacity: 0, y: 22 }}
@@ -63,23 +61,23 @@ function Column({
       transition={{ duration: 0.5, delay: reduceMotion ? 0 : delay }}
     >
       <div className={cn("border-b px-5 py-4", headerClass)}>
-        <h3 className="font-display text-xl font-bold text-white">{title}</h3>
-        <p className="mt-1 text-sm text-slate-300">{cardSubtitle}</p>
+        <h3 className="font-display text-xl font-bold text-foreground">{title}</h3>
+        <p className="mt-1 text-sm text-muted-foreground">{cardSubtitle}</p>
       </div>
-      <div className="flex flex-1 flex-col gap-5 p-5 text-sm text-slate-400">
+      <div className="flex flex-1 flex-col gap-5 p-5 text-sm text-muted-foreground">
         <div>
-          <p className="text-xs font-semibold uppercase tracking-wider text-slate-500">
+          <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground/80">
             {labelMainGoal}
           </p>
-          <p className="mt-1.5 text-slate-200">{mainGoal}</p>
+          <p className="mt-1.5 text-foreground/95">{mainGoal}</p>
         </div>
         <div>
-          <p className="text-xs font-semibold uppercase tracking-wider text-slate-500">
+          <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground/80">
             {howFind}
           </p>
           <p
             className={cn(
-              "mt-2 rounded-lg border px-3 py-2.5 text-slate-200",
+              "mt-2 rounded-lg border px-3 py-2.5 text-foreground/95",
               boxClass
             )}
           >
@@ -87,7 +85,7 @@ function Column({
           </p>
         </div>
         <div>
-          <p className="text-xs font-semibold uppercase tracking-wider text-slate-500">
+          <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground/80">
             {labelOptimizes}
           </p>
           <ul className="mt-2 space-y-2" role="list">
@@ -95,12 +93,12 @@ function Column({
               <li
                 key={i}
                 className={cn(
-                  "flex gap-2 text-slate-300",
+                  "flex gap-2 text-foreground/90",
                   isRtl && "flex-row-reverse"
                 )}
               >
                 <Diamond
-                  className="mt-0.5 h-3.5 w-3.5 shrink-0 text-cyan-400/70"
+                  className="mt-0.5 h-3.5 w-3.5 shrink-0 text-primary/70"
                   aria-hidden
                 />
                 <span>{line}</span>
@@ -109,12 +107,12 @@ function Column({
           </ul>
         </div>
         <div>
-          <p className="text-xs font-semibold uppercase tracking-wider text-slate-500">
+          <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground/80">
             {influences}
           </p>
           <p
             className={cn(
-              "mt-2 rounded-lg border px-3 py-2.5 text-slate-200",
+              "mt-2 rounded-lg border px-3 py-2.5 text-foreground/95",
               boxClass
             )}
           >
@@ -122,10 +120,10 @@ function Column({
           </p>
         </div>
         <div>
-          <p className="text-xs font-semibold uppercase tracking-wider text-slate-500">
+          <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground/80">
             {labelWhy}
           </p>
-          <p className="mt-1.5 text-slate-200">{whyMatters}</p>
+          <p className="mt-1.5 text-foreground/95">{whyMatters}</p>
         </div>
       </div>
     </motion.article>
@@ -162,11 +160,11 @@ export function SeoGeoComparisonSection() {
         >
           <h2
             id="seo-geo-heading"
-            className="font-display text-3xl font-bold text-white sm:text-4xl md:text-5xl text-balance"
+            className="font-display text-balance text-3xl font-bold text-foreground sm:text-4xl md:text-5xl"
           >
             {t("seoGeo.title")}
           </h2>
-          <p className="mx-auto mt-4 max-w-3xl text-lg leading-relaxed text-slate-400">
+          <p className="mx-auto mt-4 max-w-3xl text-lg leading-relaxed text-muted-foreground">
             {t("seoGeo.subtitle")}
           </p>
         </motion.div>

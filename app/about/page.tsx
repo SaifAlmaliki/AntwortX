@@ -17,43 +17,43 @@ export default function AboutPage() {
     {
       title: "أبحاث وتطوير الذكاء الاصطناعي",
       description: "باحثونا ومطورونا في مجال الذكاء الاصطناعي لديهم خبرة عميقة في التعلم الآلي ومعالجة اللغة الطبيعية وأنظمة الذكاء الوكيلي المصممة لعمليات الإنتاج.",
-      icon: <Lightbulb className="h-10 w-10 text-cyan-400" />
+      icon: <Lightbulb className="h-10 w-10 text-primary" />
     },
     {
       title: "هندسة الحلول",
       description: "مهندسو الحلول لدينا يصممون تطبيقات ذكاء اصطناعي قوية وقابلة للتوسع تتكامل بسلاسة مع أنظمة الأعمال الحالية.",
-      icon: <Globe className="h-10 w-10 text-cyan-400" />
+      icon: <Globe className="h-10 w-10 text-primary" />
     },
     {
       title: "تصميم واجهات المستخدم",
       description: "نصمم تجارب سهلة للمشغلين حتى تتمكن الفرق من الإشراف على الوكلاء ومراجعة الإجراءات والبقاء متحكمين دون صراع مع الأدوات.",
-      icon: <Users className="h-10 w-10 text-cyan-400" />
+      icon: <Users className="h-10 w-10 text-primary" />
     },
     {
       title: "تكامل المؤسسات",
       description: "مع خبرتنا في نشر حلول الذكاء الاصطناعي عبر مختلف الصناعات، نضمن التنفيذ السلس في بيئات المؤسسات المعقدة.",
-      icon: <Award className="h-10 w-10 text-cyan-400" />
+      icon: <Award className="h-10 w-10 text-primary" />
     }
   ] : [
     {
       title: "AI Research & Development",
       description: "Our AI researchers and developers have deep expertise in machine learning, NLP, and agentic AI systems built for production operations.",
-      icon: <Lightbulb className="h-10 w-10 text-cyan-400" />
+      icon: <Lightbulb className="h-10 w-10 text-primary" />
     },
     {
       title: "Solution Architecture",
       description: "Our solution architects design robust, scalable AI implementations that integrate seamlessly with existing business systems.",
-      icon: <Globe className="h-10 w-10 text-cyan-400" />
+      icon: <Globe className="h-10 w-10 text-primary" />
     },
     {
       title: "UX/UI Design",
       description: "We design operator-friendly experiences so teams can supervise agents, review actions, and stay in control without fighting the tooling.",
-      icon: <Users className="h-10 w-10 text-cyan-400" />
+      icon: <Users className="h-10 w-10 text-primary" />
     },
     {
       title: "Enterprise Integration",
       description: "With expertise in deploying AI solutions across various industries, we ensure smooth implementation in complex enterprise environments.",
-      icon: <Award className="h-10 w-10 text-cyan-400" />
+      icon: <Award className="h-10 w-10 text-primary" />
     }
   ];
 
@@ -91,10 +91,10 @@ export default function AboutPage() {
             transition={{ duration: reduceMotion ? 0 : 0.5 }}
             className="mb-16 text-center"
           >
-            <h1 className="font-display text-4xl font-bold text-white md:text-5xl lg:text-6xl mb-6 tracking-tight">
+            <h1 className="font-display text-4xl font-bold text-foreground md:text-5xl lg:text-6xl mb-6 tracking-tight">
               {t("about.title") || "About Zempar"}
             </h1>
-            <p className="mx-auto max-w-3xl text-xl text-slate-300">
+            <p className="mx-auto max-w-3xl text-xl text-muted-foreground">
               {t("about.subtitle") || "AI Ops and agentic AI for high-performing operations"}
             </p>
           </motion.div>
@@ -109,18 +109,18 @@ export default function AboutPage() {
             whileInView={{ opacity: 1 }}
             transition={{ duration: reduceMotion ? 0 : 0.5 }}
             viewport={{ once: true }}
-            className="card-surface section-glow rounded-2xl border-cyan-500/15 p-8 md:p-12"
+            className="card-surface section-glow rounded-2xl border-primary/15 p-8 md:p-12"
           >
             <div className="flex flex-col md:flex-row items-center gap-8">
               <div className="md:w-1/2">
-                <h2 className="font-display text-3xl font-bold text-white mb-6">
+                <h2 className="font-display text-3xl font-bold text-foreground mb-6">
                   {t("about.mission.title") || "Our Mission"}
                 </h2>
-                <p className="text-slate-300 mb-4 leading-relaxed">
+                <p className="text-muted-foreground mb-4 leading-relaxed">
                   {t("about.mission.description") || 
                     "At Zempar, we're on a mission to make operations smarter, faster, and more efficient through AI Ops and agentic AI. We believe teams shouldn't trade speed for safety—or quality for scale—when they automate real work."}
                 </p>
-                <p className="text-slate-300 leading-relaxed">
+                <p className="text-muted-foreground leading-relaxed">
                   {t("about.mission.vision") || 
                     "Our vision is agentic systems that understand context, take bounded action, and improve over time—pairing human judgment with machine consistency so operations run reliably around the clock."}
                 </p>
@@ -151,10 +151,10 @@ export default function AboutPage() {
             viewport={{ once: true }}
             className="mb-16 text-center"
           >
-            <h2 className="font-display text-3xl font-bold text-white md:text-4xl mb-6">
+            <h2 className="font-display text-3xl font-bold text-foreground md:text-4xl mb-6">
               {t("about.who.title") || "Who We Are"}
             </h2>
-            <p className="mx-auto max-w-3xl text-xl text-slate-300">
+            <p className="mx-auto max-w-3xl text-xl text-muted-foreground">
               {t("about.who.description") || 
                 "We are a team of AI experts and solution architects who have worked on groundbreaking projects across Germany, the UK, and Canada. Our passion lies in building AI agent solutions that help businesses drive more value."}
             </p>
@@ -174,10 +174,10 @@ export default function AboutPage() {
                 className="card-surface flex min-w-0 flex-col items-center rounded-xl p-6 text-center"
               >
                 <div className="mb-4">{area.icon}</div>
-                <h3 className="mb-3 min-w-0 max-w-full text-pretty text-xl font-bold text-white">
+                <h3 className="mb-3 min-w-0 max-w-full text-pretty text-xl font-bold text-foreground">
                   {area.title}
                 </h3>
-                <p className="min-w-0 max-w-full text-pretty leading-relaxed text-slate-300">
+                <p className="min-w-0 max-w-full text-pretty leading-relaxed text-muted-foreground">
                   {area.description}
                 </p>
               </motion.div>
@@ -196,10 +196,10 @@ export default function AboutPage() {
             viewport={{ once: true }}
             className="mb-16 text-center"
           >
-            <h2 className="font-display text-3xl font-bold text-white md:text-4xl mb-6">
+            <h2 className="font-display text-3xl font-bold text-foreground md:text-4xl mb-6">
               {t("about.expertise.title") || "Our Expertise"}
             </h2>
-            <p className="mx-auto max-w-3xl text-xl text-slate-300">
+            <p className="mx-auto max-w-3xl text-xl text-muted-foreground">
               {t("about.expertise.description") || 
                 "Combining deep technical knowledge with industry experience to deliver cutting-edge AI solutions"}
             </p>
@@ -214,14 +214,14 @@ export default function AboutPage() {
               className="card-surface min-w-0 rounded-xl p-8"
             >
               <div className="flex min-w-0 items-start gap-4">
-                <div className="shrink-0 rounded-lg bg-cyan-400/15 p-3">
-                  <Globe className="h-6 w-6 text-cyan-400" aria-hidden />
+                <div className="shrink-0 rounded-lg bg-primary/15 p-3">
+                  <Globe className="h-6 w-6 text-primary" aria-hidden />
                 </div>
                 <div className="min-w-0">
-                  <h3 className="mb-3 text-pretty text-xl font-bold text-white">
+                  <h3 className="mb-3 text-pretty text-xl font-bold text-foreground">
                     {t("about.expertise.global.title") || "Global Experience"}
                   </h3>
-                  <p className="text-pretty leading-relaxed text-slate-300">
+                  <p className="text-pretty leading-relaxed text-muted-foreground">
                     {t("about.expertise.global.description") || 
                       "Our team brings diverse perspectives from working on AI projects across three continents, giving us unique insights into global operational and rollout requirements."}
                   </p>
@@ -237,14 +237,14 @@ export default function AboutPage() {
               className="card-surface min-w-0 rounded-xl p-8"
             >
               <div className="flex min-w-0 items-start gap-4">
-                <div className="shrink-0 rounded-lg bg-cyan-400/15 p-3">
-                  <Users className="h-6 w-6 text-cyan-400" aria-hidden />
+                <div className="shrink-0 rounded-lg bg-primary/15 p-3">
+                  <Users className="h-6 w-6 text-primary" aria-hidden />
                 </div>
                 <div className="min-w-0">
-                  <h3 className="mb-3 text-pretty text-xl font-bold text-white">
+                  <h3 className="mb-3 text-pretty text-xl font-bold text-foreground">
                     {t("about.expertise.team.title") || "Cross-functional Team"}
                   </h3>
-                  <p className="text-pretty leading-relaxed text-slate-300">
+                  <p className="text-pretty leading-relaxed text-muted-foreground">
                     {t("about.expertise.team.description") || 
                       "Our experts span AI research, software engineering, UX design, and business strategy - creating holistic solutions that excel technically and commercially."}
                   </p>
@@ -260,14 +260,14 @@ export default function AboutPage() {
               className="card-surface min-w-0 rounded-xl p-8"
             >
               <div className="flex min-w-0 items-start gap-4">
-                <div className="shrink-0 rounded-lg bg-cyan-400/15 p-3">
-                  <Lightbulb className="h-6 w-6 text-cyan-400" aria-hidden />
+                <div className="shrink-0 rounded-lg bg-primary/15 p-3">
+                  <Lightbulb className="h-6 w-6 text-primary" aria-hidden />
                 </div>
                 <div className="min-w-0">
-                  <h3 className="mb-3 text-pretty text-xl font-bold text-white">
+                  <h3 className="mb-3 text-pretty text-xl font-bold text-foreground">
                     {t("about.expertise.innovation.title") || "Innovation Focus"}
                   </h3>
-                  <p className="text-pretty leading-relaxed text-slate-300">
+                  <p className="text-pretty leading-relaxed text-muted-foreground">
                     {t("about.expertise.innovation.description") || 
                       "We stay at the edge of agentic AI, tool use, and workflow automation—bringing practical patterns into production, not just demos."}
                   </p>
@@ -283,14 +283,14 @@ export default function AboutPage() {
               className="card-surface min-w-0 rounded-xl p-8"
             >
               <div className="flex min-w-0 items-start gap-4">
-                <div className="shrink-0 rounded-lg bg-cyan-400/15 p-3">
-                  <Award className="h-6 w-6 text-cyan-400" aria-hidden />
+                <div className="shrink-0 rounded-lg bg-primary/15 p-3">
+                  <Award className="h-6 w-6 text-primary" aria-hidden />
                 </div>
                 <div className="min-w-0">
-                  <h3 className="mb-3 text-pretty text-xl font-bold text-white">
+                  <h3 className="mb-3 text-pretty text-xl font-bold text-foreground">
                     {t("about.expertise.results.title") || "Results-Driven"}
                   </h3>
-                  <p className="text-pretty leading-relaxed text-slate-300">
+                  <p className="text-pretty leading-relaxed text-muted-foreground">
                     {t("about.expertise.results.description") || 
                       "We measure what operations care about: cycle time, error rates, throughput, and human time saved—so automation shows up in the metrics that matter."}
                   </p>
@@ -309,18 +309,18 @@ export default function AboutPage() {
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: reduceMotion ? 0 : 0.5 }}
             viewport={{ once: true }}
-            className="section-glow rounded-2xl border border-cyan-400/25 bg-gradient-to-br from-cyan-500/90 via-sky-600/85 to-violet-600/90 p-8 text-center shadow-[0_0_60px_-12px_rgba(34,211,238,0.35)] md:p-12"
+            className="section-glow rounded-2xl border border-primary/25 bg-gradient-to-br from-primary/90 via-primary/75 to-accent/85 p-8 text-center shadow-signal-lg md:p-12"
           >
-            <h2 className="font-display mb-4 text-balance text-3xl font-bold text-white">
+            <h2 className="font-display mb-4 text-balance text-3xl font-bold text-foreground">
               {t("about.cta.title") || "Ready to modernize operations with AI Ops and agentic AI?"}
             </h2>
-            <p className="mx-auto mb-8 max-w-2xl text-pretty text-lg text-white/90">
+            <p className="mx-auto mb-8 max-w-2xl text-pretty text-lg text-foreground/90">
               {t("about.cta.description") ||
                 "Talk to us about where work gets stuck today—we'll help you design agents and workflows that run faster with clear oversight."}
             </p>
             <Link
               href="/contact"
-              className="inline-flex min-h-[44px] min-w-0 items-center justify-center rounded-full bg-[#060606] px-8 py-3 font-semibold text-white shadow-lg transition hover:bg-[#0c1018] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
+              className="inline-flex min-h-[44px] min-w-0 items-center justify-center rounded-full bg-background px-8 py-3 font-semibold text-foreground shadow-lg transition hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
             >
               {t("about.cta.button") || "Contact Us Today"}
             </Link>

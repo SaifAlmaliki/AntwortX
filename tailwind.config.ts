@@ -60,7 +60,12 @@ export default {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
-  		}
+  		},
+  		boxShadow: {
+  			signal: '0 0 40px -12px var(--signal-glow)',
+  			'signal-lg': '0 0 48px -12px var(--signal-glow)',
+  			'signal-menu': '0 0 40px -8px var(--signal-glow)',
+  		},
   	}
   },
   plugins: [require("tailwindcss-animate")],

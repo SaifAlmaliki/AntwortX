@@ -43,11 +43,11 @@ export function VisibilityOfferingsSection() {
         >
           <h2
             id="offerings-heading"
-            className="font-display text-3xl font-bold text-white sm:text-4xl md:text-5xl text-balance"
+            className="font-display text-balance text-3xl font-bold text-foreground sm:text-4xl md:text-5xl"
           >
             {t("visibilityOfferings.title")}
           </h2>
-          <p className="mx-auto mt-4 max-w-3xl text-lg leading-relaxed text-slate-400">
+          <p className="mx-auto mt-4 max-w-3xl text-lg leading-relaxed text-muted-foreground">
             {t("visibilityOfferings.subtitle")}
           </p>
         </motion.div>
@@ -55,7 +55,7 @@ export function VisibilityOfferingsSection() {
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 lg:gap-8">
           <motion.article
             className={cn(
-              "flex flex-col rounded-2xl border border-white/10 bg-white/[0.03] p-6 shadow-lg md:p-8",
+              "flex flex-col rounded-2xl border border-border/60 bg-card/30 p-6 shadow-lg md:p-8",
               isRtl && "text-right"
             )}
             initial={reduceMotion ? false : { opacity: 0, y: 22 }}
@@ -63,13 +63,13 @@ export function VisibilityOfferingsSection() {
             viewport={{ once: true, margin: "-40px" }}
             transition={{ duration: 0.5, delay: reduceMotion ? 0 : 0.05 }}
           >
-            <h3 className="font-display text-2xl font-bold text-white">
+            <h3 className="font-display text-2xl font-bold text-foreground">
               {t("visibilityOfferings.audit.title")}
             </h3>
-            <p className="mt-1 text-sm font-medium text-cyan-300/90">
+            <p className="mt-1 text-sm font-medium text-primary/90">
               {t("visibilityOfferings.audit.tagline")}
             </p>
-            <p className="mt-4 text-sm leading-relaxed text-slate-400">
+            <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
               {t("visibilityOfferings.audit.description")}
             </p>
             <ul className="mt-6 flex-1 space-y-2.5" role="list">
@@ -77,20 +77,20 @@ export function VisibilityOfferingsSection() {
                 <li
                   key={i}
                   className={cn(
-                    "flex gap-2 text-sm text-slate-300",
+                    "flex gap-2 text-sm text-foreground/90",
                     isRtl && "flex-row-reverse"
                   )}
                 >
                   <Diamond
-                    className="mt-0.5 h-3.5 w-3.5 shrink-0 text-cyan-500/80"
+                    className="mt-0.5 h-3.5 w-3.5 shrink-0 text-primary/80"
                     aria-hidden
                   />
                   <span>{line}</span>
                 </li>
               ))}
             </ul>
-            <div className="mt-6 rounded-lg border border-cyan-500/10 bg-cyan-500/[0.06] px-4 py-3 text-sm text-slate-200">
-              <span className="font-semibold text-cyan-200/90">
+            <div className="mt-6 rounded-lg border border-primary/10 bg-primary/[0.06] px-4 py-3 text-sm text-foreground/95">
+              <span className="font-semibold text-primary/90">
                 {t("visibilityOfferings.bestForLabel")}{" "}
               </span>
               {t("visibilityOfferings.audit.bestFor")}
@@ -110,7 +110,7 @@ export function VisibilityOfferingsSection() {
 
           <motion.article
             className={cn(
-              "relative flex flex-col overflow-hidden rounded-2xl border border-cyan-500/25 bg-[#0a0c10] p-6 shadow-xl md:p-8",
+              "relative flex flex-col overflow-hidden rounded-2xl border border-primary/25 bg-card p-6 shadow-xl md:p-8",
               isRtl && "text-right"
             )}
             initial={reduceMotion ? false : { opacity: 0, y: 22 }}
@@ -119,20 +119,20 @@ export function VisibilityOfferingsSection() {
             transition={{ duration: 0.5, delay: reduceMotion ? 0 : 0.1 }}
           >
             <div className="absolute left-1/2 top-0 -translate-x-1/2">
-              <span className="inline-block rounded-b-lg bg-cyan-400 px-4 py-1 text-xs font-bold uppercase tracking-wide text-[#060606]">
+              <span className="inline-block rounded-b-lg bg-primary px-4 py-1 text-xs font-bold uppercase tracking-wide text-primary-foreground">
                 {t("visibilityOfferings.growth.badge")}
               </span>
             </div>
-            <h3 className="mt-6 font-display text-2xl font-bold text-white">
+            <h3 className="mt-6 font-display text-2xl font-bold text-foreground">
               {t("visibilityOfferings.growth.title")}
             </h3>
-            <p className="mt-1 text-sm font-medium text-cyan-300/90">
+            <p className="mt-1 text-sm font-medium text-primary/90">
               {t("visibilityOfferings.growth.tagline")}
             </p>
-            <p className="mt-4 text-sm leading-relaxed text-slate-400">
+            <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
               {t("visibilityOfferings.growth.description")}
             </p>
-            <p className="mt-5 text-xs font-bold uppercase tracking-wider text-slate-500">
+            <p className="mt-5 text-xs font-bold uppercase tracking-wider text-muted-foreground/80">
               {t("visibilityOfferings.growth.plusLabel")}
             </p>
             <ul className="mt-3 flex-1 space-y-2.5" role="list">
@@ -140,20 +140,20 @@ export function VisibilityOfferingsSection() {
                 <li
                   key={i}
                   className={cn(
-                    "flex gap-2 text-sm text-slate-300",
+                    "flex gap-2 text-sm text-foreground/90",
                     isRtl && "flex-row-reverse"
                   )}
                 >
                   <Diamond
-                    className="mt-0.5 h-3.5 w-3.5 shrink-0 text-cyan-400/80"
+                    className="mt-0.5 h-3.5 w-3.5 shrink-0 text-primary/80"
                     aria-hidden
                   />
                   <span>{line}</span>
                 </li>
               ))}
             </ul>
-            <div className="mt-6 rounded-lg border border-white/10 bg-white/[0.04] px-4 py-3 text-sm text-slate-200">
-              <span className="font-semibold text-white">
+            <div className="mt-6 rounded-lg border border-border/60 bg-card/40 px-4 py-3 text-sm text-foreground/95">
+              <span className="font-semibold text-foreground">
                 {t("visibilityOfferings.bestForLabel")}{" "}
               </span>
               {t("visibilityOfferings.growth.bestFor")}
@@ -162,7 +162,7 @@ export function VisibilityOfferingsSection() {
               type="button"
               onClick={scrollToLead}
               className={cn(
-                "mt-6 flex w-full items-center justify-center gap-2 rounded-full border border-white/20 bg-white py-3 text-sm font-semibold text-[#060606] transition hover:bg-slate-100",
+                "mt-6 flex w-full items-center justify-center gap-2 rounded-full border border-border bg-foreground py-3 text-sm font-semibold text-background transition hover:bg-foreground/90",
                 isRtl && "flex-row-reverse"
               )}
             >

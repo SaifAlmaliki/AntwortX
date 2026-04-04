@@ -6,8 +6,7 @@ import { Mail, Phone, MapPin } from "lucide-react";
 import { useLanguage } from "@/contexts/language-context";
 import { cn } from "@/lib/utils";
 
-const inputClass =
-  "zempar-input w-full px-4 py-2.5 rounded-xl focus-visible:ring-2 focus-visible:ring-cyan-400";
+const inputClass = "zempar-input w-full rounded-xl px-4 py-2.5";
 
 export default function ContactPage() {
   const { t, direction } = useLanguage();
@@ -61,10 +60,10 @@ export default function ContactPage() {
           transition={{ duration: 0.5 }}
           className="mb-12 text-center"
         >
-          <h1 className="font-display text-4xl font-bold text-white sm:text-5xl mb-4 tracking-tight">
+          <h1 className="font-display mb-4 text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
             {t("contact.title")}
           </h1>
-          <p className="mx-auto max-w-2xl text-lg text-slate-300">{t("contact.subtitle")}</p>
+          <p className="mx-auto max-w-2xl text-lg text-muted-foreground">{t("contact.subtitle")}</p>
         </motion.div>
 
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
@@ -74,11 +73,11 @@ export default function ContactPage() {
             transition={{ duration: 0.5, delay: reduceMotion ? 0 : 0.1 }}
             className="lg:col-span-2"
           >
-            <div className="card-surface section-glow rounded-2xl border-cyan-500/15 p-6 md:p-8">
+            <div className="card-surface section-glow rounded-2xl border-primary/15 p-6 md:p-8">
               <form onSubmit={handleSubmit}>
                 <div className="mb-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
                   <div>
-                    <label htmlFor="name" className="mb-1 block text-sm font-medium text-slate-300">
+                    <label htmlFor="name" className="mb-1 block text-sm font-medium text-muted-foreground">
                       {t("contact.name")}
                     </label>
                     <input
@@ -92,7 +91,7 @@ export default function ContactPage() {
                     />
                   </div>
                   <div>
-                    <label htmlFor="email" className="mb-1 block text-sm font-medium text-slate-300">
+                    <label htmlFor="email" className="mb-1 block text-sm font-medium text-muted-foreground">
                       {t("contact.email")}
                     </label>
                     <input
@@ -107,7 +106,7 @@ export default function ContactPage() {
                   </div>
                 </div>
                 <div className="mb-4">
-                  <label htmlFor="subject" className="mb-1 block text-sm font-medium text-slate-300">
+                  <label htmlFor="subject" className="mb-1 block text-sm font-medium text-muted-foreground">
                     {t("contact.subject")}
                   </label>
                   <input
@@ -121,7 +120,7 @@ export default function ContactPage() {
                   />
                 </div>
                 <div className="mb-6">
-                  <label htmlFor="message" className="mb-1 block text-sm font-medium text-slate-300">
+                  <label htmlFor="message" className="mb-1 block text-sm font-medium text-muted-foreground">
                     {t("contact.message")}
                   </label>
                   <textarea
@@ -145,7 +144,7 @@ export default function ContactPage() {
                     {isSubmitting ? (
                       <span className="flex items-center justify-center gap-2">
                         <svg
-                          className="h-4 w-4 animate-spin text-[#060606]"
+                          className="h-4 w-4 animate-spin text-primary-foreground"
                           xmlns="http://www.w3.org/2000/svg"
                           fill="none"
                           viewBox="0 0 24 24"
@@ -200,37 +199,37 @@ export default function ContactPage() {
             transition={{ duration: 0.5, delay: reduceMotion ? 0 : 0.2 }}
             className="lg:col-span-1"
           >
-            <div className="card-surface flex h-full flex-col rounded-2xl border-cyan-500/15 p-6 md:p-8">
-              <h3 className="font-display mb-6 text-center text-xl font-bold text-white">{t("contact.title")}</h3>
+            <div className="card-surface flex h-full flex-col rounded-2xl border-primary/15 p-6 md:p-8">
+              <h3 className="font-display mb-6 text-center text-xl font-bold text-foreground">{t("contact.title")}</h3>
 
               <div className="flex flex-1 flex-col justify-center space-y-8">
                 <div className="flex flex-col items-center text-center">
-                  <div className="mb-2 rounded-full bg-cyan-400/15 p-2">
-                    <MapPin className="h-6 w-6 text-cyan-400" />
+                  <div className="mb-2 rounded-full bg-primary/15 p-2">
+                    <MapPin className="h-6 w-6 text-primary" aria-hidden />
                   </div>
                   <div>
-                    <h4 className="text-lg font-medium text-white">{t("contact.address")}</h4>
-                    <p className="mt-1 text-slate-400">{t("contact.city")}</p>
+                    <h4 className="text-lg font-medium text-foreground">{t("contact.address")}</h4>
+                    <p className="mt-1 text-muted-foreground">{t("contact.city")}</p>
                   </div>
                 </div>
 
                 <div className="flex flex-col items-center text-center">
-                  <div className="mb-2 rounded-full bg-cyan-400/15 p-2">
-                    <Phone className="h-6 w-6 text-cyan-400" />
+                  <div className="mb-2 rounded-full bg-primary/15 p-2">
+                    <Phone className="h-6 w-6 text-primary" aria-hidden />
                   </div>
                   <div>
-                    <h4 className="text-lg font-medium text-white">{t("contact.phone")}</h4>
-                    <p className="mt-1 text-slate-400">{t("contact.phoneNumber")}</p>
+                    <h4 className="text-lg font-medium text-foreground">{t("contact.phone")}</h4>
+                    <p className="mt-1 text-muted-foreground">{t("contact.phoneNumber")}</p>
                   </div>
                 </div>
 
                 <div className="flex flex-col items-center text-center">
-                  <div className="mb-2 rounded-full bg-cyan-400/15 p-2">
-                    <Mail className="h-6 w-6 text-cyan-400" />
+                  <div className="mb-2 rounded-full bg-primary/15 p-2">
+                    <Mail className="h-6 w-6 text-primary" aria-hidden />
                   </div>
                   <div>
-                    <h4 className="text-lg font-medium text-white">{t("contact.emailContact")}</h4>
-                    <p className="mt-1 text-slate-400">{t("contact.emailAddress")}</p>
+                    <h4 className="text-lg font-medium text-foreground">{t("contact.emailContact")}</h4>
+                    <p className="mt-1 text-muted-foreground">{t("contact.emailAddress")}</p>
                   </div>
                 </div>
               </div>

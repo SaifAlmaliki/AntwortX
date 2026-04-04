@@ -30,7 +30,7 @@ export function BrandName({
   const brandNameContent = (
     <span className={`font-bold ${sizeClass} ${className}`}>
       {/* Same "Zempar" wordmark for both languages (Zem + par styling) */}
-      <span className="text-white">Zem</span>
+      <span className="text-foreground">Zem</span>
       <span className="text-gradient-signal">par</span>
     </span>
   );

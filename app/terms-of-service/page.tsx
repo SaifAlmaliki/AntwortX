@@ -18,10 +18,10 @@ export default function TermsOfServicePage() {
           transition={{ duration: 0.5 }}
           className="mb-12 text-center"
         >
-          <h1 className="font-display text-4xl font-bold tracking-tight text-white mb-4 md:text-5xl">
+          <h1 className="font-display mb-4 text-4xl font-bold tracking-tight text-foreground md:text-5xl">
             {language === "en" ? "Terms of Service" : "شروط الخدمة"}
           </h1>
-          <p className="text-slate-400">
+          <p className="text-muted-foreground">
             {language === "en" ? "Last updated: March 2, 2025" : "2 مارس 2025 :آخر تحديث"}
           </p>
         </motion.div>
@@ -30,9 +30,9 @@ export default function TermsOfServicePage() {
           initial={reduceMotion ? false : { opacity: 0, y: 20 }}
           animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: reduceMotion ? 0 : 0.1 }}
-          className="card-surface section-glow mb-8 rounded-2xl border-cyan-500/15 p-6 sm:p-8"
+          className="card-surface section-glow mb-8 rounded-2xl border-primary/15 p-6 sm:p-8"
         >
-          <div className={`prose prose-invert max-w-none prose-headings:font-display prose-a:text-cyan-400 prose-headings:text-white ${isRtl ? "text-right" : ""}`}>
+          <div className={`prose prose-invert max-w-none prose-headings:font-display prose-a:text-primary prose-headings:text-foreground ${isRtl ? "text-right" : ""}`}>
             <h2>{language === 'en' ? '1. Introduction' : '1. مقدمة'}</h2>
             <p>
               {language === 'en' 

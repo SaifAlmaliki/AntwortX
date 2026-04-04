@@ -50,7 +50,7 @@ export function LanguageSelector() {
         aria-haspopup="listbox"
         aria-controls={listId}
         aria-label={t("common.chooseLanguage")}
-        className="rounded-full px-3 text-slate-300 hover:text-white hover:bg-cyan-500/10 transition-all duration-200 focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#060606]"
+        className="rounded-full px-3 text-muted-foreground transition-all duration-200 hover:bg-primary/10 hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
       >
         <Globe className="h-4 w-4 mr-2 shrink-0" aria-hidden />
         <span className="mr-1" aria-hidden>
@@ -73,7 +73,7 @@ export function LanguageSelector() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
-            className="absolute top-full z-50 mt-2 min-w-[150px] overflow-hidden rounded-xl border border-cyan-500/20 bg-[rgba(8,12,18,0.95)] shadow-[0_0_40px_-8px_rgba(34,211,238,0.2)] backdrop-blur-xl right-0"
+            className="absolute right-0 top-full z-50 mt-2 min-w-[150px] overflow-hidden rounded-xl border border-primary/20 bg-popover/95 shadow-signal-menu backdrop-blur-xl"
           >
             <div className="py-1" role="presentation">
               {languages.map((lang) => (
@@ -83,8 +83,10 @@ export function LanguageSelector() {
                   role="option"
                   aria-selected={language === lang.code}
                   onClick={() => handleLanguageChange(lang.code as 'en' | 'ar')}
-                  className={`mx-1 flex w-full items-center justify-start rounded-lg px-4 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 ${
-                    language === lang.code ? "bg-cyan-500/15 text-cyan-300" : "text-slate-300 hover:bg-cyan-500/10 hover:text-white"
+                  className={`mx-1 flex w-full items-center justify-start rounded-lg px-4 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
+                    language === lang.code
+                      ? "bg-primary/15 text-primary"
+                      : "text-muted-foreground hover:bg-primary/10 hover:text-foreground"
                   } text-start`}
                   whileHover={{ x: 5 }}
                   transition={{ type: "spring", stiffness: 300 }}

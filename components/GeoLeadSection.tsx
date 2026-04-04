@@ -6,8 +6,7 @@ import { useLanguage } from "@/contexts/language-context";
 import { cn } from "@/lib/utils";
 import { ZEMPAR_AUDIT_URL_KEY } from "@/lib/website-url";
 
-const inputClass =
-  "zempar-input w-full px-4 py-2.5 rounded-xl focus-visible:ring-2 focus-visible:ring-cyan-400";
+const inputClass = "zempar-input w-full rounded-xl px-4 py-2.5";
 
 type ApiOk = { ok: true };
 type ApiMailto = { ok: false; mailto: { to: string; subject: string; body: string } };
@@ -132,14 +131,14 @@ export function GeoLeadSection() {
         >
           <h2
             id="geo-lead-heading"
-            className="font-display text-3xl font-bold text-white sm:text-4xl md:text-5xl text-balance"
+            className="font-display text-balance text-3xl font-bold text-foreground sm:text-4xl md:text-5xl"
           >
             {t("geoLead.title")}
           </h2>
-          <p className="mx-auto mt-4 max-w-3xl text-lg leading-relaxed text-slate-300">
+          <p className="mx-auto mt-4 max-w-3xl text-lg leading-relaxed text-muted-foreground">
             {t("geoLead.subtitle")}
           </p>
-          <p className="mx-auto mt-4 max-w-2xl text-base font-medium text-cyan-200/90">
+          <p className="mx-auto mt-4 max-w-2xl text-base font-medium text-primary/90">
             {t("geoLead.highlight")}
           </p>
         </motion.div>
@@ -151,10 +150,10 @@ export function GeoLeadSection() {
           viewport={{ once: true, margin: "-40px" }}
           transition={{ duration: 0.5, delay: reduceMotion ? 0 : 0.06 }}
         >
-          <div className="card-surface section-glow rounded-2xl border-cyan-500/15 p-6 md:p-8">
+          <div className="card-surface section-glow rounded-2xl border-primary/15 p-6 md:p-8">
             {status === "success" ? (
               <p
-                className="text-center text-base leading-relaxed text-slate-200"
+                className="text-center text-base leading-relaxed text-foreground/95"
                 role="status"
               >
                 {successKind === "smtp"
@@ -165,7 +164,7 @@ export function GeoLeadSection() {
                     {" "}
                     <a
                       href={`mailto:${t("contact.emailAddress")}`}
-                      className="text-cyan-300 underline-offset-2 hover:underline"
+                      className="text-primary underline-offset-2 hover:underline"
                     >
                       {t("contact.emailAddress")}
                     </a>
@@ -177,7 +176,7 @@ export function GeoLeadSection() {
                 <div className="mb-4">
                   <label
                     htmlFor="geo-website"
-                    className="mb-1 block text-sm font-medium text-slate-300"
+                    className="mb-1 block text-sm font-medium text-muted-foreground"
                   >
                     {t("geoLead.websiteLabel")}
                   </label>
@@ -197,7 +196,7 @@ export function GeoLeadSection() {
                 <div className="mb-4">
                   <label
                     htmlFor="geo-email"
-                    className="mb-1 block text-sm font-medium text-slate-300"
+                    className="mb-1 block text-sm font-medium text-muted-foreground"
                   >
                     {t("geoLead.emailLabel")}
                   </label>
@@ -216,7 +215,7 @@ export function GeoLeadSection() {
                 <div className="mb-4">
                   <label
                     htmlFor="geo-company"
-                    className="mb-1 block text-sm font-medium text-slate-300"
+                    className="mb-1 block text-sm font-medium text-muted-foreground"
                   >
                     {t("geoLead.companyLabel")}
                   </label>
@@ -247,7 +246,7 @@ export function GeoLeadSection() {
                   />
                 </div>
 
-                <p className="mb-5 text-xs leading-relaxed text-slate-500">
+                <p className="mb-5 text-xs leading-relaxed text-muted-foreground/90">
                   {t("geoLead.consent")}
                 </p>
 
@@ -271,7 +270,7 @@ export function GeoLeadSection() {
                   {status === "loading" ? (
                     <span className="flex items-center justify-center gap-2">
                       <svg
-                        className="h-4 w-4 animate-spin text-[#060606]"
+                        className="h-4 w-4 animate-spin text-primary-foreground"
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"

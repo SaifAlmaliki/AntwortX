@@ -64,7 +64,7 @@ export function MissionValuesSection() {
             {title}
           </motion.h2>
           <motion.p
-            className="mt-5 text-base leading-relaxed text-slate-300 sm:mt-6 sm:text-lg"
+            className="mt-5 text-base leading-relaxed text-muted-foreground sm:mt-6 sm:text-lg"
             initial={reduceMotion ? false : { opacity: 0, y: 18 }}
             whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}

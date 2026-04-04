@@ -42,12 +42,12 @@ function FeatureBlock({ icon, title, description, className, direction }: Featur
             "items-start"
           )}
         >
-          <div className="shrink-0 pt-0.5 text-cyan-400">{icon}</div>
-          <h3 className="min-w-0 flex-1 font-display text-base font-semibold leading-[1.4] text-white sm:text-lg text-pretty hyphens-none">
+          <div className="shrink-0 pt-0.5 text-primary">{icon}</div>
+          <h3 className="min-w-0 flex-1 hyphens-none text-pretty font-display text-base font-semibold leading-[1.4] text-foreground sm:text-lg">
             {title}
           </h3>
         </div>
-        <p className="min-w-0 text-sm leading-relaxed text-slate-400 sm:text-[0.9375rem] text-pretty">
+        <p className="min-w-0 text-pretty text-sm leading-relaxed text-muted-foreground sm:text-[0.9375rem]">
           {description}
         </p>
       </div>
@@ -67,22 +67,22 @@ function iconForFeatureKey(key: string, reduceMotion: boolean | null): ReactNode
     <motion.div
       animate={reduceMotion ? undefined : { rotate: [0, 12, 0, -12, 0] }}
       transition={reduceMotion ? undefined : { repeat: Infinity, duration: 5, ease: "easeInOut" }}
-      className="inline-flex shrink-0 text-cyan-400"
+      className="inline-flex shrink-0 text-primary"
     >
       <LineChart className="h-7 w-7 sm:h-8 sm:w-8" aria-hidden />
     </motion.div>
   );
   switch (key) {
     case "audit":
-      return <Search className="h-8 w-8 shrink-0 text-cyan-400" aria-hidden />;
+      return <Search className="h-8 w-8 shrink-0 text-primary" aria-hidden />;
     case "signals":
-      return <FileText className="h-7 w-7 shrink-0 text-cyan-400 sm:h-8 sm:w-8" aria-hidden />;
+      return <FileText className="h-7 w-7 shrink-0 text-primary sm:h-8 sm:w-8" aria-hidden />;
     case "technical":
-      return <Code className="h-7 w-7 shrink-0 text-cyan-400 sm:h-8 sm:w-8" aria-hidden />;
+      return <Code className="h-7 w-7 shrink-0 text-primary sm:h-8 sm:w-8" aria-hidden />;
     case "measure":
       return chartIcon;
     default:
-      return <Search className="h-8 w-8 shrink-0 text-cyan-400" aria-hidden />;
+      return <Search className="h-8 w-8 shrink-0 text-primary" aria-hidden />;
   }
 }
 
@@ -126,7 +126,7 @@ export function HeroSection() {
           animate={enterTarget}
           transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
         >
-          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-cyan-300/80 sm:tracking-[0.2em]">
+          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-primary/80 sm:tracking-[0.2em]">
             {t("home.eyebrow")}
           </p>
           <h1
@@ -137,7 +137,7 @@ export function HeroSection() {
           >
             <span className="text-gradient-signal">{firstWord}</span>
             {restWords ? (
-              <span className="text-white hyphens-none">
+              <span className="hyphens-none text-foreground">
                 {" "}
                 {restWords}
               </span>
@@ -145,7 +145,7 @@ export function HeroSection() {
           </h1>
           <p
             className={cn(
-              "mt-4 max-w-prose text-base leading-relaxed text-slate-300 sm:mt-5 sm:text-lg",
+              "mt-4 max-w-prose text-base leading-relaxed text-muted-foreground sm:mt-5 sm:text-lg",
               direction === "rtl" ? "ml-auto text-right" : ""
             )}
           >

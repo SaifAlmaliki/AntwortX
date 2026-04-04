@@ -63,7 +63,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark overflow-x-hidden">
       <body
-        className={`${syne.variable} ${geistSans.variable} ${geistMono.variable} font-sans antialiased min-h-screen bg-page text-white relative`}
+        className={`${syne.variable} ${geistSans.variable} ${geistMono.variable} relative min-h-screen bg-page font-sans text-foreground antialiased`}
       >
         <StructuredData />
         {/* Animated grid (original look: visible #222 lines on #060606) */}

@@ -27,7 +27,7 @@ const FAQItem = ({
   return (
     <details
       className={cn(
-        "group border-b border-cyan-500/10 last:border-b-0",
+        "group border-b border-border/70 last:border-b-0",
         "[&[open]_summary_.faq-chevron]:rotate-180"
       )}
       open={isOpen}
@@ -39,18 +39,18 @@ const FAQItem = ({
         className={cn(
           "flex w-full cursor-pointer list-none items-center justify-between gap-3 py-4 text-left transition-colors rounded-lg -mx-2 px-2",
           "[&::-webkit-details-marker]:hidden",
-          "hover:bg-cyan-500/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[rgba(8,10,15,0.95)]",
+          "hover:bg-primary/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
           isRtl && "flex-row-reverse text-right"
         )}
       >
-        <h3 className="text-lg font-medium text-white font-display pr-2">{question}</h3>
+        <h3 className="font-display pr-2 text-lg font-medium text-foreground">{question}</h3>
         <ChevronDown
-          className="faq-chevron shrink-0 text-cyan-400/80 transition-transform duration-300 ease-out"
+          className="faq-chevron shrink-0 text-primary/80 transition-transform duration-300 ease-out"
           size={22}
           aria-hidden
         />
       </summary>
-      <p className={cn("pb-4 text-slate-300 leading-relaxed", isRtl ? "text-right" : "")}>{answer}</p>
+      <p className={cn("pb-4 leading-relaxed text-muted-foreground", isRtl ? "text-right" : "")}>{answer}</p>
     </details>
   );
 };
@@ -66,7 +66,7 @@ export const FAQSection = () => {
   return (
     <section
       className={cn(
-        "marketing-section border-y border-cyan-500/10 bg-[rgba(6,8,12,0.4)] py-16 backdrop-blur-sm",
+        "marketing-section border-y border-border/70 bg-card/40 py-16 backdrop-blur-sm",
         isRtl ? "rtl" : ""
       )}
     >
@@ -78,8 +78,8 @@ export const FAQSection = () => {
           transition={{ duration: 0.5 }}
           className={cn("mb-12 text-center", isRtl ? "text-right" : "")}
         >
-          <h2 className="font-display text-3xl font-bold text-white md:text-4xl">{t("faq.title")}</h2>
-          <p className="mx-auto mt-3 max-w-2xl text-slate-400">{t("faq.subtitle")}</p>
+          <h2 className="font-display text-3xl font-bold text-foreground md:text-4xl">{t("faq.title")}</h2>
+          <p className="mx-auto mt-3 max-w-2xl text-muted-foreground">{t("faq.subtitle")}</p>
         </motion.div>
 
         <motion.div
@@ -87,7 +87,7 @@ export const FAQSection = () => {
           whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-40px" }}
           transition={{ duration: 0.5, delay: reduceMotion ? 0 : 0.1 }}
-          className="card-surface section-glow rounded-2xl border-cyan-500/15 p-5 md:p-8 lg:p-10"
+          className="card-surface section-glow rounded-2xl border-primary/15 p-5 md:p-8 lg:p-10"
         >
           {faqItems.map((item: FAQItem, index: number) => (
             <FAQItem

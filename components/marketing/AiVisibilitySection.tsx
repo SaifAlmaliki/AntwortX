@@ -30,18 +30,18 @@ export function AiVisibilitySection() {
         >
           <h2
             id="ai-visibility-heading"
-            className="font-display text-3xl font-bold text-white sm:text-4xl md:text-5xl text-balance"
+            className="font-display text-balance text-3xl font-bold text-foreground sm:text-4xl md:text-5xl"
           >
             {t("aiVisibility.title")}
           </h2>
-          <p className="mx-auto mt-4 max-w-3xl text-lg text-cyan-200/85">
+          <p className="mx-auto mt-4 max-w-3xl text-lg text-primary/85">
             {t("aiVisibility.subtitle")}
           </p>
         </motion.div>
 
         <motion.p
           className={cn(
-            "mb-4 text-center text-sm font-medium text-slate-400",
+            "mb-4 text-center text-sm font-medium text-muted-foreground",
             isRtl && "text-center"
           )}
           initial={reduceMotion ? false : { opacity: 0, y: 12 }}
@@ -66,17 +66,17 @@ export function AiVisibilitySection() {
             >
               <div
                 className={cn(
-                  "flex items-center gap-3 rounded-xl border border-white/[0.08] bg-white/[0.03] px-4 py-3 shadow-sm",
+                  "flex items-center gap-3 rounded-xl border border-border/50 bg-card/30 px-4 py-3 shadow-sm",
                   isRtl && "flex-row-reverse"
                 )}
               >
                 <Search
-                  className="h-5 w-5 shrink-0 text-slate-500"
+                  className="h-5 w-5 shrink-0 text-muted-foreground"
                   aria-hidden
                 />
                 <p
                   className={cn(
-                    "text-sm italic leading-snug text-slate-300 sm:text-base",
+                    "text-sm italic leading-snug text-foreground/90 sm:text-base",
                     isRtl ? "text-right" : "text-left"
                   )}
                 >
@@ -94,10 +94,10 @@ export function AiVisibilitySection() {
           viewport={{ once: true, margin: "-40px" }}
           transition={{ duration: 0.5, delay: reduceMotion ? 0 : 0.08 }}
         >
-          <p className="text-base leading-relaxed text-slate-400 sm:text-lg">
+          <p className="text-base leading-relaxed text-muted-foreground sm:text-lg">
             {t("aiVisibility.body")}
           </p>
-          <p className="text-base font-medium leading-relaxed text-slate-200 sm:text-lg">
+          <p className="text-base font-medium leading-relaxed text-foreground/95 sm:text-lg">
             {t("aiVisibility.closing")}
           </p>
         </motion.div>

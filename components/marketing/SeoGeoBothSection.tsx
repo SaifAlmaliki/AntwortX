@@ -16,7 +16,7 @@ export function SeoGeoBothSection() {
     >
       <div
         className={cn(
-          "overflow-hidden rounded-3xl border border-cyan-500/15 bg-[#050508] px-6 py-14 text-center shadow-[0_0_60px_-12px_rgba(34,211,238,0.12)] sm:px-10 md:py-20",
+          "overflow-hidden rounded-3xl border border-primary/15 bg-card px-6 py-14 text-center shadow-signal sm:px-10 md:py-20",
           isRtl && "rtl"
         )}
       >
@@ -28,21 +28,21 @@ export function SeoGeoBothSection() {
           transition={{ duration: 0.55 }}
         >
           <div
-            className="mb-6 flex h-12 w-12 items-center justify-center rounded-full bg-cyan-400 text-[#060606]"
+            className="mb-6 flex h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-foreground"
             aria-hidden
           >
             <Sparkles className="h-6 w-6" strokeWidth={1.75} />
           </div>
           <h2
             id="seo-geo-both-heading"
-            className="font-display text-3xl font-bold leading-tight text-white sm:text-4xl md:text-[2.35rem]"
+            className="font-display text-3xl font-bold leading-tight text-foreground sm:text-4xl md:text-[2.35rem]"
           >
             {t("seoGeoBoth.title")}
           </h2>
-          <p className="mt-5 text-base font-semibold text-white sm:text-lg">
+          <p className="mt-5 text-base font-semibold text-foreground sm:text-lg">
             {t("seoGeoBoth.subtitle")}
           </p>
-          <p className="mt-4 max-w-xl text-sm leading-relaxed text-slate-400 sm:text-base">
+          <p className="mt-4 max-w-xl text-sm leading-relaxed text-muted-foreground sm:text-base">
             {t("seoGeoBoth.body")}
           </p>
         </motion.div>

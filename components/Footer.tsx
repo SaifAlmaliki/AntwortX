@@ -11,27 +11,27 @@ export function Footer() {
   const currentYear = new Date().getFullYear();
 
   const linkClass =
-    "text-slate-400 hover:text-cyan-300 transition-colors rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#060606]";
+    "rounded-sm text-muted-foreground transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background";
 
   return (
     <footer
       className={cn(
-        "relative border-t border-cyan-500/10 bg-[rgba(5,6,8,0.85)] backdrop-blur-md py-12",
+        "relative border-t border-border/80 bg-card/85 py-12 backdrop-blur-md",
         isRtl ? "rtl" : ""
       )}
     >
       <div
-        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-400/30 to-transparent"
+        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent"
         aria-hidden
       />
       <div className="container mx-auto px-4 sm:px-6 max-w-7xl">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8">
           <div className="lg:col-span-6">
-            <div className="font-display text-2xl font-bold text-white mb-3 tracking-tight">
-              <span className="text-white">Zem</span>
+            <div className="font-display mb-3 text-2xl font-bold tracking-tight text-foreground">
+              <span className="text-foreground">Zem</span>
               <span className="text-gradient-signal">par</span>
             </div>
-            <p className="text-slate-400 text-sm mb-5 max-w-sm leading-relaxed">
+            <p className="mb-5 max-w-sm text-sm leading-relaxed text-muted-foreground">
               {t("footer.description") ||
                 "Generative Engine Optimization and SEO together—findable in search, accurately represented in LLM apps."}
             </p>
@@ -66,7 +66,7 @@ export function Footer() {
           </div>
 
           <div className="lg:col-span-3">
-            <h3 className="text-xs font-semibold uppercase tracking-wider text-cyan-200/80 mb-4">
+            <h3 className="mb-4 text-xs font-semibold uppercase tracking-wider text-primary/85">
               {t("footer.product")}
             </h3>
             <ul className="space-y-2.5 text-sm">
@@ -89,7 +89,7 @@ export function Footer() {
           </div>
 
           <div className="lg:col-span-3">
-            <h3 className="text-xs font-semibold uppercase tracking-wider text-cyan-200/80 mb-4">
+            <h3 className="mb-4 text-xs font-semibold uppercase tracking-wider text-primary/85">
               {t("footer.company")}
             </h3>
             <ul className="space-y-2.5 text-sm">
@@ -114,7 +114,7 @@ export function Footer() {
 
         <div
           className={cn(
-            "mt-10 pt-6 border-t border-cyan-500/10 flex flex-col sm:flex-row justify-between items-center gap-3 text-slate-500 text-xs",
+            "mt-10 flex flex-col items-center justify-between gap-3 border-t border-border/80 pt-6 text-xs text-muted-foreground sm:flex-row",
             isRtl ? "sm:flex-row-reverse" : ""
           )}
         >

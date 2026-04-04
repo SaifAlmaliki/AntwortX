@@ -46,7 +46,7 @@ export default function SolutionsPage() {
       <div className="marketing-section container mx-auto max-w-7xl px-4 py-16 sm:px-6">
         <div className={cn("mb-16 text-center", direction === "rtl" ? "rtl" : "")}>
           <motion.h1
-            className="font-display text-4xl font-bold text-white sm:text-5xl md:text-6xl mb-4 tracking-tight"
+            className="font-display mb-4 text-4xl font-bold tracking-tight text-foreground sm:text-5xl md:text-6xl"
             initial={reduceMotion ? false : { opacity: 0, y: 20 }}
             animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
@@ -54,7 +54,7 @@ export default function SolutionsPage() {
             {language === "en" ? "Our Solutions" : "حلولنا"}
           </motion.h1>
           <motion.p
-            className="mx-auto max-w-3xl text-xl text-slate-300"
+            className="mx-auto max-w-3xl text-xl text-muted-foreground"
             initial={reduceMotion ? false : { opacity: 0, y: 20 }}
             animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: reduceMotion ? 0 : 0.1 }}
@@ -70,7 +70,7 @@ export default function SolutionsPage() {
             <motion.div
               key={index}
               className={cn(
-                "card-surface rounded-2xl border-cyan-500/12 p-8",
+                "card-surface rounded-2xl border-primary/12 p-8",
                 direction === "rtl" ? "rtl text-right" : ""
               )}
               initial={reduceMotion ? false : { opacity: 0, y: 22 }}
@@ -85,8 +85,8 @@ export default function SolutionsPage() {
                     }
               }
             >
-              <h2 className="font-display text-2xl font-bold text-white mb-4">{solution.title}</h2>
-              <p className="leading-relaxed text-slate-400">{solution.description}</p>
+              <h2 className="font-display mb-4 text-2xl font-bold text-foreground">{solution.title}</h2>
+              <p className="leading-relaxed text-muted-foreground">{solution.description}</p>
             </motion.div>
           ))}
         </div>
@@ -97,7 +97,7 @@ export default function SolutionsPage() {
           animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: reduceMotion ? 0 : 0.5 }}
         >
-          <h2 className="font-display text-2xl font-bold text-white mb-6 md:text-3xl">
+          <h2 className="font-display mb-6 text-2xl font-bold text-foreground md:text-3xl">
             {language === "en" ? "Ready to transform your business?" : "هل أنت مستعد لتحويل عملك؟"}
           </h2>
           <Link href="/contact" className="inline-flex justify-center">
