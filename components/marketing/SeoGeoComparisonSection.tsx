@@ -4,8 +4,6 @@ import { motion, useReducedMotion } from "framer-motion";
 import { Diamond } from "lucide-react";
 import { useLanguage } from "@/contexts/language-context";
 import { cn } from "@/lib/utils";
-import { FreeAuditUrlCta } from "./FreeAuditUrlCta";
-
 function Column({
   variant,
   title,
@@ -211,16 +209,6 @@ export function SeoGeoComparisonSection() {
             delay={0.1}
           />
         </div>
-
-        <motion.div
-          className="mx-auto mt-10 max-w-3xl"
-          initial={reduceMotion ? false : { opacity: 0, y: 16 }}
-          whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-40px" }}
-          transition={{ duration: 0.45, delay: reduceMotion ? 0 : 0.12 }}
-        >
-          <FreeAuditUrlCta />
-        </motion.div>
       </div>
     </section>
   );

@@ -37,11 +37,18 @@ export function FloatingHeader() {
   ];
 
   useEffect(() => {
+    let ticking = false;
     const handleScroll = () => {
-      setScrolled(window.scrollY > 10);
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        setScrolled(window.scrollY > 10);
+        ticking = false;
+      });
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -148,12 +155,18 @@ export function FloatingHeader() {
             id={mobileNavMenuId}
             role="region"
             aria-label={t("nav.siteMenu")}
-            className="md:hidden absolute top-16 left-4 right-4 rounded-2xl border border-cyan-500/20 bg-[rgba(8,12,18,0.92)] backdrop-blur-xl shadow-[0_0_48px_-12px_rgba(34,211,238,0.25)] overflow-hidden"
-            initial={reduceMotion ? false : { opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={reduceMotion ? { opacity: 0, transition: { duration: 0.15 } } : { opacity: 0, height: 0 }}
+            className="md:hidden absolute top-16 left-4 right-4 overflow-hidden rounded-2xl border border-cyan-500/20 bg-[rgba(8,12,18,0.92)] shadow-[0_0_48px_-12px_rgba(34,211,238,0.25)] backdrop-blur-xl"
+            initial={reduceMotion ? false : { opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={
+              reduceMotion
+                ? { opacity: 0, transition: { duration: 0.12 } }
+                : { opacity: 0, y: -8, transition: { duration: 0.2 } }
+            }
             transition={
-              reduceMotion ? { duration: 0.15 } : { duration: 0.3 }
+              reduceMotion
+                ? { duration: 0.12 }
+                : { duration: 0.22, ease: [0.22, 1, 0.36, 1] }
             }
           >
             <nav className="px-2 pt-2 pb-3 space-y-1">

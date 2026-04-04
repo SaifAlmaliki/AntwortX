@@ -4,8 +4,6 @@ import { motion, useReducedMotion } from "framer-motion";
 import { Sparkles } from "lucide-react";
 import { useLanguage } from "@/contexts/language-context";
 import { cn } from "@/lib/utils";
-import { FreeAuditUrlCta } from "./FreeAuditUrlCta";
-
 export function SeoGeoBothSection() {
   const { t, direction } = useLanguage();
   const reduceMotion = useReducedMotion();
@@ -47,16 +45,6 @@ export function SeoGeoBothSection() {
           <p className="mt-4 max-w-xl text-sm leading-relaxed text-slate-400 sm:text-base">
             {t("seoGeoBoth.body")}
           </p>
-        </motion.div>
-
-        <motion.div
-          className="mx-auto mt-10 max-w-3xl"
-          initial={reduceMotion ? false : { opacity: 0, y: 16 }}
-          whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-40px" }}
-          transition={{ duration: 0.5, delay: reduceMotion ? 0 : 0.1 }}
-        >
-          <FreeAuditUrlCta variant="onDark" />
         </motion.div>
       </div>
     </section>

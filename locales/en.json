@@ -187,14 +187,6 @@
     "subtitle": "SEO helps customers find you. GEO helps them choose you with accurate, trustworthy context.",
     "body": "Our methodology combines both: strong search fundamentals plus generative visibility—so you cover the full journey from discovery to conversion, no matter your industry."
   },
-  "freeAuditCta": {
-    "heading": "Ready to see how AI views your business?",
-    "description": "Add your website URL—we’ll take you to the short form to request your free visibility audit and report.",
-    "urlLabel": "Business website URL",
-    "urlPlaceholder": "https://yourcompany.com",
-    "button": "Start free visibility audit",
-    "errorInvalidUrl": "Please enter a valid website URL (e.g. yourcompany.com or https://…)."
-  },
   "geoLead": {
     "title": "Request your free AI visibility audit",
     "subtitle": "Customers ask ChatGPT, Gemini, and Perplexity—not only Google. Strong SEO remains essential, but how your brand is summarized and cited in AI answers increasingly shapes trust and revenue. Submit your site and work email: we review GEO and SEO signals and send a full write-up, with no obligation.",
