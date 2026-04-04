@@ -228,12 +228,7 @@
   },
   "about": {
     "title": "About Zempar",
-    "subtitle": "AI Ops and agentic AI for high-performing operations",
-    "mission": {
-      "title": "Our Mission",
-      "description": "At Zempar, we're on a mission to make operations smarter, faster, and more efficient through AI Ops and agentic AI. We believe teams shouldn't trade speed for safety—or quality for scale—when they automate real work.",
-      "vision": "Our vision is agentic systems that understand context, take bounded action, and improve over time—pairing human judgment with machine consistency so operations run reliably around the clock."
-    },
+    "subtitle": "Generative Engine Optimization (GEO) and SEO—clear entities, trustworthy content, and technical signals—so your organization stays visible and is represented fairly when models surface answers.",
     "who": {
       "title": "Who We Are",
       "description": "We are a team of AI experts and solution architects who have worked on groundbreaking projects across Germany, the UK, and Canada. Our passion lies in building AI agent solutions that help businesses drive more value."
@@ -296,8 +291,8 @@
       }
     },
     "cta": {
-      "title": "Ready to modernize operations with AI Ops and agentic AI?",
-      "description": "Talk to us about where work gets stuck today—we'll help you design agents and workflows that run faster with clear oversight.",
+      "title": "Ready to strengthen how you show up in AI answers?",
+      "description": "Talk to us about your brand narrative, content, and technical readiness—we'll help you improve citations, accuracy, and GEO alongside solid SEO.",
       "button": "Contact Us Today"
     }
   },

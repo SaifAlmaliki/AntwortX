@@ -25,13 +25,28 @@ export function FloatingHeader() {
   const reduceMotion = useReducedMotion();
 
   const navigation: NavigationItem[] = [
-    { name: t("nav.home"), href: "/", icon: <Home className="h-4 w-4" />, translationKey: "nav.home" },
-    { name: t("nav.about"), href: "/about", icon: <Info className="h-4 w-4" />, translationKey: "nav.about" },
-    { name: t("nav.contact"), href: "/contact", icon: <Mail className="h-4 w-4" />, translationKey: "nav.contact" },
+    {
+      name: t("nav.home"),
+      href: "/",
+      icon: <Home className="h-4 w-4 shrink-0" aria-hidden />,
+      translationKey: "nav.home",
+    },
+    {
+      name: t("nav.about"),
+      href: "/about",
+      icon: <Info className="h-4 w-4 shrink-0" aria-hidden />,
+      translationKey: "nav.about",
+    },
+    {
+      name: t("nav.contact"),
+      href: "/contact",
+      icon: <Mail className="h-4 w-4 shrink-0" aria-hidden />,
+      translationKey: "nav.contact",
+    },
     {
       name: t("nav.solutions"),
       href: "/solutions",
-      icon: <Zap className="h-4 w-4" />,
+      icon: <Zap className="h-4 w-4 shrink-0" aria-hidden />,
       translationKey: "nav.solutions",
     },
   ];
@@ -62,16 +77,14 @@ export function FloatingHeader() {
   }, [mobileMenuOpen]);
 
   const navLinkClass =
-    "rounded-full px-4 text-foreground/90 transition-colors hover:bg-primary/10 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background";
+    "rounded-full px-4 text-foreground/90 transition-colors duration-200 ease-out hover:bg-primary/10 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background";
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 px-4 py-3">
       <motion.div
         className={cn(
-          "mx-auto max-w-7xl rounded-full border backdrop-blur-xl transition-all duration-300",
-          scrolled
-            ? "border-primary/20 bg-card/80 shadow-signal backdrop-blur-xl"
-            : "border-primary/15 bg-card/60 backdrop-blur-xl"
+          "mx-auto max-w-7xl rounded-full border border-primary/15 bg-card/60 backdrop-blur-xl transition-[border-color,box-shadow,background-color] duration-300 ease-out",
+          scrolled && "border-primary/20 bg-card/80 shadow-signal"
         )}
         initial={reduceMotion ? false : { y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -141,9 +154,13 @@ export function FloatingHeader() {
               aria-expanded={mobileMenuOpen}
               aria-controls={mobileNavMenuId}
               aria-label={mobileMenuOpen ? t("nav.closeMenu") : t("nav.openMenu")}
-              className="rounded-full text-foreground/90 hover:bg-primary/15 hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+              className="min-h-11 min-w-11 rounded-full text-foreground/90 transition-colors duration-200 ease-out hover:bg-primary/15 hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
             >
-              {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+              {mobileMenuOpen ? (
+                <X className="h-6 w-6 shrink-0" aria-hidden />
+              ) : (
+                <Menu className="h-6 w-6 shrink-0" aria-hidden />
+              )}
             </Button>
           </div>
         </div>
@@ -179,11 +196,11 @@ export function FloatingHeader() {
                 >
                   <motion.div
                     className={cn(
-                      "flex items-center rounded-xl px-3 py-2 text-base font-medium text-foreground/90 hover:bg-primary/10 hover:text-foreground",
+                      "flex min-h-[44px] items-center rounded-xl px-3 py-2 text-base font-medium text-foreground/90 transition-colors duration-200 ease-out hover:bg-primary/10 hover:text-foreground",
                       direction === "rtl" ? "flex-row-reverse text-right" : ""
                     )}
                     whileHover={reduceMotion ? undefined : { x: direction === "rtl" ? -4 : 4 }}
-                    transition={{ type: "spring", stiffness: 300 }}
+                    transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
                   >
                     <span className={direction === "rtl" ? "ml-3" : "mr-3"}>{item.icon}</span>
                     {t(item.translationKey)}

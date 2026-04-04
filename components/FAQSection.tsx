@@ -14,13 +14,11 @@ interface FAQItem {
 const FAQItem = ({
   question,
   answer,
-  isRtl,
   isOpen,
   onToggle,
 }: {
   question: string;
   answer: string;
-  isRtl: boolean;
   isOpen: boolean;
   onToggle: (nextOpen: boolean) => void;
 }) => {
@@ -37,20 +35,19 @@ const FAQItem = ({
     >
       <summary
         className={cn(
-          "flex w-full cursor-pointer list-none items-center justify-between gap-3 py-4 text-left transition-colors rounded-lg -mx-2 px-2",
+          "flex w-full cursor-pointer list-none items-center justify-between gap-3 py-4 text-start transition-colors rounded-lg -mx-2 px-2",
           "[&::-webkit-details-marker]:hidden",
-          "hover:bg-primary/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
-          isRtl && "flex-row-reverse text-right"
+          "hover:bg-primary/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
         )}
       >
-        <h3 className="font-display pr-2 text-lg font-medium text-foreground">{question}</h3>
+        <h3 className="font-display pe-2 text-lg font-medium text-foreground">{question}</h3>
         <ChevronDown
           className="faq-chevron shrink-0 text-primary/80 transition-transform duration-300 ease-out"
           size={22}
           aria-hidden
         />
       </summary>
-      <p className={cn("pb-4 leading-relaxed text-muted-foreground", isRtl ? "text-right" : "")}>{answer}</p>
+      <p className="pb-4 text-start leading-relaxed text-muted-foreground">{answer}</p>
     </details>
   );
 };
@@ -76,7 +73,7 @@ export const FAQSection = () => {
           whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.5 }}
-          className={cn("mb-12 text-center", isRtl ? "text-right" : "")}
+          className="mb-12 text-center"
         >
           <h2 className="font-display text-3xl font-bold text-foreground md:text-4xl">{t("faq.title")}</h2>
           <p className="mx-auto mt-3 max-w-2xl text-muted-foreground">{t("faq.subtitle")}</p>
@@ -94,7 +91,6 @@ export const FAQSection = () => {
               key={index}
               question={item.question}
               answer={item.answer}
-              isRtl={isRtl}
               isOpen={openIndex === index}
               onToggle={(nextOpen) => {
                 if (nextOpen) setOpenIndex(index);

@@ -82,7 +82,9 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
       if (value && typeof value === 'object' && k in value) {
         value = value[k];
       } else {
-        console.warn(`Translation key not found: ${key}`);
+        if (process.env.NODE_ENV === "development") {
+          console.warn(`Translation key not found: ${key}`);
+        }
         return key;
       }
     }

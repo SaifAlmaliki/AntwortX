@@ -33,7 +33,7 @@ export function VisibilityOfferingsSection() {
       className="marketing-section py-12 md:py-20"
       aria-labelledby="offerings-heading"
     >
-      <div className={cn(isRtl && "rtl")}>
+      <div className={cn(isRtl && "rtl")} dir={isRtl ? "rtl" : "ltr"}>
         <motion.div
           className="mb-10 text-center md:mb-12"
           initial={reduceMotion ? false : { opacity: 0, y: 18 }}
@@ -54,10 +54,8 @@ export function VisibilityOfferingsSection() {
 
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 lg:gap-8">
           <motion.article
-            className={cn(
-              "flex flex-col rounded-2xl border border-border/60 bg-card/30 p-6 shadow-lg md:p-8",
-              isRtl && "text-right"
-            )}
+            className="flex flex-col rounded-2xl border border-border/60 bg-card/30 p-6 text-start shadow-lg md:p-8"
+            dir={isRtl ? "rtl" : "ltr"}
             initial={reduceMotion ? false : { opacity: 0, y: 22 }}
             whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-40px" }}
@@ -74,18 +72,12 @@ export function VisibilityOfferingsSection() {
             </p>
             <ul className="mt-6 flex-1 space-y-2.5" role="list">
               {auditFeatures.map((line, i) => (
-                <li
-                  key={i}
-                  className={cn(
-                    "flex gap-2 text-sm text-foreground/90",
-                    isRtl && "flex-row-reverse"
-                  )}
-                >
+                <li key={i} className="flex gap-2 text-sm text-foreground/90">
                   <Diamond
                     className="mt-0.5 h-3.5 w-3.5 shrink-0 text-primary/80"
                     aria-hidden
                   />
-                  <span>{line}</span>
+                  <span className="min-w-0 flex-1">{line}</span>
                 </li>
               ))}
             </ul>
@@ -98,27 +90,25 @@ export function VisibilityOfferingsSection() {
             <button
               type="button"
               onClick={scrollToLead}
-              className={cn(
-                "btn-signal-primary mt-6 inline-flex w-full items-center justify-center gap-2 py-3",
-                isRtl && "flex-row-reverse"
-              )}
+              className="btn-signal-primary mt-6 inline-flex w-full items-center justify-center gap-2 py-3"
             >
               {t("visibilityOfferings.audit.cta")}
-              <ArrowRight className="h-4 w-4 shrink-0" aria-hidden />
+              <ArrowRight
+                className={cn("h-4 w-4 shrink-0", isRtl && "-scale-x-100")}
+                aria-hidden
+              />
             </button>
           </motion.article>
 
           <motion.article
-            className={cn(
-              "relative flex flex-col overflow-hidden rounded-2xl border border-primary/25 bg-card p-6 shadow-xl md:p-8",
-              isRtl && "text-right"
-            )}
+            className="relative flex flex-col overflow-hidden rounded-2xl border border-primary/25 bg-card p-6 text-start shadow-xl md:p-8"
+            dir={isRtl ? "rtl" : "ltr"}
             initial={reduceMotion ? false : { opacity: 0, y: 22 }}
             whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-40px" }}
             transition={{ duration: 0.5, delay: reduceMotion ? 0 : 0.1 }}
           >
-            <div className="absolute left-1/2 top-0 -translate-x-1/2">
+            <div className="absolute start-1/2 top-0 -translate-x-1/2">
               <span className="inline-block rounded-b-lg bg-primary px-4 py-1 text-xs font-bold uppercase tracking-wide text-primary-foreground">
                 {t("visibilityOfferings.growth.badge")}
               </span>
@@ -137,18 +127,12 @@ export function VisibilityOfferingsSection() {
             </p>
             <ul className="mt-3 flex-1 space-y-2.5" role="list">
               {growthFeatures.map((line, i) => (
-                <li
-                  key={i}
-                  className={cn(
-                    "flex gap-2 text-sm text-foreground/90",
-                    isRtl && "flex-row-reverse"
-                  )}
-                >
+                <li key={i} className="flex gap-2 text-sm text-foreground/90">
                   <Diamond
                     className="mt-0.5 h-3.5 w-3.5 shrink-0 text-primary/80"
                     aria-hidden
                   />
-                  <span>{line}</span>
+                  <span className="min-w-0 flex-1">{line}</span>
                 </li>
               ))}
             </ul>
@@ -161,13 +145,13 @@ export function VisibilityOfferingsSection() {
             <button
               type="button"
               onClick={scrollToLead}
-              className={cn(
-                "mt-6 flex w-full items-center justify-center gap-2 rounded-full border border-border bg-foreground py-3 text-sm font-semibold text-background transition hover:bg-foreground/90",
-                isRtl && "flex-row-reverse"
-              )}
+              className="mt-6 flex w-full items-center justify-center gap-2 rounded-full border border-border bg-foreground py-3 text-sm font-semibold text-background transition hover:bg-foreground/90"
             >
               {t("visibilityOfferings.growth.cta")}
-              <ArrowRight className="h-4 w-4" aria-hidden />
+              <ArrowRight
+                className={cn("h-4 w-4 shrink-0", isRtl && "-scale-x-100")}
+                aria-hidden
+              />
             </button>
           </motion.article>
         </div>

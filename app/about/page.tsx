@@ -3,7 +3,6 @@
 import { useMemo } from "react";
 import { useLanguage } from "@/contexts/language-context";
 import { motion, useReducedMotion } from "framer-motion";
-import Image from "next/image";
 import Link from "next/link";
 import { Globe, Users, Lightbulb, Award } from "lucide-react";
 
@@ -95,48 +94,8 @@ export default function AboutPage() {
               {t("about.title") || "About Zempar"}
             </h1>
             <p className="mx-auto max-w-3xl text-xl text-muted-foreground">
-              {t("about.subtitle") || "AI Ops and agentic AI for high-performing operations"}
+              {t("about.subtitle")}
             </p>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Our Mission */}
-      <section className="marketing-section bg-gradient-to-b from-transparent to-[rgba(6,8,12,0.5)] py-16">
-        <div className="container mx-auto max-w-7xl px-4 sm:px-6">
-          <motion.div
-            initial={reduceMotion ? false : { opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: reduceMotion ? 0 : 0.5 }}
-            viewport={{ once: true }}
-            className="card-surface section-glow rounded-2xl border-primary/15 p-8 md:p-12"
-          >
-            <div className="flex flex-col md:flex-row items-center gap-8">
-              <div className="md:w-1/2">
-                <h2 className="font-display text-3xl font-bold text-foreground mb-6">
-                  {t("about.mission.title") || "Our Mission"}
-                </h2>
-                <p className="text-muted-foreground mb-4 leading-relaxed">
-                  {t("about.mission.description") || 
-                    "At Zempar, we're on a mission to make operations smarter, faster, and more efficient through AI Ops and agentic AI. We believe teams shouldn't trade speed for safety—or quality for scale—when they automate real work."}
-                </p>
-                <p className="text-muted-foreground leading-relaxed">
-                  {t("about.mission.vision") || 
-                    "Our vision is agentic systems that understand context, take bounded action, and improve over time—pairing human judgment with machine consistency so operations run reliably around the clock."}
-                </p>
-              </div>
-              <div className="md:w-1/2 flex justify-center">
-                <div className="relative h-64 w-full min-w-0 md:h-80">
-                  <Image
-                    src="/about/mission.jpg"
-                    alt="Zempar mission"
-                    fill
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                    className="rounded-xl object-cover"
-                  />
-                </div>
-              </div>
-            </div>
           </motion.div>
         </div>
       </section>
@@ -312,11 +271,10 @@ export default function AboutPage() {
             className="section-glow rounded-2xl border border-primary/25 bg-gradient-to-br from-primary/90 via-primary/75 to-accent/85 p-8 text-center shadow-signal-lg md:p-12"
           >
             <h2 className="font-display mb-4 text-balance text-3xl font-bold text-foreground">
-              {t("about.cta.title") || "Ready to modernize operations with AI Ops and agentic AI?"}
+              {t("about.cta.title")}
             </h2>
             <p className="mx-auto mb-8 max-w-2xl text-pretty text-lg text-foreground/90">
-              {t("about.cta.description") ||
-                "Talk to us about where work gets stuck today—we'll help you design agents and workflows that run faster with clear oversight."}
+              {t("about.cta.description")}
             </p>
             <Link
               href="/contact"

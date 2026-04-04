@@ -50,7 +50,7 @@ export function LanguageSelector() {
         aria-haspopup="listbox"
         aria-controls={listId}
         aria-label={t("common.chooseLanguage")}
-        className="rounded-full px-3 text-muted-foreground transition-all duration-200 hover:bg-primary/10 hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+        className="rounded-full px-3 text-muted-foreground transition-colors duration-200 ease-out hover:bg-primary/10 hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
       >
         <Globe className="h-4 w-4 mr-2 shrink-0" aria-hidden />
         <span className="mr-1" aria-hidden>
@@ -77,25 +77,23 @@ export function LanguageSelector() {
           >
             <div className="py-1" role="presentation">
               {languages.map((lang) => (
-                <motion.button
+                <button
                   key={lang.code}
                   type="button"
                   role="option"
                   aria-selected={language === lang.code}
-                  onClick={() => handleLanguageChange(lang.code as 'en' | 'ar')}
-                  className={`mx-1 flex w-full items-center justify-start rounded-lg px-4 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
+                  onClick={() => handleLanguageChange(lang.code as "en" | "ar")}
+                  className={`mx-1 flex min-h-[44px] w-full items-center justify-start rounded-lg px-4 py-2 text-sm transition-colors duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
                     language === lang.code
                       ? "bg-primary/15 text-primary"
                       : "text-muted-foreground hover:bg-primary/10 hover:text-foreground"
                   } text-start`}
-                  whileHover={{ x: 5 }}
-                  transition={{ type: "spring", stiffness: 300 }}
                 >
                   <span className="mr-2" aria-hidden>
                     {lang.flag}
                   </span>
                   <span>{lang.name}</span>
-                </motion.button>
+                </button>
               ))}
             </div>
           </motion.div>

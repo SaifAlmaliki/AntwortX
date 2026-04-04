@@ -20,7 +20,7 @@ export function AiVisibilitySection() {
       className="marketing-section py-12 md:py-20"
       aria-labelledby="ai-visibility-heading"
     >
-      <div className={cn(isRtl && "rtl")}>
+      <div className={cn(isRtl && "rtl")} dir={isRtl ? "rtl" : "ltr"}>
         <motion.div
           className="mb-10 text-center md:mb-12"
           initial={reduceMotion ? false : { opacity: 0, y: 18 }}
@@ -64,22 +64,12 @@ export function AiVisibilitySection() {
                 delay: reduceMotion ? 0 : 0.06 + i * 0.05,
               }}
             >
-              <div
-                className={cn(
-                  "flex items-center gap-3 rounded-xl border border-border/50 bg-card/30 px-4 py-3 shadow-sm",
-                  isRtl && "flex-row-reverse"
-                )}
-              >
+              <div className="flex items-center gap-3 rounded-xl border border-border/50 bg-card/30 px-4 py-3 shadow-sm">
                 <Search
                   className="h-5 w-5 shrink-0 text-muted-foreground"
                   aria-hidden
                 />
-                <p
-                  className={cn(
-                    "text-sm italic leading-snug text-foreground/90 sm:text-base",
-                    isRtl ? "text-right" : "text-left"
-                  )}
-                >
+                <p className="min-w-0 flex-1 text-start text-sm italic leading-snug text-foreground/90 sm:text-base">
                   {q}
                 </p>
               </div>

@@ -39,10 +39,8 @@ export function TestimonialsSection() {
         {TESTIMONIALS.map((item, index) => (
           <motion.article
             key={item.name}
-            className={cn(
-              "card-surface flex min-h-0 min-w-0 flex-col border border-primary/10 border-b-2 border-b-amber-500/45 p-5 sm:p-6",
-              isRtl && "text-right"
-            )}
+            className="card-surface flex min-h-0 min-w-0 flex-col border border-primary/10 border-b-2 border-b-amber-500/45 p-5 text-start sm:p-6"
+            dir={isRtl ? "rtl" : "ltr"}
             initial={reduceMotion ? false : { opacity: 0, y: 22 }}
             whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-40px" }}
@@ -53,7 +51,10 @@ export function TestimonialsSection() {
             }}
           >
             <div
-              className={cn("mb-4 flex gap-0.5", isRtl && "justify-end")}
+              className={cn(
+                "mb-4 flex w-full gap-0.5",
+                isRtl ? "justify-start" : "justify-end"
+              )}
               aria-label={t("testimonials.ratingLabel")}
             >
               {Array.from({ length: 5 }, (_, i) => (
@@ -64,15 +65,10 @@ export function TestimonialsSection() {
                 />
               ))}
             </div>
-            <blockquote
-              className={cn(
-                "mb-6 min-w-0 flex-1 text-sm font-normal leading-relaxed text-foreground/90 sm:text-[0.9375rem]",
-                isRtl ? "text-right" : "text-left"
-              )}
-            >
+            <blockquote className="mb-6 min-w-0 flex-1 text-start text-sm font-normal leading-relaxed text-foreground/90 sm:text-[0.9375rem]">
               <span className="italic">&ldquo;{item.quote}&rdquo;</span>
             </blockquote>
-            <footer className={cn("mt-auto border-t border-primary/10 pt-4", isRtl && "text-right")}>
+            <footer className="mt-auto border-t border-primary/10 pt-4 text-start">
               <p className="font-display font-semibold text-foreground">{item.name}</p>
               <p className="mt-1 text-sm text-muted-foreground/90">{item.role}</p>
             </footer>

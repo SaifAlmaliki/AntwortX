@@ -11,7 +11,7 @@ export function Footer() {
   const currentYear = new Date().getFullYear();
 
   const linkClass =
-    "rounded-sm text-muted-foreground transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background";
+    "rounded-sm text-muted-foreground transition-colors duration-200 ease-out hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background";
 
   return (
     <footer
@@ -81,7 +81,7 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/pricing" className={linkClass}>
+                <Link href="/contact" className={linkClass}>
                   {t("footer.pricing")}
                 </Link>
               </li>

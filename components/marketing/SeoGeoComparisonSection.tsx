@@ -4,129 +4,214 @@ import { motion, useReducedMotion } from "framer-motion";
 import { Diamond } from "lucide-react";
 import { useLanguage } from "@/contexts/language-context";
 import { cn } from "@/lib/utils";
-function Column({
-  variant,
-  title,
-  cardSubtitle,
+
+const labelClass =
+  "text-xs font-semibold uppercase tracking-wider text-muted-foreground/80";
+const highlightBoxClass =
+  "mt-2 rounded-lg border border-primary/10 bg-primary/[0.06] px-4 py-3 text-sm text-foreground/95";
+const cardShellClass =
+  "overflow-hidden rounded-2xl border border-border/60 bg-card/30 text-start shadow-lg";
+const headerStripClass = "border-b border-border/60 bg-card/40 px-6 py-4 md:px-8";
+const bodyPaddingClass = "p-6 text-sm text-muted-foreground md:p-8";
+
+function OptimizesList({ lines }: { lines: string[] }) {
+  return (
+    <ul className="mt-2 space-y-2.5" role="list">
+      {lines.map((line, i) => (
+        <li key={i} className="flex gap-2 text-sm text-foreground/90">
+          <Diamond
+            className="mt-0.5 h-3.5 w-3.5 shrink-0 text-primary/80"
+            aria-hidden
+          />
+          <span className="min-w-0 flex-1">{line}</span>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+type ComparisonContentProps = {
+  labelMainGoal: string;
+  mainGoal: string;
+  howFindLabel: string;
+  howFindHighlight: string;
+  labelOptimizes: string;
+  optimizes: string[];
+  influencesLabel: string;
+  influencesHighlight: string;
+  labelWhy: string;
+  whyMatters: string;
+};
+
+function ComparisonBody({
   labelMainGoal,
   mainGoal,
-  howFind,
+  howFindLabel,
   howFindHighlight,
   labelOptimizes,
   optimizes,
-  influences,
+  influencesLabel,
   influencesHighlight,
   labelWhy,
   whyMatters,
+}: ComparisonContentProps) {
+  return (
+    <div className={cn("flex flex-1 flex-col gap-5", bodyPaddingClass)}>
+      <div>
+        <p className={labelClass}>{labelMainGoal}</p>
+        <p className="mt-1.5 text-foreground/95">{mainGoal}</p>
+      </div>
+      <div>
+        <p className={labelClass}>{howFindLabel}</p>
+        <p className={highlightBoxClass}>{howFindHighlight}</p>
+      </div>
+      <div>
+        <p className={labelClass}>{labelOptimizes}</p>
+        <OptimizesList lines={optimizes} />
+      </div>
+      <div>
+        <p className={labelClass}>{influencesLabel}</p>
+        <p className={highlightBoxClass}>{influencesHighlight}</p>
+      </div>
+      <div>
+        <p className={labelClass}>{labelWhy}</p>
+        <p className="mt-1.5 text-foreground/95">{whyMatters}</p>
+      </div>
+    </div>
+  );
+}
+
+function MobileComparisonCard({
+  title,
+  cardSubtitle,
+  contentProps,
   isRtl,
   reduceMotion,
   delay,
 }: {
-  variant: "seo" | "geo";
   title: string;
   cardSubtitle: string;
-  labelMainGoal: string;
-  mainGoal: string;
-  howFind: string;
-  howFindHighlight: string;
-  labelOptimizes: string;
-  optimizes: string[];
-  influences: string;
-  influencesHighlight: string;
-  labelWhy: string;
-  whyMatters: string;
+  contentProps: ComparisonContentProps;
   isRtl: boolean;
   reduceMotion: boolean | null;
   delay: number;
 }) {
-  const headerClass =
-    variant === "seo"
-      ? "border-primary/30 bg-primary/[0.08]"
-      : "border-primary/20 bg-card/40";
-  const boxClass =
-    variant === "seo"
-      ? "border-primary/15 bg-primary/[0.06]"
-      : "border-border/60 bg-card/30";
-
   return (
     <motion.article
-      className={cn(
-        "flex min-w-0 flex-col overflow-hidden rounded-2xl border text-left",
-        variant === "seo" ? "border-primary/25" : "border-border/50",
-        isRtl && "text-right"
-      )}
+      className={cn("flex min-w-0 flex-col", cardShellClass)}
+      dir={isRtl ? "rtl" : "ltr"}
       initial={reduceMotion ? false : { opacity: 0, y: 22 }}
       whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-40px" }}
       transition={{ duration: 0.5, delay: reduceMotion ? 0 : delay }}
     >
-      <div className={cn("border-b px-5 py-4", headerClass)}>
+      <div className={headerStripClass}>
         <h3 className="font-display text-xl font-bold text-foreground">{title}</h3>
         <p className="mt-1 text-sm text-muted-foreground">{cardSubtitle}</p>
       </div>
-      <div className="flex flex-1 flex-col gap-5 p-5 text-sm text-muted-foreground">
-        <div>
-          <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground/80">
-            {labelMainGoal}
-          </p>
-          <p className="mt-1.5 text-foreground/95">{mainGoal}</p>
+      <ComparisonBody {...contentProps} />
+    </motion.article>
+  );
+}
+
+function DesktopComparisonTable({
+  seoTitle,
+  seoSubtitle,
+  geoTitle,
+  geoSubtitle,
+  seoContent,
+  geoContent,
+  isRtl,
+  reduceMotion,
+}: {
+  seoTitle: string;
+  seoSubtitle: string;
+  geoTitle: string;
+  geoSubtitle: string;
+  seoContent: ComparisonContentProps;
+  geoContent: ComparisonContentProps;
+  isRtl: boolean;
+  reduceMotion: boolean | null;
+}) {
+  const rowClass =
+    "grid grid-cols-2 divide-x divide-border/60 border-b border-border/60 last:border-b-0";
+  const cellClass = "min-w-0 px-6 py-5 md:px-8";
+
+  return (
+    <motion.div
+      className={cn("hidden min-w-0 lg:block", cardShellClass)}
+      dir={isRtl ? "rtl" : "ltr"}
+      initial={reduceMotion ? false : { opacity: 0, y: 22 }}
+      whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-40px" }}
+      transition={{ duration: 0.5, delay: reduceMotion ? 0 : 0.05 }}
+    >
+      <div className={rowClass}>
+        <div className="bg-card/40 px-6 py-4 md:px-8">
+          <h3 className="font-display text-xl font-bold text-foreground">{seoTitle}</h3>
+          <p className="mt-1 text-sm text-muted-foreground">{seoSubtitle}</p>
         </div>
-        <div>
-          <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground/80">
-            {howFind}
-          </p>
-          <p
-            className={cn(
-              "mt-2 rounded-lg border px-3 py-2.5 text-foreground/95",
-              boxClass
-            )}
-          >
-            {howFindHighlight}
-          </p>
-        </div>
-        <div>
-          <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground/80">
-            {labelOptimizes}
-          </p>
-          <ul className="mt-2 space-y-2" role="list">
-            {optimizes.map((line, i) => (
-              <li
-                key={i}
-                className={cn(
-                  "flex gap-2 text-foreground/90",
-                  isRtl && "flex-row-reverse"
-                )}
-              >
-                <Diamond
-                  className="mt-0.5 h-3.5 w-3.5 shrink-0 text-primary/70"
-                  aria-hidden
-                />
-                <span>{line}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div>
-          <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground/80">
-            {influences}
-          </p>
-          <p
-            className={cn(
-              "mt-2 rounded-lg border px-3 py-2.5 text-foreground/95",
-              boxClass
-            )}
-          >
-            {influencesHighlight}
-          </p>
-        </div>
-        <div>
-          <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground/80">
-            {labelWhy}
-          </p>
-          <p className="mt-1.5 text-foreground/95">{whyMatters}</p>
+        <div className="bg-card/40 px-6 py-4 md:px-8">
+          <h3 className="font-display text-xl font-bold text-foreground">{geoTitle}</h3>
+          <p className="mt-1 text-sm text-muted-foreground">{geoSubtitle}</p>
         </div>
       </div>
-    </motion.article>
+
+      <div className={rowClass}>
+        <div className={cellClass}>
+          <p className={labelClass}>{seoContent.labelMainGoal}</p>
+          <p className="mt-1.5 text-sm text-foreground/95">{seoContent.mainGoal}</p>
+        </div>
+        <div className={cellClass}>
+          <p className={labelClass}>{geoContent.labelMainGoal}</p>
+          <p className="mt-1.5 text-sm text-foreground/95">{geoContent.mainGoal}</p>
+        </div>
+      </div>
+
+      <div className={rowClass}>
+        <div className={cellClass}>
+          <p className={labelClass}>{seoContent.howFindLabel}</p>
+          <p className={highlightBoxClass}>{seoContent.howFindHighlight}</p>
+        </div>
+        <div className={cellClass}>
+          <p className={labelClass}>{geoContent.howFindLabel}</p>
+          <p className={highlightBoxClass}>{geoContent.howFindHighlight}</p>
+        </div>
+      </div>
+
+      <div className={rowClass}>
+        <div className={cellClass}>
+          <p className={labelClass}>{seoContent.labelOptimizes}</p>
+          <OptimizesList lines={seoContent.optimizes} />
+        </div>
+        <div className={cellClass}>
+          <p className={labelClass}>{geoContent.labelOptimizes}</p>
+          <OptimizesList lines={geoContent.optimizes} />
+        </div>
+      </div>
+
+      <div className={rowClass}>
+        <div className={cellClass}>
+          <p className={labelClass}>{seoContent.influencesLabel}</p>
+          <p className={highlightBoxClass}>{seoContent.influencesHighlight}</p>
+        </div>
+        <div className={cellClass}>
+          <p className={labelClass}>{geoContent.influencesLabel}</p>
+          <p className={highlightBoxClass}>{geoContent.influencesHighlight}</p>
+        </div>
+      </div>
+
+      <div className={rowClass}>
+        <div className={cellClass}>
+          <p className={labelClass}>{seoContent.labelWhy}</p>
+          <p className="mt-1.5 text-sm text-foreground/95">{seoContent.whyMatters}</p>
+        </div>
+        <div className={cellClass}>
+          <p className={labelClass}>{geoContent.labelWhy}</p>
+          <p className="mt-1.5 text-sm text-foreground/95">{geoContent.whyMatters}</p>
+        </div>
+      </div>
+    </motion.div>
   );
 }
 
@@ -145,12 +230,42 @@ export function SeoGeoComparisonSection() {
   const seoOpt = Array.isArray(sg?.seo?.optimizes) ? sg!.seo!.optimizes! : [];
   const geoOpt = Array.isArray(sg?.geo?.optimizes) ? sg!.geo!.optimizes! : [];
 
+  const labelMainGoal = t("seoGeo.labels.mainGoal");
+  const labelOptimizes = t("seoGeo.labels.optimizes");
+  const labelWhy = t("seoGeo.labels.whyMatters");
+
+  const seoContent: ComparisonContentProps = {
+    labelMainGoal,
+    mainGoal: t("seoGeo.seo.mainGoal"),
+    howFindLabel: t("seoGeo.seo.howFindLabel"),
+    howFindHighlight: t("seoGeo.seo.howFindHighlight"),
+    labelOptimizes,
+    optimizes: seoOpt,
+    influencesLabel: t("seoGeo.seo.influencesLabel"),
+    influencesHighlight: t("seoGeo.seo.influencesHighlight"),
+    labelWhy,
+    whyMatters: t("seoGeo.seo.whyMatters"),
+  };
+
+  const geoContent: ComparisonContentProps = {
+    labelMainGoal,
+    mainGoal: t("seoGeo.geo.mainGoal"),
+    howFindLabel: t("seoGeo.geo.howFindLabel"),
+    howFindHighlight: t("seoGeo.geo.howFindHighlight"),
+    labelOptimizes,
+    optimizes: geoOpt,
+    influencesLabel: t("seoGeo.geo.influencesLabel"),
+    influencesHighlight: t("seoGeo.geo.influencesHighlight"),
+    labelWhy,
+    whyMatters: t("seoGeo.geo.whyMatters"),
+  };
+
   return (
     <section
       className="marketing-section py-12 md:py-20"
       aria-labelledby="seo-geo-heading"
     >
-      <div className={cn(isRtl && "rtl")}>
+      <div className={cn(isRtl && "rtl")} dir={isRtl ? "rtl" : "ltr"}>
         <motion.div
           className="mb-10 text-center md:mb-12"
           initial={reduceMotion ? false : { opacity: 0, y: 18 }}
@@ -169,44 +284,35 @@ export function SeoGeoComparisonSection() {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 lg:gap-8">
-          <Column
-            variant="seo"
+        <div className="grid grid-cols-1 gap-6 lg:hidden">
+          <MobileComparisonCard
             title={t("seoGeo.seo.label")}
             cardSubtitle={t("seoGeo.seo.cardSubtitle")}
-            labelMainGoal={t("seoGeo.labels.mainGoal")}
-            mainGoal={t("seoGeo.seo.mainGoal")}
-            howFind={t("seoGeo.seo.howFindLabel")}
-            howFindHighlight={t("seoGeo.seo.howFindHighlight")}
-            labelOptimizes={t("seoGeo.labels.optimizes")}
-            optimizes={seoOpt}
-            influences={t("seoGeo.seo.influencesLabel")}
-            influencesHighlight={t("seoGeo.seo.influencesHighlight")}
-            labelWhy={t("seoGeo.labels.whyMatters")}
-            whyMatters={t("seoGeo.seo.whyMatters")}
+            contentProps={seoContent}
             isRtl={isRtl}
             reduceMotion={reduceMotion}
             delay={0.05}
           />
-          <Column
-            variant="geo"
+          <MobileComparisonCard
             title={t("seoGeo.geo.label")}
             cardSubtitle={t("seoGeo.geo.cardSubtitle")}
-            labelMainGoal={t("seoGeo.labels.mainGoal")}
-            mainGoal={t("seoGeo.geo.mainGoal")}
-            howFind={t("seoGeo.geo.howFindLabel")}
-            howFindHighlight={t("seoGeo.geo.howFindHighlight")}
-            labelOptimizes={t("seoGeo.labels.optimizes")}
-            optimizes={geoOpt}
-            influences={t("seoGeo.geo.influencesLabel")}
-            influencesHighlight={t("seoGeo.geo.influencesHighlight")}
-            labelWhy={t("seoGeo.labels.whyMatters")}
-            whyMatters={t("seoGeo.geo.whyMatters")}
+            contentProps={geoContent}
             isRtl={isRtl}
             reduceMotion={reduceMotion}
             delay={0.1}
           />
         </div>
+
+        <DesktopComparisonTable
+          seoTitle={t("seoGeo.seo.label")}
+          seoSubtitle={t("seoGeo.seo.cardSubtitle")}
+          geoTitle={t("seoGeo.geo.label")}
+          geoSubtitle={t("seoGeo.geo.cardSubtitle")}
+          seoContent={seoContent}
+          geoContent={geoContent}
+          isRtl={isRtl}
+          reduceMotion={reduceMotion}
+        />
       </div>
     </section>
   );
