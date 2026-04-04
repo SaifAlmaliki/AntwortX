@@ -116,7 +116,7 @@ export async function sendInternalGeoReportDelivered(params: {
 
   const deliveryNote = leadReceivedPdf
     ? "PDF with full report was emailed to the lead."
-    : "Outbound email was skipped or SMTP is not configured — the lead was not emailed; retrieve the run in Inngest if needed.";
+    : "Outbound email was skipped or SMTP is not configured — the lead was not emailed.";
 
   const internalHtml = `<p><strong>GEO report ready</strong></p>
 <ul>

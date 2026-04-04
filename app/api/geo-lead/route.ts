@@ -1,28 +1,23 @@
 /**
  * GEO lead capture (free report request).
  *
- * Flow: validate → enqueue Inngest (`geo/analysis.requested`). The worker builds the
- * PDF report first, then sends email (lead + internal notify). No SMTP on this route.
- *
- * SMTP (for Inngest worker only):
- * - SMTP_HOST, SMTP_USER, SMTP_PASS
- * - SMTP_PORT (default 587; use 465 with TLS if your provider requires it)
- * - GEO_LEAD_NOTIFY_TO — internal inbox (default: contact@zempar.com)
- * - GEO_LEAD_FROM — From header (default: SMTP_USER)
- * - GEO_LEAD_SKIP_EMAIL — skip all outbound mail in the worker (local dev)
- * - SMTP_CONNECTION_TIMEOUT_MS — connect timeout (default 15000)
- *
- * If enqueue fails, the response may include `mailto` so the client can fall back.
+ * Flow: validate → run full GEO analysis → generate PDF → send emails.
+ * All processing happens synchronously in this route.
  */
 
 import { NextRequest, NextResponse } from "next/server";
-import { inngest } from "@/lib/inngest/client";
+import Anthropic from "@anthropic-ai/sdk";
+import { fetchWebsite } from "@/lib/geo/fetch-website";
+import { runAgent } from "@/lib/geo/run-agent";
+import { computeCompositeScore } from "@/lib/geo/scoring";
+import { generatePDF } from "@/lib/pdf/generate-pdf";
+import { sendReportEmail, sendInternalGeoReportDelivered } from "@/lib/email/sender";
 import { normalizeWebsiteUrl } from "@/lib/website-url";
+import type { AgentResults } from "@/lib/geo/types";
 
 export const runtime = "nodejs";
 
 const MAX_BODY = 16384;
-const DEFAULT_NOTIFY = "contact@zempar.com";
 
 function normalizeWebsite(input: unknown): string | null {
   if (typeof input !== "string") return null;
@@ -33,13 +28,6 @@ function isValidEmail(input: unknown): input is string {
   if (typeof input !== "string") return false;
   const e = input.trim();
   return e.length > 0 && e.length <= 320 && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e);
-}
-
-function buildMailto(website: string, email: string, company: string) {
-  const to = process.env.GEO_LEAD_NOTIFY_TO || DEFAULT_NOTIFY;
-  const subject = "Free GEO visibility report request";
-  const body = `Website: ${website}\nWork email: ${email}\nCompany: ${company || "(not provided)"}\n\n---\nSubmitted from zempar.com GEO lead form`;
-  return { to, subject, body };
 }
 
 export async function POST(req: NextRequest) {
@@ -78,18 +66,63 @@ export async function POST(req: NextRequest) {
   const company =
     typeof obj.company === "string" ? obj.company.trim().slice(0, 200) : "";
 
-  const mailto = buildMailto(website, email, company);
-
   try {
-    await inngest.send({
-      name: "geo/analysis.requested",
-      data: { url: website, email, company },
+    // 1. Fetch website
+    const websiteData = await fetchWebsite(website);
+
+    // 2. Run all 5 agents
+    const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
+
+    const [visibility, content, technical, platform, schema] =
+      await Promise.all([
+        runAgent(client, "geo-ai-visibility", `Analyze this website:\nURL: ${websiteData.url}\nDomain: ${websiteData.domain}\nTitle: ${websiteData.title}\nMeta Description: ${websiteData.metaDescription}\nRobots.txt exists: ${websiteData.robotsTxt.exists}\nllms.txt exists: ${websiteData.llmsTxt.exists}\nSecurity Headers: ${JSON.stringify(websiteData.securityHeaders)}\nStructured Data: ${JSON.stringify(websiteData.structuredData)}`),
+        runAgent(client, "geo-content", `Analyze this website:\nURL: ${websiteData.url}\nDomain: ${websiteData.domain}\nTitle: ${websiteData.title}\nWord Count: ${websiteData.wordCount}\nContent Blocks: ${JSON.stringify(websiteData.contentBlocks.slice(0, 5))}\nHeadings: ${JSON.stringify(websiteData.headingStructure)}`),
+        runAgent(client, "geo-technical", `Analyze this website:\nURL: ${websiteData.url}\nDomain: ${websiteData.domain}\nStatus Code: ${websiteData.statusCode}\nSecurity Headers: ${JSON.stringify(websiteData.securityHeaders)}\nHas SSR: ${websiteData.hasSSRContent}\nRedirect Chain: ${JSON.stringify(websiteData.redirectChain)}\nRobots.txt: ${JSON.stringify(websiteData.robotsTxt)}`),
+        runAgent(client, "geo-platform-analysis", `Analyze this website:\nURL: ${websiteData.url}\nDomain: ${websiteData.domain}\nTitle: ${websiteData.title}\nMeta Description: ${websiteData.metaDescription}\nStructured Data: ${JSON.stringify(websiteData.structuredData)}`),
+        runAgent(client, "geo-schema", `Analyze this website:\nURL: ${websiteData.url}\nDomain: ${websiteData.domain}\nStructured Data: ${JSON.stringify(websiteData.structuredData)}\nMeta Tags: ${JSON.stringify(websiteData.metaTags)}`),
+      ]);
+
+    const agents: AgentResults = {
+      visibility,
+      content,
+      technical,
+      platform,
+      schema,
+    };
+
+    // 3. Compute composite score
+    const composite = computeCompositeScore(agents);
+
+    // 4. Generate PDF
+    const pdfBuffer = await generatePDF({
+      url: website,
+      company,
+      composite,
+      agents,
     });
-    return NextResponse.json({ ok: true });
+
+    // 5. Send emails
+    const leadReceivedPdf = await sendReportEmail({
+      email,
+      url: website,
+      company,
+      composite,
+      pdfBuffer,
+    });
+
+    await sendInternalGeoReportDelivered({
+      leadEmail: email,
+      url: website,
+      company,
+      composite,
+      leadReceivedPdf,
+    });
+
+    return NextResponse.json({ ok: true, score: composite.overall, grade: composite.grade });
   } catch (e) {
-    console.error("geo-lead enqueue error", e);
+    console.error("geo-lead analysis error", e);
     return NextResponse.json(
-      { error: "enqueue_failed", mailto },
+      { error: "analysis_failed" },
       { status: 500 }
     );
   }
