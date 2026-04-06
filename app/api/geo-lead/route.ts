@@ -14,6 +14,21 @@ import { generatePDF } from "@/lib/pdf/generate-pdf";
 import { sendReportEmail, sendInternalGeoReportDelivered } from "@/lib/email/sender";
 import { normalizeWebsiteUrl } from "@/lib/website-url";
 import type { AgentResults } from "@/lib/geo/types";
+import {
+  buildAIVisibilityMessage,
+} from "@/lib/geo/messages/ai-visibility";
+import {
+  buildContentMessage,
+} from "@/lib/geo/messages/content";
+import {
+  buildTechnicalMessage,
+} from "@/lib/geo/messages/technical";
+import {
+  buildPlatformMessage,
+} from "@/lib/geo/messages/platform";
+import {
+  buildSchemaMessage,
+} from "@/lib/geo/messages/schema";
 
 export const runtime = "nodejs";
 
@@ -75,11 +90,11 @@ export async function POST(req: NextRequest) {
 
     const [visibility, content, technical, platform, schema] =
       await Promise.all([
-        runAgent(client, "geo-ai-visibility", `Analyze this website:\nURL: ${websiteData.url}\nDomain: ${websiteData.domain}\nTitle: ${websiteData.title}\nMeta Description: ${websiteData.metaDescription}\nRobots.txt exists: ${websiteData.robotsTxt.exists}\nllms.txt exists: ${websiteData.llmsTxt.exists}\nSecurity Headers: ${JSON.stringify(websiteData.securityHeaders)}\nStructured Data: ${JSON.stringify(websiteData.structuredData)}`),
-        runAgent(client, "geo-content", `Analyze this website:\nURL: ${websiteData.url}\nDomain: ${websiteData.domain}\nTitle: ${websiteData.title}\nWord Count: ${websiteData.wordCount}\nContent Blocks: ${JSON.stringify(websiteData.contentBlocks.slice(0, 5))}\nHeadings: ${JSON.stringify(websiteData.headingStructure)}`),
-        runAgent(client, "geo-technical", `Analyze this website:\nURL: ${websiteData.url}\nDomain: ${websiteData.domain}\nStatus Code: ${websiteData.statusCode}\nSecurity Headers: ${JSON.stringify(websiteData.securityHeaders)}\nHas SSR: ${websiteData.hasSSRContent}\nRedirect Chain: ${JSON.stringify(websiteData.redirectChain)}\nRobots.txt: ${JSON.stringify(websiteData.robotsTxt)}`),
-        runAgent(client, "geo-platform-analysis", `Analyze this website:\nURL: ${websiteData.url}\nDomain: ${websiteData.domain}\nTitle: ${websiteData.title}\nMeta Description: ${websiteData.metaDescription}\nStructured Data: ${JSON.stringify(websiteData.structuredData)}`),
-        runAgent(client, "geo-schema", `Analyze this website:\nURL: ${websiteData.url}\nDomain: ${websiteData.domain}\nStructured Data: ${JSON.stringify(websiteData.structuredData)}\nMeta Tags: ${JSON.stringify(websiteData.metaTags)}`),
+        runAgent(client, "geo-ai-visibility", buildAIVisibilityMessage(websiteData)),
+        runAgent(client, "geo-content", buildContentMessage(websiteData)),
+        runAgent(client, "geo-technical", buildTechnicalMessage(websiteData)),
+        runAgent(client, "geo-platform-analysis", buildPlatformMessage(websiteData)),
+        runAgent(client, "geo-schema", buildSchemaMessage(websiteData)),
       ]);
 
     const agents: AgentResults = {

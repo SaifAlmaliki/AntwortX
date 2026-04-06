@@ -1,0 +1,8 @@
+{
+  "crons": [
+    {
+      "path": "/api/cron/geo-monitoring-check",
+      "schedule": "0 2 * * *"
+    }
+  ]
+}

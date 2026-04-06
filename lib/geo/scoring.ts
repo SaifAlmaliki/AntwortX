@@ -1,14 +1,5 @@
 import type { AgentResults, CompositeScore } from "./types";
-
-type Grade = "Excellent" | "Good" | "Fair" | "Poor" | "Critical";
-
-function scoreToGrade(score: number): Grade {
-  if (score >= 90) return "Excellent";
-  if (score >= 75) return "Good";
-  if (score >= 60) return "Fair";
-  if (score >= 40) return "Poor";
-  return "Critical";
-}
+import { scoreToGrade } from "./grade";
 
 /**
  * Compute the composite GEO score from the 5 agent results.

@@ -1,16 +1,7 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { loadAgent } from "./loader";
+import { scoreToGrade } from "./grade";
 import type { AgentResult } from "./types";
-
-type Grade = "Excellent" | "Good" | "Fair" | "Poor" | "Critical";
-
-function scoreToGrade(score: number): Grade {
-  if (score >= 90) return "Excellent";
-  if (score >= 75) return "Good";
-  if (score >= 60) return "Fair";
-  if (score >= 40) return "Poor";
-  return "Critical";
-}
 
 /** Extract a numeric score from agent markdown output. */
 function parseScore(text: string): number {

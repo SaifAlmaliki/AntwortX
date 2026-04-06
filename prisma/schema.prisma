@@ -1,0 +1,126 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client"
+  output   = "../lib/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// User model (MVP - no auth yet, placeholder for future auth integration)
+model User {
+  id              String   @id @default(cuid())
+  email           String?  @unique
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  geoMonitoring   GEOMonitoring[]
+
+  @@map("users")
+}
+
+// GEO Monitoring Configuration
+model GEOMonitoring {
+  id              String   @id @default(cuid())
+  userId          String?
+  user            User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // Brand DNA reference (optional - can monitor without Brand DNA)
+  brandDNAId      String?
+
+  // Monitoring configuration
+  brandName       String
+  websiteUrl      String   @db.Text
+  category        String
+
+  // Competitors (for Share of Voice calculation)
+  competitors     Json?
+
+  // Monitoring settings
+  frequency       String   @default("weekly")
+  isActive        Boolean  @default(true)
+  isPaidTier      Boolean  @default(false)
+
+  // AI engines to monitor
+  engines         String[]
+
+  // Next scheduled check
+  nextCheckAt     DateTime?
+
+  // Relations
+  checks          GEOCheck[]
+
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([userId])
+  @@index([isActive])
+  @@index([nextCheckAt])
+  @@index([brandDNAId])
+  @@map("geo_monitoring")
+}
+
+// Individual monitoring check (one per scheduled run)
+model GEOCheck {
+  id              String   @id @default(cuid())
+  monitoringId    String
+  monitoring      GEOMonitoring @relation(fields: [monitoringId], references: [id], onDelete: Cascade)
+
+  // Check metadata
+  checkDate       DateTime @default(now())
+  status          String   @default("pending")
+
+  // Overall metrics (aggregated across all engines)
+  geoScore        Float?
+  shareOfVoice    Float?
+  citationRate    Float?
+  brandSentiment  String?
+  promptCoverage  Int?
+  snippetFrequency Float?
+  brandAuthority  Float?
+  zeroClickPresence Float?
+
+  // Detailed results per engine
+  engineResults   Json?
+
+  // Prompt results
+  promptResults   Json?
+
+  // Error tracking
+  errorMessage    String?  @db.Text
+  retryCount      Int      @default(0)
+
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([monitoringId])
+  @@index([checkDate])
+  @@index([status])
+  @@map("geo_checks")
+}
+
+// Prompt templates for category-based queries
+model GEOPromptTemplate {
+  id          String   @id @default(cuid())
+
+  // Template configuration
+  category    String
+  prompt      String   @db.Text
+  description String?  @db.Text
+
+  // Usage tracking
+  usageCount  Int      @default(0)
+
+  // Status
+  isActive    Boolean  @default(true)
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([category])
+  @@index([isActive])
+  @@map("geo_prompt_templates")
+}
