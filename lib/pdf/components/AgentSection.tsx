@@ -1,5 +1,7 @@
 import React from "react";
 import { Page, View, Text } from "@react-pdf/renderer";
+import { markdownLinesToPdfBlocks, stripInlineMarkdownForPdf } from "../markdown-pdf-blocks";
+import { MarkdownTable } from "./MarkdownTable";
 import { styles, COLORS, gradeColor } from "../styles";
 import type { AgentResult } from "../../geo/types";
 
@@ -15,16 +17,88 @@ interface Props {
   agent: AgentResult;
 }
 
+function renderMarkdownLine(line: string, key: string | number): React.ReactNode {
+  const trimmed = line.trim();
+  if (/^-{3,}$/.test(trimmed)) {
+    return <View key={key} style={{ borderBottomWidth: 1, borderBottomColor: COLORS.border, marginVertical: 6 }} />;
+  }
+
+  const isH2 = line.startsWith("## ");
+  const isH3 = line.startsWith("### ");
+  const isH4 = line.startsWith("#### ");
+  const isBullet = line.startsWith("- ") || line.startsWith("* ");
+  const isQuote = line.startsWith("> ");
+  const isStrong = line.startsWith("**") && line.endsWith("**");
+
+  let text = line
+    .replace(/^#{1,4}\s+/, "")
+    .replace(/^>\s?/, "");
+  text = stripInlineMarkdownForPdf(text);
+
+  if (!text || /^markdown$/i.test(text)) return null;
+
+  if (isH2) {
+    return (
+      <Text key={key} style={[styles.heading2, { marginTop: 12 }]}>
+        {text}
+      </Text>
+    );
+  }
+  if (isH3) {
+    return (
+      <Text key={key} style={{ fontSize: 11, fontWeight: "bold", color: COLORS.white, marginTop: 8, marginBottom: 4 }}>
+        {text}
+      </Text>
+    );
+  }
+  if (isH4) {
+    return (
+      <Text key={key} style={{ fontSize: 10, fontWeight: "bold", color: COLORS.white, marginTop: 6, marginBottom: 3 }}>
+        {text}
+      </Text>
+    );
+  }
+  if (isBullet) {
+    return (
+      <View key={key} style={{ flexDirection: "row", gap: 6 }}>
+        <Text style={{ fontSize: 10, color: COLORS.accent, marginTop: 1 }}>•</Text>
+        <Text style={[styles.body, { flex: 1 }]}>{text.replace(/^[-*]\s+/, "")}</Text>
+      </View>
+    );
+  }
+  if (isQuote) {
+    return (
+      <Text key={key} style={[styles.body, { borderLeftWidth: 2, borderLeftColor: COLORS.border, paddingLeft: 8, fontStyle: "italic" }]}>
+        {text}
+      </Text>
+    );
+  }
+  if (isStrong) {
+    return (
+      <Text key={key} style={{ fontSize: 10, fontWeight: "bold", color: COLORS.white, marginBottom: 2 }}>
+        {text}
+      </Text>
+    );
+  }
+  return (
+    <Text key={key} style={styles.body}>
+      {text}
+    </Text>
+  );
+}
+
 /** Reusable PDF section for any of the 5 GEO agents. */
 export function AgentSection({ agent }: Props) {
   const title = AGENT_TITLES[agent.agentName] ?? agent.agentName;
   const color = gradeColor(agent.grade);
 
-  // Split markdown into digestible lines, truncated for PDF
   const lines = agent.rawMarkdown
     .split("\n")
+    .map((l) => l.trimEnd())
     .filter((l) => l.trim().length > 0)
-    .slice(0, 120); // cap lines to avoid overflow
+    .slice(0, 120);
+
+  const blocks = markdownLinesToPdfBlocks(lines);
 
   return (
     <Page size="A4" style={styles.page}>
@@ -43,55 +117,12 @@ export function AgentSection({ agent }: Props) {
 
       <View style={styles.divider} />
 
-      {/* Render agent markdown as plain text lines */}
       <View style={{ gap: 3 }}>
-        {lines.map((line, i) => {
-          const isH2 = line.startsWith("## ");
-          const isH3 = line.startsWith("### ");
-          const isBullet = line.startsWith("- ") || line.startsWith("* ");
-          const isStrong = line.startsWith("**") && line.endsWith("**");
-          const text = line
-            .replace(/^#{1,3}\s+/, "")
-            .replace(/\*\*/g, "")
-            .replace(/`/g, "")
-            .trim();
-
-          if (!text) return null;
-
-          if (isH2) {
-            return (
-              <Text key={i} style={[styles.heading2, { marginTop: 12 }]}>
-                {text}
-              </Text>
-            );
+        {blocks.map((block, i) => {
+          if (block.type === "table") {
+            return <MarkdownTable key={`t-${i}`} headers={block.headers} rows={block.rows} />;
           }
-          if (isH3) {
-            return (
-              <Text key={i} style={{ fontSize: 11, fontWeight: "bold", color: COLORS.white, marginTop: 8, marginBottom: 4 }}>
-                {text}
-              </Text>
-            );
-          }
-          if (isBullet) {
-            return (
-              <View key={i} style={{ flexDirection: "row", gap: 6 }}>
-                <Text style={{ fontSize: 10, color: COLORS.accent, marginTop: 1 }}>•</Text>
-                <Text style={[styles.body, { flex: 1 }]}>{text.replace(/^[-*]\s+/, "")}</Text>
-              </View>
-            );
-          }
-          if (isStrong) {
-            return (
-              <Text key={i} style={{ fontSize: 10, fontWeight: "bold", color: COLORS.white, marginBottom: 2 }}>
-                {text}
-              </Text>
-            );
-          }
-          return (
-            <Text key={i} style={styles.body}>
-              {text}
-            </Text>
-          );
+          return renderMarkdownLine(block.line, `l-${i}`);
         })}
       </View>
 
