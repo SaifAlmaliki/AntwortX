@@ -48,99 +48,100 @@ export async function testLLMPresence(
   } = params;
 
   const prompts = generateGEOPrompts(category, city, promptCount);
-  const summaries: LLMPresenceSummary[] = [];
 
-  for (const engineName of engines) {
-    try {
-      const engine = getEngine(engineName);
-      const results: LLMQueryResult[] = [];
+  const engineResults = await Promise.all(
+    engines.map(async (engineName) => {
+      try {
+        const engine = getEngine(engineName);
+        const results = await Promise.all(
+          prompts.map(async (prompt) => {
+            try {
+              const response: EngineResponse = await engine.query(
+                prompt,
+                brandName,
+                websiteUrl
+              );
 
-      for (const prompt of prompts) {
-        try {
-          const response: EngineResponse = await engine.query(
-            prompt,
-            brandName,
-            websiteUrl
-          );
+              return {
+                engine: engineName,
+                prompt,
+                mentioned: response.mentioned,
+                cited: response.cited,
+                sentiment: response.sentiment || "neutral",
+                context: response.context,
+                response: response.response,
+                citationUrl: response.citationUrl,
+                mentions: response.mentions,
+              };
+            } catch (err) {
+              return {
+                engine: engineName,
+                prompt,
+                mentioned: false,
+                cited: false,
+                sentiment: "neutral" as const,
+                response: "",
+                mentions: 0,
+                error: err instanceof Error ? err.message : "Query failed",
+              };
+            }
+          })
+        );
 
-          results.push({
-            engine: engineName,
-            prompt,
-            mentioned: response.mentioned,
-            cited: response.cited,
-            sentiment: response.sentiment || "neutral",
-            context: response.context,
-            response: response.response,
-            citationUrl: response.citationUrl,
-            mentions: response.mentions,
-          });
-        } catch (err) {
-          results.push({
+        const mentionCount = results.filter((r) => r.mentioned).length;
+        const citedCount = results.filter((r) => r.cited).length;
+        const positiveCount = results.filter(
+          (r) => r.sentiment === "positive" && r.mentioned
+        ).length;
+        const negativeCount = results.filter(
+          (r) => r.sentiment === "negative" && r.mentioned
+        ).length;
+
+        let overallSentiment: "positive" | "neutral" | "negative" = "neutral";
+        if (mentionCount > 0) {
+          if (positiveCount > negativeCount) {
+            overallSentiment = "positive";
+          } else if (negativeCount > positiveCount) {
+            overallSentiment = "negative";
+          }
+        }
+
+        return {
+          engine: engineName,
+          mentioned: mentionCount > 0,
+          cited: citedCount > 0,
+          sentiment: overallSentiment,
+          totalPrompts: prompts.length,
+          mentionCount,
+          mentionRate: prompts.length > 0 ? (mentionCount / prompts.length) * 100 : 0,
+          results,
+        };
+      } catch (err) {
+        const errorMessage = err instanceof Error ? err.message : "Engine unavailable";
+        return {
+          engine: engineName,
+          mentioned: false,
+          cited: false,
+          sentiment: "neutral" as const,
+          totalPrompts: prompts.length,
+          mentionCount: 0,
+          mentionRate: 0,
+          results: prompts.map((prompt: string) => ({
             engine: engineName,
             prompt,
             mentioned: false,
             cited: false,
-            sentiment: "neutral",
+            sentiment: "neutral" as const,
             response: "",
             mentions: 0,
-            error: err instanceof Error ? err.message : "Query failed",
-          });
-        }
+            error: errorMessage,
+          })),
+        };
       }
+    })
+  );
 
-      const mentionCount = results.filter((r) => r.mentioned).length;
-      const citedCount = results.filter((r) => r.cited).length;
-      const positiveCount = results.filter(
-        (r) => r.sentiment === "positive" && r.mentioned
-      ).length;
-      const negativeCount = results.filter(
-        (r) => r.sentiment === "negative" && r.mentioned
-      ).length;
-
-      let overallSentiment: "positive" | "neutral" | "negative" = "neutral";
-      if (mentionCount > 0) {
-        if (positiveCount > negativeCount) {
-          overallSentiment = "positive";
-        } else if (negativeCount > positiveCount) {
-          overallSentiment = "negative";
-        }
-      }
-
-      summaries.push({
-        engine: engineName,
-        mentioned: mentionCount > 0,
-        cited: citedCount > 0,
-        sentiment: overallSentiment,
-        totalPrompts: prompts.length,
-        mentionCount,
-        mentionRate: prompts.length > 0 ? (mentionCount / prompts.length) * 100 : 0,
-        results,
-      });
-    } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : "Engine unavailable";
-      summaries.push({
-        engine: engineName,
-        mentioned: false,
-        cited: false,
-        sentiment: "neutral",
-        totalPrompts: prompts.length,
-        mentionCount: 0,
-        mentionRate: 0,
-        results: prompts.map((prompt: string) => ({
-          engine: engineName,
-          prompt,
-          mentioned: false,
-          cited: false,
-          sentiment: "neutral" as const,
-          response: "",
-          mentions: 0,
-          error: errorMessage,
-        })),
-      });
-    }
-  }
-
-  return summaries;
+  return engineResults;
 }
 
 export function computeLLMVisibilityScore(
@@ -163,7 +164,7 @@ export function computeLLMVisibilityScore(
     if (summary.mentioned) {
       engineScore += weights.mentioned * 100;
 
-      if (summary.mentioned && summary.cited) {
+      if (summary.cited) {
         engineScore += weights.cited * 100;
       } else {
         engineScore += weights.cited * 50;

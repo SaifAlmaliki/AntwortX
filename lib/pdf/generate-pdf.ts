@@ -6,7 +6,7 @@ import { ActionPlan } from "./components/ActionPlan";
 import { ServicesPage } from "./components/ServicesPage";
 import { LLMVisibilitySection } from "./components/LLMVisibilitySection";
 import type { CompositeScore, AgentResults } from "../geo/types";
-import type { LLMPresenceSummary } from "../geo/llm-presence";
+import { computeLLMVisibilityScore, type LLMPresenceSummary } from "../geo/llm-presence";
 
 interface GeneratePDFParams {
   url: string;
@@ -41,11 +41,14 @@ export async function generatePDF(params: GeneratePDFParams): Promise<Buffer> {
   ];
 
   if (llmResults && llmResults.length > 0 && brandName && category) {
+    const llmScore = computeLLMVisibilityScore(llmResults);
     children.push(
       React.createElement(LLMVisibilitySection, {
         llmResults,
         brandName,
         category,
+        visibilityScore: llmScore.score,
+        visibilityGrade: llmScore.grade,
       })
     );
   }

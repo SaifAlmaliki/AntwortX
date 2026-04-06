@@ -7,6 +7,8 @@ interface LLMVisibilitySectionProps {
   llmResults: LLMPresenceSummary[];
   brandName: string;
   category: string;
+  visibilityScore: number;
+  visibilityGrade: string;
 }
 
 const ENGINE_LABELS: Record<string, string> = {
@@ -27,24 +29,19 @@ export function LLMVisibilitySection({
   llmResults,
   brandName,
   category,
+  visibilityScore,
+  visibilityGrade,
 }: LLMVisibilitySectionProps) {
   const mentionedCount = llmResults.filter((r) => r.mentioned).length;
   const citedCount = llmResults.filter((r) => r.cited).length;
   
   const avgMentionRate =
-    llmResults.reduce((sum, r) => sum + r.mentionRate, 0) / llmResults.length;
+    llmResults.length > 0
+      ? llmResults.reduce((sum, r) => sum + r.mentionRate, 0) / llmResults.length
+      : 0;
 
-  const overallScore = Math.round(avgMentionRate);
-  const grade =
-    overallScore >= 80
-      ? "Excellent"
-      : overallScore >= 60
-        ? "Good"
-        : overallScore >= 40
-          ? "Fair"
-          : overallScore >= 20
-            ? "Poor"
-            : "Critical";
+  const overallScore = visibilityScore;
+  const grade = visibilityGrade;
 
   const color = gradeColor(grade);
 

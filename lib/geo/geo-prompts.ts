@@ -24,7 +24,7 @@ export function generateGEOPrompts(
   ];
 
   if (count <= 0) {
-    return templates.slice(0, 5);
+    return [];
   }
 
   return templates.slice(0, Math.min(count, templates.length));
@@ -78,7 +78,8 @@ export function extractCategoryFromUrl(url: string): string {
 
     const lowerDomain = domain.toLowerCase();
     for (const [key, value] of Object.entries(categoryHints)) {
-      if (lowerDomain.includes(key)) {
+      const boundaryRegex = new RegExp(`\\b${key}\\b`, 'i');
+      if (boundaryRegex.test(lowerDomain)) {
         return value;
       }
     }

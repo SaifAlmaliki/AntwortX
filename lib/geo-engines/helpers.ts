@@ -27,6 +27,7 @@ export function analyzeSentiment(text: string, brandName: string): 'positive' | 
 }
 
 export function countMentions(text: string, brandName: string): number {
+  if (!brandName) return 0;
   const normalizedBrand = brandName.toLowerCase();
   const normalizedText = text.toLowerCase();
   const regex = new RegExp(normalizedBrand.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g');

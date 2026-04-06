@@ -257,7 +257,12 @@ export async function POST(req: NextRequest) {
             status: "completed",
             compositeScore: composite.overall,
             grade: composite.grade,
-            llmResults: llmResults as any,
+            llmResults: llmResults
+              ? llmResults.map((summary) => ({
+                  ...summary,
+                  results: summary.results.map(({ response: _response, context: _context, ...rest }) => rest),
+                }))
+              : undefined,
             agentResults: {
               visibility: { score: visibility.score, grade: visibility.grade },
               content: { score: content.score, grade: content.grade },
