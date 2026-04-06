@@ -96,6 +96,11 @@
       "sourceType": "github",
       "computedHash": "aefec3a5171c612cce82fbde0ee9bdb6a667c71b98de6fd5846df2f14dfe32bf"
     },
+    "shadcn": {
+      "source": "shadcn/ui",
+      "sourceType": "github",
+      "computedHash": "77faba608ea949351d1757e29e6cb726f6ec5937f7595be0593038a7d2d76bb9"
+    },
     "teach-impeccable": {
       "source": "pbakaus/impeccable",
       "sourceType": "github",
