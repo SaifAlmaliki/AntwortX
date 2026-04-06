@@ -6,6 +6,7 @@ import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 import { ChevronDown, ChevronRight, Globe, BarChart3 } from "lucide-react";
 import { useState } from "react";
+import { LLMVisibilityDetail, type StoredLLMSummary } from "@/components/admin/llm-visibility-detail";
 
 interface AgentResult {
   score: number;
@@ -20,16 +21,6 @@ interface AgentResults {
   schema?: AgentResult;
 }
 
-interface LLMResult {
-  engine: string;
-  mentioned: boolean;
-  cited: boolean;
-  sentiment: string;
-  mentionRate: number;
-  mentionCount: number;
-  totalPrompts: number;
-}
-
 interface LeadRowDetailProps {
   lead: Record<string, unknown>;
 }
@@ -42,18 +33,11 @@ const gradeColors: Record<string, string> = {
   Critical: "bg-red-500/10 text-red-400 border-red-500/20",
 };
 
-const engineLabels: Record<string, string> = {
-  openai: "ChatGPT",
-  perplexity: "Perplexity",
-  gemini: "Google Gemini",
-  claude: "Claude",
-};
-
 export function LeadRowDetail({ lead }: LeadRowDetailProps) {
   const [open, setOpen] = useState(false);
 
   const agentResults = lead.agentResults as AgentResults | null;
-  const llmResults = (lead.llmResults as LLMResult[] | null) || [];
+  const llmResults = (lead.llmResults as StoredLLMSummary[] | null) || [];
   const compositeScore = (lead.compositeScore as number | null) ?? 0;
   const grade = (lead.grade as string | null) ?? "N/A";
 
@@ -110,36 +94,8 @@ export function LeadRowDetail({ lead }: LeadRowDetailProps) {
               <h4 className="text-sm font-medium text-zinc-200">LLM Visibility</h4>
             </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-2 ml-6">
-              {llmResults.map((result) => (
-                <div key={result.engine} className="rounded-md bg-zinc-800/50 p-3 border border-zinc-800">
-                  <p className="text-sm font-medium text-zinc-100">
-                    {engineLabels[result.engine] || result.engine}
-                  </p>
-                  <div className="mt-2 space-y-1">
-                    <div className="flex items-center justify-between text-xs">
-                      <span className="text-zinc-500">Mentioned</span>
-                      <span className={result.mentioned ? "text-green-400" : "text-red-400"}>
-                        {result.mentioned ? "Yes" : "No"}
-                      </span>
-                    </div>
-                    <div className="flex items-center justify-between text-xs">
-                      <span className="text-zinc-500">Cited</span>
-                      <span className={result.cited ? "text-green-400" : "text-zinc-600"}>
-                        {result.cited ? "Yes" : "No"}
-                      </span>
-                    </div>
-                    <div className="flex items-center justify-between text-xs">
-                      <span className="text-zinc-500">Sentiment</span>
-                      <span className="text-zinc-300 capitalize">{result.sentiment}</span>
-                    </div>
-                    <div className="flex items-center justify-between text-xs">
-                      <span className="text-zinc-500">Mention Rate</span>
-                      <span className="text-zinc-300">{result.mentionRate.toFixed(0)}%</span>
-                    </div>
-                  </div>
-                </div>
-              ))}
+            <div className="ml-6">
+              <LLMVisibilityDetail summaries={llmResults} compact />
             </div>
           </div>
         )}

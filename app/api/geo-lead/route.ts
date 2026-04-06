@@ -13,7 +13,11 @@ import { computeCompositeScore } from "@/lib/geo/scoring";
 import { generatePDF } from "@/lib/pdf/generate-pdf";
 import { sendReportEmail, sendInternalGeoReportDelivered } from "@/lib/email/sender";
 import { normalizeWebsiteUrl } from "@/lib/website-url";
-import { testLLMPresence, computeLLMVisibilityScore } from "@/lib/geo/llm-presence";
+import {
+  testLLMPresence,
+  computeLLMVisibilityScore,
+  serializeLlmResultsForStorage,
+} from "@/lib/geo/llm-presence";
 import { extractBrandName, extractCategoryFromUrl } from "@/lib/geo/geo-prompts";
 import { prisma } from "@/lib/db";
 import type { AgentResults } from "@/lib/geo/types";
@@ -257,12 +261,7 @@ export async function POST(req: NextRequest) {
             status: "completed",
             compositeScore: composite.overall,
             grade: composite.grade,
-            llmResults: llmResults
-              ? llmResults.map((summary) => ({
-                  ...summary,
-                  results: summary.results.map(({ response: _response, context: _context, ...rest }) => rest),
-                }))
-              : undefined,
+            llmResults: llmResults ? serializeLlmResultsForStorage(llmResults) : undefined,
             agentResults: {
               visibility: { score: visibility.score, grade: visibility.grade },
               content: { score: content.score, grade: content.grade },
@@ -271,6 +270,7 @@ export async function POST(req: NextRequest) {
               schema: { score: schema.score, grade: schema.grade },
             },
             pdfGenerated: true,
+            pdfBlob: new Uint8Array(pdfBuffer),
           },
         });
       }

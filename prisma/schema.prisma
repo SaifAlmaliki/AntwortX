@@ -152,6 +152,7 @@ model GEOAuditLead {
 
   // PDF
   pdfGenerated    Boolean  @default(false)
+  pdfBlob         Bytes?
 
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt

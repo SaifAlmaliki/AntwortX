@@ -2,11 +2,11 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { prisma } from "@/lib/db";
 import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { ArrowLeft, ExternalLink, Mail, Globe, MapPin, Calendar, BarChart3, Bot, FileText } from "lucide-react";
+import { LLMVisibilityDetail, type StoredLLMSummary } from "@/components/admin/llm-visibility-detail";
 
 const statusColors: Record<string, string> = {
   completed: "bg-green-500/10 text-green-400 border-green-500/20",
@@ -23,13 +23,6 @@ const gradeColors: Record<string, string> = {
   Critical: "bg-red-500/10 text-red-400 border-red-500/20",
 };
 
-const engineLabels: Record<string, string> = {
-  openai: "ChatGPT",
-  perplexity: "Perplexity",
-  gemini: "Google Gemini",
-  claude: "Claude",
-};
-
 export default async function LeadDetailPage({
   params,
 }: {
@@ -44,15 +37,7 @@ export default async function LeadDetailPage({
   }
 
   const agentResults = lead.agentResults as Record<string, { score: number; grade: string }> | null;
-  const llmResults = (lead.llmResults as Array<{
-    engine: string;
-    mentioned: boolean;
-    cited: boolean;
-    sentiment: string;
-    mentionRate: number;
-    mentionCount: number;
-    totalPrompts: number;
-  }> | null) || [];
+  const llmResults = (lead.llmResults as StoredLLMSummary[] | null) || [];
 
   return (
     <div className="space-y-6">
@@ -169,42 +154,12 @@ export default async function LeadDetailPage({
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-              {llmResults.map((result) => (
-                <div key={result.engine} className="rounded-lg bg-zinc-800/50 p-4 border border-zinc-800">
-                  <p className="text-sm font-medium text-zinc-100">
-                    {engineLabels[result.engine] || result.engine}
-                  </p>
-                  <div className="mt-3 space-y-2 text-xs">
-                    <div className="flex items-center justify-between">
-                      <span className="text-zinc-500">Mentioned</span>
-                      <span className={result.mentioned ? "text-green-400 font-medium" : "text-red-400"}>
-                        {result.mentioned ? "Yes" : "No"}
-                      </span>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <span className="text-zinc-500">Cited</span>
-                      <span className={result.cited ? "text-green-400 font-medium" : "text-zinc-600"}>
-                        {result.cited ? "Yes" : "No"}
-                      </span>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <span className="text-zinc-500">Sentiment</span>
-                      <span className="text-zinc-300 capitalize">{result.sentiment}</span>
-                    </div>
-                    <Separator className="bg-zinc-800" />
-                    <div className="flex items-center justify-between">
-                      <span className="text-zinc-500">Mention Rate</span>
-                      <span className="text-zinc-300 font-medium">{result.mentionRate.toFixed(0)}%</span>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <span className="text-zinc-500">Mentions</span>
-                      <span className="text-zinc-300">{result.mentionCount}/{result.totalPrompts}</span>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
+            <p className="text-xs text-zinc-500 mb-4">
+              Each engine shows whether failures were configuration, rate limits, or successful replies with no
+              brand match. Expand <strong className="text-zinc-400">Prompts &amp; model replies</strong> for the
+              exact question and stored answer (truncated for size).
+            </p>
+            <LLMVisibilityDetail summaries={llmResults} />
           </CardContent>
         </Card>
       )}

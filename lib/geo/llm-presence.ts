@@ -252,3 +252,39 @@ export function getLLMVisibilityRecommendations(
 
   return recommendations;
 }
+
+const MAX_STORED_LLM_RESPONSE_CHARS = 12_000;
+const MAX_STORED_LLM_CONTEXT_CHARS = 2_000;
+
+/**
+ * Persist prompts, truncated model replies, and errors on the lead for admin review.
+ * Large fields are capped to keep JSONB payloads bounded.
+ */
+export function serializeLlmResultsForStorage(summaries: LLMPresenceSummary[]): unknown {
+  return summaries.map((summary) => ({
+    engine: summary.engine,
+    mentioned: summary.mentioned,
+    cited: summary.cited,
+    sentiment: summary.sentiment,
+    totalPrompts: summary.totalPrompts,
+    mentionCount: summary.mentionCount,
+    mentionRate: summary.mentionRate,
+    results: summary.results.map((r) => ({
+      engine: r.engine,
+      prompt: r.prompt,
+      mentioned: r.mentioned,
+      cited: r.cited,
+      sentiment: r.sentiment,
+      mentions: r.mentions,
+      citationUrl: r.citationUrl,
+      error: r.error,
+      response:
+        typeof r.response === "string"
+          ? r.response.slice(0, MAX_STORED_LLM_RESPONSE_CHARS)
+          : "",
+      ...(typeof r.context === "string" && r.context.length > 0
+        ? { context: r.context.slice(0, MAX_STORED_LLM_CONTEXT_CHARS) }
+        : {}),
+    })),
+  }));
+}
