@@ -147,7 +147,6 @@ export async function GET(req: NextRequest) {
         await prisma.gEOMonitoring.update({
           where: { id: monitoring.id },
           data: {
-            retryCount: { increment: 1 },
             nextCheckAt: new Date(Date.now() + 3600000),
           },
         });
