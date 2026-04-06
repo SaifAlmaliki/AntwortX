@@ -269,7 +269,6 @@ export async function POST(req: NextRequest) {
               platform: { score: platform.score, grade: platform.grade },
               schema: { score: schema.score, grade: schema.grade },
             },
-            pdfGenerated: true,
           },
         });
       }

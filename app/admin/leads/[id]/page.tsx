@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { ArrowLeft, Mail, Globe, MapPin, Calendar, BarChart3, Bot, FileText } from "lucide-react";
+import { ArrowLeft, Mail, Globe, MapPin, Calendar, BarChart3, Bot } from "lucide-react";
 import { LLMVisibilityDetail, type StoredLLMSummary } from "@/components/admin/llm-visibility-detail";
 
 const statusColors: Record<string, string> = {
@@ -160,23 +160,6 @@ export default async function LeadDetailPage({
               exact question and stored answer (truncated for size).
             </p>
             <LLMVisibilityDetail summaries={llmResults} />
-          </CardContent>
-        </Card>
-      )}
-
-      {lead.pdfGenerated && (
-        <Card className="border-zinc-800 bg-zinc-900">
-          <CardHeader>
-            <CardTitle className="text-base text-zinc-100 flex items-center gap-2">
-              <FileText className="h-4 w-4 text-zinc-400" />
-              PDF Report
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-sm text-zinc-500">
-              A PDF was generated and sent to the lead by email. PDF files are not stored in the
-              database, so there is no admin download.
-            </p>
           </CardContent>
         </Card>
       )}

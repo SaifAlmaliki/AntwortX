@@ -33,7 +33,6 @@ interface Lead {
   compositeScore: number | null;
   grade: string | null;
   status: string;
-  pdfGenerated: boolean;
   createdAt: Date;
 }
 
