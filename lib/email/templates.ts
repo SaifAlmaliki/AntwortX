@@ -1,5 +1,13 @@
 import type { CompositeScore } from "../geo/types";
 
+function escapeHtml(s: string): string {
+  return s
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
 function gradeColor(grade: string): string {
   switch (grade) {
     case "Excellent": return "#22c55e";
@@ -60,6 +68,7 @@ export function buildReportEmailHtml(
   composite: CompositeScore
 ): string {
   const color = gradeColor(composite.grade);
+  const safeDomain = escapeHtml(domain);
 
   const breakdownRows = [
     ["AI Visibility & Citability", composite.breakdown.citability, "25%"],
@@ -71,9 +80,9 @@ export function buildReportEmailHtml(
     .map(
       ([label, score, weight]) =>
         `<tr>
-          <td style="padding:10px 12px;color:#a3a3a3;font-size:14px;border-bottom:1px solid #1f1f1f;">${label}</td>
-          <td style="padding:10px 12px;text-align:center;font-weight:700;color:#ffffff;font-size:14px;border-bottom:1px solid #1f1f1f;">${score}/100</td>
-          <td style="padding:10px 12px;text-align:center;color:#606060;font-size:13px;border-bottom:1px solid #1f1f1f;">${weight}</td>
+          <td style="padding:12px 14px;color:#d4d4d4;font-size:14px;border-bottom:1px solid #262626;">${label}</td>
+          <td style="padding:12px 14px;text-align:center;font-weight:700;color:#fafafa;font-size:14px;border-bottom:1px solid #262626;">${score}/100</td>
+          <td style="padding:12px 14px;text-align:center;color:#737373;font-size:13px;border-bottom:1px solid #262626;">${weight}</td>
         </tr>`
     )
     .join("");
@@ -88,36 +97,49 @@ export function buildReportEmailHtml(
         <tr><td style="padding:32px 40px;border-bottom:1px solid #1f1f1f;">
           <span style="font-size:22px;font-weight:700;color:#06b6d4;letter-spacing:-0.5px;">Zempar</span>
         </td></tr>
-        <tr><td style="padding:40px;text-align:center;">
-          <div style="display:inline-block;width:120px;height:120px;border-radius:50%;background:${color};display:flex;align-items:center;justify-content:center;margin:0 auto 16px;">
-            <span style="font-size:36px;font-weight:800;color:#000;">${composite.overall}</span>
-          </div>
-          <p style="margin:0 0 4px;font-size:13px;color:#a3a3a3;text-transform:uppercase;letter-spacing:1px;">GEO Visibility Score</p>
-          <p style="margin:0 0 8px;font-size:28px;font-weight:700;color:${color};">${composite.grade}</p>
-          <p style="margin:0;color:#a3a3a3;font-size:14px;">${domain}</p>
+        <tr><td style="padding:40px 40px 28px;text-align:center;">
+          <!-- Table + line-height centering: flex is unreliable in email clients and caused score clipping -->
+          <table role="presentation" cellpadding="0" cellspacing="0" align="center" style="margin:0 auto 20px;">
+            <tr>
+              <td align="center" valign="middle" width="136" height="136" style="width:136px;height:136px;border-radius:68px;background:${color};line-height:136px;mso-line-height-rule:exactly;text-align:center;font-size:34px;font-weight:800;color:#0a0a0a;font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;">
+                ${composite.overall}
+              </td>
+            </tr>
+          </table>
+          <p style="margin:0 0 6px;font-size:12px;color:#737373;text-transform:uppercase;letter-spacing:0.14em;">GEO Visibility Score</p>
+          <p style="margin:0 0 14px;font-size:26px;font-weight:700;color:${color};line-height:1.25;">${composite.grade}</p>
+          <p style="margin:0 0 18px;font-size:14px;line-height:1.5;">
+            <a href="https://${safeDomain}" style="color:#22d3ee;text-decoration:underline;">${safeDomain}</a>
+          </p>
+          <p style="margin:0 auto;max-width:440px;font-size:15px;color:#a3a3a3;line-height:1.65;">
+            Zempar supports you in enhancing your visibility across AI-powered search and answer engines.
+          </p>
         </td></tr>
-        <tr><td style="padding:0 40px 32px;">
-          <h2 style="margin:0 0 16px;font-size:16px;font-weight:600;color:#ffffff;">Score Breakdown</h2>
-          <table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #1f1f1f;border-radius:8px;overflow:hidden;">
-            <tr style="background:#1a1a1a;">
-              <th style="padding:10px 12px;text-align:left;color:#606060;font-size:12px;font-weight:600;text-transform:uppercase;">Dimension</th>
-              <th style="padding:10px 12px;text-align:center;color:#606060;font-size:12px;font-weight:600;text-transform:uppercase;">Score</th>
-              <th style="padding:10px 12px;text-align:center;color:#606060;font-size:12px;font-weight:600;text-transform:uppercase;">Weight</th>
+        <tr><td style="padding:0 40px 36px;">
+          <h2 style="margin:0 0 14px;font-size:17px;font-weight:600;color:#ffffff;letter-spacing:-0.02em;">Score Breakdown</h2>
+          <table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #262626;border-radius:10px;overflow:hidden;border-collapse:separate;">
+            <tr style="background:#141414;">
+              <th style="padding:12px 14px;text-align:left;color:#737373;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;">Dimension</th>
+              <th style="padding:12px 14px;text-align:center;color:#737373;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;">Score</th>
+              <th style="padding:12px 14px;text-align:center;color:#737373;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;">Weight</th>
             </tr>
             ${breakdownRows}
-            <tr style="background:#1a1a1a;">
-              <td style="padding:12px;font-weight:700;color:#ffffff;font-size:14px;"><strong>Overall GEO Score</strong></td>
-              <td style="padding:12px;text-align:center;font-weight:800;font-size:18px;color:${color};">${composite.overall}/100</td>
-              <td style="padding:12px;text-align:center;color:#606060;font-size:13px;">—</td>
+            <tr style="background:#141414;">
+              <td style="padding:14px;font-weight:700;color:#fafafa;font-size:14px;border-top:1px solid #262626;"><strong>Overall GEO Score</strong></td>
+              <td style="padding:14px;text-align:center;font-weight:800;font-size:17px;color:${color};border-top:1px solid #262626;">${composite.overall}/100</td>
+              <td style="padding:14px;text-align:center;color:#525252;font-size:13px;border-top:1px solid #262626;">—</td>
             </tr>
           </table>
         </td></tr>
-        <tr><td style="padding:0 40px 32px;">
-          <p style="margin:0 0 16px;color:#a3a3a3;font-size:14px;line-height:1.6;">
+        <tr><td style="padding:0 40px 36px;">
+          <p style="margin:0 0 14px;color:#a3a3a3;font-size:14px;line-height:1.65;">
             Your full GEO Visibility Report is attached to this email as a PDF. It includes detailed findings across all analysis dimensions, platform-specific recommendations, and a prioritized 30-day action plan.
           </p>
-          <table cellpadding="0" cellspacing="0"><tr><td style="border-radius:8px;background:#06b6d4;">
-            <a href="https://zempar.com/contact" style="display:block;padding:14px 28px;color:#000;font-weight:700;font-size:14px;text-decoration:none;">Discuss Your Results with Zempar →</a>
+          <p style="margin:0 0 20px;padding:16px 18px;background:#141414;border:1px solid #262626;border-radius:10px;color:#d4d4d4;font-size:14px;line-height:1.65;">
+            <strong style="color:#fafafa;">Reply to this email</strong> and we can work together to improve your visibility — share questions, goals, or timelines and we will help you prioritize next steps.
+          </p>
+          <table cellpadding="0" cellspacing="0" role="presentation" align="center" style="margin:0 auto;"><tr><td style="border-radius:999px;background:#06b6d4;">
+            <a href="https://zempar.com/contact" style="display:inline-block;padding:14px 28px;color:#0a0a0a;font-weight:700;font-size:14px;text-decoration:none;">Discuss your results with Zempar →</a>
           </td></tr></table>
         </td></tr>
         <tr><td style="padding:24px 40px;border-top:1px solid #1f1f1f;">

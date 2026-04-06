@@ -200,7 +200,7 @@
     "consent": "By submitting, you agree we may email your audit report and follow up about improving your visibility in search and LLM applications.",
     "submit": "Request free audit",
     "submitting": "Sending…",
-    "successSmtp": "Thank you. We received your request and will email your full visibility audit within a few business days. We may also reach out to discuss how we can help you improve visibility.",
+    "successSmtp": "Thank you! You’ll receive an email soon with your GEO visibility report.",
     "successMailto": "Your email app should open with your request. If it does not, contact us at the address below with your website and work email.",
     "errorValidation": "Please enter a valid website URL and work email.",
     "errorNetwork": "Something went wrong. Please try again or email us directly.",

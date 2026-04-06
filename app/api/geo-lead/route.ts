@@ -1,11 +1,11 @@
 /**
  * GEO lead capture (free report request).
  *
- * Flow: validate → run full GEO analysis → generate PDF → send emails.
- * All processing happens synchronously in this route.
+ * Flow: validate → respond immediately → run full GEO analysis, PDF, and
+ * emails in the background via Next.js `after()` so the client is not blocked.
  */
 
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest, NextResponse, after } from "next/server";
 import Anthropic from "@anthropic-ai/sdk";
 import { fetchWebsite } from "@/lib/geo/fetch-website";
 import { runAgent } from "@/lib/geo/run-agent";
@@ -81,64 +81,57 @@ export async function POST(req: NextRequest) {
   const company =
     typeof obj.company === "string" ? obj.company.trim().slice(0, 200) : "";
 
-  try {
-    // 1. Fetch website
-    const websiteData = await fetchWebsite(website);
+  after(async () => {
+    try {
+      const websiteData = await fetchWebsite(website);
 
-    // 2. Run all 5 agents
-    const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
+      const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 
-    const [visibility, content, technical, platform, schema] =
-      await Promise.all([
-        runAgent(client, "geo-ai-visibility", buildAIVisibilityMessage(websiteData)),
-        runAgent(client, "geo-content", buildContentMessage(websiteData)),
-        runAgent(client, "geo-technical", buildTechnicalMessage(websiteData)),
-        runAgent(client, "geo-platform-analysis", buildPlatformMessage(websiteData)),
-        runAgent(client, "geo-schema", buildSchemaMessage(websiteData)),
-      ]);
+      const [visibility, content, technical, platform, schema] =
+        await Promise.all([
+          runAgent(client, "geo-ai-visibility", buildAIVisibilityMessage(websiteData)),
+          runAgent(client, "geo-content", buildContentMessage(websiteData)),
+          runAgent(client, "geo-technical", buildTechnicalMessage(websiteData)),
+          runAgent(client, "geo-platform-analysis", buildPlatformMessage(websiteData)),
+          runAgent(client, "geo-schema", buildSchemaMessage(websiteData)),
+        ]);
 
-    const agents: AgentResults = {
-      visibility,
-      content,
-      technical,
-      platform,
-      schema,
-    };
+      const agents: AgentResults = {
+        visibility,
+        content,
+        technical,
+        platform,
+        schema,
+      };
 
-    // 3. Compute composite score
-    const composite = computeCompositeScore(agents);
+      const composite = computeCompositeScore(agents);
 
-    // 4. Generate PDF
-    const pdfBuffer = await generatePDF({
-      url: website,
-      company,
-      composite,
-      agents,
-    });
+      const pdfBuffer = await generatePDF({
+        url: website,
+        company,
+        composite,
+        agents,
+      });
 
-    // 5. Send emails
-    const leadReceivedPdf = await sendReportEmail({
-      email,
-      url: website,
-      company,
-      composite,
-      pdfBuffer,
-    });
+      const leadReceivedPdf = await sendReportEmail({
+        email,
+        url: website,
+        company,
+        composite,
+        pdfBuffer,
+      });
 
-    await sendInternalGeoReportDelivered({
-      leadEmail: email,
-      url: website,
-      company,
-      composite,
-      leadReceivedPdf,
-    });
+      await sendInternalGeoReportDelivered({
+        leadEmail: email,
+        url: website,
+        company,
+        composite,
+        leadReceivedPdf,
+      });
+    } catch (e) {
+      console.error("geo-lead analysis error", e);
+    }
+  });
 
-    return NextResponse.json({ ok: true, score: composite.overall, grade: composite.grade });
-  } catch (e) {
-    console.error("geo-lead analysis error", e);
-    return NextResponse.json(
-      { error: "analysis_failed" },
-      { status: 500 }
-    );
-  }
+  return NextResponse.json({ ok: true, queued: true }, { status: 202 });
 }
