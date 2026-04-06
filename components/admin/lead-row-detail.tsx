@@ -4,7 +4,7 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/component
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
-import { ChevronDown, ChevronRight, Bot, Globe, BarChart3 } from "lucide-react";
+import { ChevronDown, ChevronRight, Globe, BarChart3 } from "lucide-react";
 import { useState } from "react";
 
 interface AgentResult {

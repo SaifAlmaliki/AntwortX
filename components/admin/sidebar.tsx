@@ -6,14 +6,13 @@ import { cn } from "@/lib/utils";
 import {
   LayoutDashboard,
   Users,
-  Settings,
   LogOut,
   ChevronLeft,
   ChevronRight,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
-import { logoutAction } from "../actions";
+import { logoutAction } from "@/app/admin/actions";
 
 const navItems = [
   { href: "/admin", label: "Overview", icon: LayoutDashboard },

@@ -23,7 +23,6 @@ import {
 } from "@/components/ui/pagination";
 import { cn } from "@/lib/utils";
 import { LeadActionsMenu } from "./lead-actions-menu";
-import { LeadRowDetail } from "./lead-row-detail";
 
 interface Lead {
   id: string;
@@ -95,7 +94,7 @@ export function LeadsTable({
     if (maxScore) params.set("maxScore", maxScore);
 
     setLoading(true);
-    fetch(`/api/admin/leads?${params.toString()}`)
+    fetch("/api/admin/leads?" + params.toString())
       .then((res) => res.json())
       .then((data) => {
         setLeads(data.leads);
@@ -135,7 +134,7 @@ export function LeadsTable({
             {leads.map((lead) => (
               <TableRow key={lead.id} className="border-zinc-800">
                 <TableCell>
-                  <Link href={`/admin/leads/${lead.id}`} className="text-sm font-medium text-zinc-100 hover:underline">
+                  <Link href={"/admin/leads/" + lead.id} className="text-sm font-medium text-zinc-100 hover:underline">
                     {lead.company || lead.email}
                   </Link>
                   {lead.company && (
@@ -153,7 +152,7 @@ export function LeadsTable({
                       {lead.compositeScore}/100
                     </span>
                   ) : (
-                    <span className="text-xs text-zinc-600">—</span>
+                    <span className="text-xs text-zinc-600">N/A</span>
                   )}
                 </TableCell>
                 <TableCell>
@@ -162,7 +161,7 @@ export function LeadsTable({
                       {lead.grade}
                     </Badge>
                   ) : (
-                    <span className="text-xs text-zinc-600">—</span>
+                    <span className="text-xs text-zinc-600">N/A</span>
                   )}
                 </TableCell>
                 <TableCell>
@@ -202,7 +201,7 @@ export function LeadsTable({
       {leads.length > 0 && (
         <div className="flex items-center justify-between">
           <p className="text-sm text-zinc-500">
-            Showing {((page - 1) * 20) + 1}–{Math.min(page * 20, total)} of {total}
+            Showing {((page - 1) * 20) + 1}-{Math.min(page * 20, total)} of {total}
           </p>
           <Pagination>
             <PaginationContent>
@@ -214,7 +213,7 @@ export function LeadsTable({
                 />
               </PaginationItem>
               {Array.from({ length: Math.min(totalPages, 5) }).map((_, i) => {
-                let pageNum: number;
+                let pageNum = 0;
                 if (totalPages <= 5) {
                   pageNum = i + 1;
                 } else if (page <= 3) {
@@ -228,8 +227,38 @@ export function LeadsTable({
                   <PaginationItem key={pageNum}>
                     <PaginationLink
                       href="#"
-                      onClick={(e) => { e.preventDefault(); onPageChange(pageNum); }}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        onPageChange(pageNum);
+                      }}
                       isActive={page === pageNum}
-                      className={cn(
+                      className={
                         page === pageNum
-                  
+                          ? "bg-zinc-800 text-zinc-100"
+                          : "text-zinc-400 hover:text-zinc-100"
+                      }
+                    >
+                      {pageNum}
+                    </PaginationLink>
+                  </PaginationItem>
+                );
+              })}
+              {totalPages > 5 && page < totalPages - 2 && (
+                <PaginationItem>
+                  <PaginationEllipsis />
+                </PaginationItem>
+              )}
+              <PaginationItem>
+                <PaginationNext
+                  href="#"
+                  onClick={(e) => { e.preventDefault(); if (page < totalPages) onPageChange(page + 1); }}
+                  className={cn("text-zinc-400", page >= totalPages && "pointer-events-none opacity-50")}
+                />
+              </PaginationItem>
+            </PaginationContent>
+          </Pagination>
+        </div>
+      )}
+    </div>
+  );
+}
