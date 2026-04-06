@@ -2,7 +2,7 @@
 
 import type { ReactNode } from "react";
 import { motion, useReducedMotion } from "framer-motion";
-import { Info, Mail, Search, FileText, Code, LineChart } from "lucide-react";
+import { Search, FileText, Code, LineChart, Send, Handshake } from "lucide-react";
 import Link from "next/link";
 import { SplineSceneBasic } from "@/components/ui/code.demo";
 import { useLanguage } from "@/contexts/language-context";
@@ -157,16 +157,16 @@ export function HeroSection() {
               direction === "rtl" ? "sm:flex-row-reverse" : ""
             )}
           >
-            <Link href="/about" className="inline-flex min-w-0 w-full min-[400px]:w-auto">
+            <Link href="/#geo-lead" className="inline-flex min-w-0 w-full min-[400px]:w-auto">
               <span
                 className={cn(
                   "btn-signal-primary min-h-[44px] w-full min-w-0 gap-2 px-5 py-3 text-center min-[400px]:w-auto inline-flex whitespace-normal",
                   direction === "rtl" ? "flex-row-reverse" : ""
                 )}
               >
-                {direction === "rtl" ? <Info className="h-4 w-4 shrink-0" /> : null}
-                <span className="text-balance">{t("about.title")}</span>
-                {direction === "ltr" ? <Info className="h-4 w-4 shrink-0" /> : null}
+                {direction === "rtl" ? <Send className="h-4 w-4 shrink-0" /> : null}
+                <span className="text-balance">{t("geoLead.submit")}</span>
+                {direction === "ltr" ? <Send className="h-4 w-4 shrink-0" /> : null}
               </span>
             </Link>
             <Link href="/contact" className="inline-flex min-w-0 w-full min-[400px]:w-auto">
@@ -176,8 +176,8 @@ export function HeroSection() {
                   direction === "rtl" ? "flex-row-reverse" : ""
                 )}
               >
-                <Mail className="h-4 w-4 shrink-0" />
-                <span className="text-balance">{t("contact.title")}</span>
+                <Handshake className="h-4 w-4 shrink-0" />
+                <span className="text-balance">{t("visibilityOfferings.growth.cta")}</span>
               </span>
             </Link>
           </div>
