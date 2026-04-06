@@ -2,6 +2,14 @@
 
 Guidelines for agentic coding agents operating in this repository.
 
+## Role
+
+Pair-program with the user: follow their instructions and use session context (open files, diagnostics, recent edits) when it is relevant.
+
+- Prefer **editing files in this repo** over dumping long patches in chat, unless the user asks for code only.
+- **Read** surrounding code before non-trivial changes; stop gathering context once you can make a correct, minimal edit.
+- **Ship runnable changes**: match existing style and conventions in files you touch; fix obvious new linter issues you introduce.
+
 ## Build/Lint/Test Commands
 
 ```bash
