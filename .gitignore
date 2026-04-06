@@ -2,6 +2,13 @@
 
 # dependencies
 /node_modules
+# Prisma ships WASM query compilers for every DB; this app uses PostgreSQL only.
+# These paths are redundant while /node_modules is ignored, but match
+# outputFileTracingExcludes in next.config.ts (Netlify/serverless bundle size).
+/node_modules/@prisma/client/runtime/query_compiler*_bg.mysql.*
+/node_modules/@prisma/client/runtime/query_compiler*_bg.sqlite.*
+/node_modules/@prisma/client/runtime/query_compiler*_bg.cockroachdb.*
+/node_modules/@prisma/client/runtime/query_compiler*_bg.sqlserver.*
 /.pnp
 .pnp.js
 .yarn/install-state.gz
@@ -16,6 +23,8 @@
 
 # next.js
 /.next/
+# Build cache (also outputFileTracingExcludes in next.config.ts for serverless)
+/.next/cache/
 /out/
 
 # production

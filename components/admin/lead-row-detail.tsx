@@ -1,0 +1,149 @@
+"use client";
+
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { Badge } from "@/components/ui/badge";
+import { Separator } from "@/components/ui/separator";
+import { cn } from "@/lib/utils";
+import { ChevronDown, ChevronRight, Bot, Globe, BarChart3 } from "lucide-react";
+import { useState } from "react";
+
+interface AgentResult {
+  score: number;
+  grade: string;
+}
+
+interface AgentResults {
+  visibility?: AgentResult;
+  content?: AgentResult;
+  technical?: AgentResult;
+  platform?: AgentResult;
+  schema?: AgentResult;
+}
+
+interface LLMResult {
+  engine: string;
+  mentioned: boolean;
+  cited: boolean;
+  sentiment: string;
+  mentionRate: number;
+  mentionCount: number;
+  totalPrompts: number;
+}
+
+interface LeadRowDetailProps {
+  lead: Record<string, unknown>;
+}
+
+const gradeColors: Record<string, string> = {
+  Excellent: "bg-green-500/10 text-green-400 border-green-500/20",
+  Good: "bg-blue-500/10 text-blue-400 border-blue-500/20",
+  Fair: "bg-amber-500/10 text-amber-400 border-amber-500/20",
+  Poor: "bg-orange-500/10 text-orange-400 border-orange-500/20",
+  Critical: "bg-red-500/10 text-red-400 border-red-500/20",
+};
+
+const engineLabels: Record<string, string> = {
+  openai: "ChatGPT",
+  perplexity: "Perplexity",
+  gemini: "Google Gemini",
+  claude: "Claude",
+};
+
+export function LeadRowDetail({ lead }: LeadRowDetailProps) {
+  const [open, setOpen] = useState(false);
+
+  const agentResults = lead.agentResults as AgentResults | null;
+  const llmResults = (lead.llmResults as LLMResult[] | null) || [];
+  const compositeScore = (lead.compositeScore as number | null) ?? 0;
+  const grade = (lead.grade as string | null) ?? "N/A";
+
+  return (
+    <Collapsible open={open} onOpenChange={setOpen}>
+      <CollapsibleTrigger asChild>
+        <div className="flex cursor-pointer items-center gap-2 px-3 py-2 text-xs text-zinc-500 hover:text-zinc-300 hover:bg-zinc-800/30 rounded-md transition-colors">
+          {open ? <ChevronDown className="h-3 w-3" /> : <ChevronRight className="h-3 w-3" />}
+          <span>View detailed results</span>
+        </div>
+      </CollapsibleTrigger>
+
+      <CollapsibleContent className="px-3 pb-4 space-y-4">
+        <div>
+          <div className="flex items-center gap-2 mb-3">
+            <BarChart3 className="h-4 w-4 text-zinc-400" />
+            <h4 className="text-sm font-medium text-zinc-200">Composite Score</h4>
+            <Badge variant="outline" className={cn("text-xs", gradeColors[grade])}>
+              {compositeScore}/100 — {grade}
+            </Badge>
+          </div>
+
+          {agentResults && (
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-2 ml-6">
+              {Object.entries(agentResults).map(([key, agent]) => {
+                const labels: Record<string, string> = {
+                  visibility: "AI Visibility",
+                  content: "Content E-E-A-T",
+                  technical: "Technical GEO",
+                  platform: "Platform",
+                  schema: "Schema",
+                };
+                const a = agent as AgentResult;
+                return (
+                  <div key={key} className="rounded-md bg-zinc-800/50 p-2 border border-zinc-800">
+                    <p className="text-xs text-zinc-500">{labels[key]}</p>
+                    <p className="text-sm font-semibold text-zinc-100">{a.score}/100</p>
+                    <Badge variant="outline" className={cn("text-xs mt-1", gradeColors[a.grade])}>
+                      {a.grade}
+                    </Badge>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        </div>
+
+        <Separator className="bg-zinc-800" />
+
+        {llmResults.length > 0 && (
+          <div>
+            <div className="flex items-center gap-2 mb-3">
+              <Globe className="h-4 w-4 text-zinc-400" />
+              <h4 className="text-sm font-medium text-zinc-200">LLM Visibility</h4>
+            </div>
+
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-2 ml-6">
+              {llmResults.map((result) => (
+                <div key={result.engine} className="rounded-md bg-zinc-800/50 p-3 border border-zinc-800">
+                  <p className="text-sm font-medium text-zinc-100">
+                    {engineLabels[result.engine] || result.engine}
+                  </p>
+                  <div className="mt-2 space-y-1">
+                    <div className="flex items-center justify-between text-xs">
+                      <span className="text-zinc-500">Mentioned</span>
+                      <span className={result.mentioned ? "text-green-400" : "text-red-400"}>
+                        {result.mentioned ? "Yes" : "No"}
+                      </span>
+                    </div>
+                    <div className="flex items-center justify-between text-xs">
+                      <span className="text-zinc-500">Cited</span>
+                      <span className={result.cited ? "text-green-400" : "text-zinc-600"}>
+                        {result.cited ? "Yes" : "No"}
+                      </span>
+                    </div>
+                    <div className="flex items-center justify-between text-xs">
+                      <span className="text-zinc-500">Sentiment</span>
+                      <span className="text-zinc-300 capitalize">{result.sentiment}</span>
+                    </div>
+                    <div className="flex items-center justify-between text-xs">
+                      <span className="text-zinc-500">Mention Rate</span>
+                      <span className="text-zinc-300">{result.mentionRate.toFixed(0)}%</span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </CollapsibleContent>
+    </Collapsible>
+  );
+}

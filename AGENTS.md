@@ -52,6 +52,10 @@ locales/               # i18n JSON files (en.json, ar.json)
 agents/                # Claude agent system prompts (markdown)
 ```
 
+## Frontend & shadcn/ui
+
+Whenever you apply frontend changes (App Router pages and layouts, `components/`, Tailwind styling, or shadcn primitives), read the **shadcn** agent skill and follow it so the work aligns with shadcn/ui best practices: CLI usage, component installation and composition, theming, registries, and troubleshooting.
+
 ## Code Style Guidelines
 
 ### Imports
