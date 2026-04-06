@@ -3,6 +3,7 @@ import { renderToBuffer, Document } from "@react-pdf/renderer";
 import { CoverPage } from "./components/CoverPage";
 import { AgentSection } from "./components/AgentSection";
 import { ActionPlan } from "./components/ActionPlan";
+import { ServicesPage } from "./components/ServicesPage";
 import type { CompositeScore, AgentResults } from "../geo/types";
 
 interface GeneratePDFParams {
@@ -15,6 +16,14 @@ interface GeneratePDFParams {
 export async function generatePDF(params: GeneratePDFParams): Promise<Buffer> {
   const { url, company, composite, agents } = params;
   const date = new Date().toISOString().slice(0, 10);
+
+  const domain = (() => {
+    try {
+      return new URL(url).hostname;
+    } catch {
+      return url;
+    }
+  })();
 
   const doc = React.createElement(
     Document,
@@ -29,7 +38,8 @@ export async function generatePDF(params: GeneratePDFParams): Promise<Buffer> {
     React.createElement(AgentSection, { agent: agents.technical }),
     React.createElement(AgentSection, { agent: agents.platform }),
     React.createElement(AgentSection, { agent: agents.schema }),
-    React.createElement(ActionPlan, { agents })
+    React.createElement(ActionPlan, { agents }),
+    React.createElement(ServicesPage, { domain })
   );
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

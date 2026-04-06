@@ -3,6 +3,7 @@ import { Document } from "@react-pdf/renderer";
 import { CoverPage } from "./components/CoverPage";
 import { AgentSection } from "./components/AgentSection";
 import { ActionPlan } from "./components/ActionPlan";
+import { ServicesPage } from "./components/ServicesPage";
 import type { CompositeScore, AgentResults } from "../geo/types";
 
 interface Props {
@@ -14,6 +15,14 @@ interface Props {
 }
 
 export function GeoReport({ url, company, composite, agents, date }: Props) {
+  const domain = (() => {
+    try {
+      return new URL(url).hostname;
+    } catch {
+      return url;
+    }
+  })();
+
   return (
     <Document
       title={`GEO Visibility Report — ${url}`}
@@ -28,6 +37,7 @@ export function GeoReport({ url, company, composite, agents, date }: Props) {
       <AgentSection agent={agents.platform} />
       <AgentSection agent={agents.schema} />
       <ActionPlan agents={agents} />
+      <ServicesPage domain={domain} />
     </Document>
   );
 }
