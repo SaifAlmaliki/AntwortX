@@ -261,7 +261,7 @@ export async function POST(req: NextRequest) {
             status: "completed",
             compositeScore: composite.overall,
             grade: composite.grade,
-            llmResults: llmResults ? serializeLlmResultsForStorage(llmResults) : undefined,
+            llmResults: llmResults ? (serializeLlmResultsForStorage(llmResults) as any) : undefined,
             agentResults: {
               visibility: { score: visibility.score, grade: visibility.grade },
               content: { score: content.score, grade: content.grade },
