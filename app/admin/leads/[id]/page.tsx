@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { ArrowLeft, ExternalLink, Mail, Globe, MapPin, Calendar, BarChart3, Bot, FileText } from "lucide-react";
+import { ArrowLeft, Mail, Globe, MapPin, Calendar, BarChart3, Bot, FileText } from "lucide-react";
 import { LLMVisibilityDetail, type StoredLLMSummary } from "@/components/admin/llm-visibility-detail";
 
 const statusColors: Record<string, string> = {
@@ -173,15 +173,10 @@ export default async function LeadDetailPage({
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-sm text-zinc-500 mb-3">
-              A PDF report was generated for this lead.
+            <p className="text-sm text-zinc-500">
+              A PDF was generated and sent to the lead by email. PDF files are not stored in the
+              database, so there is no admin download.
             </p>
-            <Button variant="outline" className="border-zinc-700 text-zinc-300" asChild>
-              <a href={`/api/geo-lead/${lead.id}`} target="_blank" rel="noopener noreferrer">
-                <ExternalLink className="mr-2 h-4 w-4" />
-                Download PDF
-              </a>
-            </Button>
           </CardContent>
         </Card>
       )}

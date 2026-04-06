@@ -150,9 +150,8 @@ model GEOAuditLead {
   // Status
   status          String   @default("pending")
 
-  // PDF
+  // PDF (generated and emailed; not stored as binary)
   pdfGenerated    Boolean  @default(false)
-  pdfBlob         Bytes?
 
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt

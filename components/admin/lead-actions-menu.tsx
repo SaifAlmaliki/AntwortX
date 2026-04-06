@@ -19,7 +19,7 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
-import { MoreHorizontal, RefreshCw, FileDown, Trash2, Code } from "lucide-react";
+import { MoreHorizontal, RefreshCw, Trash2, Code } from "lucide-react";
 import { toast } from "sonner";
 
 interface LeadActionsMenuProps {
@@ -102,10 +102,6 @@ export function LeadActionsMenu({ leadId, status, onAction }: LeadActionsMenuPro
           <DropdownMenuItem onClick={handleViewRaw}>
             <Code className="mr-2 h-4 w-4" />
             View Raw JSON
-          </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => window.open(`/api/geo-lead/${leadId}`, "_blank")}>
-            <FileDown className="mr-2 h-4 w-4" />
-            Download PDF
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem

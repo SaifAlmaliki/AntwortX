@@ -270,7 +270,6 @@ export async function POST(req: NextRequest) {
               schema: { score: schema.score, grade: schema.grade },
             },
             pdfGenerated: true,
-            pdfBlob: new Uint8Array(pdfBuffer),
           },
         });
       }
