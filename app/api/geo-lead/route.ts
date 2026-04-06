@@ -13,6 +13,9 @@ import { computeCompositeScore } from "@/lib/geo/scoring";
 import { generatePDF } from "@/lib/pdf/generate-pdf";
 import { sendReportEmail, sendInternalGeoReportDelivered } from "@/lib/email/sender";
 import { normalizeWebsiteUrl } from "@/lib/website-url";
+import { testLLMPresence, computeLLMVisibilityScore } from "@/lib/geo/llm-presence";
+import { extractBrandName, extractCategoryFromUrl } from "@/lib/geo/geo-prompts";
+import { prisma } from "@/lib/db";
 import type { AgentResults } from "@/lib/geo/types";
 import {
   buildAIVisibilityMessage,
@@ -81,6 +84,9 @@ export async function POST(req: NextRequest) {
   const company =
     typeof obj.company === "string" ? obj.company.trim().slice(0, 200) : "";
 
+  const city =
+    typeof obj.city === "string" ? obj.city.trim().slice(0, 100) : null;
+
   const pipelineId = Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
 
   console.log(`\n[geo-lead:${pipelineId}] ========================================`);
@@ -88,17 +94,37 @@ export async function POST(req: NextRequest) {
   console.log(`[geo-lead:${pipelineId}] Website: ${website}`);
   console.log(`[geo-lead:${pipelineId}] Email:   ${email}`);
   console.log(`[geo-lead:${pipelineId}] Company: ${company || "(not provided)"}`);
+  console.log(`[geo-lead:${pipelineId}] City:    ${city || "(not provided)"}`);
   console.log(`[geo-lead:${pipelineId}] ========================================\n`);
 
   after(async () => {
     const ts = () => new Date().toISOString().slice(11, 19);
 
+    let leadId: string | null = null;
+
     try {
+      const t0 = Date.now();
+
+      const leadRecord = await prisma.gEOAuditLead.create({
+        data: {
+          email,
+          websiteUrl: website,
+          company: company || null,
+          city: city,
+          status: "processing",
+        },
+      });
+      leadId = leadRecord.id;
+
       // 1. Fetch website
       console.log(`[${ts()}] [geo-lead:${pipelineId}] [1/8] Fetching website: ${website}`);
-      const t0 = Date.now();
+      const tFetch = Date.now();
       const websiteData = await fetchWebsite(website);
-      console.log(`[${ts()}] [geo-lead:${pipelineId}]       Website fetched in ${Date.now() - t0}ms — ${websiteData.wordCount} words`);
+      console.log(`[${ts()}] [geo-lead:${pipelineId}]       Website fetched in ${Date.now() - tFetch}ms — ${websiteData.wordCount} words`);
+
+      // Extract brand name and category for LLM presence testing
+      const brandName = company || extractBrandName(websiteData) || "Brand";
+      const category = extractCategoryFromUrl(website);
 
       // 2. Run all 5 agents in parallel
       const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
@@ -144,8 +170,32 @@ export async function POST(req: NextRequest) {
         schema,
       };
 
-      // 3. Compute composite score
-      console.log(`[${ts()}] [geo-lead:${pipelineId}] [3/8] Computing composite score...`);
+      // 3. Test LLM presence across 4 engines
+      console.log(`[${ts()}] [geo-lead:${pipelineId}] [3/8] Testing LLM presence across 4 engines...`);
+      const tLLM = Date.now();
+      
+      let llmResults = null;
+      try {
+        llmResults = await testLLMPresence({
+          brandName,
+          category,
+          city,
+          websiteUrl: website,
+          promptCount: 5,
+        });
+        console.log(`[${ts()}] [geo-lead:${pipelineId}]       LLM presence tested in ${Date.now() - tLLM}ms`);
+        
+        llmResults.forEach((summary) => {
+          const mentionedStr = summary.mentioned ? "✓" : "✗";
+          const citedStr = summary.cited ? "✓" : "✗";
+          console.log(`[${ts()}] [geo-lead:${pipelineId}]       ${summary.engine}: mentioned=${mentionedStr} cited=${citedStr} rate=${summary.mentionRate.toFixed(0)}%`);
+        });
+      } catch (llmError) {
+        console.error(`[${ts()}] [geo-lead:${pipelineId}]       LLM presence test failed:`, llmError);
+      }
+
+      // 4. Compute composite score
+      console.log(`[${ts()}] [geo-lead:${pipelineId}] [4/8] Computing composite score...`);
       const composite = computeCompositeScore(agents);
       console.log(`[${ts()}] [geo-lead:${pipelineId}]       Score: ${composite.overall}/100 (${composite.grade})`);
       console.log(`[${ts()}] [geo-lead:${pipelineId}]       Breakdown:`);
@@ -155,19 +205,28 @@ export async function POST(req: NextRequest) {
       console.log(`[${ts()}] [geo-lead:${pipelineId}]         Schema:             ${composite.breakdown.schema}/100`);
       console.log(`[${ts()}] [geo-lead:${pipelineId}]         Platform:           ${composite.breakdown.platform}/100`);
 
-      // 4. Generate PDF
-      console.log(`[${ts()}] [geo-lead:${pipelineId}] [4/8] Generating PDF report...`);
+      // Compute LLM visibility score
+      const llmVisibilityScore = llmResults ? computeLLMVisibilityScore(llmResults) : null;
+      if (llmVisibilityScore) {
+        console.log(`[${ts()}] [geo-lead:${pipelineId}]       LLM Visibility: ${llmVisibilityScore.score}/100 (${llmVisibilityScore.grade})`);
+      }
+
+      // 5. Generate PDF
+      console.log(`[${ts()}] [geo-lead:${pipelineId}] [5/8] Generating PDF report...`);
       const tPdf = Date.now();
       const pdfBuffer = await generatePDF({
         url: website,
         company,
         composite,
         agents,
+        llmResults: llmResults || undefined,
+        brandName,
+        category,
       });
       console.log(`[${ts()}] [geo-lead:${pipelineId}]       PDF generated in ${Date.now() - tPdf}ms (${(pdfBuffer.length / 1024).toFixed(1)} KB)`);
 
-      // 5. Send emails
-      console.log(`[${ts()}] [geo-lead:${pipelineId}] [5/8] Sending report email to ${email}...`);
+      // 6. Send emails
+      console.log(`[${ts()}] [geo-lead:${pipelineId}] [6/8] Sending report email to ${email}...`);
       const tEmail = Date.now();
       const leadReceivedPdf = await sendReportEmail({
         email,
@@ -178,8 +237,8 @@ export async function POST(req: NextRequest) {
       });
       console.log(`[${ts()}] [geo-lead:${pipelineId}]       Report email ${leadReceivedPdf ? "sent" : "skipped"} in ${Date.now() - tEmail}ms`);
 
-      // 6. Internal notification
-      console.log(`[${ts()}] [geo-lead:${pipelineId}] [6/8] Sending internal notification...`);
+      // 7. Internal notification
+      console.log(`[${ts()}] [geo-lead:${pipelineId}] [7/8] Sending internal notification...`);
       await sendInternalGeoReportDelivered({
         leadEmail: email,
         url: website,
@@ -189,11 +248,46 @@ export async function POST(req: NextRequest) {
       });
       console.log(`[${ts()}] [geo-lead:${pipelineId}]       Internal notification sent`);
 
+      // 8. Update lead record
+      console.log(`[${ts()}] [geo-lead:${pipelineId}] [8/8] Updating lead record...`);
+      if (leadId) {
+        await prisma.gEOAuditLead.update({
+          where: { id: leadId },
+          data: {
+            status: "completed",
+            compositeScore: composite.overall,
+            grade: composite.grade,
+            llmResults: llmResults as any,
+            agentResults: {
+              visibility: { score: visibility.score, grade: visibility.grade },
+              content: { score: content.score, grade: content.grade },
+              technical: { score: technical.score, grade: technical.grade },
+              platform: { score: platform.score, grade: platform.grade },
+              schema: { score: schema.score, grade: schema.grade },
+            },
+            pdfGenerated: true,
+          },
+        });
+      }
+
       console.log(`[${ts()}] [geo-lead:${pipelineId}] ========================================`);
       console.log(`[${ts()}] [geo-lead:${pipelineId}] Pipeline complete in ${Date.now() - t0}ms`);
       console.log(`[${ts()}] [geo-lead:${pipelineId}] ========================================\n`);
     } catch (e) {
       console.error(`[geo-lead:${pipelineId}] Pipeline failed:`, e);
+      
+      if (leadId) {
+        try {
+          await prisma.gEOAuditLead.update({
+            where: { id: leadId },
+            data: {
+              status: "failed",
+            },
+          });
+        } catch (dbError) {
+          console.error(`[geo-lead:${pipelineId}] Failed to update lead status:`, dbError);
+        }
+      }
     }
   });
 
@@ -208,7 +302,6 @@ async function runAgentWithLog(
   starts: Record<string, number>,
   labels: Record<string, string>,
 ) {
-  const { runAgent } = await import("@/lib/geo/run-agent");
   const result = await runAgent(client, agentName, userMessage);
   const elapsed = Date.now() - (starts[agentName] || Date.now());
   const ts = () => new Date().toISOString().slice(11, 19);

@@ -124,3 +124,40 @@ model GEOPromptTemplate {
   @@index([isActive])
   @@map("geo_prompt_templates")
 }
+
+// GEO Audit Lead (one per submission)
+model GEOAuditLead {
+  id              String   @id @default(cuid())
+
+  // Contact info
+  email           String
+  websiteUrl      String   @db.Text
+  company         String?
+  city            String?
+
+  // GEO scoring
+  compositeScore  Float?
+  grade           String?
+
+  // LLM query results
+  llmResults      Json?
+  promptResults   Json?
+
+  // Website data snapshot
+  websiteData     Json?
+  agentResults    Json?
+
+  // Status
+  status          String   @default("pending")
+
+  // PDF
+  pdfGenerated    Boolean  @default(false)
+
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([email])
+  @@index([websiteUrl])
+  @@index([status])
+  @@map("geo_audit_leads")
+}

@@ -4,17 +4,22 @@ import { CoverPage } from "./components/CoverPage";
 import { AgentSection } from "./components/AgentSection";
 import { ActionPlan } from "./components/ActionPlan";
 import { ServicesPage } from "./components/ServicesPage";
+import { LLMVisibilitySection } from "./components/LLMVisibilitySection";
 import type { CompositeScore, AgentResults } from "../geo/types";
+import type { LLMPresenceSummary } from "../geo/llm-presence";
 
 interface GeneratePDFParams {
   url: string;
   company: string;
   composite: CompositeScore;
   agents: AgentResults;
+  llmResults?: LLMPresenceSummary[];
+  brandName?: string;
+  category?: string;
 }
 
 export async function generatePDF(params: GeneratePDFParams): Promise<Buffer> {
-  const { url, company, composite, agents } = params;
+  const { url, company, composite, agents, llmResults, brandName, category } = params;
   const date = new Date().toISOString().slice(0, 10);
 
   const domain = (() => {
@@ -25,6 +30,31 @@ export async function generatePDF(params: GeneratePDFParams): Promise<Buffer> {
     }
   })();
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const children: any[] = [
+    React.createElement(CoverPage, { url, company, composite, date }),
+    React.createElement(AgentSection, { agent: agents.visibility }),
+    React.createElement(AgentSection, { agent: agents.content }),
+    React.createElement(AgentSection, { agent: agents.technical }),
+    React.createElement(AgentSection, { agent: agents.platform }),
+    React.createElement(AgentSection, { agent: agents.schema }),
+  ];
+
+  if (llmResults && llmResults.length > 0 && brandName && category) {
+    children.push(
+      React.createElement(LLMVisibilitySection, {
+        llmResults,
+        brandName,
+        category,
+      })
+    );
+  }
+
+  children.push(
+    React.createElement(ActionPlan, { agents }),
+    React.createElement(ServicesPage, { domain })
+  );
+
   const doc = React.createElement(
     Document,
     {
@@ -32,14 +62,7 @@ export async function generatePDF(params: GeneratePDFParams): Promise<Buffer> {
       author: "Zempar",
       subject: "Generative Engine Optimization Report",
     },
-    React.createElement(CoverPage, { url, company, composite, date }),
-    React.createElement(AgentSection, { agent: agents.visibility }),
-    React.createElement(AgentSection, { agent: agents.content }),
-    React.createElement(AgentSection, { agent: agents.technical }),
-    React.createElement(AgentSection, { agent: agents.platform }),
-    React.createElement(AgentSection, { agent: agents.schema }),
-    React.createElement(ActionPlan, { agents }),
-    React.createElement(ServicesPage, { domain })
+    ...children
   );
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

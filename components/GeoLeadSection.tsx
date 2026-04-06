@@ -20,6 +20,7 @@ export function GeoLeadSection() {
   const [website, setWebsite] = useState("");
   const [email, setEmail] = useState("");
   const [company, setCompany] = useState("");
+  const [city, setCity] = useState("");
   const [hp, setHp] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [successKind, setSuccessKind] = useState<"smtp" | "mailto">("smtp");
@@ -41,6 +42,7 @@ export function GeoLeadSection() {
     setWebsite("");
     setEmail("");
     setCompany("");
+    setCity("");
     setHp("");
   };
 
@@ -53,7 +55,7 @@ export function GeoLeadSection() {
       const res = await fetch("/api/geo-lead", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ website, email, company, hp }),
+        body: JSON.stringify({ website, email, company, city, hp }),
       });
 
       let data: ApiOk | ApiMailto | ApiErr;
@@ -227,6 +229,24 @@ export function GeoLeadSection() {
                     value={company}
                     onChange={(e) => setCompany(e.target.value)}
                     placeholder={t("geoLead.companyPlaceholder")}
+                    className={inputClass}
+                  />
+                </div>
+                <div className="mb-4">
+                  <label
+                    htmlFor="geo-city"
+                    className="mb-1 block text-sm font-medium text-muted-foreground"
+                  >
+                    {t("geoLead.cityLabel")}
+                  </label>
+                  <input
+                    id="geo-city"
+                    type="text"
+                    name="city"
+                    autoComplete="address-level2"
+                    value={city}
+                    onChange={(e) => setCity(e.target.value)}
+                    placeholder={t("geoLead.cityPlaceholder")}
                     className={inputClass}
                   />
                 </div>
