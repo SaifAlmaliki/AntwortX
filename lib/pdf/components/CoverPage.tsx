@@ -52,7 +52,7 @@ export function CoverPage({ url, company, composite, date }: Props) {
 
       {/* Report title */}
       <View style={{ marginBottom: 32, alignItems: "center" }}>
-        <Text style={{ fontSize: 28, fontWeight: "bold", color: COLORS.white, marginBottom: 8, textAlign: "center" }}>
+        <Text style={{ fontSize: 28, fontWeight: "bold", color: COLORS.heading, marginBottom: 8, textAlign: "center" }}>
           GEO Visibility Report
         </Text>
         <Text style={{ fontSize: 14, color: COLORS.muted, marginBottom: 4 }}>{domain}</Text>
@@ -62,7 +62,7 @@ export function CoverPage({ url, company, composite, date }: Props) {
       </View>
 
       {/* Score breakdown table */}
-      <View style={{ backgroundColor: "#0f0f0f", borderRadius: 8, padding: 16, borderWidth: 1, borderColor: COLORS.border }}>
+      <View style={{ backgroundColor: COLORS.surface, borderRadius: 8, padding: 16, borderWidth: 1, borderColor: COLORS.border }}>
         <View style={styles.tableHeader}>
           <Text style={[styles.tableCellLeft, { color: COLORS.dim, fontSize: 9, textTransform: "uppercase" }]}>Dimension</Text>
           <Text style={[styles.tableCellCenter, { color: COLORS.dim, fontSize: 9, textTransform: "uppercase" }]}>Score</Text>
@@ -86,8 +86,8 @@ export function CoverPage({ url, company, composite, date }: Props) {
             <Text style={styles.tableCellRight}>{weight}</Text>
           </View>
         ))}
-        <View style={[styles.tableRow, { backgroundColor: "#1a1a1a" }]}>
-          <Text style={[styles.tableCellLeft, { fontWeight: "bold", color: COLORS.white }]}>Overall GEO Score</Text>
+        <View style={[styles.tableRow, { backgroundColor: COLORS.card }]}>
+          <Text style={[styles.tableCellLeft, { fontWeight: "bold", color: COLORS.heading }]}>Overall GEO Score</Text>
           <Text style={[styles.tableCellCenter, { color, fontSize: 14 }]}>{composite.overall}/100</Text>
           <Text style={styles.tableCellRight}>—</Text>
         </View>

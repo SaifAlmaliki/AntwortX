@@ -1,15 +1,17 @@
 import { StyleSheet } from "@react-pdf/renderer";
 
+/** Light theme for client-facing GEO PDFs (print-friendly, high contrast). */
 export const COLORS = {
-  bg: "#060606",
-  surface: "#0f0f0f",
-  border: "#1f1f1f",
-  card: "#1a1a1a",
-  background: "#0a0a0a",
-  accent: "#06b6d4",
+  bg: "#ffffff",
+  surface: "#f8fafc",
+  border: "#e2e8f0",
+  card: "#f1f5f9",
+  background: "#f8fafc",
+  accent: "#0891b2",
+  heading: "#0f172a",
   white: "#ffffff",
-  muted: "#a3a3a3",
-  dim: "#606060",
+  muted: "#475569",
+  dim: "#94a3b8",
   success: "#22c55e",
   error: "#ef4444",
   excellent: "#22c55e",
@@ -17,6 +19,8 @@ export const COLORS = {
   fair: "#f59e0b",
   poor: "#f97316",
   critical: "#ef4444",
+  /** Zebra / subtle table row fill */
+  tableStripe: "#f4f4f5",
 };
 
 export function gradeColor(grade: string): string {
@@ -36,7 +40,7 @@ export const styles = StyleSheet.create({
     paddingBottom: 48,
     paddingHorizontal: 48,
     fontFamily: "Helvetica",
-    color: COLORS.white,
+    color: COLORS.muted,
   },
   section: {
     marginBottom: 24,
@@ -44,13 +48,13 @@ export const styles = StyleSheet.create({
   heading1: {
     fontSize: 22,
     fontWeight: "bold",
-    color: COLORS.white,
+    color: COLORS.heading,
     marginBottom: 8,
   },
   heading2: {
     fontSize: 14,
     fontWeight: "bold",
-    color: COLORS.white,
+    color: COLORS.heading,
     marginBottom: 8,
     paddingBottom: 6,
     borderBottomWidth: 1,
@@ -78,7 +82,7 @@ export const styles = StyleSheet.create({
   },
   tableHeader: {
     flexDirection: "row",
-    backgroundColor: "#1a1a1a",
+    backgroundColor: COLORS.card,
     paddingVertical: 7,
     borderTopLeftRadius: 4,
     borderTopRightRadius: 4,
@@ -92,7 +96,7 @@ export const styles = StyleSheet.create({
   tableCellCenter: {
     flex: 1,
     fontSize: 10,
-    color: COLORS.white,
+    color: COLORS.heading,
     textAlign: "center",
     fontWeight: "bold",
   },
@@ -118,7 +122,7 @@ export const styles = StyleSheet.create({
     marginVertical: 16,
   },
   chip: {
-    backgroundColor: "#1a1a1a",
+    backgroundColor: COLORS.card,
     borderRadius: 4,
     paddingHorizontal: 8,
     paddingVertical: 4,

@@ -115,7 +115,7 @@ export function LLMVisibilitySection({
               >
                 <View style={{ width: 8, height: 40, backgroundColor: engineColor, borderRadius: 4 }} />
                 <View style={{ flex: 1 }}>
-                  <Text style={{ fontSize: 12, fontWeight: "bold", color: COLORS.white }}>
+                  <Text style={{ fontSize: 12, fontWeight: "bold", color: COLORS.heading }}>
                     {engineLabel}
                   </Text>
                   <Text style={{ fontSize: 9, color: COLORS.dim }}>
@@ -187,7 +187,7 @@ export function LLMVisibilitySection({
                     Prompt: {r.prompt}
                   </Text>
                   {r.mentioned && r.context && (
-                    <Text style={{ fontSize: 8, color: COLORS.white }}>
+                    <Text style={{ fontSize: 8, color: COLORS.heading }}>
                       ...{r.context}...
                     </Text>
                   )}

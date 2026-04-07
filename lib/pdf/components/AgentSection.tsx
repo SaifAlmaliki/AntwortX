@@ -46,14 +46,14 @@ function renderMarkdownLine(line: string, key: string | number): React.ReactNode
   }
   if (isH3) {
     return (
-      <Text key={key} style={{ fontSize: 11, fontWeight: "bold", color: COLORS.white, marginTop: 8, marginBottom: 4 }}>
+      <Text key={key} style={{ fontSize: 11, fontWeight: "bold", color: COLORS.heading, marginTop: 8, marginBottom: 4 }}>
         {text}
       </Text>
     );
   }
   if (isH4) {
     return (
-      <Text key={key} style={{ fontSize: 10, fontWeight: "bold", color: COLORS.white, marginTop: 6, marginBottom: 3 }}>
+      <Text key={key} style={{ fontSize: 10, fontWeight: "bold", color: COLORS.heading, marginTop: 6, marginBottom: 3 }}>
         {text}
       </Text>
     );
@@ -75,7 +75,7 @@ function renderMarkdownLine(line: string, key: string | number): React.ReactNode
   }
   if (isStrong) {
     return (
-      <Text key={key} style={{ fontSize: 10, fontWeight: "bold", color: COLORS.white, marginBottom: 2 }}>
+      <Text key={key} style={{ fontSize: 10, fontWeight: "bold", color: COLORS.heading, marginBottom: 2 }}>
         {text}
       </Text>
     );

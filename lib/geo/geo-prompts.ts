@@ -1,33 +1,119 @@
+export interface PageSignals {
+  title: string;
+  metaDescription: string;
+  h1Tags: string[];
+  contentSnippets: string[];
+}
+
+function extractServicesFromPage(signals: PageSignals): string[] {
+  const raw = [
+    signals.title,
+    signals.metaDescription,
+    ...signals.h1Tags,
+    ...signals.contentSnippets,
+  ].join(" ").toLowerCase();
+
+  const servicePatterns = [
+    "ai solutions",
+    "artificial intelligence",
+    "machine learning",
+    "deep learning",
+    "natural language processing",
+    "nlp",
+    "computer vision",
+    "rag",
+    "retrieval-augmented generation",
+    "iiot",
+    "industrial iot",
+    "iot integration",
+    "smart factory",
+    "predictive maintenance",
+    "data analytics",
+    "business intelligence",
+    "cloud migration",
+    "cloud infrastructure",
+    "devops",
+    "cybersecurity",
+    "automation",
+    "robotic process automation",
+    "rpa",
+    "digital transformation",
+    "consulting",
+    "software development",
+    "api integration",
+    "data engineering",
+    "data pipeline",
+    "knowledge management",
+    "enterprise search",
+    "workflow automation",
+    "edge computing",
+    "scada",
+    "plc programming",
+    "sensor integration",
+    "remote monitoring",
+    "asset tracking",
+    "supply chain optimization",
+    "erp integration",
+    "crm integration",
+    "custom software",
+    "saas platform",
+    "web application",
+    "mobile application",
+  ];
+
+  const found = servicePatterns.filter((p) => raw.includes(p));
+
+  const unique = [...new Set(found)];
+
+  if (unique.length === 0) {
+    return [];
+  }
+
+  return unique.slice(0, 8);
+}
+
 export function generateGEOPrompts(
   category: string,
   city: string | null,
-  count: number = 5
+  count: number = 5,
+  pageSignals?: PageSignals
 ): string[] {
   const location = city ? ` in ${city}` : "";
 
-  const templates = [
-    `What are the best ${category}${location}?`,
-    `Top-rated ${category}${location}`,
-    `${category} recommendations${location}`,
-    `Which ${category} should I choose${location.replace(" in", " near")}?`,
-    `Best ${category} with great reviews${location}`,
-    `Most popular ${category}${location}`,
-    `Trusted ${category}${location}`,
-    `Where to find good ${category}${location}`,
-    `${category} with best ratings${location}`,
-    `Local ${category} suggestions${location}`,
-    `What ${category} do locals recommend${location}?`,
-    `Best value ${category}${location}`,
-    `${location ? `${category} near me` : `Best ${category} nearby`}`,
-    `Professional ${category}${location}`,
-    `Top 5 ${category}${location}`,
+  let services: string[] = [];
+  if (pageSignals) {
+    services = extractServicesFromPage(pageSignals);
+  }
+
+  const serviceTemplates = services.length > 0
+    ? services.flatMap((s) => [
+        `Which companies provide ${s}${location}?`,
+        `Best solutions for ${s} for enterprises${location}`,
+        `How to implement ${s} for business use cases${location}`,
+        `Top providers of ${s}${location}`,
+      ])
+    : [];
+
+  const genericLongTail = [
+    `What are the best ${category} services${location}?`,
+    `Which ${category} companies are most trusted${location}?`,
+    `Top-rated ${category} for enterprise clients${location}`,
+    `How to choose the right ${category} partner${location}`,
+    `${category} with proven results${location}`,
+    `Leading ${category} companies${location}`,
+    `Who are the top ${category} providers${location}?`,
+    `Best ${category} for large organizations${location}`,
   ];
+
+  const allTemplates = serviceTemplates.length > 0
+    ? [...serviceTemplates, ...genericLongTail]
+    : genericLongTail;
 
   if (count <= 0) {
     return [];
   }
 
-  return templates.slice(0, Math.min(count, templates.length));
+  return [...new Set(allTemplates)].slice(0, Math.min(count, allTemplates.length));
 }
 
 export function extractCategoryFromUrl(url: string): string {

@@ -2,27 +2,25 @@ import type { AgentResults, CompositeScore } from "./types";
 import { scoreToGrade } from "./grade";
 
 /**
- * Compute the composite GEO score from the 5 agent results.
+ * Compute the composite GEO score from the 6 agent results.
  *
- * Weights from skills/geo-audit/SKILL.md:
+ * Updated weights (Phase 1 — RAG Readiness added):
  *   AI Citability     25%  → visibility agent
- *   Brand Authority   20%  → visibility agent (brand sub-score approximated)
+ *   Brand Authority   10%  → visibility agent (brand sub-score approximated)
  *   Content E-E-A-T   20%  → content agent
  *   Technical GEO     15%  → technical agent
+ *   RAG Readiness     10%  → rag agent
  *   Schema            10%  → schema agent
  *   Platform          10%  → platform agent
- *
- * Since the visibility agent covers both Citability (25%) and Brand (20%),
- * we weight it at 45% and split the remaining weights across the other agents.
  */
 export function computeCompositeScore(agents: AgentResults): CompositeScore {
-  const { visibility, content, technical, platform, schema } = agents;
+  const { visibility, content, technical, platform, schema, rag } = agents;
 
-  // visibility covers citability (25%) + brand (20%) = 45% total
   const overall = Math.round(
-    visibility.score * 0.45 +
+    visibility.score * 0.35 +
       content.score * 0.20 +
       technical.score * 0.15 +
+      rag.score * 0.10 +
       schema.score * 0.10 +
       platform.score * 0.10
   );
@@ -31,10 +29,11 @@ export function computeCompositeScore(agents: AgentResults): CompositeScore {
     overall,
     grade: scoreToGrade(overall),
     breakdown: {
-      citability: visibility.score, // AI visibility covers citability
-      brand: visibility.score,      // and brand authority
+      citability: visibility.score,
+      brand: visibility.score,
       eeat: content.score,
       technical: technical.score,
+      rag: rag.score,
       schema: schema.score,
       platform: platform.score,
     },

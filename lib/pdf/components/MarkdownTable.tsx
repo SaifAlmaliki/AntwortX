@@ -31,7 +31,7 @@ export function MarkdownTable({ headers, rows }: MarkdownTableProps) {
               flex: cellFlex,
               fontSize: 8,
               fontWeight: "bold",
-              color: COLORS.white,
+              color: COLORS.heading,
               paddingHorizontal: 6,
               borderRightWidth: ci < colCount - 1 ? 1 : 0,
               borderRightColor: COLORS.border,
@@ -50,7 +50,7 @@ export function MarkdownTable({ headers, rows }: MarkdownTableProps) {
             borderTopColor: COLORS.border,
             paddingVertical: 5,
             alignItems: "flex-start",
-            backgroundColor: ri % 2 === 1 ? "#121212" : "transparent",
+            backgroundColor: ri % 2 === 1 ? COLORS.tableStripe : "transparent",
           }}
         >
           {Array.from({ length: colCount }, (_, ci) => (

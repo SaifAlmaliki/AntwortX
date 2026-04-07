@@ -57,3 +57,6 @@ next-env.d.ts
 .vscode/
 
 /lib/generated/prisma
+
+# Local Netlify folder
+.netlify

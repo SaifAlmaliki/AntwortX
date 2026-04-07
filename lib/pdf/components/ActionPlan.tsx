@@ -70,7 +70,7 @@ export function ActionPlan({ agents }: Props) {
         if (actions.length === 0) return null;
         return (
           <View key={title} style={{ marginBottom: 20 }}>
-            <Text style={{ fontSize: 11, fontWeight: "bold", color: COLORS.white, marginBottom: 8 }}>
+            <Text style={{ fontSize: 11, fontWeight: "bold", color: COLORS.heading, marginBottom: 8 }}>
               {title}
             </Text>
             {actions.map((action, i) => {

@@ -76,12 +76,21 @@ export interface AgentResult {
   rawMarkdown: string;
 }
 
+export interface CompetitorInfo {
+  name: string;
+  domain: string;
+  description: string;
+  sourceEngine: string;
+  confidence: "high" | "medium" | "low";
+}
+
 export interface AgentResults {
   visibility: AgentResult;
   content: AgentResult;
   technical: AgentResult;
   platform: AgentResult;
   schema: AgentResult;
+  rag: AgentResult;
 }
 
 export interface CompositeScore {
@@ -92,6 +101,7 @@ export interface CompositeScore {
     brand: number;
     eeat: number;
     technical: number;
+    rag: number;
     schema: number;
     platform: number;
   };

@@ -7,6 +7,7 @@ import { buildContentMessage } from "./messages/content";
 import { buildTechnicalMessage } from "./messages/technical";
 import { buildPlatformMessage } from "./messages/platform";
 import { buildSchemaMessage } from "./messages/schema";
+import { buildRAGReadinessMessage } from "./messages/rag-readiness";
 import type { WebsiteData, AgentResults, CompositeScore } from "./types";
 
 export interface AnalysisResult {
@@ -24,13 +25,14 @@ export async function runGeoAnalysis(websiteUrl: string): Promise<AnalysisResult
 
   const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 
-  const [visibility, content, technical, platform, schema] =
+  const [visibility, content, technical, platform, schema, rag] =
     await Promise.all([
       runAgent(client, "geo-ai-visibility", buildAIVisibilityMessage(websiteData)),
       runAgent(client, "geo-content", buildContentMessage(websiteData)),
       runAgent(client, "geo-technical", buildTechnicalMessage(websiteData)),
       runAgent(client, "geo-platform-analysis", buildPlatformMessage(websiteData)),
       runAgent(client, "geo-schema", buildSchemaMessage(websiteData)),
+      runAgent(client, "geo-rag-readiness", buildRAGReadinessMessage(websiteData)),
     ]);
 
   const agents: AgentResults = {
@@ -39,6 +41,7 @@ export async function runGeoAnalysis(websiteUrl: string): Promise<AnalysisResult
     technical,
     platform,
     schema,
+    rag,
   };
 
   const composite = computeCompositeScore(agents);

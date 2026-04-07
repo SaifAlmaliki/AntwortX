@@ -1,6 +1,7 @@
 import { getEngine } from "@/lib/geo-engines";
 import { generateGEOPrompts } from "./geo-prompts";
 import type { EngineResponse } from "@/lib/geo-engines/types";
+import type { PageSignals } from "./geo-prompts";
 
 export interface LLMQueryResult {
   engine: string;
@@ -33,6 +34,7 @@ export interface TestLLMPresenceParams {
   websiteUrl: string;
   promptCount?: number;
   engines?: string[];
+  pageSignals?: PageSignals;
 }
 
 export async function testLLMPresence(
@@ -45,9 +47,10 @@ export async function testLLMPresence(
     websiteUrl,
     promptCount = 5,
     engines = ["openai", "perplexity", "gemini", "claude"],
+    pageSignals,
   } = params;
 
-  const prompts = generateGEOPrompts(category, city, promptCount);
+  const prompts = generateGEOPrompts(category, city, promptCount, pageSignals);
 
   const engineResults = await Promise.all(
     engines.map(async (engineName) => {

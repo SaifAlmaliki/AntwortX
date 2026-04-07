@@ -51,7 +51,7 @@ export function ServicesPage({ domain }: Props) {
       <Text style={[styles.body, { marginBottom: 24, maxWidth: 450 }]}>
         Based on your audit results, Zempar offers tailored services to help
         {domain ? ` ${domain}` : " your website"} achieve better visibility in
-        AI-powered search engines. Let's discuss how we can support you.
+        AI-powered search engines. Let&apos;s discuss how we can support you.
       </Text>
 
       <View style={styles.divider} />
@@ -84,7 +84,7 @@ export function ServicesPage({ domain }: Props) {
               style={{
                 fontSize: 12,
                 fontWeight: "bold",
-                color: COLORS.white,
+                color: COLORS.heading,
               }}
             >
               {service.title}
@@ -133,7 +133,7 @@ export function ServicesPage({ domain }: Props) {
 
       <View
         style={{
-          backgroundColor: "#0a1419",
+          backgroundColor: COLORS.surface,
           borderRadius: 8,
           padding: 20,
           marginTop: 16,
@@ -149,11 +149,11 @@ export function ServicesPage({ domain }: Props) {
             marginBottom: 8,
           }}
         >
-          Let's Discuss Your AI Visibility Strategy
+          Let&apos;s Discuss Your AI Visibility Strategy
         </Text>
         <Text style={[styles.body, { marginBottom: 16, maxWidth: 420 }]}>
           Schedule an online meeting to see how we can support you to improve
-          your visibility in the era of AI. We'll review your audit results and
+          your visibility in the era of AI. We&apos;ll review your audit results and
           discuss the best approach for your specific needs.
         </Text>
         <View style={{ flexDirection: "row", gap: 24 }}>
