@@ -9,9 +9,12 @@ You are pair-programming on **this workspace**. Follow the user’s latest messa
 
 ## Repo source of truth
 
-This rule is only the **default chat behavior**. **`AGENTS.md`** holds the **full** contract (commands, layout, stack, imports, API patterns, Prisma, etc.).
+This rule is only the **default chat behavior**.
 
-For anything beyond a one-line tweak, **read the relevant sections of `AGENTS.md`** (and follow them) so details are not missed. Do not duplicate that file here—one source of truth avoids drift.
+- **`AGENTS.md`** holds the **full** engineering contract (commands, layout, stack, imports, API patterns, Prisma, etc.). For anything beyond a one-line tweak, **read the relevant sections of `AGENTS.md`** (and follow them) so details are not missed.
+- **`DESIGN.md`** is the **single source of truth for visual design** (theme, colors, typography, spacing, borders, motion, components). For UI, styling, branding, or layout choices, **read the relevant sections of `DESIGN.md`** and align with them instead of inventing ad hoc palettes or patterns.
+
+Do not duplicate those files here—one source of truth per domain avoids drift.
 
 ## How to work
 
