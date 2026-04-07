@@ -18,7 +18,9 @@ export class GeminiEngine implements EngineClient {
     brandName: string,
     websiteUrl: string
   ): Promise<EngineResponse> {
-    const model = this.genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
+    // gemini-2.0-flash was retired for new API usage; use current Flash stable.
+    const modelId = process.env.GEMINI_MODEL?.trim() || "gemini-2.5-flash";
+    const model = this.genAI.getGenerativeModel({ model: modelId });
     const result = await model.generateContent(prompt);
     const text = result.response.text();
     const mentioned = text.toLowerCase().includes(brandName.toLowerCase());

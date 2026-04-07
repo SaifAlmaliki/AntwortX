@@ -65,26 +65,42 @@ export function LeadRowDetail({ lead }: LeadRowDetailProps) {
           </div>
 
           {agentResults && (
-            <div className="grid grid-cols-2 md:grid-cols-5 gap-2 ml-6">
-              {Object.entries(agentResults).map(([key, agent]) => {
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-2 ml-6">
+              {(() => {
+                const vis = agentResults.visibility;
+                const rows: { key: string; label: string; sub?: string; agent: AgentResult }[] = [];
+                if (vis) {
+                  rows.push({ key: "visibility", label: "AI Visibility", agent: vis });
+                  rows.push({
+                    key: "brand",
+                    label: "Brand Authority",
+                    sub: "Same as AI Visibility in scoring model.",
+                    agent: vis,
+                  });
+                }
+                const order = ["content", "technical", "rag", "schema", "platform"] as const;
                 const labels: Record<string, string> = {
-                  visibility: "AI Visibility",
                   content: "Content E-E-A-T",
                   technical: "Technical GEO",
+                  rag: "RAG Readiness",
                   platform: "Platform",
                   schema: "Schema",
                 };
-                const a = agent as AgentResult;
-                return (
+                for (const k of order) {
+                  const a = agentResults[k];
+                  if (a) rows.push({ key: k, label: labels[k], agent: a });
+                }
+                return rows.map(({ key, label, sub, agent: a }) => (
                   <div key={key} className="rounded-md bg-zinc-800/50 p-2 border border-zinc-800">
-                    <p className="text-xs text-zinc-500">{labels[key]}</p>
+                    <p className="text-xs text-zinc-500">{label}</p>
                     <p className="text-sm font-semibold text-zinc-100">{a.score}/100</p>
                     <Badge variant="outline" className={cn("text-xs mt-1", gradeColors[a.grade])}>
                       {a.grade}
                     </Badge>
+                    {sub ? <p className="text-[10px] text-zinc-600 mt-1 leading-tight">{sub}</p> : null}
                   </div>
-                );
-              })}
+                ));
+              })()}
             </div>
           )}
         </div>

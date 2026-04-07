@@ -2,6 +2,9 @@ import React, { Fragment } from "react";
 import { Page, View, Text } from "@react-pdf/renderer";
 import { styles, COLORS, gradeColor } from "../styles";
 import type { LLMPresenceSummary } from "../../geo/llm-presence";
+import { LLM_VISIBILITY_PLAYBOOK_LINES } from "@/lib/pdf/llm-visibility-playbook";
+
+const LOW_INDEXABLE_WORDS = 50;
 
 interface LLMVisibilitySectionProps {
   llmResults: LLMPresenceSummary[];
@@ -71,6 +74,14 @@ export function LLMVisibilitySection({
     extractedCategory &&
     extractedCategory.trim().toLowerCase() !== userCategory.trim().toLowerCase();
 
+  const servicesLine =
+    extractedServices.length > 0
+      ? extractedServices.slice(0, 5).join(" · ")
+      : "—";
+
+  const lowIndexableText =
+    typeof wordCount === "number" && wordCount < LOW_INDEXABLE_WORDS;
+
   const footer = (
     <View
       style={{
@@ -78,19 +89,25 @@ export function LLMVisibilitySection({
         bottom: 24,
         left: 48,
         right: 48,
-        flexDirection: "row",
-        justifyContent: "space-between",
       }}
     >
-      <Text style={{ fontSize: 9, color: COLORS.dim }}>Zempar GEO Report</Text>
-      <Text style={{ fontSize: 9, color: COLORS.dim }}>LLM Visibility</Text>
+      <Text
+        style={{
+          fontSize: 7,
+          color: COLORS.dim,
+          marginBottom: 8,
+          textAlign: "center",
+          lineHeight: 1.35,
+        }}
+      >
+        Results reflect automated checks at this report date; AI answers vary by product and time.
+      </Text>
+      <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+        <Text style={{ fontSize: 9, color: COLORS.dim }}>Zempar GEO Report</Text>
+        <Text style={{ fontSize: 9, color: COLORS.dim }}>LLM Visibility</Text>
+      </View>
     </View>
   );
-
-  const servicesLine =
-    extractedServices.length > 0
-      ? extractedServices.slice(0, 5).join(" · ")
-      : "—";
 
   return (
     <Fragment>
@@ -131,6 +148,12 @@ export function LLMVisibilitySection({
           {typeof wordCount === "number" ? (
             <Text style={{ fontSize: 8, color: COLORS.heading }}>
               • Page text analyzed: ~{wordCount.toLocaleString()} words (homepage/main fetch)
+            </Text>
+          ) : null}
+          {lowIndexableText ? (
+            <Text style={{ fontSize: 8, color: COLORS.heading, lineHeight: 1.35 }}>
+              • Low indexable text often means JavaScript-rendered content; GEO scores still use meta, structure, and
+              agents. SSR/prerender improves what models and tools can see.
             </Text>
           ) : null}
           <Text style={{ fontSize: 8, color: COLORS.heading }}>
@@ -205,6 +228,7 @@ export function LLMVisibilitySection({
         {llmResults.map((result) => {
           const engineLabel = ENGINE_LABELS[result.engine] || result.engine;
           const engineColor = ENGINE_COLORS[result.engine] || COLORS.accent;
+          const probeErrors = result.results.filter((r) => r.error).length;
 
           return (
             <View key={result.engine} style={{ marginBottom: 10 }}>
@@ -226,6 +250,11 @@ export function LLMVisibilitySection({
                     {result.mentioned ? "Brand surfaced" : "No brand match"}
                     {result.cited ? " · Cited with source" : ""}
                   </Text>
+                  {probeErrors > 0 ? (
+                    <Text style={{ fontSize: 7, color: COLORS.dim, marginTop: 2 }}>
+                      Some prompts did not return an answer; those probes are shown as inconclusive.
+                    </Text>
+                  ) : null}
                 </View>
                 <View style={{ alignItems: "flex-end" }}>
                   <Text style={{ fontSize: 8, color: COLORS.dim }}>
@@ -255,13 +284,11 @@ export function LLMVisibilitySection({
                   }}
                 >
                   <Text style={{ fontSize: 7, color: COLORS.dim, marginBottom: 2 }}>
-                    {i + 1}. {r.mentioned ? "Hit" : "—"} · {r.cited ? "Cited" : "Not cited"} · {r.prompt}
+                    {i + 1}. {r.error ? "—" : r.mentioned ? "Hit" : "—"} ·{" "}
+                    {r.error ? "—" : r.cited ? "Cited" : "Not cited"} · {r.prompt}
                   </Text>
                   {r.mentioned && r.context ? (
                     <Text style={{ fontSize: 7, color: COLORS.heading }}>…{r.context}…</Text>
-                  ) : null}
-                  {r.error ? (
-                    <Text style={{ fontSize: 7, color: COLORS.error }}>Error: {r.error}</Text>
                   ) : null}
                 </View>
               ))}
@@ -309,6 +336,23 @@ export function LLMVisibilitySection({
           )}
         </View>
 
+        {footer}
+      </Page>
+
+      <Page size="A4" style={styles.page}>
+        <Text style={[styles.heading2, { marginBottom: 10 }]}>Improving your AI visibility</Text>
+        <Text style={{ fontSize: 8, color: COLORS.dim, marginBottom: 10, lineHeight: 1.4 }}>
+          These levers increase the chance assistants mention and cite your brand when buyers ask questions in your
+          space. They complement the GEO dimension scores on the cover.
+        </Text>
+        <View style={{ gap: 6 }}>
+          {LLM_VISIBILITY_PLAYBOOK_LINES.map((line, idx) => (
+            <View key={idx} style={{ flexDirection: "row", gap: 6, alignItems: "flex-start" }}>
+              <Text style={{ fontSize: 9, color: COLORS.accent, flexShrink: 0 }}>•</Text>
+              <Text style={{ fontSize: 9, color: COLORS.heading, flex: 1, lineHeight: 1.35 }}>{line}</Text>
+            </View>
+          ))}
+        </View>
         {footer}
       </Page>
     </Fragment>

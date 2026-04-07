@@ -56,7 +56,7 @@ export function CoverPage({ url, company, composite, date }: Props) {
           GEO Visibility Report
         </Text>
         <Text style={{ fontSize: 9, color: COLORS.dim, marginBottom: 6, textAlign: "center", maxWidth: 400 }}>
-          Site crawl · 6 GEO dimensions · 4 LLM engines · Buyer-style prompts
+          Site crawl · 7 GEO dimensions · 4 LLM engines · Buyer-style prompts
         </Text>
         <Text style={{ fontSize: 14, color: COLORS.muted, marginBottom: 4 }}>{domain}</Text>
         {company ? (

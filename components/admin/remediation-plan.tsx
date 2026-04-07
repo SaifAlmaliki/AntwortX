@@ -7,6 +7,7 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/component
 import { ChevronDown, ChevronRight, ClipboardList } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { extractPriorityActions } from "@/lib/geo/extract-actions";
+import { extractScoreJustification } from "@/lib/geo/extract-score-justification";
 
 interface AgentResult {
   score: number;
@@ -28,6 +29,8 @@ interface RemediationPlanProps {
   agentResults: AgentResults;
 }
 
+const AGENT_ORDER = ["visibility", "content", "technical", "rag", "schema", "platform"] as const;
+
 const AGENT_LABELS: Record<string, string> = {
   visibility: "AI Visibility & Citability",
   content: "Content Quality (E-E-A-T)",
@@ -44,22 +47,24 @@ const PRIORITY_COLORS: Record<string, string> = {
   LOW: "bg-green-500/10 text-green-400 border-green-500/20",
 };
 
+const ADMIN_JUSTIFICATION_MAX = 4000;
+
 export function RemediationPlan({ agentResults }: RemediationPlanProps) {
   const [openSections, setOpenSections] = useState<Record<string, boolean>>({});
 
-  const sections = Object.entries(agentResults)
-    .map(([key, agent]) => ({
+  const sections = AGENT_ORDER.filter((key) => agentResults[key]).map((key) => {
+    const agent = agentResults[key]!;
+    return {
       key,
-      agent: agent!,
-      actions: extractPriorityActions(agent?.rawMarkdown ?? ""),
-    }))
-    .filter((s) => s.actions.length > 0);
+      agent,
+      actions: extractPriorityActions(agent.rawMarkdown ?? ""),
+      rationale: extractScoreJustification(agent.rawMarkdown ?? "", ADMIN_JUSTIFICATION_MAX),
+    };
+  });
 
   if (sections.length === 0) return null;
 
-  const allActions = sections.flatMap((s) =>
-    s.actions.map((a) => ({ agent: s.key, ...a }))
-  );
+  const allActions = sections.flatMap((s) => s.actions.map((a) => ({ agent: s.key, ...a })));
 
   const criticalCount = allActions.filter((a) => a.priority === "CRITICAL").length;
   const highCount = allActions.filter((a) => a.priority === "HIGH").length;
@@ -88,7 +93,7 @@ export function RemediationPlan({ agentResults }: RemediationPlanProps) {
       </CardHeader>
       <CardContent>
         <div className="space-y-3">
-          {sections.map(({ key, agent, actions }) => {
+          {sections.map(({ key, agent, actions, rationale }) => {
             const isOpen = openSections[key] ?? false;
 
             return (
@@ -98,32 +103,59 @@ export function RemediationPlan({ agentResults }: RemediationPlanProps) {
                     {isOpen ? <ChevronDown className="h-4 w-4 text-zinc-500" /> : <ChevronRight className="h-4 w-4 text-zinc-500" />}
                     <div className="flex-1 min-w-0">
                       <p className="text-sm font-medium text-zinc-200">{AGENT_LABELS[key] || key}</p>
-                      <p className="text-xs text-zinc-500">{actions.length} action items · Score: {agent.score}/100 ({agent.grade})</p>
+                      <p className="text-xs text-zinc-500">
+                        {actions.length > 0
+                          ? `${actions.length} structured action items · `
+                          : "0 structured actions · "}
+                        Score: {agent.score}/100 ({agent.grade})
+                      </p>
                     </div>
-                    <div className="flex gap-1">
-                      {actions.slice(0, 3).map((a, i) => (
-                        <Badge key={i} variant="outline" className={cn("text-xs", PRIORITY_COLORS[a.priority])}>
-                          {a.priority}
+                    <div className="flex gap-1 flex-wrap justify-end">
+                      {actions.length === 0 ? (
+                        <Badge variant="outline" className="text-xs text-zinc-500 border-zinc-600">
+                          No parsed actions
                         </Badge>
-                      ))}
-                      {actions.length > 3 && (
-                        <Badge variant="outline" className="text-xs text-zinc-500 border-zinc-700">
-                          +{actions.length - 3}
-                        </Badge>
+                      ) : (
+                        <>
+                          {actions.slice(0, 3).map((a, i) => (
+                            <Badge key={i} variant="outline" className={cn("text-xs", PRIORITY_COLORS[a.priority])}>
+                              {a.priority}
+                            </Badge>
+                          ))}
+                          {actions.length > 3 && (
+                            <Badge variant="outline" className="text-xs text-zinc-500 border-zinc-700">
+                              +{actions.length - 3}
+                            </Badge>
+                          )}
+                        </>
                       )}
                     </div>
                   </div>
                 </CollapsibleTrigger>
                 <CollapsibleContent>
-                  <div className="ml-6 mt-2 space-y-2 pb-2">
-                    {actions.map((action, i) => (
-                      <div key={i} className="flex gap-3 items-start">
-                        <Badge variant="outline" className={cn("text-xs shrink-0 mt-0.5", PRIORITY_COLORS[action.priority])}>
-                          {action.priority}
-                        </Badge>
-                        <p className="text-sm text-zinc-300">{action.text}</p>
+                  <div className="ml-6 mt-2 space-y-3 pb-2">
+                    <div>
+                      <p className="text-xs font-medium text-zinc-400 mb-1">Score rationale</p>
+                      <p className="text-sm text-zinc-400 leading-relaxed whitespace-pre-wrap">{rationale}</p>
+                    </div>
+                    {actions.length > 0 ? (
+                      <div className="space-y-2">
+                        <p className="text-xs font-medium text-zinc-400">Priority actions</p>
+                        {actions.map((action, i) => (
+                          <div key={i} className="flex gap-3 items-start">
+                            <Badge variant="outline" className={cn("text-xs shrink-0 mt-0.5", PRIORITY_COLORS[action.priority])}>
+                              {action.priority}
+                            </Badge>
+                            <p className="text-sm text-zinc-300">{action.text}</p>
+                          </div>
+                        ))}
                       </div>
-                    ))}
+                    ) : (
+                      <p className="text-xs text-zinc-500 italic">
+                        No Priority Actions list was parsed from this agent output. Check raw JSON or adjust agent prompt
+                        formatting.
+                      </p>
+                    )}
                   </div>
                 </CollapsibleContent>
               </Collapsible>

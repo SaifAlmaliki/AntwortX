@@ -8,6 +8,8 @@ import { cn } from "@/lib/utils";
 import { ArrowLeft, Mail, Globe, MapPin, Calendar, BarChart3, Bot } from "lucide-react";
 import { LLMVisibilityDetail, type StoredLLMSummary } from "@/components/admin/llm-visibility-detail";
 import { RemediationPlan } from "@/components/admin/remediation-plan";
+import { computeCompositeScore } from "@/lib/geo/scoring";
+import type { AgentResults } from "@/lib/geo/types";
 
 const statusColors: Record<string, string> = {
   completed: "bg-green-500/10 text-green-400 border-green-500/20",
@@ -39,6 +41,23 @@ export default async function LeadDetailPage({
 
   const agentResults = lead.agentResults as Record<string, { score: number; grade: string; rawMarkdown?: string }> | null;
   const llmResults = (lead.llmResults as StoredLLMSummary[] | null) || [];
+
+  const fullAgents =
+    agentResults &&
+    agentResults.visibility &&
+    agentResults.content &&
+    agentResults.technical &&
+    agentResults.platform &&
+    agentResults.schema &&
+    agentResults.rag
+      ? (agentResults as AgentResults)
+      : null;
+
+  const recomputed = fullAgents ? computeCompositeScore(fullAgents) : null;
+  const compositeDrift =
+    recomputed !== null &&
+    lead.compositeScore !== null &&
+    Math.round(lead.compositeScore) !== recomputed.overall;
 
   return (
     <div className="space-y-6">
@@ -106,13 +125,21 @@ export default async function LeadDetailPage({
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="flex items-center gap-4">
+            <div className="flex flex-wrap items-center gap-4">
               <div className="text-4xl font-bold text-zinc-100">{lead.compositeScore}</div>
               <div className="text-sm text-zinc-500">/ 100</div>
               {lead.grade && (
                 <Badge variant="outline" className={cn("text-sm", gradeColors[lead.grade])}>
                   {lead.grade}
                 </Badge>
+              )}
+              {recomputed !== null && (
+                <span className="text-xs text-zinc-500">
+                  Recalculated from agents: {recomputed.overall}/100
+                  {compositeDrift ? (
+                    <span className="text-amber-400 ml-2">(differs from stored score — check data migration)</span>
+                  ) : null}
+                </span>
               )}
             </div>
           </CardContent>
@@ -128,26 +155,43 @@ export default async function LeadDetailPage({
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
-              {Object.entries(agentResults).map(([key, agent]) => {
+            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+              {(() => {
+                const vis = agentResults.visibility;
+                const entries: { key: string; label: string; sub?: string; agent: { score: number; grade: string } }[] =
+                  [];
+                if (vis) {
+                  entries.push({ key: "visibility", label: "AI Visibility", agent: vis });
+                  entries.push({
+                    key: "brand",
+                    label: "Brand Authority",
+                    sub: "Same source as AI Visibility in current scoring model.",
+                    agent: vis,
+                  });
+                }
+                const order = ["content", "technical", "rag", "schema", "platform"] as const;
                 const labels: Record<string, string> = {
-                  visibility: "AI Visibility",
                   content: "Content E-E-A-T",
                   technical: "Technical GEO",
                   rag: "RAG Readiness",
                   platform: "Platform",
                   schema: "Schema",
                 };
-                return (
+                for (const k of order) {
+                  const a = agentResults[k];
+                  if (a) entries.push({ key: k, label: labels[k], agent: a });
+                }
+                return entries.map(({ key, label, sub, agent }) => (
                   <div key={key} className="rounded-lg bg-zinc-800/50 p-4 border border-zinc-800">
-                    <p className="text-xs text-zinc-500">{labels[key] || key}</p>
+                    <p className="text-xs text-zinc-500">{label}</p>
                     <p className="mt-1 text-2xl font-bold text-zinc-100">{agent.score}/100</p>
                     <Badge variant="outline" className={cn("text-xs mt-2", gradeColors[agent.grade])}>
                       {agent.grade}
                     </Badge>
+                    {sub ? <p className="text-[10px] text-zinc-600 mt-2 leading-snug">{sub}</p> : null}
                   </div>
-                );
-              })}
+                ));
+              })()}
             </div>
           </CardContent>
         </Card>

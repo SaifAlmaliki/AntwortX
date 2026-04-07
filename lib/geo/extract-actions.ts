@@ -36,7 +36,7 @@ export function extractPriorityActions(markdown: string, limit = 10): ExtractedA
     }
     if (inActions && (/^\d+\.\s/.test(line) || /^[-*]\s/.test(line))) {
       const clean = line.replace(/^[\d\-*.]+\s*/, "").replace(/\*\*/g, "").trim();
-      if (clean.length > 10) {
+      if (clean.length > 24) {
         const match = clean.match(/^\[(CRITICAL|HIGH|MEDIUM|LOW)\]/i);
         const priority = match
           ? (match[1].toUpperCase() as ExtractedAction["priority"])

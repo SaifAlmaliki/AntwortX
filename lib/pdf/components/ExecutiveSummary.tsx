@@ -5,6 +5,8 @@ import type { CompositeScore, AgentResults } from "../../geo/types";
 import { extractTopPains } from "../../geo/extract-actions";
 import type { ScanSnapshotInput } from "@/lib/pdf/scan-snapshot";
 
+const LOW_INDEXABLE_WORDS = 50;
+
 interface Props {
   url: string;
   composite: CompositeScore;
@@ -12,6 +14,8 @@ interface Props {
   llmMentionedCount?: number;
   llmTotalEngines?: number;
   scanSnapshot?: ScanSnapshotInput;
+  /** When false, omit cross-reference to LLM Visibility pages (section not in PDF). */
+  hasLlmVisibilitySection?: boolean;
 }
 
 const AGENT_LABELS: Record<string, string> = {
@@ -38,6 +42,7 @@ export function ExecutiveSummary({
   llmMentionedCount,
   llmTotalEngines,
   scanSnapshot,
+  hasLlmVisibilitySection = false,
 }: Props) {
   const domain = hostFromUrl(url);
 
@@ -49,6 +54,10 @@ export function ExecutiveSummary({
 
   const enginesTested = llmTotalEngines || 4;
   const mentioned = llmMentionedCount ?? 0;
+
+  const lowIndexableText =
+    typeof scanSnapshot?.wordCount === "number" &&
+    scanSnapshot.wordCount < LOW_INDEXABLE_WORDS;
 
   return (
     <Page size="A4" style={styles.page}>
@@ -108,6 +117,12 @@ export function ExecutiveSummary({
                 • Crawled text: ~{scanSnapshot.wordCount.toLocaleString()} words
               </Text>
             ) : null}
+            {lowIndexableText ? (
+              <Text style={{ fontSize: 8, color: COLORS.heading, lineHeight: 1.35 }}>
+                • Note: very little text appeared in the raw HTML (often JavaScript-rendered sites). Scores still use
+                meta, structure, and agents; prerendering or SSR improves what crawlers and audits can read.
+              </Text>
+            ) : null}
             <Text style={{ fontSize: 8, color: COLORS.heading }}>
               • GEO dimensions scored: 7 (AI visibility, brand, content E-E-A-T, technical, RAG, schema, platform —
               weighted to overall)
@@ -157,6 +172,9 @@ export function ExecutiveSummary({
           <Text style={{ fontSize: 9, color: "#991b1b", lineHeight: 1.45 }}>
             Crawlers and models are unlikely to surface {domain} for relevant buyer questions — you are effectively
             absent from AI-assisted discovery.
+            {lowIndexableText
+              ? " Limited indexable copy on the fetched page can amplify this — see Audit scope."
+              : ""}
           </Text>
         </View>
       )}
@@ -208,14 +226,16 @@ export function ExecutiveSummary({
           borderColor: COLORS.border,
         }}
       >
-        <View style={{ flexDirection: "row", gap: 14, marginBottom: 8 }}>
-          <View style={{ flex: 1 }}>
-            <Text style={{ fontSize: 8, color: COLORS.dim, marginBottom: 2 }}>Engines tested</Text>
+        <View style={{ flexDirection: "row", gap: 16, marginBottom: 8 }}>
+          <View style={{ width: "48%", flexShrink: 0, paddingRight: 4 }}>
+            <Text style={{ fontSize: 9, color: COLORS.heading, marginBottom: 2 }}>Engines tested</Text>
             <Text style={{ fontSize: 18, fontWeight: "bold", color: COLORS.heading }}>{enginesTested}</Text>
-            <Text style={{ fontSize: 7, color: COLORS.dim }}>ChatGPT · Perplexity · Gemini · Claude</Text>
+            <Text style={{ fontSize: 7, color: COLORS.dim, marginTop: 2 }}>
+              ChatGPT · Perplexity · Gemini · Claude
+            </Text>
           </View>
-          <View style={{ flex: 1 }}>
-            <Text style={{ fontSize: 8, color: COLORS.dim, marginBottom: 2 }}>Engines mentioning you</Text>
+          <View style={{ width: "48%", flexShrink: 0, paddingLeft: 4 }}>
+            <Text style={{ fontSize: 9, color: COLORS.heading, marginBottom: 2 }}>Engines mentioning you</Text>
             <Text
               style={{
                 fontSize: 18,
@@ -225,7 +245,7 @@ export function ExecutiveSummary({
             >
               {mentioned}/{enginesTested}
             </Text>
-            <Text style={{ fontSize: 7, color: COLORS.dim }}>
+            <Text style={{ fontSize: 7, color: COLORS.dim, marginTop: 2 }}>
               {mentioned === 0 ? "No mentions on sampled buyer prompts" : "Partial visibility"}
             </Text>
           </View>
@@ -237,6 +257,13 @@ export function ExecutiveSummary({
           </Text>
         ) : null}
       </View>
+
+      {hasLlmVisibilitySection ? (
+        <Text style={{ fontSize: 8, color: COLORS.dim, marginBottom: 8, lineHeight: 1.35 }}>
+          Practical steps to improve visibility in AI answers are under &quot;Improving your AI visibility&quot; in the
+          LLM Visibility section.
+        </Text>
+      ) : null}
 
       <Text style={{ fontSize: 9, color: COLORS.heading, marginBottom: 6 }}>
         Next step: book a 15-minute GEO briefing — full roadmap, competitor lens, and priorities (details on the last

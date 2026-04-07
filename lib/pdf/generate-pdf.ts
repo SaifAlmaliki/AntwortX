@@ -4,6 +4,7 @@ import { CoverPage } from "./components/CoverPage";
 import { ExecutiveSummary } from "./components/ExecutiveSummary";
 import { ServicesPage } from "./components/ServicesPage";
 import { LLMVisibilitySection } from "./components/LLMVisibilitySection";
+import { DimensionJustifications } from "./components/DimensionJustifications";
 import type { CompositeScore, AgentResults } from "../geo/types";
 import { computeLLMVisibilityScore, type LLMPresenceSummary } from "../geo/llm-presence";
 import type { ScanSnapshotInput } from "@/lib/pdf/scan-snapshot";
@@ -53,6 +54,11 @@ export async function generatePDF(params: GeneratePDFParams): Promise<Buffer> {
   const llmTotalEngines = llmResults?.length ?? 0;
   const promptsPerEngine = llmResults?.[0]?.totalPrompts ?? 0;
 
+  const effectiveCategory = category || "";
+  const hasLlmVisibilitySection = Boolean(
+    llmResults && llmResults.length > 0 && brandName && effectiveCategory,
+  );
+
   const scanSnapshot: ScanSnapshotInput | undefined = userCategory
     ? {
         date,
@@ -70,6 +76,7 @@ export async function generatePDF(params: GeneratePDFParams): Promise<Buffer> {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const children: any[] = [
     React.createElement(CoverPage, { url, company, composite, date }),
+    React.createElement(DimensionJustifications, { composite, agents }),
     React.createElement(ExecutiveSummary, {
       url,
       composite,
@@ -77,17 +84,16 @@ export async function generatePDF(params: GeneratePDFParams): Promise<Buffer> {
       llmMentionedCount,
       llmTotalEngines,
       scanSnapshot,
+      hasLlmVisibilitySection,
     }),
   ];
-
-  const effectiveCategory = category || "";
-  if (llmResults && llmResults.length > 0 && brandName && effectiveCategory) {
+  if (hasLlmVisibilitySection && llmResults && brandName) {
     const llmScore = computeLLMVisibilityScore(llmResults);
     const sharedPrompts = llmResults[0].results.map((r) => r.prompt);
     children.push(
       React.createElement(LLMVisibilitySection, {
         llmResults,
-        brandName,
+        brandName: brandName,
         category: effectiveCategory,
         userCategory: userCategory ?? effectiveCategory,
         extractedCategory: extractedCategory ?? null,
