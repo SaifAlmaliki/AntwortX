@@ -255,7 +255,8 @@ export async function POST(req: NextRequest) {
       try {
         llmResults = await testLLMPresence({
           brandName,
-          category: effectiveCategory,
+          userCategory: category,
+          extractedCategory: llmCategory?.category ?? null,
           llmServices,
           city,
           websiteUrl: website,
@@ -301,6 +302,11 @@ export async function POST(req: NextRequest) {
         llmResults: llmResults || undefined,
         brandName,
         category: effectiveCategory,
+        userCategory: category,
+        extractedCategory: llmCategory?.category ?? null,
+        extractedServices: llmCategory?.services ?? [],
+        targetAudience: llmCategory?.targetAudience ?? null,
+        wordCount: websiteData.wordCount,
       });
       console.log(`[${ts()}] [geo-lead:${pipelineId}]       PDF generated in ${Date.now() - tPdf}ms (${(pdfBuffer.length / 1024).toFixed(1)} KB)`);
 

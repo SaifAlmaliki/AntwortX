@@ -224,10 +224,24 @@ export async function fetchWebsite(url: string): Promise<WebsiteData> {
 
   // ── Main content ─────────────────────────────────────────────────────────
   const mainEl = $("main, article, [role='main'], .content, #content, body").first();
-  const textContent = (mainEl.text() || $("body").text())
+  let textContent = (mainEl.text() || $("body").text())
     .replace(/\s+/g, " ")
     .trim();
-  const wordCount = textContent.split(/\s+/).filter(Boolean).length;
+  let wordCount = textContent.split(/\s+/).filter(Boolean).length;
+
+  // SPAs often ship an empty shell: no SSR text after script/style removal. Use head
+  // signals so agents, category extraction, and reports still have crawlable context.
+  if (wordCount === 0) {
+    const fallbacks: string[] = [];
+    if (title) fallbacks.push(title);
+    if (metaDescription) fallbacks.push(metaDescription);
+    for (const h of h1Tags) fallbacks.push(h);
+    const joined = fallbacks.join(" ").replace(/\s+/g, " ").trim();
+    if (joined.length > 0) {
+      textContent = joined;
+      wordCount = textContent.split(/\s+/).filter(Boolean).length;
+    }
+  }
 
   // ── Images ───────────────────────────────────────────────────────────────
   const images: ImageEntry[] = [];

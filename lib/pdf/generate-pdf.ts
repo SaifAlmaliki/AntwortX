@@ -6,6 +6,7 @@ import { ServicesPage } from "./components/ServicesPage";
 import { LLMVisibilitySection } from "./components/LLMVisibilitySection";
 import type { CompositeScore, AgentResults } from "../geo/types";
 import { computeLLMVisibilityScore, type LLMPresenceSummary } from "../geo/llm-presence";
+import type { ScanSnapshotInput } from "@/lib/pdf/scan-snapshot";
 
 interface GeneratePDFParams {
   url: string;
@@ -14,11 +15,30 @@ interface GeneratePDFParams {
   agents: AgentResults;
   llmResults?: LLMPresenceSummary[];
   brandName?: string;
+  /** Primary label for LLM testing (extracted category or lead category). */
   category?: string;
+  userCategory?: string;
+  extractedCategory?: string | null;
+  extractedServices?: string[];
+  targetAudience?: string | null;
+  wordCount?: number;
 }
 
 export async function generatePDF(params: GeneratePDFParams): Promise<Buffer> {
-  const { url, company, composite, agents, llmResults, brandName, category } = params;
+  const {
+    url,
+    company,
+    composite,
+    agents,
+    llmResults,
+    brandName,
+    category,
+    userCategory,
+    extractedCategory,
+    extractedServices,
+    targetAudience,
+    wordCount,
+  } = params;
   const date = new Date().toISOString().slice(0, 10);
 
   const domain = (() => {
@@ -31,6 +51,21 @@ export async function generatePDF(params: GeneratePDFParams): Promise<Buffer> {
 
   const llmMentionedCount = llmResults?.filter((r) => r.mentioned).length ?? 0;
   const llmTotalEngines = llmResults?.length ?? 0;
+  const promptsPerEngine = llmResults?.[0]?.totalPrompts ?? 0;
+
+  const scanSnapshot: ScanSnapshotInput | undefined = userCategory
+    ? {
+        date,
+        url,
+        wordCount,
+        userCategory,
+        extractedCategory: extractedCategory ?? null,
+        extractedServices: extractedServices ?? [],
+        targetAudience: targetAudience ?? null,
+        llmEngineCount: llmTotalEngines || 4,
+        llmPromptsPerEngine: promptsPerEngine || 5,
+      }
+    : undefined;
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const children: any[] = [
@@ -41,26 +76,34 @@ export async function generatePDF(params: GeneratePDFParams): Promise<Buffer> {
       agents,
       llmMentionedCount,
       llmTotalEngines,
+      scanSnapshot,
     }),
   ];
 
   const effectiveCategory = category || "";
   if (llmResults && llmResults.length > 0 && brandName && effectiveCategory) {
     const llmScore = computeLLMVisibilityScore(llmResults);
+    const sharedPrompts = llmResults[0].results.map((r) => r.prompt);
     children.push(
       React.createElement(LLMVisibilitySection, {
         llmResults,
         brandName,
         category: effectiveCategory,
+        userCategory: userCategory ?? effectiveCategory,
+        extractedCategory: extractedCategory ?? null,
+        extractedServices: extractedServices ?? [],
+        targetAudience: targetAudience ?? null,
+        wordCount,
+        reportDate: date,
+        targetUrl: url,
+        sharedPrompts,
         visibilityScore: llmScore.score,
         visibilityGrade: llmScore.grade,
-      })
+      }),
     );
   }
 
-  children.push(
-    React.createElement(ServicesPage, { domain })
-  );
+  children.push(React.createElement(ServicesPage, { domain }));
 
   const doc = React.createElement(
     Document,
@@ -69,7 +112,7 @@ export async function generatePDF(params: GeneratePDFParams): Promise<Buffer> {
       author: "Zempar",
       subject: "Generative Engine Optimization Report",
     },
-    ...children
+    ...children,
   );
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

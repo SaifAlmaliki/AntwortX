@@ -28,7 +28,10 @@ export interface LLMPresenceSummary {
 
 export interface TestLLMPresenceParams {
   brandName: string;
-  category: string;
+  /** Lead-selected industry phrase (always used in prompt blending). */
+  userCategory: string;
+  /** Optional category inferred from the site; blended when distinct from userCategory. */
+  extractedCategory?: string | null;
   llmServices: string[];
   city: string | null;
   websiteUrl: string;
@@ -41,7 +44,8 @@ export async function testLLMPresence(
 ): Promise<LLMPresenceSummary[]> {
   const {
     brandName,
-    category,
+    userCategory,
+    extractedCategory = null,
     llmServices,
     city,
     websiteUrl,
@@ -49,7 +53,13 @@ export async function testLLMPresence(
     engines = ["openai", "perplexity", "gemini", "claude"],
   } = params;
 
-  const prompts = generateGEOPrompts(category, llmServices, city, promptCount);
+  const prompts = generateGEOPrompts({
+    userCategory,
+    extractedCategory,
+    llmServices,
+    city,
+    count: promptCount,
+  });
 
   const engineResults = await Promise.all(
     engines.map(async (engineName) => {
