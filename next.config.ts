@@ -9,9 +9,8 @@ const nextConfig: NextConfig = {
     ignoreDuringBuilds: true,
   },
   /**
-   * Netlify (and other serverless) bundle size: without excludes, file tracing can pull in
-   * `.git`, `.next/cache/webpack/*.pack`, and other repo cruft into `___netlify-server-handler`
-   * and exceed the 250 MB function limit.
+   * Serverless bundle size (e.g. Vercel): without excludes, file tracing can pull in
+   * `.git`, `.next/cache/webpack/*.pack`, and other repo cruft and exceed deployment limits.
    */
   outputFileTracingExcludes: {
     "*": [

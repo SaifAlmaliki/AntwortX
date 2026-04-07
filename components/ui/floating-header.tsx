@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useId } from "react";
+import { useState, useEffect, useId, useRef, type RefObject } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { Menu, X, Info, Mail, Home, Zap } from "lucide-react";
@@ -17,10 +17,20 @@ interface NavigationItem {
   translationKey: string;
 }
 
+function closeMobileMenu(
+  setOpen: (v: boolean) => void,
+  menuButtonRef: RefObject<HTMLButtonElement | null>
+) {
+  setOpen(false);
+  queueMicrotask(() => menuButtonRef.current?.focus());
+}
+
 export function FloatingHeader() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const mobileNavMenuId = useId();
+  const mobileMenuButtonRef = useRef<HTMLButtonElement>(null);
+  const mobileNavPanelRef = useRef<HTMLDivElement>(null);
   const { t, direction } = useLanguage();
   const reduceMotion = useReducedMotion();
 
@@ -69,8 +79,48 @@ export function FloatingHeader() {
 
   useEffect(() => {
     if (!mobileMenuOpen) return;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [mobileMenuOpen]);
+
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+    const panel = mobileNavPanelRef.current;
+    if (!panel) return;
+    const focusables = () =>
+      Array.from(
+        panel.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+        )
+      ).filter((el) => !el.closest("[aria-hidden='true']"));
+
+    const first = () => focusables()[0];
+    requestAnimationFrame(() => first()?.focus());
+
     const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setMobileMenuOpen(false);
+      if (e.key === "Escape") {
+        e.preventDefault();
+        closeMobileMenu(setMobileMenuOpen, mobileMenuButtonRef);
+        return;
+      }
+      if (e.key !== "Tab") return;
+      const items = focusables();
+      if (items.length === 0) return;
+      const firstEl = items[0];
+      const lastEl = items[items.length - 1];
+      const active = document.activeElement;
+      if (e.shiftKey) {
+        if (active === firstEl) {
+          e.preventDefault();
+          lastEl.focus();
+        }
+      } else if (active === lastEl) {
+        e.preventDefault();
+        firstEl.focus();
+      }
     };
     document.addEventListener("keydown", onKeyDown);
     return () => document.removeEventListener("keydown", onKeyDown);
@@ -81,9 +131,26 @@ export function FloatingHeader() {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 px-4 py-3">
+      <AnimatePresence>
+        {mobileMenuOpen ? (
+          <motion.button
+            key="mobile-nav-backdrop"
+            type="button"
+            tabIndex={-1}
+            aria-label={t("nav.closeMenu")}
+            className="fixed inset-0 z-[45] cursor-pointer bg-black/55 md:hidden"
+            initial={reduceMotion ? false : { opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={reduceMotion ? { opacity: 0 } : { opacity: 0, transition: { duration: 0.2 } }}
+            transition={{ duration: reduceMotion ? 0.12 : 0.22 }}
+            onClick={() => closeMobileMenu(setMobileMenuOpen, mobileMenuButtonRef)}
+          />
+        ) : null}
+      </AnimatePresence>
+
       <motion.div
         className={cn(
-          "mx-auto max-w-7xl rounded-full border border-primary/15 bg-card/60 backdrop-blur-xl transition-[border-color,box-shadow,background-color] duration-300 ease-out",
+          "relative z-[50] mx-auto max-w-7xl rounded-full border border-primary/15 bg-card/60 backdrop-blur-xl transition-[border-color,box-shadow,background-color] duration-300 ease-out",
           scrolled && "border-primary/20 bg-card/80 shadow-signal"
         )}
         initial={reduceMotion ? false : { y: -100, opacity: 0 }}
@@ -148,6 +215,7 @@ export function FloatingHeader() {
           >
             <LanguageSelector />
             <Button
+              ref={mobileMenuButtonRef}
               variant="ghost"
               size="icon"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -169,10 +237,12 @@ export function FloatingHeader() {
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
+            ref={mobileNavPanelRef}
             id={mobileNavMenuId}
-            role="region"
+            role="dialog"
+            aria-modal="true"
             aria-label={t("nav.siteMenu")}
-            className="absolute left-4 right-4 top-16 overflow-hidden rounded-2xl border border-primary/20 bg-popover/95 shadow-signal-lg backdrop-blur-xl md:hidden"
+            className="absolute left-4 right-4 top-16 z-[50] overflow-hidden rounded-2xl border border-primary/20 bg-popover/95 shadow-signal-lg backdrop-blur-xl md:hidden"
             initial={reduceMotion ? false : { opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={
@@ -191,7 +261,7 @@ export function FloatingHeader() {
                 <Link
                   key={item.translationKey}
                   href={item.href}
-                  onClick={() => setMobileMenuOpen(false)}
+                  onClick={() => closeMobileMenu(setMobileMenuOpen, mobileMenuButtonRef)}
                   className="block rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring"
                 >
                   <motion.div

@@ -25,11 +25,12 @@ export function LanguageSelector() {
   }, [isOpen]);
 
   const languages = [
-    { code: 'en', name: 'English', flag: '🇺🇸' },
-    { code: 'ar', name: 'العربية', flag: '🇸🇦' }
-  ];
+    { code: "en", name: "English", label: "EN" },
+    { code: "ar", name: "العربية", label: "AR" },
+  ] as const;
 
-  const currentLanguage = languages.find(lang => lang.code === language) || languages[0];
+  const currentLanguage =
+    languages.find((lang) => lang.code === language) ?? languages[0];
 
   const toggleDropdown = () => setIsOpen(!isOpen);
   
@@ -53,8 +54,11 @@ export function LanguageSelector() {
         className="rounded-full px-3 text-muted-foreground transition-colors duration-200 ease-out hover:bg-primary/10 hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
       >
         <Globe className="h-4 w-4 mr-2 shrink-0" aria-hidden />
-        <span className="mr-1" aria-hidden>
-          {currentLanguage.flag}
+        <span
+          className="mr-1 min-w-[1.75rem] tabular-nums text-xs font-semibold text-muted-foreground"
+          aria-hidden
+        >
+          {currentLanguage.label}
         </span>
         <span className="mx-1 hidden sm:inline">{currentLanguage.name}</span>
         <ChevronDown
@@ -89,8 +93,11 @@ export function LanguageSelector() {
                       : "text-muted-foreground hover:bg-primary/10 hover:text-foreground"
                   } text-start`}
                 >
-                  <span className="mr-2" aria-hidden>
-                    {lang.flag}
+                  <span
+                    className="mr-2 w-8 tabular-nums text-center text-xs font-semibold text-muted-foreground"
+                    aria-hidden
+                  >
+                    {lang.label}
                   </span>
                   <span>{lang.name}</span>
                 </button>

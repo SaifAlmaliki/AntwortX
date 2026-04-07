@@ -260,7 +260,7 @@ html[lang="ar"] {
   }
 
   .zempar-input {
-    @apply rounded-lg border border-input bg-[var(--surface-inset)] text-foreground placeholder:text-muted-foreground focus-visible:border-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-0;
+    @apply min-h-[44px] rounded-lg border border-input bg-[var(--surface-inset)] px-4 py-2.5 text-foreground placeholder:text-muted-foreground focus-visible:border-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-0;
   }
 }
 

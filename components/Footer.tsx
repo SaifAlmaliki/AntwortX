@@ -43,24 +43,33 @@ export function Footer() {
             >
               <Link
                 href="https://www.facebook.com/profile.php?id=61574206222119"
-                className={cn(linkClass, "p-1")}
+                className={cn(
+                  linkClass,
+                  "inline-flex min-h-11 min-w-11 items-center justify-center rounded-md"
+                )}
                 aria-label="Facebook"
               >
-                <Facebook size={20} />
+                <Facebook size={20} aria-hidden />
               </Link>
               <Link
                 href="https://www.instagram.com/zempar/"
-                className={cn(linkClass, "p-1")}
+                className={cn(
+                  linkClass,
+                  "inline-flex min-h-11 min-w-11 items-center justify-center rounded-md"
+                )}
                 aria-label="Instagram"
               >
-                <Instagram size={20} />
+                <Instagram size={20} aria-hidden />
               </Link>
               <Link
                 href="https://www.linkedin.com/company/106535449/"
-                className={cn(linkClass, "p-1")}
+                className={cn(
+                  linkClass,
+                  "inline-flex min-h-11 min-w-11 items-center justify-center rounded-md"
+                )}
                 aria-label="LinkedIn"
               >
-                <Linkedin size={20} />
+                <Linkedin size={20} aria-hidden />
               </Link>
             </div>
           </div>

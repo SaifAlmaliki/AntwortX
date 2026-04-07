@@ -65,8 +65,10 @@ type FeatureDef = {
 function iconForFeatureKey(key: string, reduceMotion: boolean | null): ReactNode {
   const chartIcon = (
     <motion.div
-      animate={reduceMotion ? undefined : { rotate: [0, 12, 0, -12, 0] }}
-      transition={reduceMotion ? undefined : { repeat: Infinity, duration: 5, ease: "easeInOut" }}
+      initial={reduceMotion ? false : { rotate: -10, opacity: 0.85 }}
+      whileInView={reduceMotion ? undefined : { rotate: 0, opacity: 1 }}
+      viewport={{ once: true, margin: "-20px" }}
+      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
       className="inline-flex shrink-0 text-primary"
     >
       <LineChart className="h-7 w-7 sm:h-8 sm:w-8" aria-hidden />
@@ -157,28 +159,26 @@ export function HeroSection() {
               direction === "rtl" ? "sm:flex-row-reverse" : ""
             )}
           >
-            <Link href="/#geo-lead" className="inline-flex min-w-0 w-full min-[400px]:w-auto">
-              <span
-                className={cn(
-                  "btn-signal-primary min-h-[44px] w-full min-w-0 gap-2 px-5 py-3 text-center min-[400px]:w-auto inline-flex whitespace-normal",
-                  direction === "rtl" ? "flex-row-reverse" : ""
-                )}
-              >
-                {direction === "rtl" ? <Send className="h-4 w-4 shrink-0" /> : null}
-                <span className="text-balance">{t("geoLead.submit")}</span>
-                {direction === "ltr" ? <Send className="h-4 w-4 shrink-0" /> : null}
-              </span>
+            <Link
+              href="/#geo-lead"
+              className={cn(
+                "btn-signal-primary min-h-[44px] w-full min-w-0 min-[400px]:w-auto inline-flex items-center justify-center gap-2 px-5 py-3 text-center whitespace-normal no-underline",
+                direction === "rtl" ? "flex-row-reverse" : ""
+              )}
+            >
+              {direction === "rtl" ? <Send className="h-4 w-4 shrink-0" /> : null}
+              <span className="text-balance">{t("geoLead.submit")}</span>
+              {direction === "ltr" ? <Send className="h-4 w-4 shrink-0" /> : null}
             </Link>
-            <Link href="/contact" className="inline-flex min-w-0 w-full min-[400px]:w-auto">
-              <span
-                className={cn(
-                  "btn-signal-secondary min-h-[44px] w-full min-w-0 gap-2 border px-5 py-3 text-center min-[400px]:w-auto inline-flex whitespace-normal",
-                  direction === "rtl" ? "flex-row-reverse" : ""
-                )}
-              >
-                <Handshake className="h-4 w-4 shrink-0" />
-                <span className="text-balance">{t("visibilityOfferings.growth.cta")}</span>
-              </span>
+            <Link
+              href="/contact"
+              className={cn(
+                "btn-signal-secondary min-h-[44px] w-full min-w-0 min-[400px]:w-auto inline-flex items-center justify-center gap-2 px-5 py-3 text-center whitespace-normal no-underline",
+                direction === "rtl" ? "flex-row-reverse" : ""
+              )}
+            >
+              <Handshake className="h-4 w-4 shrink-0" />
+              <span className="text-balance">{t("visibilityOfferings.growth.cta")}</span>
             </Link>
           </div>
         </motion.div>

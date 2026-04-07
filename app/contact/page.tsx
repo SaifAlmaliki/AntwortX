@@ -6,7 +6,7 @@ import { Mail, Phone, MapPin } from "lucide-react";
 import { useLanguage } from "@/contexts/language-context";
 import { cn } from "@/lib/utils";
 
-const inputClass = "zempar-input w-full rounded-xl px-4 py-2.5";
+const inputClass = "zempar-input w-full rounded-xl";
 
 export default function ContactPage() {
   const { t, direction } = useLanguage();

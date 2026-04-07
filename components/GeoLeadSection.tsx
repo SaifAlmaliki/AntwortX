@@ -11,7 +11,7 @@ import {
   normalizeGeoLeadCategoryInput,
 } from "@/lib/validation/geo-lead-category";
 
-const inputClass = "zempar-input w-full rounded-xl px-4 py-2.5";
+const inputClass = "zempar-input w-full rounded-xl";
 
 type ApiOk = { ok: true };
 type ApiMailto = { ok: false; mailto: { to: string; subject: string; body: string } };
