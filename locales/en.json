@@ -197,6 +197,9 @@
     "emailPlaceholder": "you@company.com",
     "companyLabel": "Company name (optional)",
     "companyPlaceholder": "Acme Inc.",
+    "categoryLabel": "Industry / Business category",
+    "categoryPlaceholder": "e.g., AI-powered hiring, Industrial IoT, SaaS analytics",
+    "categoryHint": "Use at least two words (max 100 characters), e.g. “management consulting” or “B2B payroll software”.",
     "cityLabel": "City / Region (optional)",
     "cityPlaceholder": "e.g., Milan, Rome, New York",
     "consent": "By submitting, you agree we may email your audit report and follow up about improving your visibility in search and LLM applications.",
@@ -205,6 +208,8 @@
     "successSmtp": "Thank you! You’ll receive an email soon with your GEO visibility report.",
     "successMailto": "Your email app should open with your request. If it does not, contact us at the address below with your website and work email.",
     "errorValidation": "Please enter a valid website URL and work email.",
+    "errorCategoryRequired": "Please enter your industry or business category.",
+    "errorCategoryPhrase": "Describe it in at least two words so we can run accurate AI visibility checks.",
     "errorNetwork": "Something went wrong. Please try again or email us directly.",
     "errorSend": "We could not send your request automatically. Try again or use your email client."
   },

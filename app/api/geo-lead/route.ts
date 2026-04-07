@@ -18,7 +18,8 @@ import {
   computeLLMVisibilityScore,
   serializeLlmResultsForStorage,
 } from "@/lib/geo/llm-presence";
-import { extractBrandName, extractCategoryFromUrl } from "@/lib/geo/geo-prompts";
+import { extractBrandName } from "@/lib/geo/geo-prompts";
+import { extractCategoryFromPage } from "@/lib/geo/extract-category";
 import { prisma } from "@/lib/db";
 import type { AgentResults } from "@/lib/geo/types";
 import {
@@ -43,7 +44,10 @@ import {
   buildCompetitorGapMessage,
 } from "@/lib/geo/messages/competitor-gap";
 import { discoverCompetitors } from "@/lib/geo/competitor-discovery";
-import type { PageSignals } from "@/lib/geo/geo-prompts";
+import {
+  isValidGeoLeadCategoryNormalized,
+  normalizeGeoLeadCategoryInput,
+} from "@/lib/validation/geo-lead-category";
 
 export const runtime = "nodejs";
 
@@ -99,6 +103,15 @@ export async function POST(req: NextRequest) {
   const city =
     typeof obj.city === "string" ? obj.city.trim().slice(0, 100) : null;
 
+  const category =
+    typeof obj.category === "string" ? normalizeGeoLeadCategoryInput(obj.category) : "";
+  if (!category) {
+    return NextResponse.json({ error: "category_required" }, { status: 400 });
+  }
+  if (!isValidGeoLeadCategoryNormalized(category)) {
+    return NextResponse.json({ error: "category_invalid" }, { status: 400 });
+  }
+
   const pipelineId = Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
 
   console.log(`\n[geo-lead:${pipelineId}] ========================================`);
@@ -107,6 +120,7 @@ export async function POST(req: NextRequest) {
   console.log(`[geo-lead:${pipelineId}] Email:   ${email}`);
   console.log(`[geo-lead:${pipelineId}] Company: ${company || "(not provided)"}`);
   console.log(`[geo-lead:${pipelineId}] City:    ${city || "(not provided)"}`);
+  console.log(`[geo-lead:${pipelineId}] Category: ${category}`);
   console.log(`[geo-lead:${pipelineId}] ========================================\n`);
 
   after(async () => {
@@ -123,6 +137,7 @@ export async function POST(req: NextRequest) {
           websiteUrl: website,
           company: company || null,
           city: city,
+          category: category,
           status: "processing",
         },
       });
@@ -134,23 +149,25 @@ export async function POST(req: NextRequest) {
       const websiteData = await fetchWebsite(website);
       console.log(`[${ts()}] [geo-lead:${pipelineId}]       Website fetched in ${Date.now() - tFetch}ms — ${websiteData.wordCount} words`);
 
-      // Extract brand name and category for LLM presence testing
+      // Extract brand name from page content
       const brandName = company || extractBrandName(websiteData) || "Brand";
-      const category = extractCategoryFromUrl(website);
 
-      // Build page signals for intent-specific prompt generation
-      const pageSignals: PageSignals = {
-        title: websiteData.title,
-        metaDescription: websiteData.metaDescription,
-        h1Tags: websiteData.h1Tags,
-        contentSnippets: websiteData.contentBlocks.slice(0, 5).map((b) => b.content.slice(0, 200)),
-      };
-
-      // 2. Run all 6 agents in parallel + discover competitors
+      // 2. Run all 6 agents in parallel + discover competitors + extract category from page
       const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 
       console.log(`[${ts()}] [geo-lead:${pipelineId}] [2/8] Running 6 AI agents in parallel...`);
       const tAgents = Date.now();
+
+      // Kick off LLM category extraction in parallel with agents
+      const categoryExtraction = extractCategoryFromPage({
+        title: websiteData.title,
+        metaDescription: websiteData.metaDescription,
+        h1Tags: websiteData.h1Tags,
+        textContent: websiteData.textContent,
+      }).catch((e) => {
+        console.error(`[${ts()}] [geo-lead:${pipelineId}]       Category extraction failed:`, e);
+        return null;
+      });
 
       const agentNames = [
         "geo-ai-visibility",
@@ -193,6 +210,14 @@ export async function POST(req: NextRequest) {
         console.log(`[${ts()}] [geo-lead:${pipelineId}]       Competitors discovered: ${competitors.competitors.map((c) => c.name).join(", ")}`);
       }
 
+      // Await LLM category extraction for enriched prompts
+      const llmCategory = await categoryExtraction;
+      const llmServices = llmCategory?.services ?? [];
+      const effectiveCategory = llmCategory?.category ?? category;
+      if (llmCategory) {
+        console.log(`[${ts()}] [geo-lead:${pipelineId}]       LLM extracted category: "${llmCategory.category}" with ${llmServices.length} services`);
+      }
+
       console.log(`[${ts()}] [geo-lead:${pipelineId}]       All 6 agents completed in ${Date.now() - tAgents}ms`);
 
       // Run competitor gap agent if competitors were found
@@ -230,11 +255,11 @@ export async function POST(req: NextRequest) {
       try {
         llmResults = await testLLMPresence({
           brandName,
-          category,
+          category: effectiveCategory,
+          llmServices,
           city,
           websiteUrl: website,
           promptCount: 5,
-          pageSignals,
         });
         console.log(`[${ts()}] [geo-lead:${pipelineId}]       LLM presence tested in ${Date.now() - tLLM}ms`);
         
@@ -275,7 +300,7 @@ export async function POST(req: NextRequest) {
         agents,
         llmResults: llmResults || undefined,
         brandName,
-        category,
+        category: effectiveCategory,
       });
       console.log(`[${ts()}] [geo-lead:${pipelineId}]       PDF generated in ${Date.now() - tPdf}ms (${(pdfBuffer.length / 1024).toFixed(1)} KB)`);
 
@@ -313,12 +338,12 @@ export async function POST(req: NextRequest) {
             grade: composite.grade,
             llmResults: llmResults ? (serializeLlmResultsForStorage(llmResults) as any) : undefined,
             agentResults: {
-              visibility: { score: visibility.score, grade: visibility.grade },
-              content: { score: content.score, grade: content.grade },
-              technical: { score: technical.score, grade: technical.grade },
-              platform: { score: platform.score, grade: platform.grade },
-              schema: { score: schema.score, grade: schema.grade },
-              rag: { score: rag.score, grade: rag.grade },
+              visibility: { score: visibility.score, grade: visibility.grade, rawMarkdown: visibility.rawMarkdown },
+              content: { score: content.score, grade: content.grade, rawMarkdown: content.rawMarkdown },
+              technical: { score: technical.score, grade: technical.grade, rawMarkdown: technical.rawMarkdown },
+              platform: { score: platform.score, grade: platform.grade, rawMarkdown: platform.rawMarkdown },
+              schema: { score: schema.score, grade: schema.grade, rawMarkdown: schema.rawMarkdown },
+              rag: { score: rag.score, grade: rag.grade, rawMarkdown: rag.rawMarkdown },
             },
           },
         });

@@ -5,6 +5,11 @@ import { motion, useReducedMotion } from "framer-motion";
 import { useLanguage } from "@/contexts/language-context";
 import { cn } from "@/lib/utils";
 import { ZEMPAR_AUDIT_URL_KEY } from "@/lib/website-url";
+import {
+  GEO_LEAD_CATEGORY_MAX_LENGTH,
+  isValidGeoLeadCategoryNormalized,
+  normalizeGeoLeadCategoryInput,
+} from "@/lib/validation/geo-lead-category";
 
 const inputClass = "zempar-input w-full rounded-xl px-4 py-2.5";
 
@@ -20,8 +25,12 @@ export function GeoLeadSection() {
   const [website, setWebsite] = useState("");
   const [email, setEmail] = useState("");
   const [company, setCompany] = useState("");
+  const [category, setCategory] = useState("");
   const [city, setCity] = useState("");
   const [hp, setHp] = useState("");
+  const [categoryFieldError, setCategoryFieldError] = useState<
+    "required" | "phrase" | null
+  >(null);
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [successKind, setSuccessKind] = useState<"smtp" | "mailto">("smtp");
   const [errorKey, setErrorKey] = useState<string>("errorNetwork");
@@ -42,20 +51,40 @@ export function GeoLeadSection() {
     setWebsite("");
     setEmail("");
     setCompany("");
+    setCategory("");
     setCity("");
     setHp("");
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setStatus("loading");
+    setCategoryFieldError(null);
     setErrorKey("errorNetwork");
+
+    const categoryNormalized = normalizeGeoLeadCategoryInput(category);
+    if (!categoryNormalized) {
+      setCategoryFieldError("required");
+      return;
+    }
+    if (!isValidGeoLeadCategoryNormalized(categoryNormalized)) {
+      setCategoryFieldError("phrase");
+      return;
+    }
+
+    setStatus("loading");
 
     try {
       const res = await fetch("/api/geo-lead", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ website, email, company, city, hp }),
+        body: JSON.stringify({
+          website,
+          email,
+          company,
+          category: categoryNormalized,
+          city,
+          hp,
+        }),
       });
 
       let data: ApiOk | ApiMailto | ApiErr;
@@ -69,11 +98,21 @@ export function GeoLeadSection() {
       }
 
       if (res.status === 400) {
-        setErrorKey(
-          data && typeof data === "object" && "error" in data && data.error === "validation"
-            ? "errorValidation"
-            : "errorSend"
-        );
+        const apiErr =
+          data && typeof data === "object" && "error" in data
+            ? (data as ApiErr).error
+            : undefined;
+        if (apiErr === "category_required") {
+          setCategoryFieldError("required");
+          setStatus("idle");
+          return;
+        }
+        if (apiErr === "category_invalid") {
+          setCategoryFieldError("phrase");
+          setStatus("idle");
+          return;
+        }
+        setErrorKey(apiErr === "validation" ? "errorValidation" : "errorSend");
         setStatus("error");
         setTimeout(() => setStatus("idle"), 6000);
         return;
@@ -231,6 +270,55 @@ export function GeoLeadSection() {
                     placeholder={t("geoLead.companyPlaceholder")}
                     className={inputClass}
                   />
+                </div>
+                <div className="mb-4">
+                  <label
+                    htmlFor="geo-category"
+                    className="mb-1 block text-sm font-medium text-muted-foreground"
+                  >
+                    {t("geoLead.categoryLabel")}
+                  </label>
+                  <input
+                    id="geo-category"
+                    type="text"
+                    name="category"
+                    aria-required="true"
+                    aria-invalid={categoryFieldError != null}
+                    aria-describedby={
+                      categoryFieldError ? "geo-category-error" : "geo-category-hint"
+                    }
+                    maxLength={GEO_LEAD_CATEGORY_MAX_LENGTH}
+                    value={category}
+                    onChange={(e) => {
+                      setCategory(e.target.value);
+                      setCategoryFieldError(null);
+                    }}
+                    placeholder={t("geoLead.categoryPlaceholder")}
+                    className={cn(
+                      inputClass,
+                      categoryFieldError && "border-amber-500/80 ring-1 ring-amber-500/40"
+                    )}
+                  />
+                  <p
+                    id="geo-category-hint"
+                    className={cn(
+                      "mt-1 text-xs text-muted-foreground",
+                      categoryFieldError && "sr-only"
+                    )}
+                  >
+                    {t("geoLead.categoryHint")}
+                  </p>
+                  {categoryFieldError ? (
+                    <p
+                      id="geo-category-error"
+                      className="mt-1 text-sm text-amber-400"
+                      role="alert"
+                    >
+                      {categoryFieldError === "required"
+                        ? t("geoLead.errorCategoryRequired")
+                        : t("geoLead.errorCategoryPhrase")}
+                    </p>
+                  ) : null}
                 </div>
                 <div className="mb-4">
                   <label

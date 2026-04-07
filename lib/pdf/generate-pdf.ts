@@ -1,8 +1,7 @@
 import React from "react";
 import { renderToBuffer, Document } from "@react-pdf/renderer";
 import { CoverPage } from "./components/CoverPage";
-import { AgentSection } from "./components/AgentSection";
-import { ActionPlan } from "./components/ActionPlan";
+import { ExecutiveSummary } from "./components/ExecutiveSummary";
 import { ServicesPage } from "./components/ServicesPage";
 import { LLMVisibilitySection } from "./components/LLMVisibilitySection";
 import type { CompositeScore, AgentResults } from "../geo/types";
@@ -30,23 +29,29 @@ export async function generatePDF(params: GeneratePDFParams): Promise<Buffer> {
     }
   })();
 
+  const llmMentionedCount = llmResults?.filter((r) => r.mentioned).length ?? 0;
+  const llmTotalEngines = llmResults?.length ?? 0;
+
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const children: any[] = [
     React.createElement(CoverPage, { url, company, composite, date }),
-    React.createElement(AgentSection, { agent: agents.visibility }),
-    React.createElement(AgentSection, { agent: agents.content }),
-    React.createElement(AgentSection, { agent: agents.technical }),
-    React.createElement(AgentSection, { agent: agents.platform }),
-    React.createElement(AgentSection, { agent: agents.schema }),
+    React.createElement(ExecutiveSummary, {
+      url,
+      composite,
+      agents,
+      llmMentionedCount,
+      llmTotalEngines,
+    }),
   ];
 
-  if (llmResults && llmResults.length > 0 && brandName && category) {
+  const effectiveCategory = category || "";
+  if (llmResults && llmResults.length > 0 && brandName && effectiveCategory) {
     const llmScore = computeLLMVisibilityScore(llmResults);
     children.push(
       React.createElement(LLMVisibilitySection, {
         llmResults,
         brandName,
-        category,
+        category: effectiveCategory,
         visibilityScore: llmScore.score,
         visibilityGrade: llmScore.grade,
       })
@@ -54,7 +59,6 @@ export async function generatePDF(params: GeneratePDFParams): Promise<Buffer> {
   }
 
   children.push(
-    React.createElement(ActionPlan, { agents }),
     React.createElement(ServicesPage, { domain })
   );
 

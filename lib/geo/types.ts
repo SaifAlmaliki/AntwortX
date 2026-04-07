@@ -91,6 +91,7 @@ export interface AgentResults {
   platform: AgentResult;
   schema: AgentResult;
   rag: AgentResult;
+  [key: string]: AgentResult;
 }
 
 export interface CompositeScore {

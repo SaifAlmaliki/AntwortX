@@ -4,21 +4,25 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/component
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
-import { ChevronDown, ChevronRight, Globe, BarChart3 } from "lucide-react";
+import { ChevronDown, ChevronRight, Globe, BarChart3, ClipboardList } from "lucide-react";
 import { useState } from "react";
 import { LLMVisibilityDetail, type StoredLLMSummary } from "@/components/admin/llm-visibility-detail";
+import { RemediationPlan } from "@/components/admin/remediation-plan";
 
 interface AgentResult {
   score: number;
   grade: string;
+  rawMarkdown?: string;
 }
 
 interface AgentResults {
   visibility?: AgentResult;
   content?: AgentResult;
   technical?: AgentResult;
+  rag?: AgentResult;
   platform?: AgentResult;
   schema?: AgentResult;
+  [key: string]: AgentResult | undefined;
 }
 
 interface LeadRowDetailProps {
@@ -96,6 +100,18 @@ export function LeadRowDetail({ lead }: LeadRowDetailProps) {
 
             <div className="ml-6">
               <LLMVisibilityDetail summaries={llmResults} compact />
+            </div>
+          </div>
+        )}
+
+        {agentResults && Object.keys(agentResults).length > 0 && (
+          <div>
+            <div className="flex items-center gap-2 mb-3">
+              <ClipboardList className="h-4 w-4 text-zinc-400" />
+              <h4 className="text-sm font-medium text-zinc-200">Remediation Plan</h4>
+            </div>
+            <div className="ml-6">
+              <RemediationPlan agentResults={agentResults as AgentResults} />
             </div>
           </div>
         )}

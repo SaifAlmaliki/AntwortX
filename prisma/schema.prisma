@@ -134,6 +134,7 @@ model GEOAuditLead {
   websiteUrl      String   @db.Text
   company         String?
   city            String?
+  category        String?
 
   // GEO scoring
   compositeScore  Float?

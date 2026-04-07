@@ -71,9 +71,10 @@ export function CoverPage({ url, company, composite, date }: Props) {
         {(
           [
             ["AI Visibility & Citability", composite.breakdown.citability, "25%"],
-            ["Brand Authority", composite.breakdown.brand, "20%"],
+            ["Brand Authority", composite.breakdown.brand, "10%"],
             ["Content Quality (E-E-A-T)", composite.breakdown.eeat, "20%"],
             ["Technical GEO", composite.breakdown.technical, "15%"],
+            ["RAG Readiness", composite.breakdown.rag ?? 0, "10%"],
             ["Schema & Structured Data", composite.breakdown.schema, "10%"],
             ["Platform Optimization", composite.breakdown.platform, "10%"],
           ] as [string, number, string][]

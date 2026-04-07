@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { ArrowLeft, Mail, Globe, MapPin, Calendar, BarChart3, Bot } from "lucide-react";
 import { LLMVisibilityDetail, type StoredLLMSummary } from "@/components/admin/llm-visibility-detail";
+import { RemediationPlan } from "@/components/admin/remediation-plan";
 
 const statusColors: Record<string, string> = {
   completed: "bg-green-500/10 text-green-400 border-green-500/20",
@@ -36,7 +37,7 @@ export default async function LeadDetailPage({
     notFound();
   }
 
-  const agentResults = lead.agentResults as Record<string, { score: number; grade: string }> | null;
+  const agentResults = lead.agentResults as Record<string, { score: number; grade: string; rawMarkdown?: string }> | null;
   const llmResults = (lead.llmResults as StoredLLMSummary[] | null) || [];
 
   return (
@@ -74,6 +75,12 @@ export default async function LeadDetailPage({
               <span className="flex items-center gap-1">
                 <MapPin className="h-3 w-3" />
                 {lead.city}
+              </span>
+            )}
+            {lead.category && (
+              <span className="flex items-center gap-1">
+                <Bot className="h-3 w-3" />
+                {lead.category}
               </span>
             )}
             <span className="flex items-center gap-1">
@@ -127,6 +134,7 @@ export default async function LeadDetailPage({
                   visibility: "AI Visibility",
                   content: "Content E-E-A-T",
                   technical: "Technical GEO",
+                  rag: "RAG Readiness",
                   platform: "Platform",
                   schema: "Schema",
                 };
@@ -143,6 +151,10 @@ export default async function LeadDetailPage({
             </div>
           </CardContent>
         </Card>
+      )}
+
+      {agentResults && Object.keys(agentResults).length > 0 && (
+        <RemediationPlan agentResults={agentResults} />
       )}
 
       {llmResults.length > 0 && (
