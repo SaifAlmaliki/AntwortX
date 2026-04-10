@@ -38,7 +38,7 @@ export function TestimonialsSection() {
       <div className="grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6">
         {TESTIMONIALS.map((item, index) => (
           <motion.article
-            key={item.name}
+            key={item.id}
             className="card-surface flex min-h-0 min-w-0 flex-col border border-primary/10 border-b-2 border-b-amber-500/45 p-5 text-start sm:p-6"
             dir={isRtl ? "rtl" : "ltr"}
             initial={reduceMotion ? false : { opacity: 0, y: 22 }}
@@ -66,8 +66,24 @@ export function TestimonialsSection() {
               ))}
             </div>
             <blockquote className="mb-6 min-w-0 flex-1 text-start text-sm font-normal leading-relaxed text-foreground/90 sm:text-[0.9375rem]">
-              <span className="italic">&ldquo;{item.quote}&rdquo;</span>
+              <span className="block whitespace-pre-line italic">
+                &ldquo;{item.quote}&rdquo;
+              </span>
             </blockquote>
+            {item.tags && item.tags.length > 0 ? (
+              <ul
+                className="mb-6 flex flex-wrap gap-2"
+                aria-label={t("testimonials.tagsLabel")}
+              >
+                {item.tags.map((tag) => (
+                  <li key={tag}>
+                    <span className="inline-flex rounded-full border border-primary/10 bg-muted/60 px-2.5 py-1 text-xs font-medium text-foreground/85">
+                      {tag}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            ) : null}
             <footer className="mt-auto border-t border-primary/10 pt-4 text-start">
               <p className="font-display font-semibold text-foreground">{item.name}</p>
               <p className="mt-1 text-sm text-muted-foreground/90">{item.role}</p>

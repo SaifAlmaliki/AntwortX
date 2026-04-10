@@ -364,7 +364,8 @@
   "testimonials": {
     "title": "Leadership & delivery",
     "subtitle": "Recommendations from colleagues and partners on our team's work in enterprise and digital programs—these are not endorsements of a specific GEO product engagement.",
-    "ratingLabel": "5 out of 5 stars"
+    "ratingLabel": "5 out of 5 stars",
+    "tagsLabel": "Highlighted strengths from the review"
   },
   "faq": {
     "title": "Frequently Asked Questions",
