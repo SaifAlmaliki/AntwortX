@@ -217,7 +217,7 @@ export function HeroSection() {
       </div>
 
       <motion.div
-        className="min-w-0 w-full"
+        className="mx-auto w-full max-w-7xl px-4 sm:px-6"
         initial={reduceMotion ? false : { opacity: 0, y: 20 }}
         whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-40px" }}

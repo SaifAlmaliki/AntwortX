@@ -19,7 +19,7 @@
     "title": "Zempar",
     "eyebrow": "When search moves to ChatGPT, Gemini & Perplexity",
     "subtitle": "Found in the answers",
-    "description": "People increasingly ask ChatGPT, Gemini, and Perplexity—not just Google. Classic SEO still matters for crawlability and authority, but Generative Engine Optimization (GEO) shapes whether you are cited, summarized, and recommended in AI answers. Zempar helps companies strengthen how they appear across LLM applications.",
+    "description": "Customers now discover brands in ChatGPT, Gemini, and Perplexity, not only Google. Zempar combines SEO + GEO so your business is findable in search and accurately recommended in AI answers.",
     "getStarted": "Get Started",
     "learnMore": "Learn More",
     "featureCards": [
@@ -49,66 +49,31 @@
     "title": "Generative Engine Optimization",
     "description": "Zempar pairs SEO fundamentals with GEO—clear entities, trustworthy content, and technical signals—so your organization is represented fairly when models surface recommendations."
   },
-  "missionSection": {
-    "title": "Why GEO now",
-    "body": "The buyer journey is splitting: traditional search still drives traffic, but many decisions start inside AI assistants. We help you protect accuracy, earn citations, and stay visible as answers replace blue links—without abandoning the SEO foundation your site still needs.",
-    "cta": "Work with Us",
-    "cards": {
-      "innovation": {
-        "title": "LLM discovery lens",
-        "description": "We map how your category, products, and claims appear in generative surfaces—not only rankings on a SERP."
-      },
-      "partnership": {
-        "title": "Partnership, not checklists",
-        "description": "We work with marketing, comms, and web teams to prioritize the narratives and proof points models are likely to reuse."
-      },
-      "excellence": {
-        "title": "Credible, citable content",
-        "description": "We stress-test clarity, consistency, and sourcing so AI summaries reflect you accurately—not a distorted third-party snippet."
-      },
-      "reliability": {
-        "title": "Ongoing GEO hygiene",
-        "description": "Models and sources change; we help you monitor drift, fix misstatements, and keep structured signals up to date."
-      }
-    }
-  },
   "howItWorks": {
     "title": "How Zempar advances your GEO",
-    "subtitle": "From baseline to iteration—strategy, implementation, and measurement so you improve visibility inside LLM experiences while keeping SEO strong.",
+    "subtitle": "A practical 4-step workflow: baseline, implementation, monitoring, and iteration.",
     "features": {
       "aiChat": {
         "title": "Baseline & gap analysis",
-        "description": "We capture how you appear across major LLM apps and traditional search for priority topics—then prioritize fixes by impact and effort."
+        "description": "We benchmark how you appear across major LLM apps and search, then rank fixes by impact."
       },
       "knowledgeBase": {
         "title": "Content & entity strategy",
-        "description": "We refine messaging, on-page structure, FAQs, and entity-level facts so answers have trustworthy material to cite."
+        "description": "We tighten messaging, page structure, FAQs, and entity facts so assistants can cite you confidently."
       },
       "multilingual": {
         "title": "Implementation across surfaces",
-        "description": "We align your site, docs, and structured data with GEO goals—including multilingual and regional variants where you operate."
+        "description": "We align site content, docs, and schema across your key markets."
       },
       "learning": {
         "title": "Monitor, test, refine",
-        "description": "We track how narratives shift over time, validate changes with prompt sets, and tighten the loop as models and sources evolve."
+        "description": "We track narrative drift, test prompts regularly, and keep improving as models change."
       }
     }
   },
-  "aiVisibility": {
-    "title": "Why AI visibility matters for your business",
-    "subtitle": "Discovery is shifting toward AI assistants and answer engines—not only traditional search.",
-    "promptIntro": "When customers ask:",
-    "queries": [
-      "Best-rated accounting firms for small business near me",
-      "Reliable B2B SaaS for inventory and forecasting",
-      "Top vegan restaurants in Chicago with outdoor seating"
-    ],
-    "body": "Large language models recommend businesses based on how clearly you are represented across the web: facts, structure, reviews, authoritative sources, and how easily your positioning can be summarized. If models cannot confidently ground an answer about you, they may omit you—or repeat inaccurate third-party snippets.",
-    "closing": "Zempar helps organizations of every size understand and improve how they show up in this emerging discovery channel, alongside classic SEO."
-  },
   "seoGeo": {
     "title": "SEO vs GEO: what’s the difference?",
-    "subtitle": "Traditional SEO helps buyers find you through clickable links. Generative Engine Optimization (GEO) shapes whether AI platforms mention you directly in their answers—with accurate context and citations.",
+    "subtitle": "SEO drives discovery through links. GEO drives inclusion and accuracy inside AI answers.",
     "labels": {
       "mainGoal": "Main goal",
       "optimizes": "What it optimizes",
@@ -123,8 +88,7 @@
       "optimizes": [
         "Website content, information architecture, and keyword targeting",
         "Credibility signals such as reviews, backlinks, and brand mentions",
-        "Consistent business information across directories and the open web",
-        "SEO and GEO comparison: how search rankings relate to how models describe your category"
+        "Consistent business information across directories and the open web"
       ],
       "influencesLabel": "What it influences",
       "influencesHighlight": "Traffic and leads that arrive directly from search results to your site or listings.",
@@ -139,8 +103,7 @@
       "optimizes": [
         "Content clarity and structure so LLMs can extract and cite facts fairly",
         "Positioning across AI surfaces (e.g. ChatGPT, Gemini, Perplexity) and the sources they rely on",
-        "Authority and consistency signals that affect how models interpret your brand",
-        "SEO and GEO comparison: where search strength supports—or diverges from—AI narratives"
+        "Authority and consistency signals that affect how models interpret your brand"
       ],
       "influencesLabel": "What it influences",
       "influencesHighlight": "Direct mentions, shortlists, and recommendations inside assistants your customers already trust.",
@@ -149,18 +112,16 @@
   },
   "visibilityOfferings": {
     "title": "How businesses work with Zempar on AI visibility",
-    "subtitle": "Choose a focused audit or an ongoing partnership. Both combine SEO fundamentals with GEO so you are findable in search and fairly represented in AI answers.",
+    "subtitle": "Choose a focused audit or an ongoing partnership.",
     "bestForLabel": "Best for:",
     "audit": {
       "title": "AI visibility audit",
       "tagline": "Baseline clarity, competitors, and a prioritized roadmap",
-      "description": "A structured assessment of how your brand appears in generative answers and traditional search for your priority topics—delivered as a written report you can act on internally or with your agency.",
+      "description": "A concise assessment of how your brand appears in AI answers and search, with a prioritized action plan.",
       "features": [
         "AI visibility analysis across representative prompts and topics",
         "Competitor and category comparison (who models favor and why)",
-        "Ranking and SERP context where it affects discovery",
-        "SEO and GEO comparison for your site and key landing pages",
-        "Concrete recommendations: content, entities, structured data, and source hygiene"
+        "Concrete recommendations for content, entities, and structured data"
       ],
       "bestFor": "Teams that want an evidence-based snapshot before committing to a broader program.",
       "cta": "Request audit"
@@ -169,28 +130,21 @@
       "badge": "Recommended",
       "title": "AI visibility growth partnership",
       "tagline": "Execution, measurement, and iteration with Zempar alongside your team",
-      "description": "We work as an extension of marketing, comms, and web—implementing changes, monitoring narratives, and refining as models and sources evolve.",
+      "description": "We execute the roadmap with your team and iterate based on live visibility signals.",
       "plusLabel": "Everything in the AI visibility audit, plus:",
       "features": [
         "Hands-on content, FAQ, and entity alignment for citable answers",
-        "Technical and schema guidance coordinated with your developers or agency",
-        "Prompt-based monitoring and narrative drift detection over time",
-        "Regular reviews and backlog grooming tied to business outcomes",
-        "Ongoing SEO and GEO comparison reporting as the landscape shifts"
+        "Technical and schema guidance with your developers or agency",
+        "Prompt monitoring and narrative drift tracking over time"
       ],
       "bestFor": "Organizations that want sustained improvement—not a one-off PDF.",
       "cta": "Start partnership request"
     }
   },
-  "seoGeoBoth": {
-    "title": "The winning strategy? Both.",
-    "subtitle": "SEO helps customers find you. GEO helps them choose you with accurate, trustworthy context.",
-    "body": "Our methodology combines both: strong search fundamentals plus generative visibility—so you cover the full journey from discovery to conversion, no matter your industry."
-  },
   "geoLead": {
     "title": "Request your free AI visibility audit",
-    "subtitle": "Customers ask ChatGPT, Gemini, and Perplexity—not only Google. Strong SEO remains essential, but how your brand is summarized and cited in AI answers increasingly shapes trust and revenue. Submit your site and work email: we review GEO and SEO signals and send a full write-up, with no obligation.",
-    "highlight": "The best time to strengthen AI visibility is before competitors own the narrative in assistant answers.",
+    "subtitle": "Submit your website and work email to receive a free audit of how your brand appears in AI answers and search.",
+    "highlight": "No obligation. Clear findings and practical next steps.",
     "websiteLabel": "Website URL",
     "websitePlaceholder": "https://yourcompany.com",
     "emailLabel": "Work email",

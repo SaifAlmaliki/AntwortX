@@ -18,7 +18,7 @@ function initialsFromName(name: string): string {
 function TestimonialMarqueeCard({ item }: { item: Testimonial }) {
   return (
     <article
-      className="w-[min(100vw-2rem,350px)] shrink-0 rounded-xl border border-border/60 bg-background/90 p-4 shadow-sm backdrop-blur-sm transition-colors hover:border-border"
+      className="flex h-[280px] w-[min(100vw-4rem,420px)] shrink-0 flex-col rounded-xl border border-border/60 bg-background/90 p-4 shadow-sm backdrop-blur-sm transition-colors hover:border-border sm:h-[300px]"
       dir="ltr"
     >
       <div className="mb-4 flex gap-0.5" aria-hidden>
@@ -29,7 +29,7 @@ function TestimonialMarqueeCard({ item }: { item: Testimonial }) {
           />
         ))}
       </div>
-      <p className="mb-6 line-clamp-6 text-start text-sm leading-relaxed text-foreground/90">
+      <p className="mb-6 line-clamp-8 flex-1 text-start text-sm leading-relaxed text-foreground/90">
         {item.quote}
       </p>
       <div className="flex items-center gap-3">
@@ -97,7 +97,7 @@ export function TestimonialsSection() {
   return (
     <section
       className={cn(
-        "marketing-section mt-12 rounded-2xl border border-border/50 px-4 py-12 sm:px-6 md:mt-16 md:py-16 lg:mt-20",
+        "marketing-section mt-12 rounded-2xl border border-border/50 py-12 md:mt-16 md:py-16 lg:mt-20",
         SECTION_BG
       )}
       aria-labelledby="testimonials-heading"
@@ -110,7 +110,7 @@ export function TestimonialsSection() {
         ))}
       </ul>
 
-      <div className="mx-auto max-w-6xl">
+      <div className="mx-auto w-full max-w-7xl px-4 sm:px-6">
         <div className="mb-8 text-center md:mb-10">
           <div className="mb-3 inline-flex rounded-full border border-border/60 bg-muted/35 px-4 py-1">
             <span className="text-xs text-muted-foreground">{t("testimonials.badge")}</span>
