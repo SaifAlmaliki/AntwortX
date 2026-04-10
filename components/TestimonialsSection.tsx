@@ -1,95 +1,135 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
 import { Star } from "lucide-react";
 import { useLanguage } from "@/contexts/language-context";
-import { TESTIMONIALS } from "@/lib/testimonials";
+import { TESTIMONIALS, type Testimonial } from "@/lib/testimonials";
 import { cn } from "@/lib/utils";
 
+const SECTION_BG = "bg-card/35";
+const FADE_FROM = "from-card/35";
+
+function initialsFromName(name: string): string {
+  const parts = name.trim().split(/\s+/).filter(Boolean);
+  if (parts.length === 0) return "?";
+  if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
+  return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+}
+
+function TestimonialMarqueeCard({ item }: { item: Testimonial }) {
+  return (
+    <article
+      className="w-[min(100vw-2rem,350px)] shrink-0 rounded-xl border border-border/60 bg-background/90 p-4 shadow-sm backdrop-blur-sm transition-colors hover:border-border"
+      dir="ltr"
+    >
+      <div className="mb-4 flex gap-0.5" aria-hidden>
+        {Array.from({ length: 5 }, (_, i) => (
+          <Star
+            key={i}
+            className="h-4 w-4 shrink-0 fill-muted-foreground/90 text-transparent"
+          />
+        ))}
+      </div>
+      <p className="mb-6 line-clamp-6 text-start text-sm leading-relaxed text-foreground/90">
+        {item.quote}
+      </p>
+      <div className="flex items-center gap-3">
+        <div
+          className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-primary/30 to-accent/25 text-xs font-semibold text-foreground"
+          aria-hidden
+        >
+          {initialsFromName(item.name)}
+        </div>
+        <div className="min-w-0 text-start">
+          <p className="truncate text-sm font-medium text-foreground">{item.name}</p>
+          <p className="truncate text-sm text-muted-foreground">{item.role}</p>
+        </div>
+      </div>
+    </article>
+  );
+}
+
+function MarqueeRow({
+  items,
+  reverse,
+}: {
+  items: readonly Testimonial[];
+  reverse: boolean;
+}) {
+  const doubled = [...items, ...items] as Testimonial[];
+  return (
+    <div className="relative overflow-hidden">
+      <div
+        className={cn(
+          "pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r to-transparent sm:w-28",
+          FADE_FROM
+        )}
+        aria-hidden
+      />
+      <div
+        className={cn(
+          "pointer-events-none absolute inset-y-0 right-0 z-10 w-24 bg-gradient-to-l to-transparent sm:w-28",
+          FADE_FROM
+        )}
+        aria-hidden
+      />
+      <div
+        className={cn(
+          "flex w-max gap-6",
+          reverse
+            ? "animate-testimonial-marquee-reverse"
+            : "animate-testimonial-marquee"
+        )}
+      >
+        {doubled.map((item, index) => (
+          <TestimonialMarqueeCard key={`${item.id}-${index}`} item={item} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export function TestimonialsSection() {
-  const { direction, t } = useLanguage();
-  const reduceMotion = useReducedMotion();
-  const isRtl = direction === "rtl";
+  const { t } = useLanguage();
+  const mid = Math.ceil(TESTIMONIALS.length / 2);
+  const rowA = TESTIMONIALS.slice(0, mid);
+  const rowB = TESTIMONIALS.slice(mid);
 
   return (
-    <section className="marketing-section py-12 md:py-20" aria-labelledby="testimonials-heading">
-      <div className={cn("mb-12 text-center md:mb-16", isRtl && "rtl")}>
-        <motion.h2
-          id="testimonials-heading"
-          className="font-display text-3xl font-bold text-foreground sm:text-4xl md:text-5xl"
-          initial={reduceMotion ? false : { opacity: 0, y: 18 }}
-          whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.5 }}
-        >
-          {t("testimonials.title")}
-        </motion.h2>
-        <motion.p
-          className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground"
-          initial={reduceMotion ? false : { opacity: 0, y: 18 }}
-          whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.5, delay: reduceMotion ? 0 : 0.08 }}
-        >
-          {t("testimonials.subtitle")}
-        </motion.p>
-      </div>
-
-      <div className="grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6">
-        {TESTIMONIALS.map((item, index) => (
-          <motion.article
-            key={item.id}
-            className="card-surface flex min-h-0 min-w-0 flex-col border border-primary/10 border-b-2 border-b-amber-500/45 p-5 text-start sm:p-6"
-            dir={isRtl ? "rtl" : "ltr"}
-            initial={reduceMotion ? false : { opacity: 0, y: 22 }}
-            whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-40px" }}
-            transition={{
-              duration: 0.5,
-              delay: reduceMotion ? 0 : 0.06 + index * 0.07,
-              ease: [0.22, 1, 0.36, 1],
-            }}
-          >
-            <div
-              className={cn(
-                "mb-4 flex w-full gap-0.5",
-                isRtl ? "justify-start" : "justify-end"
-              )}
-              aria-label={t("testimonials.ratingLabel")}
-            >
-              {Array.from({ length: 5 }, (_, i) => (
-                <Star
-                  key={i}
-                  className="h-4 w-4 shrink-0 fill-amber-400 text-amber-400"
-                  aria-hidden
-                />
-              ))}
-            </div>
-            <blockquote className="mb-6 min-w-0 flex-1 text-start text-sm font-normal leading-relaxed text-foreground/90 sm:text-[0.9375rem]">
-              <span className="block whitespace-pre-line italic">
-                &ldquo;{item.quote}&rdquo;
-              </span>
-            </blockquote>
-            {item.tags && item.tags.length > 0 ? (
-              <ul
-                className="mb-6 flex flex-wrap gap-2"
-                aria-label={t("testimonials.tagsLabel")}
-              >
-                {item.tags.map((tag) => (
-                  <li key={tag}>
-                    <span className="inline-flex rounded-full border border-primary/10 bg-muted/60 px-2.5 py-1 text-xs font-medium text-foreground/85">
-                      {tag}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            ) : null}
-            <footer className="mt-auto border-t border-primary/10 pt-4 text-start">
-              <p className="font-display font-semibold text-foreground">{item.name}</p>
-              <p className="mt-1 text-sm text-muted-foreground/90">{item.role}</p>
-            </footer>
-          </motion.article>
+    <section
+      className={cn(
+        "marketing-section mt-12 rounded-2xl border border-border/50 px-4 py-12 sm:px-6 md:mt-16 md:py-16 lg:mt-20",
+        SECTION_BG
+      )}
+      aria-labelledby="testimonials-heading"
+    >
+      <ul className="sr-only">
+        {TESTIMONIALS.map((item) => (
+          <li key={item.id}>
+            {item.name}, {item.role}: {item.quote}
+          </li>
         ))}
+      </ul>
+
+      <div className="mx-auto max-w-6xl">
+        <div className="mb-8 text-center md:mb-10">
+          <div className="mb-3 inline-flex rounded-full border border-border/60 bg-muted/35 px-4 py-1">
+            <span className="text-xs text-muted-foreground">{t("testimonials.badge")}</span>
+          </div>
+          <h2
+            id="testimonials-heading"
+            className="mb-4 font-display text-4xl font-medium tracking-tight text-foreground md:text-5xl"
+          >
+            {t("testimonials.title")}
+          </h2>
+          <p className="mx-auto max-w-xl text-sm text-muted-foreground">
+            {t("testimonials.subtitle")}
+          </p>
+        </div>
+
+        <div className="space-y-6" aria-hidden="true">
+          <MarqueeRow items={rowA} reverse={false} />
+          <MarqueeRow items={rowB} reverse />
+        </div>
       </div>
     </section>
   );

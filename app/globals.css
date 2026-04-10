@@ -296,3 +296,38 @@ html[lang="ar"] {
     transform: rotate(360deg);
   }
 }
+
+/* Testimonials marquee (infinite horizontal scroll) */
+@keyframes testimonial-marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes testimonial-marquee-reverse {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.animate-testimonial-marquee {
+  animation: testimonial-marquee 55s linear infinite;
+}
+
+.animate-testimonial-marquee-reverse {
+  animation: testimonial-marquee-reverse 55s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-testimonial-marquee,
+  .animate-testimonial-marquee-reverse {
+    animation: none;
+    transform: translateX(0);
+  }
+}
