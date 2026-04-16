@@ -20,13 +20,13 @@
     "title": "Zempar",
     "eyebrow": "GEO audit for ChatGPT, Claude, Gemini & Perplexity",
     "subtitle": "See how AI answers your brand — and fix what they miss",
-    "description": "Get a free report in 48 hours showing where ChatGPT, Claude, Claude Code, Gemini, and Perplexity surface you, misquote you, or skip you — with the five highest-impact fixes.",
+    "description": "Get a free report emailed to you as soon as you submit—showing where ChatGPT, Claude, Gemini, and Perplexity surface you, misquote you, or skip you — with the five highest-impact fixes.",
     "primaryCta": "Get my free audit",
     "getStarted": "Get Started",
     "learnMore": "Learn More",
     "trustMicro": [
       "No credit card",
-      "Delivered in 48h",
+      "Report sent by email right away",
       "Built for SaaS, IoT, consulting & growth teams"
     ],
     "featureCards": [
@@ -44,12 +44,12 @@
   },
   "hero": {
     "title": "Generative Engine Optimization",
-    "description": "Zempar pairs SEO fundamentals with GEO—clear entities, trustworthy content, and technical signals—so your organization is represented fairly when models surface recommendations in assistants such as ChatGPT, Claude, Claude Code, Gemini, and Perplexity."
+    "description": "Zempar pairs SEO fundamentals with GEO—clear entities, trustworthy content, and technical signals—so your organization is represented fairly when models surface recommendations in assistants such as ChatGPT, Claude, Gemini, and Perplexity."
   },
   "heroAuditPreview": {
     "title": "What you get in the free report",
     "bullets": [
-      "A visibility snapshot across ChatGPT, Claude, Claude Code, Gemini, and Perplexity for your category",
+      "A visibility snapshot across ChatGPT, Claude, Gemini, and Perplexity for your category",
       "A benchmark of who models favor and why",
       "Your top five prioritized fixes—by impact and feasibility"
     ],
@@ -108,7 +108,7 @@
       "howFindHighlight": "Mentioned or summarized directly inside the assistant’s response—not only as a link list.",
       "optimizes": [
         "Content clarity and structure so LLMs can extract and cite facts fairly",
-        "Positioning across AI surfaces (e.g. ChatGPT, Claude, Claude Code, Gemini, Perplexity) and the sources they rely on",
+        "Positioning across AI surfaces (e.g. ChatGPT, Claude, Gemini, Perplexity) and the sources they rely on",
         "Authority and consistency signals that affect how models interpret your brand"
       ],
       "influencesLabel": "What it influences",
@@ -149,15 +149,15 @@
   },
   "geoLead": {
     "title": "Request your free AI visibility audit",
-    "subtitle": "Submit your website and work email. We’ll send a GEO-focused visibility report across ChatGPT, Claude, Claude Code, Gemini, and Perplexity—where you show up in AI answers, where you don’t, and what to fix first.",
+    "subtitle": "Submit your website and work email. We’ll send a GEO-focused visibility report across ChatGPT, Claude, Gemini, and Perplexity—where you show up in AI answers, where you don’t, and what to fix first.",
     "highlight": "No obligation. Clear findings and practical next steps.",
     "whatYouGet": {
       "title": "What you’ll receive",
       "bullets": [
-        "LLM visibility score across ChatGPT, Claude, Claude Code, Gemini, Perplexity, and representative prompts for your industry",
+        "LLM visibility score across ChatGPT, Claude, Gemini, Perplexity, and representative prompts for your industry",
         "Competitor and category comparison (who models favor and why)",
         "Concrete recommendations for content, entities, and structured data",
-        "Typical turnaround: within 48 hours on business days"
+        "Report delivered by email immediately after you submit"
       ],
       "privacy": "We use your work email only to deliver this report and follow up on improving your GEO visibility—you can opt out anytime."
     },
@@ -177,7 +177,7 @@
     "consent": "By submitting, you agree we may email your audit report and follow up about improving your visibility in search and LLM applications.",
     "submit": "Get my free audit",
     "submitting": "Sending…",
-    "successSmtp": "Thank you! You’ll receive an email soon with your GEO visibility report.",
+    "successSmtp": "Thank you! Your GEO visibility report has been sent to your inbox.",
     "successMailto": "Your email app should open with your request. If it does not, contact us at the address below with your website and work email.",
     "errorValidation": "Please enter a valid website URL and work email.",
     "errorCategoryRequired": "Please enter your industry or business category.",
@@ -347,7 +347,7 @@
     "questions": [
       {
         "question": "What is Zempar?",
-        "answer": "Zempar is a partner for Generative Engine Optimization (GEO) and modern search visibility. We help organizations improve how they are represented, cited, and summarized inside LLM applications such as ChatGPT, Claude, Claude Code, Gemini, and Perplexity—while keeping classic SEO foundations strong."
+        "answer": "Zempar is a partner for Generative Engine Optimization (GEO) and modern search visibility. We help organizations improve how they are represented, cited, and summarized inside LLM applications such as ChatGPT, Claude, Gemini, and Perplexity—while keeping classic SEO foundations strong."
       },
       {
         "question": "What is GEO (Generative Engine Optimization)?",
