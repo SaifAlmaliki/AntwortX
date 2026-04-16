@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
+  Home,
   LayoutDashboard,
   Users,
   LogOut,
@@ -130,6 +131,20 @@ export function AdminSidebar({
             </Link>
           );
         })}
+
+        <div className="mt-2 border-t border-zinc-800/80 pt-2">
+          <Link
+            href="/"
+            onClick={onMobileClose}
+            className={cn(
+              "flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium text-zinc-400 transition-colors hover:bg-zinc-800/50 hover:text-zinc-100",
+              collapsed && "md:justify-center md:px-2"
+            )}
+          >
+            <Home className="h-4 w-4 shrink-0" aria-hidden />
+            <span className={cn(collapsed && "md:sr-only")}>Back to website</span>
+          </Link>
+        </div>
       </nav>
 
       <div className="border-t border-zinc-800 p-2">
