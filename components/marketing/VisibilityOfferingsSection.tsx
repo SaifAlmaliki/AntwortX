@@ -30,7 +30,8 @@ export function VisibilityOfferingsSection() {
 
   return (
     <section
-      className="marketing-section py-12 md:py-20"
+      id="visibility-offerings"
+      className="marketing-section scroll-mt-24 py-12 md:py-20"
       aria-labelledby="offerings-heading"
     >
       <div className={cn(isRtl && "rtl")} dir={isRtl ? "rtl" : "ltr"}>

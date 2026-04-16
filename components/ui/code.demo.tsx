@@ -2,13 +2,13 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useReducedMotion } from "framer-motion";
-import { Box } from "lucide-react";
+import { ArrowRight, Box, Diamond } from "lucide-react";
+import Link from "next/link";
 import { SplineScene } from "@/components/ui/splite";
 import { Card } from "@/components/ui/card";
 import { Spotlight } from "@/components/ui/spotlight";
 import { Squares } from "@/components/ui/squares-background";
 import { useLanguage } from "@/contexts/language-context";
-import { BrandName } from "@/components/ui/BrandName";
 import { cn } from "@/lib/utils";
 
 function SplineViewportFallback({ className }: { className?: string }) {
@@ -26,11 +26,19 @@ function SplineViewportFallback({ className }: { className?: string }) {
 }
 
 export function SplineSceneBasic() {
-  const { t, direction } = useLanguage();
+  const { t, direction, locale } = useLanguage();
   const isRtl = direction === "rtl";
   const reduceMotion = useReducedMotion();
   const viewportRef = useRef<HTMLDivElement>(null);
   const [splineAllowed, setSplineAllowed] = useState(false);
+
+  const preview = (locale as { heroAuditPreview?: { title?: string; bullets?: unknown; cta?: string } })
+    .heroAuditPreview;
+  const title = preview?.title ?? t("heroAuditPreview.title");
+  const cta = preview?.cta ?? t("heroAuditPreview.cta");
+  const bullets = Array.isArray(preview?.bullets)
+    ? (preview!.bullets as string[]).filter((b) => typeof b === "string" && b.trim().length > 0)
+    : [];
 
   useEffect(() => {
     if (reduceMotion) return;
@@ -61,31 +69,52 @@ export function SplineSceneBasic() {
       >
         <div
           className={cn(
-            "relative z-10 flex flex-1 flex-col justify-center p-4 sm:p-6 md:p-8",
+            "relative z-10 flex flex-1 flex-col justify-center gap-4 p-4 sm:p-6 md:p-8",
             isRtl ? "text-right" : ""
           )}
         >
-          <p className="bg-gradient-to-b from-foreground to-muted-foreground bg-clip-text text-3xl font-bold text-transparent sm:text-4xl md:text-5xl">
-            {t("hero.title") || "Generative Engine Optimization"}
+          <p className="text-lg font-semibold leading-snug text-foreground sm:text-xl md:text-2xl">
+            {title}
           </p>
-          <p className="mt-2 max-w-lg text-sm text-muted-foreground sm:mt-4 sm:text-base md:text-lg">
-            {(() => {
-              const description =
-                t("hero.description") ||
-                "Zempar pairs SEO with GEO so your brand is represented fairly when AI assistants surface recommendations.";
-              if (description.includes("Zempar")) {
-                const parts = description.split("Zempar");
-                return (
-                  <>
-                    {parts[0]}
-                    <BrandName size="sm" />
-                    {parts[1]}
-                  </>
-                );
-              }
-              return description;
-            })()}
-          </p>
+          {bullets.length > 0 ? (
+            <ul
+              className={cn(
+                "max-w-lg space-y-2.5 text-sm text-muted-foreground sm:text-base",
+                isRtl ? "mr-0 ml-auto" : ""
+              )}
+            >
+              {bullets.map((line) => (
+                <li
+                  key={line}
+                  className={cn(
+                    "flex gap-2.5 leading-relaxed",
+                    isRtl ? "flex-row-reverse text-right" : ""
+                  )}
+                >
+                  <Diamond
+                    className="mt-1 h-3.5 w-3.5 shrink-0 text-primary/90"
+                    aria-hidden
+                    strokeWidth={2}
+                  />
+                  <span>{line}</span>
+                </li>
+              ))}
+            </ul>
+          ) : null}
+          <Link
+            href="/#geo-lead"
+            className={cn(
+              "btn-signal-primary mt-1 inline-flex min-h-[44px] w-fit max-w-full items-center justify-center gap-2 px-5 py-3 text-center text-sm font-medium no-underline sm:text-base",
+              isRtl ? "flex-row-reverse" : ""
+            )}
+          >
+            <span className="text-balance">{cta}</span>
+            {isRtl ? (
+              <ArrowRight className="h-4 w-4 shrink-0 rotate-180" aria-hidden />
+            ) : (
+              <ArrowRight className="h-4 w-4 shrink-0" aria-hidden />
+            )}
+          </Link>
         </div>
 
         <div className="relative h-[200px] flex-1 md:h-full">

@@ -90,8 +90,8 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/contact" className={linkClass}>
-                  {t("footer.pricing")}
+                <Link href="/#visibility-offerings" className={linkClass}>
+                  {t("footer.partnerships")}
                 </Link>
               </li>
             </ul>

@@ -20,9 +20,9 @@ export default function Home() {
       <div className="container mx-auto max-w-7xl px-4 py-16 sm:px-6">
         <HeroSection />
         <SeoGeoComparisonSection />
+        <GeoLeadSection />
         <VisibilityOfferingsSection />
         <HowItWorks />
-        <GeoLeadSection />
         <TestimonialsSection />
       </div>
 

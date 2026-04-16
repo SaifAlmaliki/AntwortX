@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, useReducedMotion } from "framer-motion";
+import { ArrowRight, Diamond } from "lucide-react";
 import { useLanguage } from "@/contexts/language-context";
 import { cn } from "@/lib/utils";
 import { ZEMPAR_AUDIT_URL_KEY } from "@/lib/website-url";
@@ -18,9 +19,17 @@ type ApiMailto = { ok: false; mailto: { to: string; subject: string; body: strin
 type ApiErr = { error: string; mailto?: { to: string; subject: string; body: string } };
 
 export function GeoLeadSection() {
-  const { t, direction } = useLanguage();
+  const { t, direction, locale } = useLanguage();
   const reduceMotion = useReducedMotion();
   const isRtl = direction === "rtl";
+
+  const whatYouGet = (locale as { geoLead?: { whatYouGet?: { title?: string; bullets?: unknown; privacy?: string } } })
+    .geoLead?.whatYouGet;
+  const whatYouGetTitle = whatYouGet?.title ?? t("geoLead.whatYouGet.title");
+  const whatYouGetBullets = Array.isArray(whatYouGet?.bullets)
+    ? (whatYouGet!.bullets as string[]).filter((b) => typeof b === "string" && b.trim().length > 0)
+    : [];
+  const whatYouGetPrivacy = whatYouGet?.privacy ?? t("geoLead.whatYouGet.privacy");
 
   const [website, setWebsite] = useState("");
   const [email, setEmail] = useState("");
@@ -185,13 +194,53 @@ export function GeoLeadSection() {
         </motion.div>
 
         <motion.div
-          className="relative mx-auto max-w-xl"
+          className={cn(
+            "relative mx-auto grid max-w-6xl gap-8 lg:grid-cols-2 lg:items-start lg:gap-10",
+            isRtl && "rtl"
+          )}
           initial={reduceMotion ? false : { opacity: 0, y: 18 }}
           whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-40px" }}
           transition={{ duration: 0.5, delay: reduceMotion ? 0 : 0.06 }}
         >
-          <div className="card-surface section-glow rounded-2xl border-primary/15 p-6 md:p-8">
+          {status !== "success" && whatYouGetBullets.length > 0 ? (
+            <div
+              className={cn(
+                "card-surface section-glow rounded-2xl border-primary/15 p-6 md:p-8",
+                "order-2 lg:order-1"
+              )}
+            >
+              <h3 className="font-display text-xl font-semibold text-foreground sm:text-2xl">
+                {whatYouGetTitle}
+              </h3>
+              <ul className="mt-5 space-y-3 text-sm leading-relaxed text-muted-foreground sm:text-base">
+                {whatYouGetBullets.map((line) => (
+                  <li
+                    key={line}
+                    className={cn("flex gap-3", isRtl ? "flex-row-reverse text-right" : "")}
+                  >
+                    <Diamond
+                      className="mt-0.5 h-4 w-4 shrink-0 text-primary/90"
+                      aria-hidden
+                      strokeWidth={2}
+                    />
+                    <span>{line}</span>
+                  </li>
+                ))}
+              </ul>
+              <p className="mt-6 text-xs leading-relaxed text-muted-foreground/90 sm:text-sm">
+                {whatYouGetPrivacy}
+              </p>
+            </div>
+          ) : null}
+
+          <div
+            className={cn(
+              "order-1 min-w-0 lg:order-2",
+              status === "success" ? "mx-auto max-w-xl lg:col-span-2" : "max-w-xl lg:max-w-none"
+            )}
+          >
+            <div className="card-surface section-glow rounded-2xl border-primary/15 p-6 md:p-8">
             {status === "success" ? (
               <p
                 className="text-center text-base leading-relaxed text-foreground/95"
@@ -251,7 +300,14 @@ export function GeoLeadSection() {
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder={t("geoLead.emailPlaceholder")}
                     className={inputClass}
+                    aria-describedby="geo-email-hint"
                   />
+                  <p
+                    id="geo-email-hint"
+                    className="mt-1 text-xs text-muted-foreground"
+                  >
+                    {t("geoLead.emailHint")}
+                  </p>
                 </div>
                 <div className="mb-4">
                   <label
@@ -372,7 +428,8 @@ export function GeoLeadSection() {
                   type="submit"
                   disabled={status === "loading"}
                   className={cn(
-                    "btn-signal-primary w-full justify-center py-3 disabled:cursor-not-allowed disabled:opacity-60"
+                    "btn-signal-primary flex w-full items-center justify-center gap-2 py-3 disabled:cursor-not-allowed disabled:opacity-60",
+                    isRtl ? "flex-row-reverse" : ""
                   )}
                 >
                   {status === "loading" ? (
@@ -401,11 +458,22 @@ export function GeoLeadSection() {
                       {t("geoLead.submitting")}
                     </span>
                   ) : (
-                    t("geoLead.submit")
+                    <>
+                      <span>{t("geoLead.submit")}</span>
+                      {isRtl ? (
+                        <ArrowRight className="h-4 w-4 shrink-0 rotate-180" aria-hidden />
+                      ) : (
+                        <ArrowRight className="h-4 w-4 shrink-0" aria-hidden />
+                      )}
+                    </>
                   )}
                 </button>
+                <p className="mt-3 text-center text-xs text-muted-foreground sm:text-sm">
+                  {t("geoLead.reassurance")}
+                </p>
               </form>
             )}
+            </div>
           </div>
         </motion.div>
       </div>

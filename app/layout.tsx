@@ -34,7 +34,7 @@ const geistMono = Geist_Mono({
 const siteUrl = getSiteUrl();
 const defaultTitle = "Zempar - Generative Engine Optimization (GEO)";
 const defaultDescription =
-  "Strengthen how your brand appears in ChatGPT, Gemini, Perplexity, and beyond. GEO plus SEO—accurate citations, trustworthy content, and technical signals.";
+  "Strengthen how your brand appears in ChatGPT, Claude, Claude Code, Gemini, Perplexity, and beyond. GEO plus SEO—accurate citations, trustworthy content, and technical signals.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),

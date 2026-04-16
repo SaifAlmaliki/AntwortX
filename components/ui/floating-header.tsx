@@ -204,6 +204,16 @@ export function FloatingHeader() {
               </Link>
             ))}
 
+            <Link
+              href="/#geo-lead"
+              className={cn(
+                "btn-signal-primary ml-1 inline-flex min-h-9 shrink-0 items-center justify-center rounded-full px-4 py-2 text-sm font-medium no-underline whitespace-nowrap",
+                direction === "rtl" ? "mr-1 ml-0" : ""
+              )}
+            >
+              {t("nav.ctaAudit")}
+            </Link>
+
             <LanguageSelector />
           </nav>
 
@@ -257,6 +267,21 @@ export function FloatingHeader() {
             }
           >
             <nav className="px-2 pt-2 pb-3 space-y-1">
+              <Link
+                href="/#geo-lead"
+                onClick={() => closeMobileMenu(setMobileMenuOpen, mobileMenuButtonRef)}
+                className="block rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring"
+              >
+                <motion.div
+                  className={cn(
+                    "btn-signal-primary mx-1 mb-2 flex min-h-[44px] items-center justify-center rounded-xl px-3 py-2.5 text-base font-medium no-underline",
+                    direction === "rtl" ? "text-center" : ""
+                  )}
+                  whileTap={reduceMotion ? undefined : { scale: 0.99 }}
+                >
+                  {t("nav.ctaAudit")}
+                </motion.div>
+              </Link>
               {navigation.map((item) => (
                 <Link
                   key={item.translationKey}

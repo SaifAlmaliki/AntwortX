@@ -88,20 +88,27 @@ function iconForFeatureKey(key: string, reduceMotion: boolean | null): ReactNode
   }
 }
 
+const HERO_SUBTITLE_GRADIENT_WORDS = 4;
+
 export function HeroSection() {
   const { t, direction, locale } = useLanguage();
   const reduceMotion = useReducedMotion();
   const subtitle = t("home.subtitle");
-  const firstWord = subtitle.split(" ")[0] ?? "";
-  const restWords = subtitle.split(" ").slice(1).join(" ");
+  const subtitleWords = subtitle.trim().split(/\s+/).filter(Boolean);
+  const accentWords = Math.min(HERO_SUBTITLE_GRADIENT_WORDS, Math.max(1, subtitleWords.length));
+  const headlineAccent = subtitleWords.slice(0, accentWords).join(" ");
+  const headlineRest = subtitleWords.slice(accentWords).join(" ");
 
   const rawCards = (locale as { home?: { featureCards?: unknown } }).home?.featureCards;
   const featureCards = Array.isArray(rawCards)
     ? (rawCards as { key?: string; title?: string; description?: string }[])
     : [];
 
+  /** Slim set: audit + measure — less overlap with SEO vs GEO section. */
+  const allowedKeys = new Set(["audit", "measure"]);
+
   const features: FeatureDef[] = featureCards
-    .filter((c) => c.key && c.title && c.description)
+    .filter((c) => c.key && c.title && c.description && allowedKeys.has(String(c.key)))
     .map((c) => ({
       key: c.key as string,
       icon: iconForFeatureKey(c.key as string, reduceMotion),
@@ -109,20 +116,20 @@ export function HeroSection() {
       description: c.description as string,
     }));
 
+  const trustMicro = (locale as { home?: { trustMicro?: unknown } }).home?.trustMicro;
+  const trustItems = Array.isArray(trustMicro)
+    ? (trustMicro as string[]).filter((s) => typeof s === "string" && s.trim().length > 0)
+    : [];
+
   const enterTarget = { opacity: 1, y: 0 };
 
   return (
     <section className="marketing-section space-y-12 sm:space-y-14 lg:space-y-20">
-      <div
-        className={cn(
-          "flex min-w-0 flex-col gap-10 lg:flex-row lg:items-start lg:gap-12 xl:gap-16",
-          direction === "rtl" ? "lg:flex-row-reverse" : ""
-        )}
-      >
+      <div className="flex min-w-0 flex-col gap-10">
         <motion.div
           className={cn(
-            "min-w-0 w-full shrink-0 lg:max-w-[min(100%,32rem)] xl:max-w-[min(100%,36rem)]",
-            direction === "rtl" ? "lg:pl-6 xl:pl-8" : "lg:pr-6 xl:pr-8"
+            "min-w-0 w-full max-w-[min(100%,40rem)]",
+            direction === "rtl" ? "ml-auto" : ""
           )}
           initial={reduceMotion ? false : { opacity: 0, y: 24 }}
           animate={enterTarget}
@@ -137,11 +144,11 @@ export function HeroSection() {
               direction === "rtl" ? "text-right" : "text-left"
             )}
           >
-            <span className="text-gradient-signal">{firstWord}</span>
-            {restWords ? (
+            <span className="text-gradient-signal">{headlineAccent}</span>
+            {headlineRest ? (
               <span className="hyphens-none text-foreground">
                 {" "}
-                {restWords}
+                {headlineRest}
               </span>
             ) : null}
           </h1>
@@ -167,7 +174,7 @@ export function HeroSection() {
               )}
             >
               {direction === "rtl" ? <Send className="h-4 w-4 shrink-0" /> : null}
-              <span className="text-balance">{t("geoLead.submit")}</span>
+              <span className="text-balance">{t("home.primaryCta")}</span>
               {direction === "ltr" ? <Send className="h-4 w-4 shrink-0" /> : null}
             </Link>
             <Link
@@ -181,40 +188,49 @@ export function HeroSection() {
               <span className="text-balance">{t("visibilityOfferings.growth.cta")}</span>
             </Link>
           </div>
-        </motion.div>
-
-        <motion.div
-          className="min-w-0 w-full flex-1 lg:min-w-[min(100%,18rem)]"
-          initial={reduceMotion ? false : { opacity: 0, y: 28 }}
-          animate={enterTarget}
-          transition={{ duration: 0.55, delay: reduceMotion ? 0 : 0.12, ease: [0.22, 1, 0.36, 1] }}
-        >
-          {/* Wide 2×2 grid: each card gets ~half of the (wide) right column—no ultra-narrow bento rails. */}
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:gap-5">
-            {features.map((f, index) => (
-              <motion.div
-                key={f.key}
-                className="min-w-0"
-                initial={reduceMotion ? false : { opacity: 0, y: 16 }}
-                animate={enterTarget}
-                transition={{
-                  duration: 0.45,
-                  delay: reduceMotion ? 0 : 0.18 + index * 0.06,
-                  ease: [0.22, 1, 0.36, 1],
-                }}
-              >
-                <FeatureBlock
-                  icon={f.icon}
-                  title={f.title}
-                  description={f.description}
-                  className="min-h-[12.5rem] sm:min-h-[14rem]"
-                  direction={direction}
-                />
-              </motion.div>
-            ))}
-          </div>
+          {trustItems.length > 0 ? (
+            <p
+              className={cn(
+                "mt-4 text-xs font-medium text-muted-foreground/90 sm:text-sm",
+                direction === "rtl" ? "text-right" : "text-left"
+              )}
+            >
+              {trustItems.join(direction === "rtl" ? " · " : " · ")}
+            </p>
+          ) : null}
         </motion.div>
       </div>
+
+      {features.length > 0 ? (
+        <motion.div
+          className="grid min-w-0 w-full grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:max-w-4xl lg:grid-cols-2"
+          initial={reduceMotion ? false : { opacity: 0, y: 20 }}
+          animate={enterTarget}
+          transition={{ duration: 0.5, delay: reduceMotion ? 0 : 0.14, ease: [0.22, 1, 0.36, 1] }}
+        >
+          {features.map((f, index) => (
+            <motion.div
+              key={f.key}
+              className="min-w-0"
+              initial={reduceMotion ? false : { opacity: 0, y: 16 }}
+              animate={enterTarget}
+              transition={{
+                duration: 0.45,
+                delay: reduceMotion ? 0 : 0.2 + index * 0.06,
+                ease: [0.22, 1, 0.36, 1],
+              }}
+            >
+              <FeatureBlock
+                icon={f.icon}
+                title={f.title}
+                description={f.description}
+                className="min-h-[11rem] sm:min-h-[12rem]"
+                direction={direction}
+              />
+            </motion.div>
+          ))}
+        </motion.div>
+      ) : null}
 
       <motion.div
         className="mx-auto w-full max-w-7xl px-4 sm:px-6"
