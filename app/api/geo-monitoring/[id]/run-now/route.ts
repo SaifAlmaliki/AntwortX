@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
-import { PromptGenerator } from "@/lib/geo-engines/prompt-generator";
+import { getPromptsForMonitoringRun } from "@/lib/geo/monitoring-prompts";
 import { getEngine } from "@/lib/geo-engines";
 import { MetricsCalculator } from "@/lib/geo-metrics/calculator";
 
@@ -46,11 +46,7 @@ export async function POST(
     });
 
     try {
-      const prompts = PromptGenerator.generatePrompts(
-        monitoring.category,
-        monitoring.brandName,
-        10
-      );
+      const prompts = await getPromptsForMonitoringRun(monitoring);
 
       const engineResults: Record<string, any> = {};
       const promptResults: any[] = [];

@@ -36,6 +36,10 @@ model GEOMonitoring {
   websiteUrl      String   @db.Text
   category        String
 
+  // LLM-extracted niche positioning + cached test prompts (stable across scheduled checks)
+  positioning     Json?
+  promptSet       Json?
+
   // Competitors (for Share of Voice calculation)
   competitors     Json?
 

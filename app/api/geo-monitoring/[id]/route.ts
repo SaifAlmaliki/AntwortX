@@ -1,5 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
+import { refreshPositioningAndPrompts } from "@/lib/geo/monitoring-prompts";
+import {
+  mergeInboundPositioning,
+  minimalPositioningFromCategory,
+  parsePositioningJson,
+} from "@/lib/geo/positioning-types";
 
 export const runtime = "nodejs";
 
@@ -72,6 +78,11 @@ export async function PATCH(
       );
     }
 
+    const urlChanged =
+      typeof body.websiteUrl === "string" &&
+      body.websiteUrl.length > 0 &&
+      body.websiteUrl !== existing.websiteUrl;
+
     const monitoring = await prisma.gEOMonitoring.update({
       where: { id },
       data: {
@@ -84,6 +95,51 @@ export async function PATCH(
         ...(body.engines && { engines: body.engines }),
       },
     });
+
+    const categoryChanged =
+      typeof body.category === "string" &&
+      body.category.length > 0 &&
+      body.category !== existing.category;
+
+    const shouldRefreshPrompts =
+      body.regeneratePrompts === true ||
+      urlChanged ||
+      body.positioning !== undefined ||
+      categoryChanged;
+
+    if (shouldRefreshPrompts) {
+      const baseProfile =
+        parsePositioningJson(existing.positioning) ??
+        minimalPositioningFromCategory(existing.category, existing.brandName);
+
+      if (body.positioning !== undefined && typeof body.positioning === "object") {
+        const merged = mergeInboundPositioning(baseProfile, body.positioning);
+        await refreshPositioningAndPrompts(id, {
+          websiteUrl: monitoring.websiteUrl,
+          reExtractWebsite: false,
+          explicitProfile: merged,
+        });
+      } else if (urlChanged) {
+        await refreshPositioningAndPrompts(id, {
+          websiteUrl: monitoring.websiteUrl,
+          reExtractWebsite: true,
+        });
+      } else if (categoryChanged) {
+        await refreshPositioningAndPrompts(id, {
+          websiteUrl: monitoring.websiteUrl,
+          reExtractWebsite: false,
+          positioningOverride: { category: monitoring.category },
+        });
+      } else if (body.regeneratePrompts === true) {
+        await refreshPositioningAndPrompts(id, {
+          websiteUrl: monitoring.websiteUrl,
+          reExtractWebsite: false,
+        });
+      }
+
+      const refreshed = await prisma.gEOMonitoring.findUnique({ where: { id } });
+      return NextResponse.json({ success: true, monitoring: refreshed ?? monitoring });
+    }
 
     return NextResponse.json({ success: true, monitoring });
   } catch (error) {

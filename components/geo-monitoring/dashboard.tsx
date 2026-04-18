@@ -9,9 +9,36 @@ import { EngineIcon, EngineName } from "@/components/geo-monitoring/engine-icon"
 import { motion } from "framer-motion";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 import { format } from "date-fns";
-import { Activity, Link2, MessageSquare, TrendingUp, Shield, Zap, BarChart3, Eye, Plus, RefreshCw, Play } from "lucide-react";
-import { useState, useEffect } from "react";
+import {
+  Activity,
+  Plus,
+  Play,
+  Pencil,
+  ChevronDown,
+} from "lucide-react";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
+import { useState, useEffect, useMemo } from "react";
+import type { PositioningInitial } from "@/components/geo-monitoring/settings-dialog";
 import { toast } from "sonner";
+
+function parsePromptsFromPromptSet(raw: unknown): string[] {
+  if (!raw || typeof raw !== "object") return [];
+  const prompts = (raw as { prompts?: unknown }).prompts;
+  if (!Array.isArray(prompts)) return [];
+  return prompts
+    .filter((p): p is string => typeof p === "string")
+    .map((p) => p.trim())
+    .filter(Boolean);
+}
+
+function parsePositioningInitial(raw: unknown): PositioningInitial | null {
+  if (!raw || typeof raw !== "object") return null;
+  return raw as PositioningInitial;
+}
 
 interface MonitoringConfig {
   id: string;
@@ -22,6 +49,9 @@ interface MonitoringConfig {
   isActive: boolean;
   engines: string[];
   nextCheckAt: string | null;
+  positioning?: unknown;
+  promptSet?: unknown;
+  competitors?: unknown;
   checks: Array<{
     id: string;
     status: string;
@@ -43,7 +73,28 @@ export function MonitoringDashboard() {
   const [loading, setLoading] = useState(true);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [settingsOpen, setSettingsOpen] = useState(false);
+  const [settingsEditingId, setSettingsEditingId] = useState<string | null>(null);
   const [runningCheck, setRunningCheck] = useState(false);
+  const [promptsOpen, setPromptsOpen] = useState(false);
+
+  const selected = monitoring.find((m) => m.id === selectedId);
+
+  const editInitialData = useMemo(() => {
+    if (!selected || !settingsEditingId || selected.id !== settingsEditingId) return undefined;
+    const comp = selected.competitors;
+    const competitorsStr = Array.isArray(comp)
+      ? comp.filter((c): c is string => typeof c === "string").join(", ")
+      : "";
+    return {
+      brandName: selected.brandName,
+      websiteUrl: selected.websiteUrl,
+      category: selected.category,
+      competitors: competitorsStr,
+      frequency: selected.frequency,
+      engines: selected.engines,
+      positioning: parsePositioningInitial(selected.positioning),
+    };
+  }, [selected, settingsEditingId]);
 
   useEffect(() => {
     fetchMonitoring();
@@ -82,8 +133,8 @@ export function MonitoringDashboard() {
     }
   }
 
-  const selected = monitoring.find(m => m.id === selectedId);
   const latestCheck = selected?.checks?.[0];
+  const testPrompts = selected ? parsePromptsFromPromptSet(selected.promptSet) : [];
 
   const metricConfig = [
     { label: "GEO Score", value: latestCheck?.geoScore ?? "—", unit: latestCheck?.geoScore != null ? "/100" : undefined, description: "Overall visibility across AI engines" },
@@ -124,7 +175,13 @@ export function MonitoringDashboard() {
             <p className="text-muted-foreground mb-6 text-balance max-w-md mx-auto">
               Set up your first brand to track how AI engines discover, cite, and recommend your brand.
             </p>
-            <Button className="btn-signal-primary" onClick={() => setSettingsOpen(true)}>
+            <Button
+              className="btn-signal-primary"
+              onClick={() => {
+                setSettingsEditingId(null);
+                setSettingsOpen(true);
+              }}
+            >
               <Plus className="mr-2 size-4" />
               Add Monitoring
             </Button>
@@ -132,7 +189,10 @@ export function MonitoringDashboard() {
         </div>
         <MonitoringSettings
           open={settingsOpen}
-          onOpenChange={setSettingsOpen}
+          onOpenChange={(o) => {
+            setSettingsOpen(o);
+            if (!o) setSettingsEditingId(null);
+          }}
           onSuccess={fetchMonitoring}
         />
       </div>
@@ -150,7 +210,14 @@ export function MonitoringDashboard() {
             </p>
           </div>
           <div className="flex items-center gap-2">
-            <Button variant="outline" size="sm" onClick={() => setSettingsOpen(true)}>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => {
+                setSettingsEditingId(null);
+                setSettingsOpen(true);
+              }}
+            >
               <Plus className="mr-2 size-3.5" />
               Add Brand
             </Button>
@@ -195,6 +262,17 @@ export function MonitoringDashboard() {
                   ))}
                 </div>
                 {latestCheck && <StatusBadge status={latestCheck.status as any} />}
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => {
+                    setSettingsEditingId(selected.id);
+                    setSettingsOpen(true);
+                  }}
+                >
+                  <Pencil className="mr-1.5 size-3.5" />
+                  Edit
+                </Button>
                 <Button
                   variant="outline"
                   size="sm"
@@ -258,7 +336,7 @@ export function MonitoringDashboard() {
               </Card>
             )}
 
-            <Card className="card-surface">
+            <Card className="card-surface mb-8">
               <CardHeader>
                 <CardTitle className="text-base">Engine Breakdown</CardTitle>
                 <CardDescription>Performance by AI engine</CardDescription>
@@ -284,14 +362,58 @@ export function MonitoringDashboard() {
                 </div>
               </CardContent>
             </Card>
+
+            <Collapsible open={promptsOpen} onOpenChange={setPromptsOpen}>
+              <Card className="card-surface">
+                <CollapsibleTrigger asChild>
+                  <button
+                    type="button"
+                    className="flex w-full items-center justify-between text-left"
+                  >
+                    <CardHeader className="flex-1 pb-2">
+                      <CardTitle className="text-base">Test prompts</CardTitle>
+                      <CardDescription>
+                        Buyer-style queries used for this monitor&apos;s checks (niche / positioning-aware).
+                      </CardDescription>
+                    </CardHeader>
+                    <ChevronDown
+                      className={`mr-4 size-5 shrink-0 text-muted-foreground transition-transform ${promptsOpen ? "rotate-180" : ""}`}
+                    />
+                  </button>
+                </CollapsibleTrigger>
+                <CollapsibleContent>
+                  <CardContent className="border-t border-border/60 pt-4">
+                    {testPrompts.length === 0 ? (
+                      <p className="text-sm text-muted-foreground">
+                        No cached prompts yet. They are generated after you create monitoring (from your site) or
+                        when you run a check. Open Edit → Regenerate test prompts to refresh.
+                      </p>
+                    ) : (
+                      <ol className="list-decimal space-y-2 pl-5 text-sm text-muted-foreground">
+                        {testPrompts.map((p, i) => (
+                          <li key={i} className="text-foreground">
+                            {p}
+                          </li>
+                        ))}
+                      </ol>
+                    )}
+                  </CardContent>
+                </CollapsibleContent>
+              </Card>
+            </Collapsible>
           </motion.div>
         )}
       </div>
 
       <MonitoringSettings
         open={settingsOpen}
-        onOpenChange={setSettingsOpen}
+        onOpenChange={(o) => {
+          setSettingsOpen(o);
+          if (!o) setSettingsEditingId(null);
+        }}
         onSuccess={fetchMonitoring}
+        editingId={settingsEditingId}
+        initialData={editInitialData}
       />
     </div>
   );

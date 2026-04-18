@@ -1,8 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
-import { PromptGenerator } from "@/lib/geo-engines/prompt-generator";
-import { getEngine } from "@/lib/geo-engines";
-import { MetricsCalculator } from "@/lib/geo-metrics/calculator";
+import { refreshPositioningAndPrompts } from "@/lib/geo/monitoring-prompts";
+import type { PositioningProfile } from "@/lib/geo/positioning-types";
 
 export const runtime = "nodejs";
 
@@ -32,7 +31,16 @@ export async function POST(req: NextRequest) {
       competitors,
       frequency,
       engines,
-    } = body;
+      positioning: positioningInput,
+    } = body as {
+      brandName?: string;
+      websiteUrl?: string;
+      category?: string;
+      competitors?: string[];
+      frequency?: string;
+      engines?: string[];
+      positioning?: Partial<PositioningProfile>;
+    };
 
     if (!brandName || !websiteUrl || !category) {
       return NextResponse.json(
@@ -75,6 +83,15 @@ export async function POST(req: NextRequest) {
         nextCheckAt,
       },
     });
+
+    void refreshPositioningAndPrompts(monitoring.id, {
+      websiteUrl: monitoring.websiteUrl,
+      reExtractWebsite: true,
+      positioningOverride:
+        positioningInput && typeof positioningInput === "object"
+          ? (positioningInput as Partial<PositioningProfile>)
+          : undefined,
+    }).catch((err) => console.error("geo-monitoring positioning refresh", err));
 
     return NextResponse.json({ success: true, monitoring }, { status: 201 });
   } catch (error) {
