@@ -9,7 +9,6 @@
 ## Key pages
 
 - https://zempar.com/
-- https://zempar.com/solutions
 - https://zempar.com/about
 - https://zempar.com/contact
 - https://zempar.com/terms-of-service

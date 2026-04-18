@@ -3,7 +3,7 @@
 import { useState, useEffect, useId, useRef, type RefObject } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
-import { Menu, X, Info, Mail, Home, Zap } from "lucide-react";
+import { Menu, X, Info, Mail, Home } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { LogoAnimation } from "@/components/ui/logo-animation";
 import { LanguageSelector } from "@/components/ui/language-selector";
@@ -52,12 +52,6 @@ export function FloatingHeader() {
       href: "/contact",
       icon: <Mail className="h-4 w-4 shrink-0" aria-hidden />,
       translationKey: "nav.contact",
-    },
-    {
-      name: t("nav.solutions"),
-      href: "/solutions",
-      icon: <Zap className="h-4 w-4 shrink-0" aria-hidden />,
-      translationKey: "nav.solutions",
     },
   ];
 

@@ -127,7 +127,15 @@ export function LeadRowDetail({ lead }: LeadRowDetailProps) {
               <h4 className="text-sm font-medium text-zinc-200">Remediation Plan</h4>
             </div>
             <div className="ml-6">
-              <RemediationPlan agentResults={agentResults as AgentResults} />
+              <RemediationPlan
+                agentResults={agentResults as AgentResults}
+                lead={{
+                  websiteUrl: typeof lead.websiteUrl === "string" ? lead.websiteUrl : "",
+                  company: typeof lead.company === "string" ? lead.company : null,
+                  category: typeof lead.category === "string" ? lead.category : null,
+                  city: typeof lead.city === "string" ? lead.city : null,
+                }}
+              />
             </div>
           </div>
         )}

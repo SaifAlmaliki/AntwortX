@@ -198,7 +198,15 @@ export default async function LeadDetailPage({
       )}
 
       {agentResults && Object.keys(agentResults).length > 0 && (
-        <RemediationPlan agentResults={agentResults} />
+        <RemediationPlan
+          agentResults={agentResults}
+          lead={{
+            websiteUrl: lead.websiteUrl,
+            company: lead.company,
+            category: lead.category,
+            city: lead.city,
+          }}
+        />
       )}
 
       {llmResults.length > 0 && (

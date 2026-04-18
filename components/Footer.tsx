@@ -85,11 +85,6 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/solutions" className={linkClass}>
-                  {t("nav.solutions")}
-                </Link>
-              </li>
-              <li>
                 <Link href="/#visibility-offerings" className={linkClass}>
                   {t("footer.partnerships")}
                 </Link>

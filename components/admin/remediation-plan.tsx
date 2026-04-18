@@ -3,11 +3,14 @@
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
-import { ChevronDown, ChevronRight, ClipboardList } from "lucide-react";
+import { ChevronDown, ChevronRight, ClipboardList, Copy } from "lucide-react";
+import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import { extractPriorityActions } from "@/lib/geo/extract-actions";
 import { extractScoreJustification } from "@/lib/geo/extract-score-justification";
+import { buildSectionPrompt, SECTION_AGENT_LABELS } from "@/lib/geo/build-section-prompt";
 
 interface AgentResult {
   score: number;
@@ -27,18 +30,15 @@ interface AgentResults {
 
 interface RemediationPlanProps {
   agentResults: AgentResults;
+  lead?: {
+    websiteUrl: string;
+    company?: string | null;
+    category?: string | null;
+    city?: string | null;
+  };
 }
 
 const AGENT_ORDER = ["visibility", "content", "technical", "rag", "schema", "platform"] as const;
-
-const AGENT_LABELS: Record<string, string> = {
-  visibility: "AI Visibility & Citability",
-  content: "Content Quality (E-E-A-T)",
-  technical: "Technical GEO",
-  rag: "RAG Readiness",
-  schema: "Schema & Structured Data",
-  platform: "Platform Optimization",
-};
 
 const PRIORITY_COLORS: Record<string, string> = {
   CRITICAL: "bg-red-500/10 text-red-400 border-red-500/20",
@@ -49,7 +49,7 @@ const PRIORITY_COLORS: Record<string, string> = {
 
 const ADMIN_JUSTIFICATION_MAX = 4000;
 
-export function RemediationPlan({ agentResults }: RemediationPlanProps) {
+export function RemediationPlan({ agentResults, lead }: RemediationPlanProps) {
   const [openSections, setOpenSections] = useState<Record<string, boolean>>({});
 
   const sections = AGENT_ORDER.filter((key) => agentResults[key]).map((key) => {
@@ -102,7 +102,7 @@ export function RemediationPlan({ agentResults }: RemediationPlanProps) {
                   <div className="flex items-center gap-2 p-3 rounded-lg bg-zinc-800/50 border border-zinc-800 cursor-pointer hover:bg-zinc-800 transition-colors">
                     {isOpen ? <ChevronDown className="h-4 w-4 text-zinc-500" /> : <ChevronRight className="h-4 w-4 text-zinc-500" />}
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium text-zinc-200">{AGENT_LABELS[key] || key}</p>
+                      <p className="text-sm font-medium text-zinc-200">{SECTION_AGENT_LABELS[key] || key}</p>
                       <p className="text-xs text-zinc-500">
                         {actions.length > 0
                           ? `${actions.length} structured action items · `
@@ -156,6 +156,32 @@ export function RemediationPlan({ agentResults }: RemediationPlanProps) {
                         formatting.
                       </p>
                     )}
+                    <div className="flex justify-end pt-1">
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="sm"
+                        className="gap-2"
+                        disabled={!agent.rawMarkdown?.trim() || !lead?.websiteUrl?.trim()}
+                        onClick={async (e) => {
+                          e.stopPropagation();
+                          if (!lead?.websiteUrl?.trim()) {
+                            toast.error("Missing site context — reload the page or check lead data.");
+                            return;
+                          }
+                          const prompt = buildSectionPrompt(key, agent, lead);
+                          try {
+                            await navigator.clipboard.writeText(prompt);
+                            toast.success("Prompt copied — paste into ChatGPT or Claude");
+                          } catch {
+                            toast.error("Could not copy to clipboard");
+                          }
+                        }}
+                      >
+                        <Copy className="h-3.5 w-3.5" />
+                        Generate prompt to raise this score
+                      </Button>
+                    </div>
                   </div>
                 </CollapsibleContent>
               </Collapsible>
