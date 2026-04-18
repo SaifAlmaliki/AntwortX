@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import {
   Dialog,
   DialogContent,
@@ -106,8 +106,21 @@ export function MonitoringSettings({
   const [icpSize, setIcpSize] = useState<"SMB" | "Mid-market" | "Enterprise" | "Mixed">("Mixed");
   const [targetAudienceText, setTargetAudienceText] = useState("");
 
+  /** Last (open, editingId) we hydrated from the server — avoids re-seeding when `initialData` identity changes after refetch while the user is editing. */
+  const lastHydratedSessionRef = useRef<string | null>(null);
+
   useEffect(() => {
-    if (!open) return;
+    if (!open) {
+      lastHydratedSessionRef.current = null;
+      return;
+    }
+
+    const sessionKey = `${editingId ?? "__new__"}`;
+    if (lastHydratedSessionRef.current === sessionKey) {
+      return;
+    }
+    lastHydratedSessionRef.current = sessionKey;
+
     setBrandName(initialData?.brandName || "");
     setWebsiteUrl(initialData?.websiteUrl || "");
     setCategory(initialData?.category || "");
@@ -137,7 +150,9 @@ export function MonitoringSettings({
       setIcpSize("Mixed");
       setTargetAudienceText("");
     }
-  }, [open, editingId, initialData]);
+    // Intentionally omit `initialData` from deps: parent refetch (e.g. after Run check) must not clobber unsaved edits. We only re-seed when the dialog session changes (`open` or `editingId`).
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open, editingId]);
 
   function toggleEngine(engine: string) {
     setEngines((prev) =>
