@@ -76,41 +76,84 @@ export function parsePromptSetJson(raw: unknown): PromptSetStored | null {
   return { prompts, generatedAt, source };
 }
 
-/** Minimal profile when extraction fails — still better than pure head-term. */
-/** Merge a partial positioning payload from the API/UI onto an existing profile. */
+/** Normalize string arrays from JSON; empty input yields []. */
+function strArrayFromUnknown(v: unknown): string[] {
+  if (!Array.isArray(v)) return [];
+  return v
+    .filter((x): x is string => typeof x === "string")
+    .map((s) => s.trim())
+    .filter((s) => s.length > 0);
+}
+
+/**
+ * Merge a typed partial onto a full profile.
+ * - `undefined` on a field = leave base unchanged.
+ * - Present array (including `[]`) = replace base (explicit clear).
+ * - Category: empty string after trim falls back to base.category.
+ */
+export function mergePositioningPartial(
+  base: PositioningProfile,
+  patch: Partial<PositioningProfile>
+): PositioningProfile {
+  return {
+    category: (patch.category !== undefined
+      ? patch.category.trim() || base.category
+      : base.category
+    ).slice(0, 200),
+    services: patch.services !== undefined ? [...patch.services] : base.services,
+    industryVerticals:
+      patch.industryVerticals !== undefined ? [...patch.industryVerticals] : base.industryVerticals,
+    geographies: patch.geographies !== undefined ? [...patch.geographies] : base.geographies,
+    capabilities: patch.capabilities !== undefined ? [...patch.capabilities] : base.capabilities,
+    icpSize: patch.icpSize !== undefined ? patch.icpSize : base.icpSize,
+    buyerRoles: patch.buyerRoles !== undefined ? [...patch.buyerRoles] : base.buyerRoles,
+    differentiators:
+      patch.differentiators !== undefined ? [...patch.differentiators] : base.differentiators,
+    targetAudience:
+      patch.targetAudience !== undefined
+        ? patch.targetAudience.slice(0, 300)
+        : base.targetAudience,
+  };
+}
+
+/** Merge a partial positioning payload from the API/UI (unknown JSON) onto an existing profile. */
 export function mergeInboundPositioning(
   base: PositioningProfile,
   incoming: unknown
 ): PositioningProfile {
   if (!incoming || typeof incoming !== "object") return base;
   const o = incoming as Record<string, unknown>;
-  const partial: Partial<PositioningProfile> = {};
+  const patch: Partial<PositioningProfile> = {};
 
-  if (typeof o.category === "string" && o.category.trim()) partial.category = o.category.trim();
-  if (Array.isArray(o.services)) partial.services = o.services.filter((x): x is string => typeof x === "string").map((s) => s.trim()).filter(Boolean);
-  if (Array.isArray(o.industryVerticals)) partial.industryVerticals = o.industryVerticals.filter((x): x is string => typeof x === "string").map((s) => s.trim()).filter(Boolean);
-  if (Array.isArray(o.geographies)) partial.geographies = o.geographies.filter((x): x is string => typeof x === "string").map((s) => s.trim()).filter(Boolean);
-  if (Array.isArray(o.capabilities)) partial.capabilities = o.capabilities.filter((x): x is string => typeof x === "string").map((s) => s.trim()).filter(Boolean);
-  if (isPositioningIcpSize(o.icpSize)) partial.icpSize = o.icpSize;
-  if (Array.isArray(o.buyerRoles)) partial.buyerRoles = o.buyerRoles.filter((x): x is string => typeof x === "string").map((s) => s.trim()).filter(Boolean);
-  if (Array.isArray(o.differentiators)) partial.differentiators = o.differentiators.filter((x): x is string => typeof x === "string").map((s) => s.trim()).filter(Boolean);
-  if (typeof o.targetAudience === "string") partial.targetAudience = o.targetAudience;
+  if ("category" in o && typeof o.category === "string") {
+    patch.category = o.category;
+  }
+  if ("services" in o && Array.isArray(o.services)) {
+    patch.services = strArrayFromUnknown(o.services);
+  }
+  if ("industryVerticals" in o && Array.isArray(o.industryVerticals)) {
+    patch.industryVerticals = strArrayFromUnknown(o.industryVerticals);
+  }
+  if ("geographies" in o && Array.isArray(o.geographies)) {
+    patch.geographies = strArrayFromUnknown(o.geographies);
+  }
+  if ("capabilities" in o && Array.isArray(o.capabilities)) {
+    patch.capabilities = strArrayFromUnknown(o.capabilities);
+  }
+  if ("icpSize" in o && isPositioningIcpSize(o.icpSize)) {
+    patch.icpSize = o.icpSize;
+  }
+  if ("buyerRoles" in o && Array.isArray(o.buyerRoles)) {
+    patch.buyerRoles = strArrayFromUnknown(o.buyerRoles);
+  }
+  if ("differentiators" in o && Array.isArray(o.differentiators)) {
+    patch.differentiators = strArrayFromUnknown(o.differentiators);
+  }
+  if ("targetAudience" in o && typeof o.targetAudience === "string") {
+    patch.targetAudience = o.targetAudience;
+  }
 
-  return {
-    category: (partial.category ?? base.category).slice(0, 200),
-    services: partial.services?.length ? partial.services : base.services,
-    industryVerticals: partial.industryVerticals?.length
-      ? partial.industryVerticals
-      : base.industryVerticals,
-    geographies: partial.geographies?.length ? partial.geographies : base.geographies,
-    capabilities: partial.capabilities?.length ? partial.capabilities : base.capabilities,
-    icpSize: partial.icpSize ?? base.icpSize,
-    buyerRoles: partial.buyerRoles?.length ? partial.buyerRoles : base.buyerRoles,
-    differentiators: partial.differentiators?.length
-      ? partial.differentiators
-      : base.differentiators,
-    targetAudience: (partial.targetAudience ?? base.targetAudience).slice(0, 300),
-  };
+  return mergePositioningPartial(base, patch);
 }
 
 export function minimalPositioningFromCategory(

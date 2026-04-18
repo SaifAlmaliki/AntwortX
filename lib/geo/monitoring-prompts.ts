@@ -3,6 +3,7 @@ import { fetchWebsite } from "@/lib/geo/fetch-website";
 import { extractPositioningFromPage } from "@/lib/geo/extract-positioning";
 import type { PositioningProfile } from "@/lib/geo/positioning-types";
 import {
+  mergePositioningPartial,
   minimalPositioningFromCategory,
   parsePositioningJson,
   parsePromptSetJson,
@@ -24,28 +25,6 @@ export type MonitoringPromptFields = {
   positioning: unknown;
   promptSet: unknown;
 };
-
-function mergePositioning(
-  base: PositioningProfile,
-  override: Partial<PositioningProfile> | null | undefined
-): PositioningProfile {
-  if (!override) return base;
-  return {
-    category: (override.category?.trim() || base.category).slice(0, 200),
-    services: override.services?.length ? override.services : base.services,
-    industryVerticals: override.industryVerticals?.length
-      ? override.industryVerticals
-      : base.industryVerticals,
-    geographies: override.geographies?.length ? override.geographies : base.geographies,
-    capabilities: override.capabilities?.length ? override.capabilities : base.capabilities,
-    icpSize: override.icpSize ?? base.icpSize,
-    buyerRoles: override.buyerRoles?.length ? override.buyerRoles : base.buyerRoles,
-    differentiators: override.differentiators?.length
-      ? override.differentiators
-      : base.differentiators,
-    targetAudience: (override.targetAudience ?? base.targetAudience).slice(0, 300),
-  };
-}
 
 async function persistPromptSet(
   monitoringId: string,
@@ -103,18 +82,20 @@ export async function refreshPositioningAndPrompts(
           textContent: site.textContent,
         });
         if (extracted) {
-          profile = mergePositioning(extracted, options.positioningOverride);
+          profile = options.positioningOverride
+            ? mergePositioningPartial(extracted, options.positioningOverride)
+            : extracted;
         } else if (options.positioningOverride) {
-          profile = mergePositioning(profile, options.positioningOverride);
+          profile = mergePositioningPartial(profile, options.positioningOverride);
         }
       } catch (e) {
         console.error("refreshPositioningAndPrompts fetch/extract:", e);
         if (options.positioningOverride) {
-          profile = mergePositioning(profile, options.positioningOverride);
+          profile = mergePositioningPartial(profile, options.positioningOverride);
         }
       }
     } else if (options.positioningOverride) {
-      profile = mergePositioning(profile, options.positioningOverride);
+      profile = mergePositioningPartial(profile, options.positioningOverride);
     }
   }
 

@@ -3,6 +3,7 @@ import { prisma } from "@/lib/db";
 import { refreshPositioningAndPrompts } from "@/lib/geo/monitoring-prompts";
 import {
   mergeInboundPositioning,
+  mergePositioningPartial,
   minimalPositioningFromCategory,
   parsePositioningJson,
   type PositioningProfile,
@@ -125,9 +126,14 @@ export async function PATCH(
           reExtractWebsite: true,
         });
       } else if (hasPositioningBody) {
-        const baseProfile =
+        let baseProfile =
           parsePositioningJson(existing.positioning) ??
-          minimalPositioningFromCategory(existing.category, existing.brandName);
+          minimalPositioningFromCategory(monitoring.category, monitoring.brandName);
+        if (categoryChanged) {
+          baseProfile = mergePositioningPartial(baseProfile, {
+            category: monitoring.category,
+          });
+        }
         const merged = mergeInboundPositioning(baseProfile, body.positioning);
         await refreshPositioningAndPrompts(id, {
           websiteUrl: monitoring.websiteUrl,
