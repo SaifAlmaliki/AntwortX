@@ -5,6 +5,7 @@ import {
   mergeInboundPositioning,
   minimalPositioningFromCategory,
   parsePositioningJson,
+  type PositioningProfile,
 } from "@/lib/geo/positioning-types";
 
 export const runtime = "nodejs";
@@ -108,21 +109,30 @@ export async function PATCH(
       categoryChanged;
 
     if (shouldRefreshPrompts) {
-      const baseProfile =
-        parsePositioningJson(existing.positioning) ??
-        minimalPositioningFromCategory(existing.category, existing.brandName);
+      const hasPositioningBody =
+        body.positioning !== undefined && typeof body.positioning === "object";
 
-      if (body.positioning !== undefined && typeof body.positioning === "object") {
-        const merged = mergeInboundPositioning(baseProfile, body.positioning);
+      // URL change must re-crawl the new site first; optional body.positioning is merged on top of extraction, not on stale DB positioning.
+      if (urlChanged && hasPositioningBody) {
         await refreshPositioningAndPrompts(id, {
           websiteUrl: monitoring.websiteUrl,
-          reExtractWebsite: false,
-          explicitProfile: merged,
+          reExtractWebsite: true,
+          positioningOverride: body.positioning as Partial<PositioningProfile>,
         });
       } else if (urlChanged) {
         await refreshPositioningAndPrompts(id, {
           websiteUrl: monitoring.websiteUrl,
           reExtractWebsite: true,
+        });
+      } else if (hasPositioningBody) {
+        const baseProfile =
+          parsePositioningJson(existing.positioning) ??
+          minimalPositioningFromCategory(existing.category, existing.brandName);
+        const merged = mergeInboundPositioning(baseProfile, body.positioning);
+        await refreshPositioningAndPrompts(id, {
+          websiteUrl: monitoring.websiteUrl,
+          reExtractWebsite: false,
+          explicitProfile: merged,
         });
       } else if (categoryChanged) {
         await refreshPositioningAndPrompts(id, {
