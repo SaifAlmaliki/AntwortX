@@ -86,10 +86,10 @@ export function LogoAnimation() {
         </span>
         <motion.span 
           className="text-primary"
-          animate={{ 
-            color: isHovered || isAnimating 
-              ? ["#22d3ee", "#a78bfa", "#22d3ee"] 
-              : "#22d3ee",
+          animate={{
+            color: isHovered || isAnimating
+              ? ["#7c3aed", "#a78bfa", "#7c3aed"]
+              : "#7c3aed",
           }}
           transition={{ 
             duration: 1.5,

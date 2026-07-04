@@ -36,7 +36,7 @@ export function Squares({
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    canvas.style.background = "#060606";
+    canvas.style.background = "#f7f6fc";
 
     const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
     reduceMotionRef.current = motionQuery.matches;
@@ -85,8 +85,8 @@ export function Squares({
         canvas.height / 2,
         Math.sqrt(canvas.width ** 2 + canvas.height ** 2) / 2
       );
-      gradient.addColorStop(0, "rgba(6, 6, 6, 0)");
-      gradient.addColorStop(1, "#060606");
+      gradient.addColorStop(0, "rgba(247, 246, 252, 0)");
+      gradient.addColorStop(1, "#f7f6fc");
 
       ctx.fillStyle = gradient;
       ctx.fillRect(0, 0, canvas.width, canvas.height);

@@ -61,19 +61,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark overflow-x-hidden">
+    <html lang="en" className="overflow-x-hidden">
       <body
         className={`${syne.variable} ${geistSans.variable} ${geistMono.variable} relative min-h-screen bg-page font-sans text-foreground antialiased`}
       >
         <StructuredData />
-        {/* Animated grid (original look: visible #222 lines on #060606) */}
+        {/* Animated grid (light look: subtle violet-grey lines on near-white) */}
         <div className="fixed inset-0 z-0 pointer-events-none" aria-hidden>
           <Squares
             direction="diagonal"
             speed={0.3}
             squareSize={50}
-            borderColor="#222"
-            hoverFillColor="#1a1a1a"
+            borderColor="#e7e3f2"
+            hoverFillColor="#f1edfb"
           />
         </div>
 

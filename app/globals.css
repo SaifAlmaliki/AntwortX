@@ -4,84 +4,95 @@
 
 @layer base {
   :root {
-    /* Deep signal palette */
-    --page-bg: #060606;
+    /* Luminous violet palette (light) */
+    --page-bg: #f7f6fc;
     --signal-cyan: #22d3ee;
-    --signal-violet: #a78bfa;
-    --signal-glow: rgba(34, 211, 238, 0.22);
-    --surface-glass: rgba(14, 18, 26, 0.72);
-    --surface-raised: rgba(20, 26, 36, 0.82);
-    --surface-inset: rgba(8, 10, 15, 0.92);
-    --border-subtle: rgba(120, 200, 255, 0.12);
-    --border-hover: rgba(100, 220, 255, 0.38);
-    --inner-highlight: rgba(255, 255, 255, 0.06);
+    --signal-violet: #7c3aed;
+    --signal-glow: rgba(124, 58, 237, 0.20);
+    --surface-glass: rgba(255, 255, 255, 0.72);
+    --surface-raised: rgba(255, 255, 255, 0.88);
+    --surface-inset: rgba(244, 242, 251, 0.92);
+    --border-subtle: rgba(30, 20, 60, 0.10);
+    --border-hover: rgba(124, 58, 237, 0.42);
+    --inner-highlight: rgba(255, 255, 255, 0.85);
 
     /* Brand theme aliases (mapped to new system) */
     --zempar-bg-primary: var(--page-bg);
-    --zempar-bg-secondary: rgba(14, 18, 26, 0.9);
+    --zempar-bg-secondary: rgba(255, 255, 255, 0.9);
     --zempar-bg-tertiary: var(--surface-inset);
-    --zempar-border: rgba(120, 200, 255, 0.12);
+    --zempar-border: var(--border-subtle);
     --zempar-border-hover: var(--border-hover);
-    --zempar-text-primary: #f4f7fa;
-    --zempar-text-secondary: #c4cdd6;
-    --zempar-text-muted: #8b96a5;
-    --zempar-accent: var(--signal-cyan);
-    --zempar-accent-hover: #06b6d4;
+    --zempar-text-primary: #17141f;
+    --zempar-text-secondary: #454152;
+    --zempar-text-muted: #6b6880;
+    --zempar-accent: var(--signal-violet);
+    --zempar-accent-hover: #6d28d9;
 
-    /* Default light theme variables (not used but kept for reference) */
-    --background: 0 0% 100%;
-    --foreground: 0 0% 3.9%;
+    /* Active light theme tokens (violet accent) */
+    --background: 264 40% 99%;
+    --foreground: 258 30% 9%;
     --card: 0 0% 100%;
-    --card-foreground: 0 0% 3.9%;
+    --card-foreground: 258 30% 9%;
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 3.9%;
-    --primary: 0 0% 9%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 0 0% 96.1%;
-    --secondary-foreground: 0 0% 9%;
-    --muted: 0 0% 96.1%;
-    --muted-foreground: 0 0% 45.1%;
-    --accent: 0 0% 96.1%;
-    --accent-foreground: 0 0% 9%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 89.8%;
-    --input: 0 0% 89.8%;
-    --ring: 0 0% 3.9%;
-    --chart-1: 12 76% 61%;
-    --chart-2: 173 58% 39%;
-    --chart-3: 197 37% 24%;
-    --chart-4: 43 74% 66%;
-    --chart-5: 27 87% 67%;
+    --popover-foreground: 258 30% 9%;
+    --primary: 262 83% 58%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 264 30% 96%;
+    --secondary-foreground: 258 30% 12%;
+    --muted: 264 24% 95%;
+    --muted-foreground: 255 8% 42%;
+    --accent: 262 83% 58%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 264 22% 90%;
+    --input: 264 22% 90%;
+    --ring: 262 83% 58%;
+    --chart-1: 262 83% 58%;
+    --chart-2: 199 89% 48%;
+    --chart-3: 280 65% 60%;
+    --chart-4: 316 70% 55%;
+    --chart-5: 24 90% 55%;
     --radius: 0.5rem;
   }
 
-  /* Dark theme default */
-  :root {
-    --background: 222 24% 6%;
-    --foreground: 210 20% 98%;
-    --card: 222 24% 8%;
-    --card-foreground: 210 20% 98%;
-    --popover: 222 24% 8%;
-    --popover-foreground: 210 20% 98%;
-    --primary: 187 92% 55%;
-    --primary-foreground: 222 47% 7%;
-    --secondary: 222 18% 14%;
-    --secondary-foreground: 210 20% 98%;
-    --muted: 222 14% 16%;
-    --muted-foreground: 215 14% 65%;
-    --accent: 258 90% 72%;
-    --accent-foreground: 222 47% 7%;
-    --destructive: 0 62.8% 30.6%;
+  /* Dark theme (opt-in via .dark; not active by default) */
+  .dark {
+    --page-bg: #060606;
+    --signal-glow: rgba(124, 58, 237, 0.24);
+    --surface-glass: rgba(20, 18, 30, 0.72);
+    --surface-raised: rgba(26, 24, 38, 0.82);
+    --surface-inset: rgba(12, 10, 18, 0.92);
+    --border-subtle: rgba(160, 130, 255, 0.14);
+    --border-hover: rgba(160, 130, 255, 0.42);
+    --inner-highlight: rgba(255, 255, 255, 0.06);
+    --zempar-text-primary: #f4f2fa;
+    --zempar-text-secondary: #cdc7da;
+    --zempar-text-muted: #9690a5;
+    --background: 258 30% 6%;
+    --foreground: 264 30% 98%;
+    --card: 258 28% 9%;
+    --card-foreground: 264 30% 98%;
+    --popover: 258 28% 9%;
+    --popover-foreground: 264 30% 98%;
+    --primary: 262 83% 68%;
+    --primary-foreground: 258 47% 8%;
+    --secondary: 258 18% 15%;
+    --secondary-foreground: 264 30% 98%;
+    --muted: 258 14% 17%;
+    --muted-foreground: 255 12% 66%;
+    --accent: 262 83% 68%;
+    --accent-foreground: 258 47% 8%;
+    --destructive: 0 62% 40%;
     --destructive-foreground: 0 0% 98%;
-    --border: 215 20% 18%;
-    --input: 215 20% 18%;
-    --ring: 187 85% 52%;
-    --chart-1: 187 80% 52%;
-    --chart-2: 258 70% 65%;
-    --chart-3: 30 80% 55%;
-    --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%;
+    --border: 258 20% 20%;
+    --input: 258 20% 20%;
+    --ring: 262 83% 68%;
+    --chart-1: 262 83% 68%;
+    --chart-2: 199 89% 55%;
+    --chart-3: 280 65% 62%;
+    --chart-4: 316 70% 60%;
+    --chart-5: 24 90% 60%;
   }
 }
 
@@ -136,9 +147,9 @@ html[lang="ar"] {
 
   .bg-atmosphere {
     background:
-      radial-gradient(ellipse 100% 85% at 50% -25%, rgba(34, 211, 238, 0.16), transparent 55%),
-      radial-gradient(ellipse 70% 55% at 100% 15%, rgba(139, 92, 246, 0.11), transparent 50%),
-      radial-gradient(ellipse 65% 50% at 0% 85%, rgba(34, 211, 238, 0.07), transparent 48%),
+      radial-gradient(ellipse 100% 85% at 50% -25%, rgba(124, 58, 237, 0.10), transparent 55%),
+      radial-gradient(ellipse 70% 55% at 100% 15%, rgba(139, 92, 246, 0.08), transparent 50%),
+      radial-gradient(ellipse 65% 50% at 0% 85%, rgba(99, 102, 241, 0.06), transparent 48%),
       var(--page-bg);
   }
 
@@ -150,7 +161,7 @@ html[lang="ar"] {
   }
 
   .text-gradient-signal {
-    background: linear-gradient(105deg, #5eead4 0%, #22d3ee 38%, #a78bfa 100%);
+    background: linear-gradient(105deg, #8b5cf6 0%, #7c3aed 45%, #6d28d9 100%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -170,7 +181,7 @@ html[lang="ar"] {
     -webkit-backdrop-filter: blur(12px);
     box-shadow:
       inset 0 1px 0 0 var(--inner-highlight),
-      0 4px 24px -8px rgba(0, 0, 0, 0.45);
+      0 8px 30px -12px rgba(76, 40, 130, 0.18);
     transition:
       border-color 0.25s ease,
       box-shadow 0.25s ease,
@@ -181,7 +192,7 @@ html[lang="ar"] {
     border-color: var(--border-hover);
     box-shadow:
       inset 0 1px 0 0 var(--inner-highlight),
-      0 0 0 1px rgba(34, 211, 238, 0.12),
+      0 0 0 1px rgba(124, 58, 237, 0.14),
       0 24px 48px -20px var(--signal-glow);
   }
 
@@ -198,23 +209,24 @@ html[lang="ar"] {
     align-items: center;
     justify-content: center;
     font-weight: 600;
-    color: var(--page-bg);
+    color: #ffffff;
     border-radius: 9999px;
     padding: 0.75rem 1.5rem;
-    transition: box-shadow 0.2s ease;
-    background: linear-gradient(135deg, #22d3ee 0%, #06b6d4 45%, #6366f1 100%);
-    box-shadow: 0 0 24px -4px var(--signal-glow);
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+    background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 50%, #6d28d9 100%);
+    box-shadow: 0 10px 30px -8px rgba(124, 58, 237, 0.55);
   }
 
   .btn-signal-primary:focus-visible {
     outline: none;
     box-shadow:
-      0 0 0 2px var(--page-bg),
-      0 0 0 4px rgba(34, 211, 238, 0.65);
+      0 0 0 2px #ffffff,
+      0 0 0 4px rgba(124, 58, 237, 0.65);
   }
 
   .btn-signal-primary:hover {
-    box-shadow: 0 0 32px -2px rgba(34, 211, 238, 0.45);
+    box-shadow: 0 14px 38px -6px rgba(124, 58, 237, 0.6);
+    transform: translateY(-1px);
   }
 
   .btn-signal-secondary {
@@ -225,8 +237,8 @@ html[lang="ar"] {
     border-radius: 9999px;
     padding: 0.75rem 1.5rem;
     border: 1px solid var(--border-subtle);
-    color: #e0f2fe;
-    background: rgba(14, 18, 26, 0.6);
+    color: #4c1d95;
+    background: rgba(255, 255, 255, 0.7);
     backdrop-filter: blur(8px);
     transition:
       border-color 0.2s ease,
@@ -237,14 +249,14 @@ html[lang="ar"] {
   .btn-signal-secondary:focus-visible {
     outline: none;
     box-shadow:
-      0 0 0 2px var(--page-bg),
-      0 0 0 4px rgba(34, 211, 238, 0.5);
+      0 0 0 2px #ffffff,
+      0 0 0 4px rgba(124, 58, 237, 0.5);
   }
 
   .btn-signal-secondary:hover {
     border-color: var(--border-hover);
-    color: #fff;
-    background: rgba(20, 28, 40, 0.85);
+    color: #6d28d9;
+    background: rgba(245, 243, 255, 0.95);
   }
 
   .zempar-card {
