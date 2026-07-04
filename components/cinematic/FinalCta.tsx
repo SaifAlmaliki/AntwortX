@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import Link from "next/link";
 import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
+import { AmbientVideo } from "./AmbientVideo";
 import { FINAL_CTA } from "./content";
 
 export function FinalCta() {
@@ -19,18 +20,12 @@ export function FinalCta() {
 
   return (
     <section ref={ref} className="relative h-[220vh] bg-[#050509]">
-      <div className="sticky top-0 flex h-screen w-full items-center justify-center overflow-hidden">
-        <video
+      <div className="sticky top-0 flex h-[100dvh] w-full items-center justify-center overflow-hidden">
+        <AmbientVideo
+          src="/cinematic/calm.mp4"
+          poster="/cinematic/calm-poster.jpg"
           className="absolute inset-0 h-full w-full object-cover"
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          aria-hidden
-        >
-          <source src="/cinematic/calm.mp4" type="video/mp4" />
-        </video>
+        />
         <motion.div
           className="absolute inset-0 bg-[#0a0712]"
           style={reduceMotion ? { opacity: 0.72 } : { opacity: washOpacity }}

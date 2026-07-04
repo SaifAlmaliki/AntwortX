@@ -343,3 +343,21 @@ html[lang="ar"] {
     transform: translateX(0);
   }
 }
+
+/* --- Mobile scroll performance ---
+   On touch/small screens, heavy backdrop-filter blur recomputes every frame
+   and is a top cause of scroll jank. Cap the blur radius (keeps the glass look,
+   far cheaper) and let native smooth-scroll handle in-page anchors, since Lenis
+   is disabled on touch devices. */
+@media (max-width: 900px) {
+  [class*="backdrop-blur"] {
+    -webkit-backdrop-filter: blur(6px) !important;
+    backdrop-filter: blur(6px) !important;
+  }
+}
+
+@media (hover: none) and (pointer: coarse) {
+  html {
+    scroll-behavior: smooth;
+  }
+}

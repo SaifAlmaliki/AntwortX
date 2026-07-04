@@ -85,7 +85,10 @@ export function HeroFilm() {
   const sizeCanvas = () => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    // Cap the backing-store resolution — lower on phones, where a 3x DPR canvas
+    // is needlessly heavy to repaint while scrolling.
+    const coarse = window.matchMedia("(pointer: coarse)").matches;
+    const dpr = Math.min(window.devicePixelRatio || 1, coarse ? 1.5 : 2);
     const w = canvas.clientWidth;
     const h = canvas.clientHeight;
     canvas.width = Math.round(w * dpr);
@@ -133,7 +136,7 @@ export function HeroFilm() {
 
   return (
     <section ref={sectionRef} className="relative h-[320vh]">
-      <div className="sticky top-0 h-screen w-full overflow-hidden bg-[#050509]">
+      <div className="sticky top-0 h-[100dvh] w-full overflow-hidden bg-[#050509]">
         {/* Frame-sequence film */}
         <canvas
           ref={canvasRef}

@@ -19,6 +19,13 @@ export function SmoothScroll() {
 
   useEffect(() => {
     if (reduceMotion) return;
+    // On touch devices, native momentum scrolling is smoother than JS-driven
+    // scroll and costs no main-thread work — let the phone handle it. In-page
+    // anchor jumps fall back to native smooth scroll (see globals.css).
+    const isTouch =
+      typeof window !== "undefined" &&
+      window.matchMedia("(hover: none) and (pointer: coarse)").matches;
+    if (isTouch) return;
 
     const lenis = new Lenis({
       duration: 1.1,

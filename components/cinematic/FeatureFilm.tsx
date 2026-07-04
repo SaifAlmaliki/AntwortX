@@ -8,6 +8,7 @@ import {
   useTransform,
   type MotionValue,
 } from "framer-motion";
+import { AmbientVideo } from "./AmbientVideo";
 import { FEATURES } from "./content";
 
 export function FeatureFilm() {
@@ -20,20 +21,13 @@ export function FeatureFilm() {
 
   return (
     <section ref={sectionRef} className="relative h-[300vh] bg-[#050509]">
-      <div className="sticky top-0 h-screen w-full overflow-hidden">
+      <div className="sticky top-0 h-[100dvh] w-full overflow-hidden">
         {/* Background film — clip 2 (the signal) */}
-        <video
+        <AmbientVideo
+          src="/cinematic/signal.mp4"
+          poster="/cinematic/signal-poster.jpg"
           className="absolute inset-0 h-full w-full object-cover"
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          poster="/cinematic/hero-frames/f000.jpg"
-          aria-hidden
-        >
-          <source src="/cinematic/signal.mp4" type="video/mp4" />
-        </video>
+        />
         <div className="absolute inset-0 bg-[#050509]/35" aria-hidden />
         <div
           className="pointer-events-none absolute inset-0"
