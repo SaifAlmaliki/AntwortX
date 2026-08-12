@@ -5,7 +5,6 @@ import { motion, useInView, useReducedMotion } from "framer-motion";
 import { METRICS } from "./content";
 
 function formatValue(v: number, target: number) {
-  // Keep one decimal for fractional targets (e.g. 3.2), commas for large ints.
   if (!Number.isInteger(target)) return v.toFixed(1);
   return Math.round(v).toLocaleString("en-US");
 }
@@ -44,8 +43,8 @@ function Counter({
   }, [play, value, reduceMotion]);
 
   return (
-    <span className="font-display text-5xl font-extrabold tracking-tight text-foreground sm:text-6xl">
-      <span className="text-gradient-signal">
+    <span className="font-display text-5xl font-extrabold tracking-tight sm:text-6xl">
+      <span className="text-gradient-mobility">
         {prefix}
         {formatValue(display, value)}
         {suffix}
@@ -59,7 +58,7 @@ export function Metrics() {
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section className="relative overflow-hidden py-24 sm:py-32">
+    <section className="relative overflow-hidden bg-[#0A0A0C] py-24 sm:py-32">
       <div className="mx-auto max-w-6xl px-6" ref={ref}>
         <div className="grid grid-cols-1 gap-12 sm:grid-cols-3">
           {METRICS.map((m, i) => (
@@ -77,7 +76,7 @@ export function Metrics() {
                 suffix={m.suffix}
                 play={inView}
               />
-              <span className="mt-4 text-sm font-medium uppercase tracking-[0.16em] text-muted-foreground">
+              <span className="mt-4 text-sm font-medium uppercase tracking-[0.16em] text-white/45">
                 {m.label}
               </span>
             </motion.div>

@@ -1,123 +1,159 @@
-// Copy + data for the Zempar cinematic landing page.
-// Concept: your brand's visibility across AI answer engines (GEO).
+// Copy + data for the Zempar micromobility cinematic landing page.
 
 export const HERO = {
-  eyebrow: "Generative Engine Optimization",
-  headline: "See how AI sees you.",
-  sub: "Zempar tracks how your brand shows up across ChatGPT, Claude, Gemini and Perplexity — so you catch a competitor owning the answer before your traffic disappears.",
-  primaryCta: { label: "Get a free audit", href: "/#geo-lead" },
-  secondaryCta: { label: "Book a demo", href: "/contact" },
+  eyebrow: "Shared micromobility platform",
+  headline: "Move cities forward.",
+  sub: "Zempar powers e-scooter sharing across multiple markets — premium hardware, smart fleet software, and operations built to scale.",
+  primaryCta: { label: "Partner with us", href: "/#partner" },
+  secondaryCta: { label: "See the platform", href: "/#technology" },
 } as const;
 
-export const ENGINES = [
-  "ChatGPT",
-  "Claude",
-  "Gemini",
-  "Perplexity",
-  "Copilot",
-  "Grok",
+/** Scroll-synced story beats for the hero scrollytelling section. */
+export const SCROLL_BEATS = [
+  {
+    id: "hero",
+    range: [0, 0.15] as const,
+    align: "center" as const,
+    eyebrow: "Zempar Fleet",
+    headline: "Move cities forward.",
+    sub: "Premium shared e-scooters. Built for reliability, designed for riders.",
+  },
+  {
+    id: "engineering",
+    range: [0.15, 0.4] as const,
+    align: "left" as const,
+    eyebrow: "Engineering",
+    headline: "Precision-built for the street.",
+    sub: "Swappable batteries, reinforced deck, and IP-rated electronics — every component tuned for uptime and rider safety.",
+    bullets: [
+      "Aircraft-grade aluminum frame",
+      "Dual-brake system with regenerative rear hub",
+      "All-weather sealed electronics",
+    ],
+  },
+  {
+    id: "fleet",
+    range: [0.4, 0.65] as const,
+    align: "right" as const,
+    eyebrow: "Smart fleet",
+    headline: "Every scooter, always connected.",
+    sub: "Real-time GPS, remote diagnostics, and predictive maintenance keep your fleet earning — not sitting in a warehouse.",
+    bullets: [
+      "Live location and battery telemetry",
+      "Geofencing and no-ride zones",
+      "Automated rebalancing alerts",
+    ],
+  },
+  {
+    id: "performance",
+    range: [0.65, 0.85] as const,
+    align: "left" as const,
+    eyebrow: "Performance",
+    headline: "Range that keeps riders moving.",
+    sub: "High-capacity swappable packs and efficient hub motors deliver 40+ km per charge — fewer swaps, more revenue per unit.",
+    bullets: [
+      "40 km range on a single charge",
+      "3-hour full swap turnaround",
+      "Whisper-quiet 500W hub motor",
+    ],
+  },
+  {
+    id: "cta",
+    range: [0.85, 1] as const,
+    align: "center" as const,
+    eyebrow: "Ready to launch",
+    headline: "Your city. Your fleet. Our platform.",
+    sub: "From hardware to operations software — Zempar gives operators everything to launch and grow a shared e-scooter business.",
+    primaryCta: { label: "Launch your fleet", href: "/#partner" },
+    secondaryCta: { label: "View specifications", href: "/contact" },
+  },
+] as const;
+
+export const EXPLODED_PARTS = [
+  { id: "battery", label: "Swappable battery", x: "48%", y: "62%", dx: 0, dy: 80 },
+  { id: "motor", label: "500W hub motor", x: "72%", y: "78%", dx: 90, dy: 40 },
+  { id: "gps", label: "GPS + IoT module", x: "52%", y: "18%", dx: -20, dy: -90 },
+  { id: "deck", label: "Reinforced deck", x: "38%", y: "55%", dx: -100, dy: 20 },
+  { id: "suspension", label: "Front suspension", x: "22%", y: "72%", dx: -80, dy: 60 },
+  { id: "controls", label: "Smart controls", x: "58%", y: "8%", dx: 60, dy: -70 },
+] as const;
+
+export const MARKETS = [
+  "Paris",
+  "Berlin",
+  "Madrid",
+  "Dubai",
+  "Riyadh",
+  "Cairo",
 ] as const;
 
 export const FEATURES = [
   {
     tag: "01",
-    word: "Track",
-    line: "Track every AI answer that mentions your category.",
+    word: "Deploy",
+    line: "Launch in weeks, not years.",
     detail:
-      "Zempar runs thousands of real buyer prompts across every major engine, every day, and records exactly where — and whether — your brand appears.",
+      "Zempar ships hardware, rider app, operator dashboard, and compliance tooling — so you go live fast in any regulated market.",
   },
   {
     tag: "02",
-    word: "Diagnose",
-    line: "Diagnose why a model cites a rival instead of you.",
+    word: "Operate",
+    line: "Run fleets that stay on the street.",
     detail:
-      "Trace each answer back to the sources the model trusted, so you know the precise gap in citations, freshness or authority to close.",
+      "Predictive maintenance, swap routing, and live analytics cut downtime — keeping utilization high and ops lean.",
   },
   {
     tag: "03",
-    word: "Win",
-    line: "Win the citation back — and hold it.",
+    word: "Scale",
+    line: "Grow across cities with one platform.",
     detail:
-      "Ship the fixes Zempar recommends, then watch your share of AI answers climb and stay defended as models update.",
+      "Multi-market dashboards, localized pricing, and franchise-ready tooling let you expand without rebuilding your stack.",
   },
 ] as const;
 
 export const METRICS = [
-  { value: 8, suffix: "", label: "AI engines monitored", prefix: "" },
-  { value: 40000, suffix: "+", label: "Prompts tracked daily", prefix: "" },
-  { value: 3.2, suffix: "×", label: "Average visibility lift", prefix: "" },
-] as const;
-
-export const PRICING = [
-  {
-    name: "Starter",
-    monthly: 49,
-    tagline: "For a single brand finding its footing in AI answers.",
-    features: [
-      "3 AI engines monitored",
-      "250 tracked prompts / day",
-      "Weekly visibility report",
-      "Email alerts on drops",
-    ],
-    cta: "Start free",
-    highlight: false,
-  },
-  {
-    name: "Growth",
-    monthly: 149,
-    tagline: "For teams competing for the answer across every engine.",
-    features: [
-      "All 6 AI engines monitored",
-      "5,000 tracked prompts / day",
-      "Citation-gap diagnostics",
-      "Competitor share tracking",
-      "Slack + email alerts",
-    ],
-    cta: "Start free",
-    highlight: true,
-  },
-  {
-    name: "Scale",
-    monthly: 449,
-    tagline: "For agencies and multi-brand portfolios.",
-    features: [
-      "Unlimited brands & workspaces",
-      "50,000 tracked prompts / day",
-      "API + data export",
-      "Custom prompt sets",
-      "Dedicated strategist",
-    ],
-    cta: "Talk to sales",
-    highlight: false,
-  },
+  { value: 12, suffix: "+", label: "Cities operating", prefix: "" },
+  { value: 8500, suffix: "+", label: "Fleet vehicles deployed", prefix: "" },
+  { value: 98.2, suffix: "%", label: "Fleet uptime average", prefix: "" },
 ] as const;
 
 export const FAQ = [
   {
-    q: "What is GEO, and how is it different from SEO?",
-    a: "SEO gets you ranked on a results page. Generative Engine Optimization gets you cited inside the answer an AI assistant gives directly. As buyers ask ChatGPT and Perplexity instead of scrolling Google, the citation is the new click — and it's what Zempar measures and defends.",
+    q: "What does Zempar provide to operators?",
+    a: "Zempar is a full-stack micromobility platform: premium e-scooter hardware, rider mobile app, operator dashboard, fleet telematics, and ongoing ops support. You focus on your market — we handle the technology backbone.",
   },
   {
-    q: "Which AI engines does Zempar monitor?",
-    a: "ChatGPT, Claude, Gemini, Perplexity, Copilot and Grok, with new engines added as they gain real usage. You choose which ones matter for your market.",
+    q: "Can I operate in multiple cities or countries?",
+    a: "Yes. Zempar is built for multi-market operators. Each market gets localized pricing, geofencing, compliance settings, and reporting — all managed from a single control plane.",
   },
   {
-    q: "How does tracking actually work?",
-    a: "You define the buyer questions that matter. Zempar runs them across each engine on a daily cadence, captures the full answer, and detects whether your brand is mentioned, how prominently, and which sources the model leaned on.",
+    q: "How does battery swapping work?",
+    a: "Our scooters use hot-swappable battery packs designed for field ops. Swap crews get route optimization in the dashboard, and each pack reports health metrics in real time.",
   },
   {
-    q: "How fresh is the data?",
-    a: "Prompts are re-run daily by default, and you can trigger an on-demand refresh any time you ship a change and want to see if the answer moved.",
+    q: "What regulations do you support?",
+    a: "We work with operators across EU, MENA, and other regulated markets. Zempar provides speed limiting, parking zones, insurance documentation, and data exports required by local authorities.",
   },
   {
-    q: "Can I cancel anytime?",
-    a: "Yes. Plans are month-to-month, no contract. Annual billing simply saves you two months.",
+    q: "How do I get started?",
+    a: "Tell us your target city and fleet size through the partner form. Our team will schedule a discovery call and share a tailored launch plan within 48 hours.",
   },
 ] as const;
 
 export const FINAL_CTA = {
-  headline: "Start seeing what AI says about you.",
-  sub: "Enter your site and we’ll send a free GEO visibility report — where you show up in AI answers, where you don’t, and what to fix first.",
-  primaryCta: { label: "Get a free audit", href: "/#geo-lead" },
-  secondaryCta: { label: "Book a demo", href: "/contact" },
+  headline: "The future of urban mobility starts here.",
+  sub: "Join operators across 12+ cities who trust Zempar to power their shared e-scooter fleets.",
+  primaryCta: { label: "Become a partner", href: "/#partner" },
+  secondaryCta: { label: "Talk to our team", href: "/contact" },
+} as const;
+
+export const APP_SHOWCASE = {
+  eyebrow: "Rider experience",
+  headline: "Discover a nearby ride.",
+  sub: "Our rider app makes finding, reserving, and unlocking a scooter effortless — with transparent pricing and eco-friendly routing.",
+  stats: [
+    { label: "Range", value: "40 km" },
+    { label: "Unlock", value: "< 3 sec" },
+    { label: "Markets", value: "12+" },
+  ],
 } as const;

@@ -5,35 +5,42 @@ import { Facebook, Instagram, Linkedin } from "lucide-react";
 import { useLanguage } from "@/contexts/language-context";
 import { cn } from "@/lib/utils";
 
-export function Footer() {
+export function Footer({ dark = false }: { dark?: boolean }) {
   const { t, direction } = useLanguage();
   const isRtl = direction === "rtl";
   const currentYear = new Date().getFullYear();
 
-  const linkClass =
-    "rounded-sm text-muted-foreground transition-colors duration-200 ease-out hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background";
+  const linkClass = dark
+    ? "rounded-sm text-white/45 transition-colors duration-200 ease-out hover:text-[#00E676] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00E676]/50"
+    : "rounded-sm text-muted-foreground transition-colors duration-200 ease-out hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background";
 
   return (
     <footer
       className={cn(
-        "relative border-t border-border/80 bg-card/85 py-12 backdrop-blur-md",
+        "relative py-12 backdrop-blur-md",
+        dark
+          ? "border-t border-white/[0.06] bg-[#050505]"
+          : "border-t border-border/80 bg-card/85",
         isRtl ? "rtl" : ""
       )}
     >
       <div
-        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent"
+        className={cn(
+          "pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent to-transparent",
+          dark ? "via-[#00E676]/20" : "via-primary/30"
+        )}
         aria-hidden
       />
       <div className="container mx-auto px-4 sm:px-6 max-w-7xl">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8">
           <div className="lg:col-span-6">
-            <div className="font-display mb-3 text-2xl font-bold tracking-tight text-foreground">
-              <span className="text-foreground">Zem</span>
+            <div className={cn("font-display mb-3 text-2xl font-bold tracking-tight", dark ? "text-white/90" : "text-foreground")}>
+              <span className={dark ? "text-white/90" : "text-foreground"}>Zem</span>
               <span className="text-gradient-signal">par</span>
             </div>
-            <p className="mb-5 max-w-sm text-sm leading-relaxed text-muted-foreground">
+            <p className={cn("mb-5 max-w-sm text-sm leading-relaxed", dark ? "text-white/45" : "text-muted-foreground")}>
               {t("footer.description") ||
-                "Generative Engine Optimization and SEO together—findable in search, accurately represented in LLM apps."}
+                "Premium shared micromobility — smart fleets, rider apps, and operator software for modern cities."}
             </p>
             <div
               className={cn(
@@ -75,7 +82,7 @@ export function Footer() {
           </div>
 
           <div className="lg:col-span-3">
-            <h3 className="mb-4 text-xs font-semibold uppercase tracking-wider text-primary/85">
+            <h3 className={cn("mb-4 text-xs font-semibold uppercase tracking-wider", dark ? "text-[#00E676]/80" : "text-primary/85")}>
               {t("footer.product")}
             </h3>
             <ul className="space-y-2.5 text-sm">
@@ -85,7 +92,7 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/#visibility-offerings" className={linkClass}>
+                <Link href="/#partner" className={linkClass}>
                   {t("footer.partnerships")}
                 </Link>
               </li>
@@ -93,7 +100,7 @@ export function Footer() {
           </div>
 
           <div className="lg:col-span-3">
-            <h3 className="mb-4 text-xs font-semibold uppercase tracking-wider text-primary/85">
+            <h3 className={cn("mb-4 text-xs font-semibold uppercase tracking-wider", dark ? "text-[#00E676]/80" : "text-primary/85")}>
               {t("footer.company")}
             </h3>
             <ul className="space-y-2.5 text-sm">
@@ -118,7 +125,8 @@ export function Footer() {
 
         <div
           className={cn(
-            "mt-10 flex flex-col items-center justify-between gap-3 border-t border-border/80 pt-6 text-xs text-muted-foreground sm:flex-row",
+            "mt-10 flex flex-col items-center justify-between gap-3 border-t pt-6 text-xs sm:flex-row",
+            dark ? "border-white/[0.06] text-white/35" : "border-border/80 text-muted-foreground",
             isRtl ? "sm:flex-row-reverse" : ""
           )}
         >

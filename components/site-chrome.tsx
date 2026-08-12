@@ -11,13 +11,14 @@ import { cn } from "@/lib/utils";
 export function SiteChrome({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const isAdminRoute = pathname.startsWith("/admin");
+  const isCinematicHome = pathname === "/";
 
   return (
     <>
-      {!isAdminRoute ? <FloatingHeader /> : null}
+      {!isAdminRoute && !isCinematicHome ? <FloatingHeader /> : null}
       <main
         id="main-content"
-        className={cn(!isAdminRoute && "pt-20")}
+        className={cn(!isAdminRoute && !isCinematicHome && "pt-20")}
         tabIndex={-1}
       >
         {children}

@@ -10,22 +10,22 @@ export function Faq() {
   const [open, setOpen] = useState<number | null>(0);
 
   return (
-    <section className="relative py-24 sm:py-32">
+    <section className="relative bg-[#050505] py-24 sm:py-32">
       <div className="mx-auto max-w-3xl px-6">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.6 }}
-          className="mb-4 text-center font-display text-4xl font-bold tracking-tight text-foreground sm:text-5xl"
+          className="mb-4 text-center font-display text-4xl font-bold tracking-tight text-white/90 sm:text-5xl"
         >
           Questions, answered
         </motion.h2>
-        <p className="mb-12 text-center text-muted-foreground">
-          Everything you need to know about tracking your brand in AI answers.
+        <p className="mb-12 text-center text-white/45">
+          Everything you need to know about launching with Zempar.
         </p>
 
-        <div className="divide-y divide-border/70 rounded-2xl border border-border/70 bg-card/60 backdrop-blur-sm">
+        <div className="divide-y divide-white/[0.06] rounded-2xl border border-white/[0.08] bg-[#0A0A0C]/80 backdrop-blur-sm">
           {FAQ.map((item, i) => {
             const isOpen = open === i;
             return (
@@ -36,12 +36,12 @@ export function Faq() {
                   aria-expanded={isOpen}
                   className="flex w-full items-center justify-between gap-4 py-5 text-left"
                 >
-                  <span className="font-display text-base font-semibold text-foreground sm:text-lg">
+                  <span className="font-display text-base font-semibold text-white/85 sm:text-lg">
                     {item.q}
                   </span>
                   <Plus
                     className={cn(
-                      "h-5 w-5 shrink-0 text-primary transition-transform duration-300",
+                      "h-5 w-5 shrink-0 text-[#00E676] transition-transform duration-300",
                       isOpen && "rotate-45"
                     )}
                     aria-hidden
@@ -56,7 +56,7 @@ export function Faq() {
                       transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
                       className="overflow-hidden"
                     >
-                      <p className="pb-6 text-sm leading-relaxed text-muted-foreground sm:text-[0.95rem]">
+                      <p className="pb-6 text-sm leading-relaxed text-white/50 sm:text-[0.95rem]">
                         {item.a}
                       </p>
                     </motion.div>

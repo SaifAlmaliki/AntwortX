@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import Image from "next/image";
 import {
   motion,
   useReducedMotion,
@@ -8,7 +9,6 @@ import {
   useTransform,
   type MotionValue,
 } from "framer-motion";
-import { AmbientVideo } from "./AmbientVideo";
 import { FEATURES } from "./content";
 
 export function FeatureFilm() {
@@ -20,37 +20,28 @@ export function FeatureFilm() {
   });
 
   return (
-    <section ref={sectionRef} className="relative h-[300vh] bg-[#050509]">
+    <section id="fleet" ref={sectionRef} className="relative h-[300vh] bg-[#050505]">
       <div className="sticky top-0 h-[100dvh] w-full overflow-hidden">
-        {/* Background film — clip 2 (the signal) */}
-        <AmbientVideo
-          src="/cinematic/signal.mp4"
-          poster="/cinematic/signal-poster.jpg"
-          className="absolute inset-0 h-full w-full object-cover"
+        <Image
+          src="/scooter/scooter-street.jpg"
+          alt=""
+          fill
+          className="object-cover opacity-30"
+          aria-hidden
+          sizes="100vw"
         />
-        <div className="absolute inset-0 bg-[#050509]/35" aria-hidden />
+        <div className="absolute inset-0 bg-[#050505]/60" aria-hidden />
         <div
           className="pointer-events-none absolute inset-0"
           style={{
             background:
-              "linear-gradient(90deg, rgba(5,5,9,0.85) 0%, rgba(5,5,9,0.45) 45%, rgba(5,5,9,0.1) 100%)",
+              "linear-gradient(90deg, rgba(5,5,5,0.92) 0%, rgba(5,5,5,0.55) 45%, rgba(5,5,5,0.15) 100%)",
           }}
-          aria-hidden
-        />
-        {/* Seams into the light sections above and below */}
-        <div
-          className="pointer-events-none absolute inset-x-0 top-0 h-32"
-          style={{ background: "linear-gradient(to bottom, #f7f6fc, transparent)" }}
-          aria-hidden
-        />
-        <div
-          className="pointer-events-none absolute inset-x-0 bottom-0 h-32"
-          style={{ background: "linear-gradient(to top, #f7f6fc, transparent)" }}
           aria-hidden
         />
 
         <div className="relative z-10 flex h-full items-center px-6 sm:px-12 lg:px-24">
-          <div className="w-full max-w-2xl">
+          <div className="relative w-full max-w-2xl">
             {FEATURES.map((f, i) => (
               <FeatureLine
                 key={f.word}
@@ -67,7 +58,6 @@ export function FeatureFilm() {
           </div>
         </div>
 
-        {/* Step indicator */}
         <StepDots progress={scrollYProgress} total={FEATURES.length} />
       </div>
     </section>
@@ -96,16 +86,13 @@ function FeatureLine({
   const seg = 1 / total;
   const start = index * seg;
   const end = start + seg;
-  // Fade in over the first ~25% of the segment, hold, fade out at the end.
   const inA = start + seg * 0.08;
   const inB = start + seg * 0.28;
   const outA = end - seg * 0.18;
   const opacity = useTransform(
     progress,
     [start, inA, inB, outA, end],
-    index === total - 1
-      ? [0, 0, 1, 1, 1]
-      : [0, 0, 1, 1, 0]
+    index === total - 1 ? [0, 0, 1, 1, 1] : [0, 0, 1, 1, 0]
   );
   const y = useTransform(progress, [inA, inB], [40, 0]);
 
@@ -114,18 +101,14 @@ function FeatureLine({
       style={reduceMotion ? { opacity: index === 0 ? 1 : 0 } : { opacity, y }}
       className="absolute max-w-2xl"
     >
-      <span className="font-display text-sm font-semibold tracking-[0.3em] text-violet-300/80">
+      <span className="font-display text-sm font-semibold tracking-[0.3em] text-[#00E676]/70">
         {tag}
       </span>
-      <h3 className="mt-4 font-display text-5xl font-extrabold leading-[1.02] tracking-tight text-white sm:text-6xl lg:text-7xl">
+      <h3 className="mt-4 font-display text-5xl font-extrabold leading-[1.02] tracking-tight text-white/90 sm:text-6xl lg:text-7xl">
         {word}
       </h3>
-      <p className="mt-5 max-w-xl text-lg font-medium text-slate-100/95 sm:text-xl">
-        {line}
-      </p>
-      <p className="mt-4 max-w-lg text-sm leading-relaxed text-slate-300/80">
-        {detail}
-      </p>
+      <p className="mt-5 max-w-xl text-lg font-medium text-white/80 sm:text-xl">{line}</p>
+      <p className="mt-4 max-w-lg text-sm leading-relaxed text-white/50">{detail}</p>
     </motion.div>
   );
 }
@@ -169,7 +152,7 @@ function Dot({
   return (
     <motion.span
       style={{ opacity, width }}
-      className="h-2 rounded-full bg-white"
+      className="h-2 rounded-full bg-[#00E676]"
     />
   );
 }

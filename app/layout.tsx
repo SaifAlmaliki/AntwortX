@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Syne, Geist, Geist_Mono } from "next/font/google";
 import { Toaster } from "@/components/ui/sonner";
-import { Squares } from "@/components/ui/squares-background";
 import { SkipToMain } from "@/components/SkipToMain";
 import { SiteChrome } from "@/components/site-chrome";
 import { LanguageProvider } from "@/contexts/language-context";
@@ -32,9 +31,9 @@ const geistMono = Geist_Mono({
 });
 
 const siteUrl = getSiteUrl();
-const defaultTitle = "Zempar - Generative Engine Optimization (GEO)";
+const defaultTitle = "Zempar — Shared E-Scooter Platform";
 const defaultDescription =
-  "Strengthen how your brand appears in ChatGPT, Claude, Gemini, Perplexity, and beyond. GEO plus SEO—accurate citations, trustworthy content, and technical signals.";
+  "Premium shared micromobility for modern cities. Zempar powers e-scooter fleets across global markets with smart hardware, rider apps, and operator software.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -66,16 +65,6 @@ export default function RootLayout({
         className={`${syne.variable} ${geistSans.variable} ${geistMono.variable} relative min-h-screen bg-page font-sans text-foreground antialiased`}
       >
         <StructuredData />
-        {/* Animated grid (light look: subtle violet-grey lines on near-white) */}
-        <div className="fixed inset-0 z-0 pointer-events-none" aria-hidden>
-          <Squares
-            direction="diagonal"
-            speed={0.3}
-            squareSize={50}
-            borderColor="#e7e3f2"
-            hoverFillColor="#f1edfb"
-          />
-        </div>
 
         <div className="relative z-10">
           <LanguageProvider>
