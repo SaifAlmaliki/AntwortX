@@ -7,7 +7,7 @@ import { LogoStrip } from "./LogoStrip";
 import { FeatureFilm } from "./FeatureFilm";
 import { Metrics } from "./Metrics";
 import { ProductShowcase } from "./ProductShowcase";
-import { PartnerLeadSection } from "./PartnerLeadSection";
+import { RideCtaSection } from "./RideCtaSection";
 import { Faq } from "./Faq";
 import { FinalCta } from "./FinalCta";
 
@@ -26,7 +26,7 @@ export function CinematicLanding() {
       <Metrics />
       <ProductShowcase />
       <div className="mx-auto max-w-7xl px-6 sm:px-8">
-        <PartnerLeadSection />
+        <RideCtaSection />
       </div>
       <Faq />
       <FinalCta />

@@ -60,7 +60,7 @@ export function Metrics() {
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section className="relative overflow-hidden bg-[#0A0A0C] py-24 sm:py-32">
+    <section id="impact" className="relative overflow-hidden bg-[#0A0A0C] py-24 sm:py-32">
       <div className="mx-auto max-w-6xl px-6" ref={ref}>
         <div className="grid grid-cols-1 gap-12 sm:grid-cols-3">
           {metrics.map((m, i) => (

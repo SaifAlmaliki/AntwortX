@@ -39,9 +39,9 @@ const tajawal = Tajawal({
 });
 
 const siteUrl = getSiteUrl();
-const defaultTitle = "تجول — منصة مشاركة السكوتر الكهربائي";
+const defaultTitle = "تجول — سكوتر كهربائي بدون زحام";
 const defaultDescription =
-  "منصة حركة حضرية ذكية في العراق. تجول توفر سكooters كهربائية مشتركة، تطبيق راكب، وبرمجيات تشغيل الأسطول.";
+  "تجاوز الاختناقات برحلة كهربائية نظيفة. تجول يربطك بأقرب سكوتر في العراق — بدون وقود ولا عوادم.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),

@@ -199,7 +199,7 @@ export function FloatingHeader() {
             ))}
 
             <Link
-              href="/#partner"
+              href="/#ride"
               className={cn(
                 "btn-signal-primary ml-1 inline-flex min-h-9 shrink-0 items-center justify-center rounded-full px-4 py-2 text-sm font-medium no-underline whitespace-nowrap",
                 direction === "rtl" ? "mr-1 ml-0" : ""
@@ -262,7 +262,7 @@ export function FloatingHeader() {
           >
             <nav className="px-2 pt-2 pb-3 space-y-1">
               <Link
-                href="/#partner"
+                href="/#ride"
                 onClick={() => closeMobileMenu(setMobileMenuOpen, mobileMenuButtonRef)}
                 className="block rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring"
               >

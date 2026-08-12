@@ -45,7 +45,7 @@ export function StructuredData() {
       description: arLocale.home.description,
       provider: { "@id": orgId },
       areaServed: "IQ",
-      serviceType: "Shared e-scooter micromobility platform and fleet operations",
+      serviceType: "Shared e-scooter rides for urban commuters — clean electric mobility",
     },
     {
       "@context": "https://schema.org",

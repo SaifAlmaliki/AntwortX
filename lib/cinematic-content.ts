@@ -35,7 +35,7 @@ export function getCinematicContent(cinematic: CinematicLocale) {
     features: cinematic.features,
     metrics: cinematic.metrics,
     appShowcase: cinematic.appShowcase,
-    partner: cinematic.partner,
+    rideCta: cinematic.rideCta,
     faq: cinematic.faq,
     finalCta: cinematic.finalCta,
     scrollBeats,

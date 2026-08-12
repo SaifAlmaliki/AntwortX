@@ -22,7 +22,7 @@ export function FeatureFilm() {
   });
 
   return (
-    <section id="fleet" ref={sectionRef} className="relative h-[300vh] bg-[#050505]">
+    <section id="why" ref={sectionRef} className="relative h-[300vh] bg-[#050505]">
       <div className="sticky top-0 h-[100dvh] w-full overflow-hidden">
         <Image
           src="/scooter/scooter-street.jpg"

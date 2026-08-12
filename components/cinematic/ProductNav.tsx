@@ -11,10 +11,10 @@ import { cn } from "@/lib/utils";
 
 const NAV_HREFS = [
   { key: "overview" as const, href: "/#overview" },
-  { key: "technology" as const, href: "/#technology" },
-  { key: "fleet" as const, href: "/#fleet" },
-  { key: "markets" as const, href: "/#markets" },
-  { key: "partner" as const, href: "/#partner" },
+  { key: "traffic" as const, href: "/#why" },
+  { key: "green" as const, href: "/#impact" },
+  { key: "app" as const, href: "/#technology" },
+  { key: "cities" as const, href: "/#markets" },
 ];
 
 export function ProductNav() {
@@ -63,10 +63,7 @@ export function ProductNav() {
           {brand}
         </Link>
 
-        <nav
-          className="hidden items-center gap-1 md:flex"
-          aria-label={nav.overview}
-        >
+        <nav className="hidden items-center gap-1 md:flex" aria-label={nav.overview}>
           {NAV_HREFS.map((link) => (
             <Link
               key={link.href}
@@ -88,13 +85,13 @@ export function ProductNav() {
             <LanguageSelector />
           </div>
           <Link
-            href="/#partner"
+            href="/#ride"
             className="btn-mobility-primary hidden min-h-9 items-center justify-center px-4 text-xs font-semibold sm:inline-flex sm:text-sm"
           >
             {nav.cta}
           </Link>
           <Link
-            href="/#partner"
+            href="/#ride"
             className="btn-mobility-primary inline-flex min-h-9 items-center justify-center px-3 text-xs font-semibold md:hidden"
           >
             {nav.ctaShort}

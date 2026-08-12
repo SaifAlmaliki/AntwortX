@@ -2,9 +2,9 @@
 
 export const SCROLL_BEAT_LAYOUT = [
   { id: "hero", range: [0, 0.15] as const, align: "center" as const },
-  { id: "engineering", range: [0.15, 0.4] as const, align: "left" as const },
-  { id: "fleet", range: [0.4, 0.65] as const, align: "right" as const },
-  { id: "performance", range: [0.65, 0.85] as const, align: "left" as const },
+  { id: "traffic", range: [0.15, 0.4] as const, align: "left" as const },
+  { id: "green", range: [0.4, 0.65] as const, align: "right" as const },
+  { id: "ride", range: [0.65, 0.85] as const, align: "left" as const },
   { id: "cta", range: [0.85, 1] as const, align: "center" as const },
 ] as const;
 

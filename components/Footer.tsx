@@ -91,7 +91,7 @@ export function Footer({ dark = false }: { dark?: boolean }) {
                 </Link>
               </li>
               <li>
-                <Link href="/#partner" className={linkClass}>
+                <Link href="/#ride" className={linkClass}>
                   {t("footer.partnerships")}
                 </Link>
               </li>

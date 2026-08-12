@@ -13,20 +13,20 @@
     "openMenu": "Open menu",
     "closeMenu": "Close menu",
     "siteMenu": "Site navigation",
-    "ctaAudit": "Launch fleet"
+    "ctaAudit": "Start riding"
   },
   "home": {
     "title": "Zempar",
     "eyebrow": "Shared e-scooter platform",
-    "subtitle": "Move your city — smart fleet, rider app, reliable operations",
-    "description": "Zempar powers shared e-scooter mobility in Iraq — premium hardware, smart fleet software, and scalable operations.",
-    "primaryCta": "Get my free audit",
+    "subtitle": "Skip traffic — clean electric rides in minutes",
+    "description": "Zempar connects you to the nearest e-scooter in Iraq. No fuel, no jams — fast and clean trips.",
+    "primaryCta": "Get the app",
     "getStarted": "Get Started",
     "learnMore": "Learn More",
     "trustMicro": [
-      "No credit card",
-      "Report sent by email right away",
-      "Built for SaaS, IoT, consulting & growth teams"
+      "No subscription required",
+      "Unlock in seconds",
+      "100% electric — zero fuel"
     ],
     "featureCards": [
       {
@@ -314,11 +314,11 @@
     "emailAddress": "contact@zempar.com"
   },
   "footer": {
-    "description": "Shared e-scooter platform in Iraq — premium hardware, rider app, and fleet operations software.",
+    "description": "Shared e-scooter rides in Iraq — fast trips, clean energy, no traffic.",
     "product": "Services",
     "features": "Solutions",
     "pricing": "Pricing",
-    "partnerships": "Partnerships",
+    "partnerships": "Start riding",
     "demo": "Request Consultation",
     "resources": "Resources",
     "documentation": "Case Studies",
@@ -344,159 +344,163 @@
     "brand": "Zempar",
     "nav": {
       "overview": "Overview",
-      "technology": "Technology",
-      "fleet": "Fleet",
-      "markets": "Cities",
-      "partner": "Partner",
-      "cta": "Launch your fleet",
-      "ctaShort": "Partner"
+      "traffic": "Skip traffic",
+      "green": "Clean ride",
+      "app": "The app",
+      "cities": "Cities",
+      "cta": "Start riding",
+      "ctaShort": "Ride"
     },
     "scrollCue": "Scroll to explore",
     "markets": {
-      "title": "Operating across Iraq",
+      "title": "Available across Iraq",
       "cities": ["Baghdad", "Basra", "Erbil", "Mosul", "Najaf", "Karbala"]
     },
     "scrollBeats": {
       "hero": {
-        "eyebrow": "Zempar Fleet",
-        "headline": "Move cities forward.",
-        "sub": "Premium shared e-scooters — built for reliability, designed for riders."
+        "eyebrow": "Zempar — shared e-scooters",
+        "headline": "Skip the jam. Ride smart.",
+        "sub": "Stop wasting time in traffic. Scan, unlock, and go — a clean electric ride in minutes."
       },
-      "engineering": {
-        "eyebrow": "Engineering",
-        "headline": "Precision-built for the street.",
-        "sub": "Swappable batteries, reinforced deck, and IP-rated electronics — every component tuned for uptime and rider safety.",
+      "traffic": {
+        "eyebrow": "Save your time",
+        "headline": "Leave traffic behind.",
+        "sub": "While cars sit stuck at lights, you keep moving. Shorter routes, faster arrivals, no waiting.",
         "bullets": [
-          "Aircraft-grade aluminum frame",
-          "Dual-brake system with regenerative rear hub",
-          "All-weather sealed electronics"
+          "Save up to 70% of your commute time",
+          "Bypass congestion with ease",
+          "Pay per minute — no fuel, no parking hunt"
         ]
       },
-      "fleet": {
-        "eyebrow": "Smart fleet",
-        "headline": "Every scooter, always connected.",
-        "sub": "Real-time GPS, remote diagnostics, and predictive maintenance keep your fleet earning — not sitting in a warehouse.",
+      "green": {
+        "eyebrow": "Clean energy",
+        "headline": "Green ride. Cleaner air.",
+        "sub": "Our scooters are 100% electric — no fuel combustion, no exhaust. A practical step toward a cleaner city.",
         "bullets": [
-          "Live location and battery telemetry",
-          "Geofencing and no-ride zones",
-          "Automated rebalancing alerts"
+          "Zero emissions on every trip",
+          "Electric power instead of fossil fuel",
+          "Responsible urban mobility"
         ]
       },
-      "performance": {
-        "eyebrow": "Performance",
-        "headline": "Range that keeps riders moving.",
-        "sub": "High-capacity swappable packs and efficient hub motors deliver 40+ km per charge — fewer swaps, more revenue per unit.",
+      "ride": {
+        "eyebrow": "Easy to start",
+        "headline": "Ride in seconds.",
+        "sub": "Open the app, pick the nearest scooter, scan and go. Simple, fast, transparent.",
         "bullets": [
-          "40 km range on a single charge",
-          "3-hour full swap turnaround",
-          "Whisper-quiet 500W hub motor"
+          "Unlock in under 3 seconds",
+          "40 km range per ride",
+          "Clear per-minute pricing"
         ]
       },
       "cta": {
-        "eyebrow": "Ready to launch",
-        "headline": "Your city. Your fleet. Our platform.",
-        "sub": "From hardware to operations software — Zempar gives operators everything to launch and grow a shared e-scooter business.",
-        "primaryCta": { "label": "Launch your fleet", "href": "/#partner" },
-        "secondaryCta": { "label": "View specifications", "href": "/contact" }
+        "eyebrow": "Ready to go?",
+        "headline": "Your city is waiting. Ride now.",
+        "sub": "Join thousands of riders across Iraq. Move through your day smarter, faster, and cleaner.",
+        "primaryCta": { "label": "Get the app", "href": "/#ride" },
+        "secondaryCta": { "label": "How it works", "href": "/#technology" }
       }
     },
     "explodedParts": {
-      "battery": "Swappable battery",
-      "motor": "500W hub motor",
-      "gps": "GPS + IoT module",
-      "deck": "Reinforced deck",
-      "suspension": "Front suspension",
+      "battery": "Electric battery",
+      "motor": "Zero-emission motor",
+      "gps": "Live GPS",
+      "deck": "Safe riding deck",
+      "suspension": "Street suspension",
       "controls": "Smart controls"
     },
     "features": [
       {
         "tag": "01",
-        "word": "Deploy",
-        "line": "Launch in weeks, not years.",
-        "detail": "Zempar ships hardware, rider app, operator dashboard, and compliance tooling — so you go live fast in any regulated market."
+        "word": "Skip",
+        "line": "Don't waste life in traffic.",
+        "detail": "Cars stop — you don't. Scooters get you across the city faster when streets are packed."
       },
       {
         "tag": "02",
-        "word": "Operate",
-        "line": "Run fleets that stay on the street.",
-        "detail": "Predictive maintenance, swap routing, and live analytics cut downtime — keeping utilization high and ops lean."
+        "word": "Breathe",
+        "line": "Choose clean energy.",
+        "detail": "Every electric trip means less fuel burned and no tailpipe fumes. A small choice for a cleaner city."
       },
       {
         "tag": "03",
-        "word": "Scale",
-        "line": "Grow across cities with one platform.",
-        "detail": "Multi-market dashboards, localized pricing, and franchise-ready tooling let you expand without rebuilding your stack."
+        "word": "Go",
+        "line": "Your ride is one minute away.",
+        "detail": "Download the app, find a nearby scooter, scan and ride. No hassle."
       }
     ],
     "metrics": [
-      { "value": 6, "suffix": "+", "label": "Cities in Iraq", "prefix": "" },
-      { "value": 8500, "suffix": "+", "label": "Fleet vehicles deployed", "prefix": "" },
-      { "value": 98.2, "suffix": "%", "label": "Fleet uptime average", "prefix": "" }
+      { "value": 120, "suffix": "K+", "label": "Trips completed", "prefix": "" },
+      { "value": 0, "suffix": "", "label": "CO₂ emissions per ride", "prefix": "" },
+      { "value": 6, "suffix": "+", "label": "Cities in Iraq", "prefix": "" }
     ],
     "appShowcase": {
-      "eyebrow": "Rider experience",
-      "headline": "Discover a nearby ride.",
-      "sub": "Our rider app makes finding, reserving, and unlocking a scooter effortless — with transparent pricing and eco-friendly routing.",
+      "eyebrow": "Rider app",
+      "headline": "Find a ride nearby.",
+      "sub": "Live map, clear pricing, instant unlock — everything you need to move without a car.",
       "stats": [
         { "label": "Range", "value": "40 km" },
         { "label": "Unlock", "value": "< 3 sec" },
         { "label": "Cities", "value": "6+" }
       ]
     },
-    "partner": {
-      "eyebrow": "Partner program",
-      "headline": "Launch your fleet with Zempar",
-      "sub": "Tell us about your market and fleet ambitions. Our team responds within 48 hours with a tailored launch plan — hardware, software, and ops support included.",
-      "benefits": [
-        "Premium e-scooter hardware",
-        "Rider app + operator dashboard",
-        "Fleet telematics & compliance tooling"
-      ],
-      "form": {
-        "name": "Full name",
-        "email": "Work email",
-        "company": "Company",
-        "city": "Target city",
-        "cityPlaceholder": "e.g. Baghdad, Basra",
-        "fleetSize": "Planned fleet size",
-        "fleetPlaceholder": "e.g. 500 scooters",
-        "submit": "Request partnership",
-        "successTitle": "Check your email client",
-        "successSub": "Complete sending the message and we'll be in touch shortly."
-      },
-      "mailtoSubject": "Zempar partnership inquiry"
+    "rideCta": {
+      "badge": "Clean energy · Zero fuel",
+      "headline": "Start your first ride today",
+      "sub": "Download the Zempar app, find the nearest scooter, and go — no traffic, no fuel.",
+      "primaryLabel": "Get the app",
+      "primaryHref": "/#technology",
+      "secondaryLabel": "See pricing",
+      "secondaryHref": "/contact",
+      "footnote": "Available in Baghdad, Basra, Erbil, Mosul, Najaf, and Karbala.",
+      "steps": [
+        {
+          "tag": "01",
+          "title": "Download the app",
+          "detail": "Sign up in one minute and activate your account."
+        },
+        {
+          "tag": "02",
+          "title": "Find a scooter",
+          "detail": "The map shows the nearest available ride."
+        },
+        {
+          "tag": "03",
+          "title": "Scan & ride",
+          "detail": "Scan the QR code and go — no keys, no fuel."
+        }
+      ]
     },
     "faq": {
       "title": "Questions, answered",
-      "subtitle": "Everything you need to know about launching with Zempar.",
+      "subtitle": "Everything you need before your first ride.",
       "items": [
         {
-          "q": "What does Zempar provide to operators?",
-          "a": "Zempar is a full-stack micromobility platform: premium e-scooter hardware, rider mobile app, operator dashboard, fleet telematics, and ongoing ops support. You focus on your market — we handle the technology backbone."
+          "q": "How do I start a ride?",
+          "a": "Download the Zempar app, create an account, then pick the nearest scooter on the map. Scan the QR code on the scooter and ride."
         },
         {
-          "q": "Can I operate in multiple cities?",
-          "a": "Yes. Zempar is built for multi-market operators. Each city gets localized pricing, geofencing, compliance settings, and reporting — all managed from a single control plane."
+          "q": "How much does a ride cost?",
+          "a": "You pay per minute with transparent pricing shown in the app before you start — no subscription and no hidden fees."
         },
         {
-          "q": "How does battery swapping work?",
-          "a": "Our scooters use hot-swappable battery packs designed for field ops. Swap crews get route optimization in the dashboard, and each pack reports health metrics in real time."
+          "q": "Is it eco-friendly?",
+          "a": "Yes. All our scooters are 100% electric — no fuel combustion and no exhaust. Your trip adds zero CO₂ to the air."
         },
         {
-          "q": "What regulations do you support?",
-          "a": "We work with operators across Iraq and regulated MENA markets. Zempar provides speed limiting, parking zones, insurance documentation, and data exports required by local authorities."
+          "q": "Where can I ride?",
+          "a": "Zempar is available in Baghdad, Basra, Erbil, Mosul, Najaf, and Karbala — with clear ride and parking zones in the app."
         },
         {
-          "q": "How do I get started?",
-          "a": "Tell us your target city and fleet size through the partner form. Our team will schedule a discovery call and share a tailored launch plan within 48 hours."
+          "q": "Is it safe?",
+          "a": "Every scooter has dual brakes, LED lights, and GPS tracking. We recommend wearing a helmet and following local traffic rules."
         }
       ]
     },
     "finalCta": {
-      "headline": "The future of urban mobility starts here.",
-      "sub": "Join operators across 6+ Iraqi cities who trust Zempar to power their shared e-scooter fleets.",
-      "primaryCta": { "label": "Become a partner", "href": "/#partner" },
-      "secondaryCta": { "label": "Talk to our team", "href": "/contact" }
+      "headline": "Traffic isn't your only option. Ride Zempar.",
+      "sub": "A clean electric trip — faster across the city than a car, better for the planet.",
+      "primaryCta": { "label": "Get the app", "href": "/#ride" },
+      "secondaryCta": { "label": "Contact us", "href": "/contact" }
     }
   },
   "faq": {
