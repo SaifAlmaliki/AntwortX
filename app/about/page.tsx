@@ -14,44 +14,44 @@ export default function AboutPage() {
   // Define expertise areas for each language to ensure proper display
   const expertiseAreas = language === 'ar' ? [
     {
-      title: "أبحاث وتطوير الذكاء الاصطناعي",
-      description: "باحثونا ومطورونا في مجال الذكاء الاصطناعي لديهم خبرة عميقة في التعلم الآلي ومعالجة اللغة الطبيعية وأنظمة الذكاء الوكيلي المصممة لعمليات الإنتاج.",
+      title: "الأجهزة والهندسة",
+      description: "سكooters كهربائية فاخرة مع بطاريات قابلة للتبديل، تعليق أمامي، وإلكترونيات مقاومة للماء — مصممة للشوارع العراقية.",
       icon: <Lightbulb className="h-10 w-10 text-primary" />
     },
     {
-      title: "هندسة الحلول",
-      description: "مهندسو الحلول لدينا يصممون تطبيقات ذكاء اصطناعي قوية وقابلة للتوسع تتكامل بسلاسة مع أنظمة الأعمال الحالية.",
+      title: "برمجيات الأسطول",
+      description: "لوحة مشغّل متكاملة مع GPS لحظي، حدود جغرافية، صيانة تنبؤية، وتحليلات تشغيلية.",
       icon: <Globe className="h-10 w-10 text-primary" />
     },
     {
-      title: "تصميم واجهات المستخدم",
-      description: "نصمم تجارب سهلة للمشغلين حتى تتمكن الفرق من الإشراف على الوكلاء ومراجعة الإجراءات والبقاء متحكمين دون صراع مع الأدوات.",
+      title: "تطبيق الراكب",
+      description: "تجربة راكب سلسة — اكتشاف، حجز، وفتح السكooter خلال ثوانٍ بتسعير شفاف.",
       icon: <Users className="h-10 w-10 text-primary" />
     },
     {
-      title: "تكامل المؤسسات",
-      description: "مع خبرتنا في نشر حلول الذكاء الاصطناعي عبر مختلف الصناعات، نضمن التنفيذ السلس في بيئات المؤسسات المعقدة.",
+      title: "التشغيل والامتثال",
+      description: "أدوات امتثال محلية، تحديد سرعة، مناطق وقوف، وتقارير للجهات التنظيمية في العراق.",
       icon: <Award className="h-10 w-10 text-primary" />
     }
   ] : [
     {
-      title: "AI Research & Development",
-      description: "Our AI researchers and developers have deep expertise in machine learning, NLP, and agentic AI systems built for production operations.",
+      title: "Hardware & engineering",
+      description: "Premium e-scooters with swappable batteries, front suspension, and weather-sealed electronics — built for Iraqi streets.",
       icon: <Lightbulb className="h-10 w-10 text-primary" />
     },
     {
-      title: "Solution Architecture",
-      description: "Our solution architects design robust, scalable AI implementations that integrate seamlessly with existing business systems.",
+      title: "Fleet software",
+      description: "Operator dashboard with live GPS, geofencing, predictive maintenance, and operational analytics.",
       icon: <Globe className="h-10 w-10 text-primary" />
     },
     {
-      title: "UX/UI Design",
-      description: "We design operator-friendly experiences so teams can supervise agents, review actions, and stay in control without fighting the tooling.",
+      title: "Rider app",
+      description: "Seamless rider experience — discover, reserve, and unlock a scooter in seconds with transparent pricing.",
       icon: <Users className="h-10 w-10 text-primary" />
     },
     {
-      title: "Enterprise Integration",
-      description: "With expertise in deploying AI solutions across various industries, we ensure smooth implementation in complex enterprise environments.",
+      title: "Operations & compliance",
+      description: "Local compliance tooling, speed limiting, parking zones, and regulatory reporting for Iraq.",
       icon: <Award className="h-10 w-10 text-primary" />
     }
   ];

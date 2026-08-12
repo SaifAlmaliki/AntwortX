@@ -17,9 +17,9 @@
   },
   "home": {
     "title": "Zempar",
-    "eyebrow": "GEO audit for ChatGPT, Claude, Gemini & Perplexity",
-    "subtitle": "See how AI answers your brand — and fix what they miss",
-    "description": "Get a free report emailed to you as soon as you submit—showing where ChatGPT, Claude, Gemini, and Perplexity surface you, misquote you, or skip you — with the five highest-impact fixes.",
+    "eyebrow": "Shared e-scooter platform",
+    "subtitle": "Move your city — smart fleet, rider app, reliable operations",
+    "description": "Zempar powers shared e-scooter mobility in Iraq — premium hardware, smart fleet software, and scalable operations.",
     "primaryCta": "Get my free audit",
     "getStarted": "Get Started",
     "learnMore": "Learn More",
@@ -307,14 +307,14 @@
     "success": "Your email app should open with your message. If it doesn't, email us at contact@zempar.com.",
     "error": "Something went wrong. Please email us directly at contact@zempar.com.",
     "address": "Address",
-    "city": "47057 Duisburg, Germany",
+    "city": "Baghdad, Iraq",
     "phone": "Phone",
     "phoneNumber": "+1 (555) 123-4567",
     "emailContact": "Email",
     "emailAddress": "contact@zempar.com"
   },
   "footer": {
-    "description": "Generative Engine Optimization and SEO together—so your brand is findable in search and accurately represented in ChatGPT, Claude, Gemini, Perplexity, and beyond.",
+    "description": "Shared e-scooter platform in Iraq — premium hardware, rider app, and fleet operations software.",
     "product": "Services",
     "features": "Solutions",
     "pricing": "Pricing",
@@ -339,6 +339,165 @@
     "subtitle": "Recommendations from colleagues and partners on our team's delivery—the same people now leading Zempar's GEO practice.",
     "ratingLabel": "5 out of 5 stars",
     "tagsLabel": "Highlighted strengths from the review"
+  },
+  "cinematic": {
+    "brand": "Zempar",
+    "nav": {
+      "overview": "Overview",
+      "technology": "Technology",
+      "fleet": "Fleet",
+      "markets": "Cities",
+      "partner": "Partner",
+      "cta": "Launch your fleet",
+      "ctaShort": "Partner"
+    },
+    "scrollCue": "Scroll to explore",
+    "markets": {
+      "title": "Operating across Iraq",
+      "cities": ["Baghdad", "Basra", "Erbil", "Mosul", "Najaf", "Karbala"]
+    },
+    "scrollBeats": {
+      "hero": {
+        "eyebrow": "Zempar Fleet",
+        "headline": "Move cities forward.",
+        "sub": "Premium shared e-scooters — built for reliability, designed for riders."
+      },
+      "engineering": {
+        "eyebrow": "Engineering",
+        "headline": "Precision-built for the street.",
+        "sub": "Swappable batteries, reinforced deck, and IP-rated electronics — every component tuned for uptime and rider safety.",
+        "bullets": [
+          "Aircraft-grade aluminum frame",
+          "Dual-brake system with regenerative rear hub",
+          "All-weather sealed electronics"
+        ]
+      },
+      "fleet": {
+        "eyebrow": "Smart fleet",
+        "headline": "Every scooter, always connected.",
+        "sub": "Real-time GPS, remote diagnostics, and predictive maintenance keep your fleet earning — not sitting in a warehouse.",
+        "bullets": [
+          "Live location and battery telemetry",
+          "Geofencing and no-ride zones",
+          "Automated rebalancing alerts"
+        ]
+      },
+      "performance": {
+        "eyebrow": "Performance",
+        "headline": "Range that keeps riders moving.",
+        "sub": "High-capacity swappable packs and efficient hub motors deliver 40+ km per charge — fewer swaps, more revenue per unit.",
+        "bullets": [
+          "40 km range on a single charge",
+          "3-hour full swap turnaround",
+          "Whisper-quiet 500W hub motor"
+        ]
+      },
+      "cta": {
+        "eyebrow": "Ready to launch",
+        "headline": "Your city. Your fleet. Our platform.",
+        "sub": "From hardware to operations software — Zempar gives operators everything to launch and grow a shared e-scooter business.",
+        "primaryCta": { "label": "Launch your fleet", "href": "/#partner" },
+        "secondaryCta": { "label": "View specifications", "href": "/contact" }
+      }
+    },
+    "explodedParts": {
+      "battery": "Swappable battery",
+      "motor": "500W hub motor",
+      "gps": "GPS + IoT module",
+      "deck": "Reinforced deck",
+      "suspension": "Front suspension",
+      "controls": "Smart controls"
+    },
+    "features": [
+      {
+        "tag": "01",
+        "word": "Deploy",
+        "line": "Launch in weeks, not years.",
+        "detail": "Zempar ships hardware, rider app, operator dashboard, and compliance tooling — so you go live fast in any regulated market."
+      },
+      {
+        "tag": "02",
+        "word": "Operate",
+        "line": "Run fleets that stay on the street.",
+        "detail": "Predictive maintenance, swap routing, and live analytics cut downtime — keeping utilization high and ops lean."
+      },
+      {
+        "tag": "03",
+        "word": "Scale",
+        "line": "Grow across cities with one platform.",
+        "detail": "Multi-market dashboards, localized pricing, and franchise-ready tooling let you expand without rebuilding your stack."
+      }
+    ],
+    "metrics": [
+      { "value": 6, "suffix": "+", "label": "Cities in Iraq", "prefix": "" },
+      { "value": 8500, "suffix": "+", "label": "Fleet vehicles deployed", "prefix": "" },
+      { "value": 98.2, "suffix": "%", "label": "Fleet uptime average", "prefix": "" }
+    ],
+    "appShowcase": {
+      "eyebrow": "Rider experience",
+      "headline": "Discover a nearby ride.",
+      "sub": "Our rider app makes finding, reserving, and unlocking a scooter effortless — with transparent pricing and eco-friendly routing.",
+      "stats": [
+        { "label": "Range", "value": "40 km" },
+        { "label": "Unlock", "value": "< 3 sec" },
+        { "label": "Cities", "value": "6+" }
+      ]
+    },
+    "partner": {
+      "eyebrow": "Partner program",
+      "headline": "Launch your fleet with Zempar",
+      "sub": "Tell us about your market and fleet ambitions. Our team responds within 48 hours with a tailored launch plan — hardware, software, and ops support included.",
+      "benefits": [
+        "Premium e-scooter hardware",
+        "Rider app + operator dashboard",
+        "Fleet telematics & compliance tooling"
+      ],
+      "form": {
+        "name": "Full name",
+        "email": "Work email",
+        "company": "Company",
+        "city": "Target city",
+        "cityPlaceholder": "e.g. Baghdad, Basra",
+        "fleetSize": "Planned fleet size",
+        "fleetPlaceholder": "e.g. 500 scooters",
+        "submit": "Request partnership",
+        "successTitle": "Check your email client",
+        "successSub": "Complete sending the message and we'll be in touch shortly."
+      },
+      "mailtoSubject": "Zempar partnership inquiry"
+    },
+    "faq": {
+      "title": "Questions, answered",
+      "subtitle": "Everything you need to know about launching with Zempar.",
+      "items": [
+        {
+          "q": "What does Zempar provide to operators?",
+          "a": "Zempar is a full-stack micromobility platform: premium e-scooter hardware, rider mobile app, operator dashboard, fleet telematics, and ongoing ops support. You focus on your market — we handle the technology backbone."
+        },
+        {
+          "q": "Can I operate in multiple cities?",
+          "a": "Yes. Zempar is built for multi-market operators. Each city gets localized pricing, geofencing, compliance settings, and reporting — all managed from a single control plane."
+        },
+        {
+          "q": "How does battery swapping work?",
+          "a": "Our scooters use hot-swappable battery packs designed for field ops. Swap crews get route optimization in the dashboard, and each pack reports health metrics in real time."
+        },
+        {
+          "q": "What regulations do you support?",
+          "a": "We work with operators across Iraq and regulated MENA markets. Zempar provides speed limiting, parking zones, insurance documentation, and data exports required by local authorities."
+        },
+        {
+          "q": "How do I get started?",
+          "a": "Tell us your target city and fleet size through the partner form. Our team will schedule a discovery call and share a tailored launch plan within 48 hours."
+        }
+      ]
+    },
+    "finalCta": {
+      "headline": "The future of urban mobility starts here.",
+      "sub": "Join operators across 6+ Iraqi cities who trust Zempar to power their shared e-scooter fleets.",
+      "primaryCta": { "label": "Become a partner", "href": "/#partner" },
+      "secondaryCta": { "label": "Talk to our team", "href": "/contact" }
+    }
   },
   "faq": {
     "title": "Frequently Asked Questions",

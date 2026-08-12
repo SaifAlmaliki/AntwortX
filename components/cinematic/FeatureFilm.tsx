@@ -9,10 +9,12 @@ import {
   useTransform,
   type MotionValue,
 } from "framer-motion";
-import { FEATURES } from "./content";
+
+import { useCinematicContent } from "@/lib/use-cinematic-content";
 
 export function FeatureFilm() {
   const reduceMotion = useReducedMotion();
+  const { features } = useCinematicContent();
   const sectionRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -42,11 +44,11 @@ export function FeatureFilm() {
 
         <div className="relative z-10 flex h-full items-center px-6 sm:px-12 lg:px-24">
           <div className="relative w-full max-w-2xl">
-            {FEATURES.map((f, i) => (
+            {features.map((f, i) => (
               <FeatureLine
                 key={f.word}
                 index={i}
-                total={FEATURES.length}
+                total={features.length}
                 progress={scrollYProgress}
                 reduceMotion={!!reduceMotion}
                 tag={f.tag}
@@ -58,7 +60,7 @@ export function FeatureFilm() {
           </div>
         </div>
 
-        <StepDots progress={scrollYProgress} total={FEATURES.length} />
+        <StepDots progress={scrollYProgress} total={features.length} />
       </div>
     </section>
   );
@@ -150,9 +152,6 @@ function Dot({
     [8, 28, 28, 8]
   );
   return (
-    <motion.span
-      style={{ opacity, width }}
-      className="h-2 rounded-full bg-[#00E676]"
-    />
+    <motion.span style={{ opacity, width }} className="h-2 rounded-full bg-[#00E676]" />
   );
 }

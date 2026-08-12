@@ -4,10 +4,12 @@ import { useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
-import { FINAL_CTA } from "./content";
+
+import { useCinematicContent } from "@/lib/use-cinematic-content";
 
 export function FinalCta() {
   const reduceMotion = useReducedMotion();
+  const { finalCta } = useCinematicContent();
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -47,21 +49,21 @@ export function FinalCta() {
           className="relative z-10 mx-auto max-w-3xl px-6 text-center"
         >
           <h2 className="font-display text-[clamp(2.25rem,5vw+1rem,4.5rem)] font-extrabold leading-[1.02] tracking-tight text-white/90">
-            {FINAL_CTA.headline}
+            {finalCta.headline}
           </h2>
-          <p className="mx-auto mt-6 max-w-xl text-lg text-white/55">{FINAL_CTA.sub}</p>
+          <p className="mx-auto mt-6 max-w-xl text-lg text-white/55">{finalCta.sub}</p>
           <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <Link
-              href={FINAL_CTA.primaryCta.href}
+              href={finalCta.primaryCta.href}
               className="btn-mobility-primary min-h-[50px] w-full px-8 text-base min-[420px]:w-auto"
             >
-              {FINAL_CTA.primaryCta.label}
+              {finalCta.primaryCta.label}
             </Link>
             <Link
-              href={FINAL_CTA.secondaryCta.href}
+              href={finalCta.secondaryCta.href}
               className="inline-flex min-h-[50px] w-full items-center justify-center rounded-full border border-white/20 bg-white/5 px-8 text-base font-semibold text-white/90 backdrop-blur-sm transition-colors hover:bg-white/10 min-[420px]:w-auto"
             >
-              {FINAL_CTA.secondaryCta.label}
+              {finalCta.secondaryCta.label}
             </Link>
           </div>
         </motion.div>

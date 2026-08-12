@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Syne, Geist, Geist_Mono } from "next/font/google";
+import { Syne, Geist, Geist_Mono, Tajawal } from "next/font/google";
 import { Toaster } from "@/components/ui/sonner";
 import { SkipToMain } from "@/components/SkipToMain";
 import { SiteChrome } from "@/components/site-chrome";
@@ -30,10 +30,18 @@ const geistMono = Geist_Mono({
   adjustFontFallback: true,
 });
 
+const tajawal = Tajawal({
+  variable: "--font-arabic",
+  subsets: ["arabic"],
+  weight: ["400", "500", "700", "800"],
+  display: "swap",
+  adjustFontFallback: true,
+});
+
 const siteUrl = getSiteUrl();
-const defaultTitle = "Zempar — Shared E-Scooter Platform";
+const defaultTitle = "تجول — منصة مشاركة السكوتر الكهربائي";
 const defaultDescription =
-  "Premium shared micromobility for modern cities. Zempar powers e-scooter fleets across global markets with smart hardware, rider apps, and operator software.";
+  "منصة حركة حضرية ذكية في العراق. تجول توفر سكooters كهربائية مشتركة، تطبيق راكب، وبرمجيات تشغيل الأسطول.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -43,8 +51,8 @@ export const metadata: Metadata = {
     title: defaultTitle,
     description: defaultDescription,
     url: siteUrl,
-    siteName: "Zempar",
-    locale: "en_US",
+    siteName: "تجول",
+    locale: "ar_IQ",
     type: "website",
   },
   twitter: {
@@ -60,9 +68,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="overflow-x-hidden">
+    <html lang="ar" dir="rtl" className="overflow-x-hidden">
       <body
-        className={`${syne.variable} ${geistSans.variable} ${geistMono.variable} relative min-h-screen bg-page font-sans text-foreground antialiased`}
+        className={`${syne.variable} ${geistSans.variable} ${geistMono.variable} ${tajawal.variable} relative min-h-screen bg-page font-sans text-foreground antialiased`}
       >
         <StructuredData />
 

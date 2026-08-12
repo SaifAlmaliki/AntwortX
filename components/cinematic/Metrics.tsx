@@ -2,7 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion, useInView, useReducedMotion } from "framer-motion";
-import { METRICS } from "./content";
+
+import { useCinematicContent } from "@/lib/use-cinematic-content";
 
 function formatValue(v: number, target: number) {
   if (!Number.isInteger(target)) return v.toFixed(1);
@@ -54,6 +55,7 @@ function Counter({
 }
 
 export function Metrics() {
+  const { metrics } = useCinematicContent();
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
@@ -61,7 +63,7 @@ export function Metrics() {
     <section className="relative overflow-hidden bg-[#0A0A0C] py-24 sm:py-32">
       <div className="mx-auto max-w-6xl px-6" ref={ref}>
         <div className="grid grid-cols-1 gap-12 sm:grid-cols-3">
-          {METRICS.map((m, i) => (
+          {metrics.map((m, i) => (
             <motion.div
               key={m.label}
               initial={{ opacity: 0, y: 24 }}

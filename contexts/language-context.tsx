@@ -20,9 +20,9 @@ interface LanguageContextType {
 }
 
 const defaultContext: LanguageContextType = {
-  locale: enLocale,
-  language: 'en',
-  direction: 'ltr',
+  locale: arLocale,
+  language: 'ar',
+  direction: 'rtl',
   setLanguage: () => {},
   t: () => '',
 };
@@ -36,9 +36,9 @@ interface LanguageProviderProps {
 }
 
 export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) => {
-  const [language, setLanguageState] = useState<Language>('en');
-  const [locale, setLocale] = useState<LocaleData>(enLocale);
-  const [direction, setDirection] = useState<'ltr' | 'rtl'>('ltr');
+  const [language, setLanguageState] = useState<Language>('ar');
+  const [locale, setLocale] = useState<LocaleData>(arLocale);
+  const [direction, setDirection] = useState<'ltr' | 'rtl'>('rtl');
 
   useEffect(() => {
     const savedLanguage =

@@ -1,9 +1,12 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { MARKETS } from "./content";
+
+import { useCinematicContent } from "@/lib/use-cinematic-content";
 
 export function LogoStrip() {
+  const { markets } = useCinematicContent();
+
   return (
     <section
       id="markets"
@@ -17,10 +20,10 @@ export function LogoStrip() {
           transition={{ duration: 0.5 }}
           className="mb-8 text-center text-xs font-semibold uppercase tracking-[0.24em] text-white/40"
         >
-          Operating across global markets
+          {markets.title}
         </motion.p>
         <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-6 sm:gap-x-14">
-          {MARKETS.map((name, i) => (
+          {markets.cities.map((name, i) => (
             <motion.span
               key={name}
               initial={{ opacity: 0, y: 10 }}

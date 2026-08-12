@@ -129,7 +129,15 @@
 }
 
 html[lang="ar"] {
-  font-family: var(--font-geist-sans), "Noto Sans Arabic", sans-serif;
+  font-family: var(--font-arabic), "Tajawal", "Noto Sans Arabic", sans-serif;
+}
+
+html[lang="ar"] .font-display {
+  font-family: var(--font-arabic), "Tajawal", var(--font-geist-sans), sans-serif;
+}
+
+html[lang="ar"] body {
+  font-family: var(--font-arabic), "Tajawal", "Noto Sans Arabic", sans-serif;
 }
 
 @layer base {

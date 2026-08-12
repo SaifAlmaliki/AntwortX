@@ -35,8 +35,7 @@ export function Footer({ dark = false }: { dark?: boolean }) {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8">
           <div className="lg:col-span-6">
             <div className={cn("font-display mb-3 text-2xl font-bold tracking-tight", dark ? "text-white/90" : "text-foreground")}>
-              <span className={dark ? "text-white/90" : "text-foreground"}>Zem</span>
-              <span className="text-gradient-signal">par</span>
+              {t("home.title")}
             </div>
             <p className={cn("mb-5 max-w-sm text-sm leading-relaxed", dark ? "text-white/45" : "text-muted-foreground")}>
               {t("footer.description") ||

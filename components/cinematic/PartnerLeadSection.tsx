@@ -2,7 +2,10 @@
 
 import { useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
+
+import { useLanguage } from "@/contexts/language-context";
+import { useCinematicContent } from "@/lib/use-cinematic-content";
 import { cn } from "@/lib/utils";
 
 const inputClass =
@@ -10,6 +13,11 @@ const inputClass =
 
 export function PartnerLeadSection() {
   const reduceMotion = useReducedMotion();
+  const { direction } = useLanguage();
+  const { partner } = useCinematicContent();
+  const isRtl = direction === "rtl";
+  const Arrow = isRtl ? ArrowLeft : ArrowRight;
+
   const [formState, setFormState] = useState({
     name: "",
     email: "",
@@ -21,15 +29,14 @@ export function PartnerLeadSection() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const subject = "Zempar partnership inquiry";
     const body = [
-      `Name: ${formState.name}`,
-      `Email: ${formState.email}`,
-      `Company: ${formState.company}`,
-      `Target city: ${formState.city}`,
-      `Planned fleet size: ${formState.fleetSize}`,
+      `${partner.form.name}: ${formState.name}`,
+      `${partner.form.email}: ${formState.email}`,
+      `${partner.form.company}: ${formState.company}`,
+      `${partner.form.city}: ${formState.city}`,
+      `${partner.form.fleetSize}: ${formState.fleetSize}`,
     ].join("\n");
-    window.location.href = `mailto:contact@zempar.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.location.href = `mailto:contact@zempar.com?subject=${encodeURIComponent(partner.mailtoSubject)}&body=${encodeURIComponent(body)}`;
     setStatus("success");
   };
 
@@ -54,21 +61,14 @@ export function PartnerLeadSection() {
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-16">
           <div>
             <p className="mb-3 text-xs font-semibold uppercase tracking-[0.24em] text-[#00E676]/80">
-              Partner program
+              {partner.eyebrow}
             </p>
             <h2 className="font-display text-3xl font-bold tracking-tight text-white/90 sm:text-4xl">
-              Launch your fleet with Zempar
+              {partner.headline}
             </h2>
-            <p className="mt-4 text-base leading-relaxed text-white/50">
-              Tell us about your market and fleet ambitions. Our team responds within 48 hours with
-              a tailored launch plan — hardware, software, and ops support included.
-            </p>
+            <p className="mt-4 text-base leading-relaxed text-white/50">{partner.sub}</p>
             <ul className="mt-8 flex flex-col gap-3">
-              {[
-                "Premium e-scooter hardware",
-                "Rider app + operator dashboard",
-                "Fleet telematics & compliance tooling",
-              ].map((item) => (
+              {partner.benefits.map((item) => (
                 <li
                   key={item}
                   className="flex items-center gap-3 text-sm text-white/55 before:size-1.5 before:shrink-0 before:rounded-full before:bg-[#00E676]"
@@ -81,17 +81,17 @@ export function PartnerLeadSection() {
 
           {status === "success" ? (
             <div className="flex flex-col items-center justify-center rounded-2xl border border-[#00E676]/20 bg-[#00E676]/5 p-8 text-center">
-              <p className="font-display text-xl font-semibold text-white/90">Check your email client</p>
-              <p className="mt-2 text-sm text-white/50">
-                Complete sending the message and we&apos;ll be in touch shortly.
+              <p className="font-display text-xl font-semibold text-white/90">
+                {partner.form.successTitle}
               </p>
+              <p className="mt-2 text-sm text-white/50">{partner.form.successSub}</p>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="flex flex-col gap-4">
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div>
                   <label htmlFor="partner-name" className="mb-1.5 block text-xs font-medium text-white/45">
-                    Full name
+                    {partner.form.name}
                   </label>
                   <input
                     id="partner-name"
@@ -103,7 +103,7 @@ export function PartnerLeadSection() {
                 </div>
                 <div>
                   <label htmlFor="partner-email" className="mb-1.5 block text-xs font-medium text-white/45">
-                    Work email
+                    {partner.form.email}
                   </label>
                   <input
                     id="partner-email"
@@ -117,7 +117,7 @@ export function PartnerLeadSection() {
               </div>
               <div>
                 <label htmlFor="partner-company" className="mb-1.5 block text-xs font-medium text-white/45">
-                  Company
+                  {partner.form.company}
                 </label>
                 <input
                   id="partner-company"
@@ -130,11 +130,12 @@ export function PartnerLeadSection() {
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div>
                   <label htmlFor="partner-city" className="mb-1.5 block text-xs font-medium text-white/45">
-                    Target city
+                    {partner.form.city}
                   </label>
                   <input
                     id="partner-city"
                     required
+                    placeholder={partner.form.cityPlaceholder}
                     className={inputClass}
                     value={formState.city}
                     onChange={(e) => setFormState((s) => ({ ...s, city: e.target.value }))}
@@ -142,11 +143,11 @@ export function PartnerLeadSection() {
                 </div>
                 <div>
                   <label htmlFor="partner-fleet" className="mb-1.5 block text-xs font-medium text-white/45">
-                    Planned fleet size
+                    {partner.form.fleetSize}
                   </label>
                   <input
                     id="partner-fleet"
-                    placeholder="e.g. 500 scooters"
+                    placeholder={partner.form.fleetPlaceholder}
                     className={inputClass}
                     value={formState.fleetSize}
                     onChange={(e) => setFormState((s) => ({ ...s, fleetSize: e.target.value }))}
@@ -156,11 +157,12 @@ export function PartnerLeadSection() {
               <button
                 type="submit"
                 className={cn(
-                  "btn-mobility-primary mt-2 inline-flex min-h-12 w-full items-center justify-center gap-2 sm:w-auto sm:self-start"
+                  "btn-mobility-primary mt-2 inline-flex min-h-12 w-full items-center justify-center gap-2 sm:w-auto sm:self-start",
+                  isRtl && "flex-row-reverse"
                 )}
               >
-                Request partnership
-                <ArrowRight className="size-4" aria-hidden />
+                {partner.form.submit}
+                <Arrow className="size-4" aria-hidden />
               </button>
             </form>
           )}

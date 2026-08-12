@@ -1,4 +1,4 @@
-import enLocale from "@/locales/en.json";
+import arLocale from "@/locales/ar.json";
 import { getSiteUrl } from "@/lib/site-url";
 
 const FACEBOOK = "https://www.facebook.com/profile.php?id=61574206222119";
@@ -10,9 +10,9 @@ export function StructuredData() {
   const orgId = `${base}/#organization`;
   const websiteId = `${base}/#website`;
 
-  const faqQuestions = (enLocale.faq?.questions ?? []) as {
-    question: string;
-    answer: string;
+  const faqItems = (arLocale.cinematic?.faq?.items ?? []) as {
+    q: string;
+    a: string;
   }[];
 
   const graph = [
@@ -20,42 +20,42 @@ export function StructuredData() {
       "@context": "https://schema.org",
       "@type": "Organization",
       "@id": orgId,
-      name: "Zempar",
+      name: "تجول",
+      alternateName: "Zempar",
       url: base,
       email: "contact@zempar.com",
-      description: enLocale.hero.description,
+      description: arLocale.home.description,
       sameAs: [FACEBOOK, INSTAGRAM, LINKEDIN_COMPANY],
     },
     {
       "@context": "https://schema.org",
       "@type": "WebSite",
       "@id": websiteId,
-      name: "Zempar",
+      name: "تجول",
       url: base,
-      description: enLocale.home.description,
+      description: arLocale.home.description,
       publisher: { "@id": orgId },
-      inLanguage: "en",
+      inLanguage: "ar-IQ",
     },
     {
       "@context": "https://schema.org",
       "@type": "ProfessionalService",
-      name: "Zempar",
+      name: "تجول",
       url: base,
-      description: enLocale.hero.description,
+      description: arLocale.home.description,
       provider: { "@id": orgId },
-      areaServed: "Worldwide",
-      serviceType:
-        "Generative Engine Optimization (GEO) consulting, SEO alignment, and LLM visibility strategy",
+      areaServed: "IQ",
+      serviceType: "Shared e-scooter micromobility platform and fleet operations",
     },
     {
       "@context": "https://schema.org",
       "@type": "FAQPage",
-      mainEntity: faqQuestions.map((item) => ({
+      mainEntity: faqItems.map((item) => ({
         "@type": "Question",
-        name: item.question,
+        name: item.q,
         acceptedAnswer: {
           "@type": "Answer",
-          text: item.answer,
+          text: item.a,
         },
       })),
     },

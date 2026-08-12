@@ -3,10 +3,12 @@
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Plus } from "lucide-react";
-import { FAQ } from "./content";
+
+import { useCinematicContent } from "@/lib/use-cinematic-content";
 import { cn } from "@/lib/utils";
 
 export function Faq() {
+  const { faq } = useCinematicContent();
   const [open, setOpen] = useState<number | null>(0);
 
   return (
@@ -19,14 +21,12 @@ export function Faq() {
           transition={{ duration: 0.6 }}
           className="mb-4 text-center font-display text-4xl font-bold tracking-tight text-white/90 sm:text-5xl"
         >
-          Questions, answered
+          {faq.title}
         </motion.h2>
-        <p className="mb-12 text-center text-white/45">
-          Everything you need to know about launching with Zempar.
-        </p>
+        <p className="mb-12 text-center text-white/45">{faq.subtitle}</p>
 
         <div className="divide-y divide-white/[0.06] rounded-2xl border border-white/[0.08] bg-[#0A0A0C]/80 backdrop-blur-sm">
-          {FAQ.map((item, i) => {
+          {faq.items.map((item, i) => {
             const isOpen = open === i;
             return (
               <div key={item.q} className="px-6">
@@ -34,7 +34,7 @@ export function Faq() {
                   type="button"
                   onClick={() => setOpen(isOpen ? null : i)}
                   aria-expanded={isOpen}
-                  className="flex w-full items-center justify-between gap-4 py-5 text-left"
+                  className="flex w-full items-center justify-between gap-4 py-5 text-start"
                 >
                   <span className="font-display text-base font-semibold text-white/85 sm:text-lg">
                     {item.q}

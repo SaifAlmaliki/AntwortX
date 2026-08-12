@@ -3,19 +3,25 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
+
+import { LanguageSelector } from "@/components/ui/language-selector";
+import { useLanguage } from "@/contexts/language-context";
+import { useCinematicContent } from "@/lib/use-cinematic-content";
 import { cn } from "@/lib/utils";
 
-const NAV_LINKS = [
-  { label: "Overview", href: "/#overview" },
-  { label: "Technology", href: "/#technology" },
-  { label: "Fleet", href: "/#fleet" },
-  { label: "Markets", href: "/#markets" },
-  { label: "Partner", href: "/#partner" },
-] as const;
+const NAV_HREFS = [
+  { key: "overview" as const, href: "/#overview" },
+  { key: "technology" as const, href: "/#technology" },
+  { key: "fleet" as const, href: "/#fleet" },
+  { key: "markets" as const, href: "/#markets" },
+  { key: "partner" as const, href: "/#partner" },
+];
 
 export function ProductNav() {
   const [scrolled, setScrolled] = useState(false);
   const reduceMotion = useReducedMotion();
+  const { direction } = useLanguage();
+  const { brand, nav } = useCinematicContent();
 
   useEffect(() => {
     let ticking = false;
@@ -44,39 +50,56 @@ export function ProductNav() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
     >
-      <div className="mx-auto flex h-12 max-w-7xl items-center justify-between px-4 sm:h-14 sm:px-6">
+      <div
+        className={cn(
+          "mx-auto flex h-12 max-w-7xl items-center justify-between px-4 sm:h-14 sm:px-6",
+          direction === "rtl" ? "flex-row-reverse" : ""
+        )}
+      >
         <Link
           href="/"
           className="text-sm font-semibold tracking-tight text-white/90 transition-opacity hover:opacity-100 sm:text-[0.9375rem]"
         >
-          Zempar
+          {brand}
         </Link>
 
-        <nav className="hidden items-center gap-1 md:flex" aria-label="Product">
-          {NAV_LINKS.map((link) => (
+        <nav
+          className="hidden items-center gap-1 md:flex"
+          aria-label={nav.overview}
+        >
+          {NAV_HREFS.map((link) => (
             <Link
               key={link.href}
               href={link.href}
               className="rounded-md px-3 py-1.5 text-[0.8125rem] font-medium text-white/55 transition-colors hover:text-white/90"
             >
-              {link.label}
+              {nav[link.key]}
             </Link>
           ))}
         </nav>
 
-        <Link
-          href="/#partner"
-          className="btn-mobility-primary hidden min-h-9 items-center justify-center px-4 text-xs font-semibold sm:inline-flex sm:text-sm"
+        <div
+          className={cn(
+            "flex items-center gap-2",
+            direction === "rtl" ? "flex-row-reverse" : ""
+          )}
         >
-          Launch your fleet
-        </Link>
-
-        <Link
-          href="/#partner"
-          className="btn-mobility-primary inline-flex min-h-9 items-center justify-center px-3 text-xs font-semibold md:hidden"
-        >
-          Partner
-        </Link>
+          <div className="hidden sm:block [&_button]:text-white/70 [&_button:hover]:text-white [&_span]:text-white/70">
+            <LanguageSelector />
+          </div>
+          <Link
+            href="/#partner"
+            className="btn-mobility-primary hidden min-h-9 items-center justify-center px-4 text-xs font-semibold sm:inline-flex sm:text-sm"
+          >
+            {nav.cta}
+          </Link>
+          <Link
+            href="/#partner"
+            className="btn-mobility-primary inline-flex min-h-9 items-center justify-center px-3 text-xs font-semibold md:hidden"
+          >
+            {nav.ctaShort}
+          </Link>
+        </div>
       </div>
     </motion.header>
   );

@@ -3,10 +3,12 @@
 import { useRef } from "react";
 import Image from "next/image";
 import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
-import { APP_SHOWCASE } from "./content";
+
+import { useCinematicContent } from "@/lib/use-cinematic-content";
 
 export function ProductShowcase() {
   const reduceMotion = useReducedMotion();
+  const { appShowcase } = useCinematicContent();
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -39,12 +41,12 @@ export function ProductShowcase() {
           className="mx-auto mb-14 max-w-2xl text-center"
         >
           <p className="mb-3 text-xs font-semibold uppercase tracking-[0.24em] text-[#00E676]/80">
-            {APP_SHOWCASE.eyebrow}
+            {appShowcase.eyebrow}
           </p>
           <h2 className="font-display text-4xl font-bold tracking-tight text-white/90 sm:text-5xl">
-            {APP_SHOWCASE.headline}
+            {appShowcase.headline}
           </h2>
-          <p className="mt-4 text-base text-white/55 sm:text-lg">{APP_SHOWCASE.sub}</p>
+          <p className="mt-4 text-base text-white/55 sm:text-lg">{appShowcase.sub}</p>
         </motion.div>
 
         <motion.div
@@ -59,7 +61,7 @@ export function ProductShowcase() {
             <div className="overflow-hidden rounded-[2rem]">
               <Image
                 src="/scooter/app-ui.png"
-                alt="Zempar rider app showing nearby scooters on a map"
+                alt={appShowcase.headline}
                 width={800}
                 height={1600}
                 className="h-auto w-full"
@@ -69,7 +71,7 @@ export function ProductShowcase() {
         </motion.div>
 
         <div className="mx-auto mt-14 grid max-w-2xl grid-cols-3 gap-6">
-          {APP_SHOWCASE.stats.map((stat, i) => (
+          {appShowcase.stats.map((stat, i) => (
             <motion.div
               key={stat.label}
               initial={{ opacity: 0, y: 16 }}

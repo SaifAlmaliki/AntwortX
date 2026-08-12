@@ -25,8 +25,8 @@ export function LanguageSelector() {
   }, [isOpen]);
 
   const languages = [
-    { code: "en", name: "English", label: "EN" },
     { code: "ar", name: "العربية", label: "AR" },
+    { code: "en", name: "English", label: "EN" },
   ] as const;
 
   const currentLanguage =
