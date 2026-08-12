@@ -15,7 +15,7 @@ export default function AboutPage() {
   const expertiseAreas = language === 'ar' ? [
     {
       title: "الأجهزة والهندسة",
-      description: "سكooters كهربائية فاخرة مع بطاريات قابلة للتبديل، تعليق أمامي، وإلكترونيات مقاومة للماء — مصممة للشوارع العراقية.",
+      description: "سكوترات كهربائية فاخرة مع بطاريات قابلة للتبديل، تعليق أمامي، وإلكترونيات مقاومة للماء — مصممة للشوارع العراقية.",
       icon: <Lightbulb className="h-10 w-10 text-primary" />
     },
     {
@@ -25,7 +25,7 @@ export default function AboutPage() {
     },
     {
       title: "تطبيق الراكب",
-      description: "تجربة راكب سلسة — اكتشاف، حجز، وفتح السكooter خلال ثوانٍ بتسعير شفاف.",
+      description: "تجربة راكب سلسة — اكتشاف، حجز، وفتح السكوتر خلال ثوانٍ بتسعير شفاف.",
       icon: <Users className="h-10 w-10 text-primary" />
     },
     {

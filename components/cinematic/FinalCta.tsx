@@ -20,7 +20,7 @@ export function FinalCta() {
   const contentY = useTransform(scrollYProgress, [0.28, 0.6], [40, 0]);
 
   return (
-    <section ref={ref} className="relative h-[220vh] bg-[#050505]">
+    <section ref={ref} className="relative h-[180vh] bg-[#050505] sm:h-[200vh] lg:h-[220vh]">
       <div className="sticky top-0 flex h-[100dvh] w-full items-center justify-center overflow-hidden">
         <Image
           src="/scooter/scooter-street.jpg"
@@ -46,7 +46,7 @@ export function FinalCta() {
 
         <motion.div
           style={reduceMotion ? undefined : { opacity: contentOpacity, y: contentY }}
-          className="relative z-10 mx-auto max-w-3xl px-6 text-center"
+          className="relative z-10 mx-auto max-w-3xl px-4 text-center sm:px-6"
         >
           <h2 className="font-display text-[clamp(2.25rem,5vw+1rem,4.5rem)] font-extrabold leading-[1.02] tracking-tight text-white/90">
             {finalCta.headline}

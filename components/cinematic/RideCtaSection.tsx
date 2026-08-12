@@ -14,7 +14,7 @@ export function RideCtaSection() {
   const { rideCta } = useCinematicContent();
 
   return (
-    <section id="ride" className="relative py-24 sm:py-32">
+    <section id="ride" className="relative py-16 sm:py-24 lg:py-32">
       <div
         className="pointer-events-none absolute inset-0 rounded-3xl"
         style={{
@@ -29,26 +29,29 @@ export function RideCtaSection() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-60px" }}
         transition={{ duration: 0.6 }}
-        className="relative overflow-hidden rounded-3xl border border-[#00E676]/15 bg-[#0A0A0C]/90 p-8 backdrop-blur-sm sm:p-12"
+        className="relative overflow-hidden rounded-2xl border border-[#00E676]/15 bg-[#0A0A0C]/90 p-6 backdrop-blur-sm sm:rounded-3xl sm:p-8 lg:p-12"
       >
-        <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-16">
-          <div>
+        <div className="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-16">
+          <div className="text-center lg:text-start">
             <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-[#00E676]/25 bg-[#00E676]/10 px-3 py-1 text-xs font-semibold text-[#00E676]">
               <Leaf className="size-3.5" aria-hidden />
               {rideCta.badge}
             </div>
-            <h2 className="font-display text-3xl font-bold tracking-tight text-white/90 sm:text-4xl">
+            <h2 className="font-display text-[clamp(1.75rem,4vw+0.5rem,2.25rem)] font-bold tracking-tight text-white/90 sm:text-4xl">
               {rideCta.headline}
             </h2>
             <p className="mt-4 text-base leading-relaxed text-white/55">{rideCta.sub}</p>
 
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Link href={rideCta.primaryHref} className="btn-mobility-primary min-h-12 px-8 text-center">
+            <div className="mt-8 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:justify-center lg:justify-start">
+              <Link
+                href={rideCta.primaryHref}
+                className="btn-mobility-primary min-h-12 w-full px-8 text-center sm:w-auto"
+              >
                 {rideCta.primaryLabel}
               </Link>
               <Link
                 href={rideCta.secondaryHref}
-                className="inline-flex min-h-12 items-center justify-center rounded-full border border-white/20 bg-white/5 px-8 text-sm font-semibold text-white/90 backdrop-blur-sm transition-colors hover:bg-white/10"
+                className="inline-flex min-h-12 w-full items-center justify-center rounded-full border border-white/20 bg-white/5 px-8 text-sm font-semibold text-white/90 backdrop-blur-sm transition-colors hover:bg-white/10 sm:w-auto"
               >
                 {rideCta.secondaryLabel}
               </Link>

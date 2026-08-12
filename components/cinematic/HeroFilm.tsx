@@ -71,12 +71,10 @@ function HeroIntro({
   beat,
   progress,
   reduceMotion,
-  isRtl,
 }: {
   beat: ReturnType<typeof useCinematicContent>["scrollBeats"][number];
   progress: MotionValue<number>;
   reduceMotion: boolean;
-  isRtl: boolean;
 }) {
   const opacity = useTransform(progress, [0, 0.1, 0.14], [1, 1, 0]);
   const y = useTransform(progress, [0, 0.14], [0, -28]);
@@ -84,31 +82,28 @@ function HeroIntro({
   return (
     <motion.div
       style={reduceMotion ? undefined : { opacity, y }}
-      className={cn(
-        "pointer-events-none absolute inset-x-0 top-0 z-40 px-6 pt-[4.5rem] sm:pt-24 lg:pt-28",
-        isRtl ? "text-end" : "text-start"
-      )}
+      className="pointer-events-none absolute inset-x-0 top-0 z-40 px-4 pt-[5rem] text-center sm:px-6 sm:pt-24 lg:px-8 lg:pt-28"
     >
       <div
-        className="pointer-events-none absolute inset-x-0 top-0 h-[min(52vh,520px)]"
+        className="pointer-events-none absolute inset-x-0 top-0 h-[min(58vh,560px)] sm:h-[min(52vh,520px)]"
         style={{
           background:
             "linear-gradient(to bottom, rgba(5,5,5,0.98) 0%, rgba(5,5,5,0.92) 45%, rgba(5,5,5,0.55) 75%, transparent 100%)",
         }}
         aria-hidden
       />
-      <div className="relative mx-auto max-w-4xl lg:max-w-5xl">
+      <div className="relative mx-auto max-w-[min(100%,36rem)] sm:max-w-2xl lg:max-w-4xl">
         <p className="mb-3 text-[0.6875rem] font-semibold uppercase tracking-[0.28em] text-[#00E676]">
           {beat.eyebrow}
         </p>
         <h1
-          className="font-display text-[clamp(2.25rem,6vw,4.75rem)] font-extrabold leading-[1.02] tracking-tight text-white"
+          className="font-display text-[clamp(1.875rem,5.5vw+0.5rem,4.75rem)] font-extrabold leading-[1.06] tracking-tight text-white sm:leading-[1.02]"
           style={{ textShadow: "0 2px 40px rgba(0,0,0,0.85), 0 0 80px rgba(0,230,118,0.12)" }}
         >
           {beat.headline}
         </h1>
         <p
-          className="mt-5 max-w-xl text-base leading-relaxed text-white/75 sm:text-lg"
+          className="mx-auto mt-4 max-w-[min(100%,28rem)] text-base leading-relaxed text-white/75 sm:mt-5 sm:max-w-xl sm:text-lg"
           style={{ textShadow: "0 1px 24px rgba(0,0,0,0.8)" }}
         >
           {beat.sub}
@@ -129,8 +124,6 @@ function StoryBeat({
   reduceMotion: boolean;
   isRtl: boolean;
 }) {
-  if (beat.id === "hero") return null;
-
   const [start, end] = beat.range;
   const fadeInStart = start + (end - start) * 0.05;
   const fadeInEnd = start + (end - start) * 0.22;
@@ -158,28 +151,25 @@ function StoryBeat({
           : "center"
       : beat.align;
 
-  const alignClass =
-    visualAlign === "left"
-      ? "items-start text-start max-w-xl me-auto ps-6 sm:ps-12 lg:ps-24"
-      : visualAlign === "right"
-        ? "items-end text-end max-w-xl ms-auto pe-6 sm:pe-12 lg:pe-24"
-        : "items-center text-center max-w-4xl mx-auto px-6";
+  const alignClass = cn(
+    "mx-auto w-full max-w-[min(100%,28rem)] items-center px-4 text-center sm:max-w-xl sm:px-6",
+    visualAlign === "left" &&
+      "lg:me-auto lg:ms-0 lg:max-w-xl lg:items-start lg:px-0 lg:text-start lg:ps-12 xl:ps-24",
+    visualAlign === "right" &&
+      "lg:ms-auto lg:me-0 lg:max-w-xl lg:items-end lg:px-0 lg:text-end lg:pe-12 xl:pe-24",
+    visualAlign === "center" && "lg:max-w-4xl lg:items-center lg:text-center"
+  );
 
   return (
     <motion.div
       style={reduceMotion ? { opacity: beat.id === "cta" ? 1 : 0 } : { opacity, y }}
       className={cn(
         "pointer-events-none absolute inset-x-0 z-30 flex flex-col",
-        isLast ? "top-[14%] sm:top-[16%]" : "top-1/2 -translate-y-1/2",
+        isLast ? "top-[12%] sm:top-[14%] lg:top-[16%]" : "top-1/2 -translate-y-1/2",
         alignClass
       )}
     >
-      <div
-        className={cn(
-          "rounded-2xl border border-white/[0.06] bg-[rgba(5,5,5,0.72)] p-6 backdrop-blur-md sm:p-8",
-          visualAlign === "center" && "mx-auto"
-        )}
-      >
+      <div className="w-full rounded-2xl border border-white/[0.06] bg-[rgba(5,5,5,0.72)] p-5 backdrop-blur-md sm:p-8">
         <p className="mb-3 text-[0.6875rem] font-semibold uppercase tracking-[0.28em] text-[#00E676]">
           {beat.eyebrow}
         </p>
@@ -189,14 +179,16 @@ function StoryBeat({
         >
           {beat.headline}
         </h2>
-        <p className="mt-4 max-w-lg text-base leading-relaxed text-white/70 sm:text-lg">
+        <p className="mx-auto mt-4 max-w-lg text-base leading-relaxed text-white/70 sm:text-lg lg:mx-0">
           {beat.sub}
         </p>
         {beat.bullets ? (
           <ul
             className={cn(
               "mt-5 flex flex-col gap-2",
-              visualAlign === "right" ? "items-end" : "items-start"
+              visualAlign === "right"
+                ? "items-center lg:items-end"
+                : "items-center lg:items-start"
             )}
           >
             {beat.bullets.map((b) => (
@@ -210,14 +202,24 @@ function StoryBeat({
           </ul>
         ) : null}
         {beat.primaryCta ? (
-          <div className="pointer-events-auto mt-8 flex flex-col items-center gap-3 sm:flex-row">
-            <Link href={beat.primaryCta.href} className="btn-mobility-primary min-h-11 px-7">
+          <div
+            className={cn(
+              "pointer-events-auto mt-8 flex w-full flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:justify-center",
+              visualAlign === "left" && "lg:justify-start",
+              visualAlign === "right" && "lg:justify-end",
+              visualAlign === "center" && "lg:justify-center"
+            )}
+          >
+            <Link
+              href={beat.primaryCta.href}
+              className="btn-mobility-primary min-h-11 w-full px-7 text-center sm:w-auto"
+            >
               {beat.primaryCta.label}
             </Link>
             {beat.secondaryCta ? (
               <Link
                 href={beat.secondaryCta.href}
-                className="inline-flex min-h-11 items-center justify-center rounded-full border border-white/20 bg-white/5 px-7 text-sm font-semibold text-white/90 backdrop-blur-sm transition-colors hover:bg-white/10"
+                className="inline-flex min-h-11 w-full items-center justify-center rounded-full border border-white/20 bg-white/5 px-7 text-sm font-semibold text-white/90 backdrop-blur-sm transition-colors hover:bg-white/10 sm:w-auto"
               >
                 {beat.secondaryCta.label}
               </Link>
@@ -253,7 +255,7 @@ export function HeroFilm() {
     <section
       id="overview"
       ref={sectionRef}
-      className="relative h-[400vh]"
+      className="relative h-[320vh] sm:h-[360vh] lg:h-[400vh]"
       aria-label={heroBeat?.headline}
     >
       <div className="sticky top-0 h-[100dvh] w-full overflow-hidden bg-[#050505]">
@@ -272,13 +274,12 @@ export function HeroFilm() {
             beat={heroBeat}
             progress={scrollYProgress}
             reduceMotion={!!reduceMotion}
-            isRtl={isRtl}
           />
         ) : null}
 
         <div
-          className="absolute inset-x-0 bottom-0 flex items-end justify-center"
-          style={{ height: "72%", perspective: "1200px" }}
+          className="absolute inset-x-0 bottom-0 flex items-end justify-center pb-2 sm:pb-0"
+          style={{ height: "min(68%, 520px)", perspective: "1200px" }}
         >
           <motion.div
             style={
@@ -286,7 +287,7 @@ export function HeroFilm() {
                 ? undefined
                 : { scale: scooterScale, rotateY: scooterRotateY, y: scooterY }
             }
-            className="relative w-[min(88vw,640px)] will-change-transform sm:w-[min(78vw,720px)]"
+            className="relative w-[min(92vw,420px)] will-change-transform sm:w-[min(82vw,560px)] lg:w-[min(78vw,720px)]"
           >
             <motion.div
               className="pointer-events-none absolute left-1/2 top-[58%] z-0 h-32 w-[70%] -translate-x-1/2 rounded-[100%] blur-3xl"
@@ -329,7 +330,7 @@ export function HeroFilm() {
           aria-hidden
         />
 
-        {scrollBeats.map((beat) => (
+        {scrollBeats.filter((beat) => beat.id !== "hero").map((beat) => (
           <StoryBeat
             key={beat.id}
             beat={beat}
@@ -341,7 +342,7 @@ export function HeroFilm() {
 
         <motion.div
           style={reduceMotion ? undefined : { opacity: cueOpacity }}
-          className="absolute bottom-8 left-1/2 z-30 -translate-x-1/2"
+          className="absolute bottom-5 left-1/2 z-30 -translate-x-1/2 sm:bottom-8"
           aria-hidden
         >
           <div className="flex flex-col items-center gap-2 text-white/50">

@@ -21,7 +21,7 @@ export function ProductShowcase() {
     <section
       id="technology"
       ref={ref}
-      className="relative overflow-hidden bg-[#0A0A0C] py-24 sm:py-32"
+      className="relative overflow-hidden bg-[#0A0A0C] py-16 sm:py-24 lg:py-32"
     >
       <div
         className="pointer-events-none absolute inset-0"
@@ -32,18 +32,18 @@ export function ProductShowcase() {
         aria-hidden
       />
 
-      <div className="relative mx-auto max-w-6xl px-6">
+      <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.6 }}
-          className="mx-auto mb-14 max-w-2xl text-center"
+          className="mx-auto mb-10 max-w-2xl text-center sm:mb-14"
         >
           <p className="mb-3 text-xs font-semibold uppercase tracking-[0.24em] text-[#00E676]/80">
             {appShowcase.eyebrow}
           </p>
-          <h2 className="font-display text-4xl font-bold tracking-tight text-white/90 sm:text-5xl">
+          <h2 className="font-display text-[clamp(1.75rem,4vw+0.5rem,3rem)] font-bold tracking-tight text-white/90">
             {appShowcase.headline}
           </h2>
           <p className="mt-4 text-base text-white/55 sm:text-lg">{appShowcase.sub}</p>
@@ -70,7 +70,7 @@ export function ProductShowcase() {
           </div>
         </motion.div>
 
-        <div className="mx-auto mt-14 grid max-w-2xl grid-cols-3 gap-6">
+        <div className="mx-auto mt-10 grid max-w-2xl grid-cols-1 gap-8 sm:mt-14 sm:grid-cols-3 sm:gap-6">
           {appShowcase.stats.map((stat, i) => (
             <motion.div
               key={stat.label}

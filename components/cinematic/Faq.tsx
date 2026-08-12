@@ -12,24 +12,24 @@ export function Faq() {
   const [open, setOpen] = useState<number | null>(0);
 
   return (
-    <section className="relative bg-[#050505] py-24 sm:py-32">
-      <div className="mx-auto max-w-3xl px-6">
+    <section className="relative bg-[#050505] py-16 sm:py-24 lg:py-32">
+      <div className="mx-auto max-w-3xl px-4 sm:px-6">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.6 }}
-          className="mb-4 text-center font-display text-4xl font-bold tracking-tight text-white/90 sm:text-5xl"
+          className="mb-4 text-center font-display text-[clamp(1.75rem,4vw+0.5rem,3rem)] font-bold tracking-tight text-white/90"
         >
           {faq.title}
         </motion.h2>
-        <p className="mb-12 text-center text-white/45">{faq.subtitle}</p>
+        <p className="mb-10 text-center text-sm text-white/45 sm:mb-12 sm:text-base">{faq.subtitle}</p>
 
         <div className="divide-y divide-white/[0.06] rounded-2xl border border-white/[0.08] bg-[#0A0A0C]/80 backdrop-blur-sm">
           {faq.items.map((item, i) => {
             const isOpen = open === i;
             return (
-              <div key={item.q} className="px-6">
+              <div key={item.q} className="px-4 sm:px-6">
                 <button
                   type="button"
                   onClick={() => setOpen(isOpen ? null : i)}

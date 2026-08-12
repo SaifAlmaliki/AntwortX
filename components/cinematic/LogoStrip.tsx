@@ -10,9 +10,9 @@ export function LogoStrip() {
   return (
     <section
       id="markets"
-      className="relative border-y border-white/[0.06] bg-[#050505] py-12"
+      className="relative border-y border-white/[0.06] bg-[#050505] py-10 sm:py-12"
     >
-      <div className="mx-auto max-w-6xl px-6">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <motion.p
           initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -22,7 +22,7 @@ export function LogoStrip() {
         >
           {markets.title}
         </motion.p>
-        <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-6 sm:gap-x-14">
+        <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-4 sm:gap-x-10 sm:gap-y-6 lg:gap-x-14">
           {markets.cities.map((name, i) => (
             <motion.span
               key={name}
@@ -30,7 +30,7 @@ export function LogoStrip() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-40px" }}
               transition={{ duration: 0.45, delay: i * 0.06 }}
-              className="font-display text-xl font-semibold tracking-tight text-white/50 transition hover:text-[#00E676]/90 sm:text-2xl"
+              className="font-display text-lg font-semibold tracking-tight text-white/50 transition hover:text-[#00E676]/90 sm:text-xl lg:text-2xl"
             >
               {name}
             </motion.span>

@@ -44,7 +44,7 @@ function Counter({
   }, [play, value, reduceMotion]);
 
   return (
-    <span className="font-display text-5xl font-extrabold tracking-tight sm:text-6xl">
+    <span className="font-display text-[clamp(2.5rem,8vw,3.75rem)] font-extrabold tracking-tight">
       <span className="text-gradient-mobility">
         {prefix}
         {formatValue(display, value)}
@@ -60,9 +60,9 @@ export function Metrics() {
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section id="impact" className="relative overflow-hidden bg-[#0A0A0C] py-24 sm:py-32">
-      <div className="mx-auto max-w-6xl px-6" ref={ref}>
-        <div className="grid grid-cols-1 gap-12 sm:grid-cols-3">
+    <section id="impact" className="relative overflow-hidden bg-[#0A0A0C] py-16 sm:py-24 lg:py-32">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6" ref={ref}>
+        <div className="grid grid-cols-1 gap-10 sm:grid-cols-3 sm:gap-12">
           {metrics.map((m, i) => (
             <motion.div
               key={m.label}
