@@ -205,7 +205,7 @@ export function FloatingHeader() {
                 direction === "rtl" ? "mr-1 ml-0" : ""
               )}
             >
-              {t("nav.ctaAudit")}
+              {t("nav.cta")}
             </Link>
 
             <LanguageSelector />
@@ -273,7 +273,7 @@ export function FloatingHeader() {
                   )}
                   whileTap={reduceMotion ? undefined : { scale: 0.99 }}
                 >
-                  {t("nav.ctaAudit")}
+                  {t("nav.cta")}
                 </motion.div>
               </Link>
               {navigation.map((item) => (

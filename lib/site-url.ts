@@ -1,4 +1,4 @@
-const DEFAULT_SITE_URL = "https://zempar.com";
+import { DEFAULT_SITE_URL } from "@/lib/brand";
 
 export function getSiteUrl(): string {
   const url = process.env.NEXT_PUBLIC_SITE_URL?.trim();

@@ -2,11 +2,15 @@
 
 import { useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
-import { Mail, Phone, MapPin } from "lucide-react";
-import { useLanguage } from "@/contexts/language-context";
-import { cn } from "@/lib/utils";
+import { Mail, MapPin } from "lucide-react";
 
-const inputClass = "zempar-input w-full rounded-xl";
+import { Footer } from "@/components/Footer";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { useLanguage } from "@/contexts/language-context";
+import { BRAND_EMAIL } from "@/lib/brand";
+import { cn } from "@/lib/utils";
 
 export default function ContactPage() {
   const { t, direction } = useLanguage();
@@ -19,9 +23,13 @@ export default function ContactPage() {
     message: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
+  const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">(
+    "idle"
+  );
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
     setFormState((prev) => ({ ...prev, [name]: value }));
   };
@@ -31,7 +39,7 @@ export default function ContactPage() {
     setIsSubmitting(true);
 
     try {
-      const to = t("contact.emailAddress");
+      const to = t("contact.emailAddress") || BRAND_EMAIL;
       const subject = formState.subject;
       const body = `Name: ${formState.name}\nEmail: ${formState.email}\n\n${formState.message}`;
       window.location.href = `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
@@ -63,7 +71,9 @@ export default function ContactPage() {
           <h1 className="font-display mb-4 text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
             {t("contact.title")}
           </h1>
-          <p className="mx-auto max-w-2xl text-lg text-muted-foreground">{t("contact.subtitle")}</p>
+          <p className="mx-auto max-w-2xl text-lg text-muted-foreground">
+            {t("contact.subtitle")}
+          </p>
         </motion.div>
 
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
@@ -74,108 +84,67 @@ export default function ContactPage() {
             className="lg:col-span-2"
           >
             <div className="card-surface section-glow rounded-2xl border-primary/15 p-6 md:p-8">
-              <form onSubmit={handleSubmit}>
-                <div className="mb-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
-                  <div>
-                    <label htmlFor="name" className="mb-1 block text-sm font-medium text-muted-foreground">
-                      {t("contact.name")}
-                    </label>
-                    <input
-                      type="text"
+              <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                  <div className="flex flex-col gap-1.5">
+                    <Label htmlFor="name">{t("contact.name")}</Label>
+                    <Input
                       id="name"
                       name="name"
                       value={formState.name}
                       onChange={handleChange}
                       required
-                      className={inputClass}
+                      className="min-h-11 rounded-xl"
                     />
                   </div>
-                  <div>
-                    <label htmlFor="email" className="mb-1 block text-sm font-medium text-muted-foreground">
-                      {t("contact.email")}
-                    </label>
-                    <input
+                  <div className="flex flex-col gap-1.5">
+                    <Label htmlFor="email">{t("contact.email")}</Label>
+                    <Input
                       type="email"
                       id="email"
                       name="email"
                       value={formState.email}
                       onChange={handleChange}
                       required
-                      className={inputClass}
+                      className="min-h-11 rounded-xl"
                     />
                   </div>
                 </div>
-                <div className="mb-4">
-                  <label htmlFor="subject" className="mb-1 block text-sm font-medium text-muted-foreground">
-                    {t("contact.subject")}
-                  </label>
-                  <input
-                    type="text"
+                <div className="flex flex-col gap-1.5">
+                  <Label htmlFor="subject">{t("contact.subject")}</Label>
+                  <Input
                     id="subject"
                     name="subject"
                     value={formState.subject}
                     onChange={handleChange}
                     required
-                    className={inputClass}
+                    className="min-h-11 rounded-xl"
                   />
                 </div>
-                <div className="mb-6">
-                  <label htmlFor="message" className="mb-1 block text-sm font-medium text-muted-foreground">
-                    {t("contact.message")}
-                  </label>
-                  <textarea
+                <div className="flex flex-col gap-1.5">
+                  <Label htmlFor="message">{t("contact.message")}</Label>
+                  <Textarea
                     id="message"
                     name="message"
                     value={formState.message}
                     onChange={handleChange}
                     required
                     rows={6}
-                    className={cn(inputClass, "resize-none")}
+                    className="resize-none rounded-xl"
                   />
                 </div>
-                <div>
-                  <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className={cn(
-                      "btn-signal-primary w-full justify-center py-3 disabled:cursor-not-allowed disabled:opacity-60"
-                    )}
-                  >
-                    {isSubmitting ? (
-                      <span className="flex items-center justify-center gap-2">
-                        <svg
-                          className="h-4 w-4 animate-spin text-primary-foreground"
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          aria-hidden
-                        >
-                          <circle
-                            className="opacity-25"
-                            cx="12"
-                            cy="12"
-                            r="10"
-                            stroke="currentColor"
-                            strokeWidth="4"
-                          />
-                          <path
-                            className="opacity-75"
-                            fill="currentColor"
-                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                          />
-                        </svg>
-                        {t("contact.submit")}...
-                      </span>
-                    ) : (
-                      t("contact.submit")
-                    )}
-                  </button>
-                </div>
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="btn-signal-primary w-full justify-center py-3 disabled:cursor-not-allowed disabled:opacity-60"
+                >
+                  {isSubmitting ? `${t("contact.submit")}...` : t("contact.submit")}
+                </button>
                 {submitStatus === "success" && (
                   <motion.div
                     initial={reduceMotion ? false : { opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="mt-4 rounded-xl border border-emerald-500/30 bg-emerald-950/40 p-3 text-sm text-emerald-300"
+                    className="rounded-xl border border-emerald-500/30 bg-emerald-950/40 p-3 text-sm text-emerald-300"
                   >
                     {t("contact.success")}
                   </motion.div>
@@ -184,7 +153,7 @@ export default function ContactPage() {
                   <motion.div
                     initial={reduceMotion ? false : { opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="mt-4 rounded-xl border border-red-500/30 bg-red-950/40 p-3 text-sm text-red-300"
+                    className="rounded-xl border border-red-500/30 bg-red-950/40 p-3 text-sm text-red-300"
                   >
                     {t("contact.error")}
                   </motion.div>
@@ -200,36 +169,34 @@ export default function ContactPage() {
             className="lg:col-span-1"
           >
             <div className="card-surface flex h-full flex-col rounded-2xl border-primary/15 p-6 md:p-8">
-              <h3 className="font-display mb-6 text-center text-xl font-bold text-foreground">{t("contact.title")}</h3>
+              <h3 className="font-display mb-6 text-center text-xl font-bold text-foreground">
+                {t("contact.title")}
+              </h3>
 
-              <div className="flex flex-1 flex-col justify-center space-y-8">
+              <div className="flex flex-1 flex-col justify-center gap-8">
                 <div className="flex flex-col items-center text-center">
                   <div className="mb-2 rounded-full bg-primary/15 p-2">
-                    <MapPin className="h-6 w-6 text-primary" aria-hidden />
+                    <MapPin className="size-6 text-primary" aria-hidden />
                   </div>
                   <div>
-                    <h4 className="text-lg font-medium text-foreground">{t("contact.address")}</h4>
+                    <h4 className="text-lg font-medium text-foreground">
+                      {t("contact.address")}
+                    </h4>
                     <p className="mt-1 text-muted-foreground">{t("contact.city")}</p>
                   </div>
                 </div>
 
                 <div className="flex flex-col items-center text-center">
                   <div className="mb-2 rounded-full bg-primary/15 p-2">
-                    <Phone className="h-6 w-6 text-primary" aria-hidden />
+                    <Mail className="size-6 text-primary" aria-hidden />
                   </div>
                   <div>
-                    <h4 className="text-lg font-medium text-foreground">{t("contact.phone")}</h4>
-                    <p className="mt-1 text-muted-foreground">{t("contact.phoneNumber")}</p>
-                  </div>
-                </div>
-
-                <div className="flex flex-col items-center text-center">
-                  <div className="mb-2 rounded-full bg-primary/15 p-2">
-                    <Mail className="h-6 w-6 text-primary" aria-hidden />
-                  </div>
-                  <div>
-                    <h4 className="text-lg font-medium text-foreground">{t("contact.emailContact")}</h4>
-                    <p className="mt-1 text-muted-foreground">{t("contact.emailAddress")}</p>
+                    <h4 className="text-lg font-medium text-foreground">
+                      {t("contact.emailContact")}
+                    </h4>
+                    <p className="mt-1 text-muted-foreground">
+                      {t("contact.emailAddress")}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -237,6 +204,7 @@ export default function ContactPage() {
           </motion.div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

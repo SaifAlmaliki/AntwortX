@@ -12,8 +12,8 @@ import { Faq } from "./Faq";
 import { FinalCta } from "./FinalCta";
 
 /**
- * Premium cinematic landing page for Zempar micromobility —
- * scroll-driven 3D scooter showcase with Apple-style navigation.
+ * Cinematic landing for Blyzk micromobility —
+ * scroll-driven scooter showcase with bilingual navigation.
  */
 export function CinematicLanding() {
   return (

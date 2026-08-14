@@ -9,343 +9,102 @@
   "nav": {
     "home": "Home",
     "about": "About",
-    "contact": "Contact Us",
+    "contact": "Contact",
     "openMenu": "Open menu",
     "closeMenu": "Close menu",
     "siteMenu": "Site navigation",
-    "ctaAudit": "Start riding"
+    "cta": "Start riding"
   },
   "home": {
-    "title": "Zempar",
+    "title": "Blyzk",
     "eyebrow": "Shared e-scooter platform",
-    "subtitle": "Skip traffic — clean electric rides in minutes",
-    "description": "Zempar connects you to the nearest e-scooter in Iraq. No fuel, no jams — fast and clean trips.",
+    "subtitle": "Move smarter. Breathe better.",
+    "description": "Blyzk connects you to the nearest e-scooter in Iraq. Fast rides. Lighter footprint.",
     "primaryCta": "Get the app",
     "getStarted": "Get Started",
-    "learnMore": "Learn More",
-    "trustMicro": [
-      "No subscription required",
-      "Unlock in seconds",
-      "100% electric — zero fuel"
-    ],
-    "featureCards": [
-      {
-        "key": "audit",
-        "title": "LLM visibility audit",
-        "description": "See how your brand shows up in generative answers today—gaps, risks, and quick wins versus competitors."
-      },
-      {
-        "key": "measure",
-        "title": "Measure and iterate",
-        "description": "Track prompts, citations, and narrative drift—then refine content and positioning with evidence."
-      }
-    ]
-  },
-  "hero": {
-    "title": "Generative Engine Optimization",
-    "description": "Zempar pairs SEO fundamentals with GEO—clear entities, trustworthy content, and technical signals—so your organization is represented fairly when models surface recommendations in assistants such as ChatGPT, Claude, Gemini, and Perplexity."
-  },
-  "heroAuditPreview": {
-    "title": "What you get in the free report",
-    "bullets": [
-      "A visibility snapshot across ChatGPT, Claude, Gemini, and Perplexity for your category",
-      "A benchmark of who models favor and why",
-      "Your top five prioritized fixes—by impact and feasibility"
-    ],
-    "cta": "Get my free audit"
-  },
-  "howItWorks": {
-    "title": "How Zempar advances your GEO",
-    "subtitle": "A practical 4-step workflow: baseline, implementation, monitoring, and iteration.",
-    "features": {
-      "aiChat": {
-        "title": "Baseline & gap analysis",
-        "description": "We benchmark how you appear across major LLM apps and search, then rank fixes by impact."
-      },
-      "knowledgeBase": {
-        "title": "Content & entity strategy",
-        "description": "We tighten messaging, page structure, FAQs, and entity facts so assistants can cite you confidently."
-      },
-      "multilingual": {
-        "title": "Implementation across surfaces",
-        "description": "We align site content, docs, and schema across your key markets."
-      },
-      "learning": {
-        "title": "Monitor, test, refine",
-        "description": "We track narrative drift, test prompts regularly, and keep improving as models change."
-      }
-    }
-  },
-  "seoGeo": {
-    "title": "SEO vs GEO: what’s the difference?",
-    "subtitle": "SEO drives discovery through links. GEO drives inclusion and accuracy inside AI answers.",
-    "labels": {
-      "mainGoal": "Main goal",
-      "optimizes": "What it optimizes",
-      "whyMatters": "Why it matters"
-    },
-    "seo": {
-      "label": "SEO",
-      "cardSubtitle": "Traditional search engine optimization",
-      "mainGoal": "Rank higher on search engine results pages for high-intent queries.",
-      "howFindLabel": "How buyers find you",
-      "howFindHighlight": "Through clickable links and listings on the search results page.",
-      "optimizes": [
-        "Website content, information architecture, and keyword targeting",
-        "Credibility signals such as reviews, backlinks, and brand mentions",
-        "Consistent business information across directories and the open web"
-      ],
-      "influencesLabel": "What it influences",
-      "influencesHighlight": "Traffic and leads that arrive directly from search results to your site or listings.",
-      "whyMatters": "Helps buyers discover your business when they already know what they are looking for."
-    },
-    "geo": {
-      "label": "GEO",
-      "cardSubtitle": "Generative Engine Optimization",
-      "mainGoal": "Be included accurately in AI-generated answers and recommendations.",
-      "howFindLabel": "How buyers find you",
-      "howFindHighlight": "Mentioned or summarized directly inside the assistant’s response—not only as a link list.",
-      "optimizes": [
-        "Content clarity and structure so LLMs can extract and cite facts fairly",
-        "Positioning across AI surfaces (e.g. ChatGPT, Claude, Gemini, Perplexity) and the sources they rely on",
-        "Authority and consistency signals that affect how models interpret your brand"
-      ],
-      "influencesLabel": "What it influences",
-      "influencesHighlight": "Direct mentions, shortlists, and recommendations inside assistants your customers already trust.",
-      "whyMatters": "Helps buyers trust and choose your business when decisions start in conversation—not on a SERP."
-    }
-  },
-  "visibilityOfferings": {
-    "title": "How businesses work with Zempar on AI visibility",
-    "subtitle": "Choose a focused audit or an ongoing partnership.",
-    "bestForLabel": "Best for:",
-    "audit": {
-      "title": "AI visibility audit",
-      "tagline": "Baseline clarity, competitors, and a prioritized roadmap",
-      "description": "A concise assessment of how your brand appears in AI answers and search, with a prioritized action plan.",
-      "features": [
-        "AI visibility analysis across representative prompts and topics",
-        "Competitor and category comparison (who models favor and why)",
-        "Concrete recommendations for content, entities, and structured data"
-      ],
-      "bestFor": "Teams that want an evidence-based snapshot before committing to a broader program.",
-      "cta": "Request audit"
-    },
-    "growth": {
-      "badge": "Recommended",
-      "title": "AI visibility growth partnership",
-      "tagline": "Execution, measurement, and iteration with Zempar alongside your team",
-      "description": "We execute the roadmap with your team and iterate based on live visibility signals.",
-      "plusLabel": "Everything in the AI visibility audit, plus:",
-      "features": [
-        "Hands-on content, FAQ, and entity alignment for citable answers",
-        "Technical and schema guidance with your developers or agency",
-        "Prompt monitoring and narrative drift tracking over time"
-      ],
-      "bestFor": "Organizations that want sustained improvement—not a one-off PDF.",
-      "cta": "Start partnership request"
-    }
-  },
-  "geoLead": {
-    "title": "Request your free AI visibility audit",
-    "subtitle": "Submit your website and work email. We’ll send a GEO-focused visibility report across ChatGPT, Claude, Gemini, and Perplexity—where you show up in AI answers, where you don’t, and what to fix first.",
-    "highlight": "No obligation. Clear findings and practical next steps.",
-    "whatYouGet": {
-      "title": "What you’ll receive",
-      "bullets": [
-        "LLM visibility score across ChatGPT, Claude, Gemini, Perplexity, and representative prompts for your industry",
-        "Competitor and category comparison (who models favor and why)",
-        "Concrete recommendations for content, entities, and structured data",
-        "Report delivered by email immediately after you submit"
-      ],
-      "privacy": "We use your work email only to deliver this report and follow up on improving your GEO visibility—you can opt out anytime."
-    },
-    "emailHint": "Work email preferred — your audit report lands in your inbox.",
-    "reassurance": "Free · No credit card · Unsubscribe anytime",
-    "websiteLabel": "Website URL",
-    "websitePlaceholder": "https://yourcompany.com",
-    "emailLabel": "Work email",
-    "emailPlaceholder": "you@company.com",
-    "companyLabel": "Company name (optional)",
-    "companyPlaceholder": "Acme Inc.",
-    "categoryLabel": "Industry / Business category",
-    "categoryPlaceholder": "e.g., AI-powered hiring, Industrial IoT, SaaS analytics",
-    "categoryHint": "Use at least two words (max 100 characters), e.g. “management consulting” or “B2B payroll software”.",
-    "cityLabel": "City / Region (optional)",
-    "cityPlaceholder": "e.g., Milan, Rome, New York",
-    "consent": "By submitting, you agree we may email your audit report and follow up about improving your visibility in search and LLM applications.",
-    "submit": "Get my free audit",
-    "submitting": "Sending…",
-    "successSmtp": "Thank you! Your GEO visibility report has been sent to your inbox.",
-    "successMailto": "Your email app should open with your request. If it does not, contact us at the address below with your website and work email.",
-    "errorValidation": "Please enter a valid website URL and work email.",
-    "errorCategoryRequired": "Please enter your industry or business category.",
-    "errorCategoryPhrase": "Describe it in at least two words so we can run accurate AI visibility checks.",
-    "errorNetwork": "Something went wrong. Please try again or email us directly.",
-    "errorSend": "We could not send your request automatically. Try again or use your email client."
-  },
-  "llmVisibility": {
-    "title": "LLM Visibility Score",
-    "subtitle": "We tested whether AI assistants recommend your business",
-    "mentioned": "Mentioned",
-    "notMentioned": "Not Mentioned",
-    "cited": "Cited",
-    "notCited": "Not Cited",
-    "sentiment": "Sentiment",
-    "positive": "Positive",
-    "neutral": "Neutral",
-    "negative": "Negative",
-    "promptsTested": "Prompts tested",
-    "mentionRate": "Mention rate",
-    "willAIRecommend": "Will AI recommend your business?",
-    "summaryTitle": "Visibility Summary",
-    "recommendationsTitle": "Recommendations",
-    "engineDetails": "Engine Details",
-    "responsePreview": "Response Preview",
-    "positiveSentiment": "positive",
-    "neutralSentiment": "neutral",
-    "negativeSentiment": "negative"
-  },
-  "chat": {
-    "title": "AI Agent Chat",
-    "placeholder": "Type your message here...",
-    "send": "Send",
-    "emptyState": "Start a conversation with our AI agent",
-    "loading": "Thinking...",
-    "error": "Something went wrong. Please try again."
-  },
-  "upload": {
-    "title": "Knowledge Base Builder",
-    "description": "Upload your documents to train your AI agent",
-    "dragDrop": "Drag and drop files here, or click to select",
-    "fileTypes": "Supported formats: PDF, DOCX, TXT",
-    "uploadButton": "Upload Files",
-    "processing": "Processing your documents...",
-    "success": "Files uploaded successfully",
-    "error": "Error uploading files",
-    "questions": "Extracted Information",
-    "noQuestions": "No information extracted yet"
+    "learnMore": "Learn More"
   },
   "about": {
-    "title": "About Zempar",
-    "subtitle": "Generative Engine Optimization (GEO) and SEO—clear entities, trustworthy content, and technical signals—so your organization stays visible and is represented fairly when models surface answers.",
+    "title": "About Blyzk",
+    "subtitle": "Electric city moves — shared scooters, a rider app, and fleet software for Iraqi streets.",
     "who": {
-      "title": "Who We Are",
-      "description": "We are a team of AI experts and solution architects who have worked on groundbreaking projects across Germany, the UK, and Canada. Our passion lies in building AI agent solutions that help businesses drive more value."
+      "title": "Who we are",
+      "description": "Blyzk is a micromobility brand for Iraq. We pair reliable scooters with a simple rider app so cities can move faster — with a lighter footprint."
     },
     "expertise": {
-      "title": "Our Expertise",
-      "description": "Combining deep technical knowledge with industry experience to deliver cutting-edge AI solutions",
-      "areas": {
-        "research": {
-          "title": "AI Research & Development",
-          "description": "Our AI researchers and developers have deep expertise in machine learning, NLP, and agentic AI systems built for production operations."
-        },
-        "architecture": {
-          "title": "Solution Architecture",
-          "description": "Our solution architects design robust, scalable AI implementations that integrate seamlessly with existing business systems."
-        },
-        "design": {
-          "title": "UX/UI Design",
-          "description": "We design operator-friendly experiences so teams can supervise agents, review actions, and stay in control without fighting the tooling."
-        },
-        "integration": {
-          "title": "Enterprise Integration",
-          "description": "With expertise in deploying AI solutions across various industries, we ensure smooth implementation in complex enterprise environments."
-        }
+      "title": "What we build",
+      "description": "Hardware, software, and operations designed for real streets — not showroom floors.",
+      "hardware": {
+        "title": "Hardware & engineering",
+        "description": "E-scooters with swappable batteries, front suspension, and weather-sealed electronics — built for Iraqi streets."
       },
-      "global": {
-        "title": "Global Experience",
-        "description": "Our team brings diverse perspectives from working on AI projects across three continents, giving us unique insights into global operational and rollout requirements."
+      "fleet": {
+        "title": "Fleet software",
+        "description": "Operator tools with live GPS, geofencing, maintenance alerts, and operational analytics."
+      },
+      "app": {
+        "title": "Rider app",
+        "description": "Find, reserve, and unlock a scooter in seconds — with clear per-minute pricing."
+      },
+      "ops": {
+        "title": "Operations & compliance",
+        "description": "Speed limits, parking zones, and reporting built for local rules in Iraq."
+      },
+      "cities": {
+        "title": "Built for Iraqi cities",
+        "description": "Routes, heat, and traffic that look nothing like a brochure. Blyzk is designed for Baghdad, Basra, Erbil, and beyond."
       },
       "team": {
-        "title": "Cross-functional Team",
-        "description": "Our experts span AI research, software engineering, UX design, and business strategy - creating holistic solutions that excel technically and commercially."
+        "title": "Product and operations together",
+        "description": "Riders, operators, and city partners share one system — so the fleet stays available when you need it."
       },
       "innovation": {
-        "title": "Innovation Focus",
-        "description": "We stay at the edge of agentic AI, tool use, and workflow automation—bringing practical patterns into production, not just demos."
+        "title": "Smarter movement",
+        "description": "We keep the ride simple: scan, go, park. The intelligence stays in the fleet, not in the rider's way."
       },
       "results": {
-        "title": "Results-Driven",
-        "description": "We measure what operations care about: cycle time, error rates, throughput, and human time saved—so automation shows up in the metrics that matter."
-      }
-    },
-    "values": {
-      "title": "Our Values",
-      "innovation": {
-        "title": "Innovation",
-        "description": "We're constantly pushing the boundaries of what's possible with AI technology."
-      },
-      "quality": {
-        "title": "Quality",
-        "description": "We're committed to delivering solutions that exceed expectations in every way."
-      },
-      "collaboration": {
-        "title": "Collaboration",
-        "description": "We work closely with our clients to ensure our solutions meet their specific needs."
-      },
-      "integrity": {
-        "title": "Integrity",
-        "description": "We believe in transparent, ethical AI development and deployment."
+        "title": "A lighter footprint",
+        "description": "Every trip that skips a fuel-burning hop is a cleaner minute for the city. Fast rides. Lighter footprint."
       }
     },
     "cta": {
-      "title": "Ready to strengthen how you show up in AI answers?",
-      "description": "Talk to us about your brand narrative, content, and technical readiness—we'll help you improve citations, accuracy, and GEO alongside solid SEO.",
-      "button": "Contact Us Today"
+      "title": "Ready to move with Blyzk?",
+      "description": "Talk to us about your city, your commute, or a fleet partnership.",
+      "button": "Contact us"
     }
   },
   "contact": {
-    "title": "Contact Us",
-    "subtitle": "We'd love to hear from you. Fill out the form below and we'll get back to you as soon as possible.",
-    "name": "Your Name",
-    "email": "Your Email",
+    "title": "Contact us",
+    "subtitle": "Questions, partnerships, or press — send a note and we’ll get back to you.",
+    "name": "Your name",
+    "email": "Your email",
     "subject": "Subject",
     "message": "Message",
-    "submit": "Send Message",
-    "success": "Your email app should open with your message. If it doesn't, email us at contact@zempar.com.",
-    "error": "Something went wrong. Please email us directly at contact@zempar.com.",
+    "submit": "Send message",
+    "success": "Your email app should open with your message. If it doesn't, email us at hello@blyzk.com.",
+    "error": "Something went wrong. Please email us directly at hello@blyzk.com.",
     "address": "Address",
     "city": "Baghdad, Iraq",
-    "phone": "Phone",
-    "phoneNumber": "+1 (555) 123-4567",
     "emailContact": "Email",
-    "emailAddress": "contact@zempar.com"
+    "emailAddress": "hello@blyzk.com"
   },
   "footer": {
-    "description": "Shared e-scooter rides in Iraq — fast trips, clean energy, no traffic.",
-    "product": "Services",
-    "features": "Solutions",
-    "pricing": "Pricing",
+    "description": "Move smarter. Breathe better. Shared e-scooters for Iraqi cities.",
+    "product": "Ride",
     "partnerships": "Start riding",
-    "demo": "Request Consultation",
-    "resources": "Resources",
-    "documentation": "Case Studies",
-    "blog": "Blog",
-    "support": "Support",
     "company": "Company",
-    "about": "About Us",
-    "careers": "Careers",
+    "about": "About",
     "contact": "Contact",
-    "legal": "Legal",
     "terms": "Terms of Service",
-    "privacy": "Privacy Policy",
-    "copyright": " 2025 Zempar. All rights reserved."
-  },
-  "testimonials": {
-    "badge": "Trusted voices",
-    "title": "Leadership & delivery",
-    "subtitle": "Recommendations from colleagues and partners on our team's delivery—the same people now leading Zempar's GEO practice.",
-    "ratingLabel": "5 out of 5 stars",
-    "tagsLabel": "Highlighted strengths from the review"
+    "copyright": " © {year} Blyzk. All rights reserved.",
+    "credit": "Designed for smarter, cleaner city moves"
   },
   "cinematic": {
-    "brand": "Zempar",
+    "brand": "Blyzk",
     "nav": {
       "overview": "Overview",
       "traffic": "Skip traffic",
-      "green": "Clean ride",
+      "green": "Cleaner air",
       "app": "The app",
       "cities": "Cities",
       "cta": "Start riding",
@@ -358,28 +117,28 @@
     },
     "scrollBeats": {
       "hero": {
-        "eyebrow": "Zempar — shared e-scooters",
-        "headline": "Skip the jam. Ride smart.",
-        "sub": "Stop wasting time in traffic. Scan, unlock, and go — a clean electric ride in minutes."
+        "eyebrow": "Blyzk — shared e-scooters",
+        "headline": "Move smarter. Breathe better.",
+        "sub": "Skip the jam. Ride electric. A cleaner way to move through your city."
       },
       "traffic": {
         "eyebrow": "Save your time",
         "headline": "Leave traffic behind.",
         "sub": "While cars sit stuck at lights, you keep moving. Shorter routes, faster arrivals, no waiting.",
         "bullets": [
-          "Save up to 70% of your commute time",
-          "Bypass congestion with ease",
-          "Pay per minute — no fuel, no parking hunt"
+          "Cut through congestion instead of sitting in it",
+          "Pay per minute — no fuel, no parking hunt",
+          "Your city, in motion"
         ]
       },
       "green": {
-        "eyebrow": "Clean energy",
-        "headline": "Green ride. Cleaner air.",
-        "sub": "Our scooters are 100% electric — no fuel combustion, no exhaust. A practical step toward a cleaner city.",
+        "eyebrow": "Cleaner city air",
+        "headline": "A lighter way to move.",
+        "sub": "Electric rides instead of another fuel-burning hop. Better for you, lighter on the city.",
         "bullets": [
-          "Zero emissions on every trip",
           "Electric power instead of fossil fuel",
-          "Responsible urban mobility"
+          "A cleaner minute for the streets you share",
+          "Fast rides. Lighter footprint."
         ]
       },
       "ride": {
@@ -395,14 +154,14 @@
       "cta": {
         "eyebrow": "Ready to go?",
         "headline": "Your city is waiting. Ride now.",
-        "sub": "Join thousands of riders across Iraq. Move through your day smarter, faster, and cleaner.",
+        "sub": "Join riders across Iraq. Move through your day smarter — and breathe a little better.",
         "primaryCta": { "label": "Get the app", "href": "/#ride" },
         "secondaryCta": { "label": "How it works", "href": "/#technology" }
       }
     },
     "explodedParts": {
       "battery": "Electric battery",
-      "motor": "Zero-emission motor",
+      "motor": "Electric motor",
       "gps": "Live GPS",
       "deck": "Safe riding deck",
       "suspension": "Street suspension",
@@ -418,19 +177,19 @@
       {
         "tag": "02",
         "word": "Breathe",
-        "line": "Choose clean energy.",
-        "detail": "Every electric trip means less fuel burned and no tailpipe fumes. A small choice for a cleaner city."
+        "line": "Choose a cleaner ride.",
+        "detail": "Every electric trip is a lighter minute for the city. Move smarter. Breathe better."
       },
       {
         "tag": "03",
         "word": "Go",
         "line": "Your ride is one minute away.",
-        "detail": "Download the app, find a nearby scooter, scan and ride. No hassle."
+        "detail": "Download the app, find a nearby scooter, scan and ride."
       }
     ],
     "metrics": [
       { "value": 120, "suffix": "K+", "label": "Trips completed", "prefix": "" },
-      { "value": 0, "suffix": "", "label": "CO₂ emissions per ride", "prefix": "" },
+      { "value": 40, "suffix": " km", "label": "Range per ride", "prefix": "" },
       { "value": 6, "suffix": "+", "label": "Cities in Iraq", "prefix": "" }
     ],
     "appShowcase": {
@@ -444,12 +203,12 @@
       ]
     },
     "rideCta": {
-      "badge": "Clean energy · Zero fuel",
+      "badge": "Electric · Lighter footprint",
       "headline": "Start your first ride today",
-      "sub": "Download the Zempar app, find the nearest scooter, and go — no traffic, no fuel.",
+      "sub": "Download the Blyzk app, find the nearest scooter, and go — no traffic, no fuel.",
       "primaryLabel": "Get the app",
       "primaryHref": "/#technology",
-      "secondaryLabel": "See pricing",
+      "secondaryLabel": "See how it works",
       "secondaryHref": "/contact",
       "footnote": "Available in Baghdad, Basra, Erbil, Mosul, Najaf, and Karbala.",
       "steps": [
@@ -476,19 +235,19 @@
       "items": [
         {
           "q": "How do I start a ride?",
-          "a": "Download the Zempar app, create an account, then pick the nearest scooter on the map. Scan the QR code on the scooter and ride."
+          "a": "Download the Blyzk app, create an account, then pick the nearest scooter on the map. Scan the QR code on the scooter and ride."
         },
         {
           "q": "How much does a ride cost?",
           "a": "You pay per minute with transparent pricing shown in the app before you start — no subscription and no hidden fees."
         },
         {
-          "q": "Is it eco-friendly?",
-          "a": "Yes. All our scooters are 100% electric — no fuel combustion and no exhaust. Your trip adds zero CO₂ to the air."
+          "q": "Is it better for the city?",
+          "a": "Blyzk rides are fully electric, so they skip fuel and tailpipe fumes. A cleaner way to move — without overpromising the planet."
         },
         {
           "q": "Where can I ride?",
-          "a": "Zempar is available in Baghdad, Basra, Erbil, Mosul, Najaf, and Karbala — with clear ride and parking zones in the app."
+          "a": "Blyzk is available in Baghdad, Basra, Erbil, Mosul, Najaf, and Karbala — with clear ride and parking zones in the app."
         },
         {
           "q": "Is it safe?",
@@ -497,48 +256,10 @@
       ]
     },
     "finalCta": {
-      "headline": "Traffic isn't your only option. Ride Zempar.",
-      "sub": "A clean electric trip — faster across the city than a car, better for the planet.",
+      "headline": "Traffic isn't your only option. Ride Blyzk.",
+      "sub": "Move smarter. Breathe better.",
       "primaryCta": { "label": "Get the app", "href": "/#ride" },
       "secondaryCta": { "label": "Contact us", "href": "/contact" }
     }
-  },
-  "faq": {
-    "title": "Frequently Asked Questions",
-    "subtitle": "Common questions about Generative Engine Optimization (GEO), SEO, and how Zempar helps",
-    "questions": [
-      {
-        "question": "What is Zempar?",
-        "answer": "Zempar is a partner for Generative Engine Optimization (GEO) and modern search visibility. We help organizations improve how they are represented, cited, and summarized inside LLM applications such as ChatGPT, Claude, Gemini, and Perplexity—while keeping classic SEO foundations strong."
-      },
-      {
-        "question": "What is GEO (Generative Engine Optimization)?",
-        "answer": "GEO is the practice of improving how your brand, products, and claims show up inside AI-generated answers—not only traditional search result pages. It focuses on accurate representation, trustworthy sources, structured signals, and content that models and retrieval systems can reuse fairly."
-      },
-      {
-        "question": "How is GEO different from SEO?",
-        "answer": "SEO optimizes for ranking and discovery in search engines. GEO optimizes for inclusion and accuracy when users ask large language models for recommendations or summaries. Both matter: solid SEO usually helps GEO because crawlers, authority, and clear content still feed many AI experiences—but GEO adds a lens on narratives, citations, and how answers are composed."
-      },
-      {
-        "question": "How do I get started with Zempar?",
-        "answer": "Contact us with your priority markets, products, and topics. We typically begin with a baseline of how you appear in both search and major LLM surfaces, then agree on a roadmap spanning content, technical signals, and measurement. Engagements are flexible for startups and global teams."
-      },
-      {
-        "question": "What do you deliver in a GEO engagement?",
-        "answer": "Deliverables vary by scope but often include audits, content and entity recommendations, structured data and site guidance, prompt-based monitoring, and a refinement cadence. We do not guarantee placement inside proprietary models—we improve the inputs and signals that make fair, citable representation more likely."
-      },
-      {
-        "question": "Do you support multiple languages?",
-        "answer": "Yes. GEO and SEO both need consistent facts and tone across locales. We can align English, Arabic, and other languages so generative answers stay coherent for each market you serve."
-      },
-      {
-        "question": "How secure is my data with Zempar?",
-        "answer": "We treat your materials and strategy as confidential. We use enterprise-grade practices for access and handling of client information. Details are covered under contract and we do not reuse your proprietary content for other clients."
-      },
-      {
-        "question": "Do I need technical expertise on our side?",
-        "answer": "No. We work with marketing, communications, and web teams. We explain technical recommendations in plain language and coordinate with your developers or agency when implementation is needed."
-      }
-    ]
   }
 }

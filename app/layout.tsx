@@ -5,6 +5,11 @@ import { SkipToMain } from "@/components/SkipToMain";
 import { SiteChrome } from "@/components/site-chrome";
 import { LanguageProvider } from "@/contexts/language-context";
 import { StructuredData } from "@/components/structured-data";
+import {
+  BRAND_NAME_AR,
+  DEFAULT_DESCRIPTION_AR,
+  DEFAULT_TITLE_AR,
+} from "@/lib/brand";
 import { getSiteUrl } from "@/lib/site-url";
 import "./globals.css";
 
@@ -39,26 +44,23 @@ const tajawal = Tajawal({
 });
 
 const siteUrl = getSiteUrl();
-const defaultTitle = "تجول — سكوتر كهربائي بدون زحام";
-const defaultDescription =
-  "تجاوز الاختناقات برحلة كهربائية نظيفة. تجول يربطك بأقرب سكوتر في العراق — بدون وقود ولا عوادم.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: defaultTitle,
-  description: defaultDescription,
+  title: DEFAULT_TITLE_AR,
+  description: DEFAULT_DESCRIPTION_AR,
   openGraph: {
-    title: defaultTitle,
-    description: defaultDescription,
+    title: DEFAULT_TITLE_AR,
+    description: DEFAULT_DESCRIPTION_AR,
     url: siteUrl,
-    siteName: "تجول",
+    siteName: BRAND_NAME_AR,
     locale: "ar_IQ",
     type: "website",
   },
   twitter: {
     card: "summary",
-    title: defaultTitle,
-    description: defaultDescription,
+    title: DEFAULT_TITLE_AR,
+    description: DEFAULT_DESCRIPTION_AR,
   },
 };
 

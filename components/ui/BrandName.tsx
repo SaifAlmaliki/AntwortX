@@ -1,7 +1,10 @@
 "use client";
 
-import { useLanguage } from "@/contexts/language-context";
 import Link from "next/link";
+
+import { useLanguage } from "@/contexts/language-context";
+import { BRAND_NAME_AR, BRAND_NAME_EN } from "@/lib/brand";
+import { cn } from "@/lib/utils";
 
 interface BrandNameProps {
   className?: string;
@@ -10,39 +13,37 @@ interface BrandNameProps {
   size?: "sm" | "md" | "lg" | "xl";
 }
 
-export function BrandName({ 
-  className = "", 
-  linkClassName = "", 
+export function BrandName({
+  className = "",
+  linkClassName = "",
   showLink = true,
-  size
+  size,
 }: BrandNameProps) {
-  const { } = useLanguage();
-  
-  // Determine size class based on size prop
-  const sizeClass = size ? {
-    "sm": "text-sm",
-    "md": "text-base",
-    "lg": "text-lg",
-    "xl": "text-xl"
-  }[size] : "";
-  
-  // The brand name component with styling
+  const { language } = useLanguage();
+  const name = language === "ar" ? BRAND_NAME_AR : BRAND_NAME_EN;
+
+  const sizeClass = size
+    ? {
+        sm: "text-sm",
+        md: "text-base",
+        lg: "text-lg",
+        xl: "text-xl",
+      }[size]
+    : "";
+
   const brandNameContent = (
-    <span className={`font-bold ${sizeClass} ${className}`}>
-      {/* Same "Zempar" wordmark for both languages (Zem + par styling) */}
-      <span className="text-foreground">Zem</span>
-      <span className="text-gradient-signal">par</span>
+    <span className={cn("font-bold tracking-tight", sizeClass, className)}>
+      {name}
     </span>
   );
 
-  // Return with or without link wrapper based on prop
   if (showLink) {
     return (
-      <Link href="/" className={`text-2xl ${linkClassName}`}>
+      <Link href="/" className={cn("text-2xl", linkClassName)}>
         {brandNameContent}
       </Link>
     );
   }
-  
+
   return brandNameContent;
 }

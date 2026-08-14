@@ -1,9 +1,11 @@
 import arLocale from "@/locales/ar.json";
+import {
+  BRAND_EMAIL,
+  BRAND_NAME_AR,
+  BRAND_NAME_EN,
+  DEFAULT_DESCRIPTION_AR,
+} from "@/lib/brand";
 import { getSiteUrl } from "@/lib/site-url";
-
-const FACEBOOK = "https://www.facebook.com/profile.php?id=61574206222119";
-const INSTAGRAM = "https://www.instagram.com/zempar/";
-const LINKEDIN_COMPANY = "https://www.linkedin.com/company/106535449/";
 
 export function StructuredData() {
   const base = getSiteUrl();
@@ -20,32 +22,31 @@ export function StructuredData() {
       "@context": "https://schema.org",
       "@type": "Organization",
       "@id": orgId,
-      name: "تجول",
-      alternateName: "Zempar",
+      name: BRAND_NAME_AR,
+      alternateName: BRAND_NAME_EN,
       url: base,
-      email: "contact@zempar.com",
-      description: arLocale.home.description,
-      sameAs: [FACEBOOK, INSTAGRAM, LINKEDIN_COMPANY],
+      email: BRAND_EMAIL,
+      description: DEFAULT_DESCRIPTION_AR,
     },
     {
       "@context": "https://schema.org",
       "@type": "WebSite",
       "@id": websiteId,
-      name: "تجول",
+      name: BRAND_NAME_AR,
       url: base,
-      description: arLocale.home.description,
+      description: DEFAULT_DESCRIPTION_AR,
       publisher: { "@id": orgId },
       inLanguage: "ar-IQ",
     },
     {
       "@context": "https://schema.org",
-      "@type": "ProfessionalService",
-      name: "تجول",
+      "@type": "Service",
+      name: BRAND_NAME_AR,
       url: base,
-      description: arLocale.home.description,
+      description: DEFAULT_DESCRIPTION_AR,
       provider: { "@id": orgId },
       areaServed: "IQ",
-      serviceType: "Shared e-scooter rides for urban commuters — clean electric mobility",
+      serviceType: "Shared electric scooter rides",
     },
     {
       "@context": "https://schema.org",

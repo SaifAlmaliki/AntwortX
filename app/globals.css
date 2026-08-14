@@ -17,18 +17,6 @@
     --border-hover: rgba(124, 58, 237, 0.42);
     --inner-highlight: rgba(255, 255, 255, 0.85);
 
-    /* Brand theme aliases (mapped to new system) */
-    --zempar-bg-primary: var(--page-bg);
-    --zempar-bg-secondary: rgba(255, 255, 255, 0.9);
-    --zempar-bg-tertiary: var(--surface-inset);
-    --zempar-border: var(--border-subtle);
-    --zempar-border-hover: var(--border-hover);
-    --zempar-text-primary: #17141f;
-    --zempar-text-secondary: #454152;
-    --zempar-text-muted: #6b6880;
-    --zempar-accent: var(--signal-green);
-    --zempar-accent-hover: #00c853;
-
     /* Active light theme tokens (violet accent) */
     --background: 264 40% 99%;
     --foreground: 258 30% 9%;
@@ -67,9 +55,6 @@
     --border-subtle: rgba(160, 130, 255, 0.14);
     --border-hover: rgba(160, 130, 255, 0.42);
     --inner-highlight: rgba(255, 255, 255, 0.06);
-    --zempar-text-primary: #f4f2fa;
-    --zempar-text-secondary: #cdc7da;
-    --zempar-text-muted: #9690a5;
     --background: 258 30% 6%;
     --foreground: 264 30% 98%;
     --card: 258 28% 9%;
@@ -300,21 +285,6 @@ html[lang="ar"] body {
     background: rgba(245, 243, 255, 0.95);
   }
 
-  .zempar-card {
-    @apply card-surface;
-  }
-
-  .zempar-button-primary {
-    @apply btn-signal-primary;
-  }
-
-  .zempar-button-secondary {
-    @apply btn-signal-secondary;
-  }
-
-  .zempar-input {
-    @apply min-h-[44px] rounded-lg border border-input bg-[var(--surface-inset)] px-4 py-2.5 text-foreground placeholder:text-muted-foreground focus-visible:border-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-0;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {

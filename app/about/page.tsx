@@ -1,60 +1,24 @@
 "use client";
 
 import { useMemo } from "react";
-import { useLanguage } from "@/contexts/language-context";
-import { motion, useReducedMotion } from "framer-motion";
 import Link from "next/link";
-import { Globe, Users, Lightbulb, Award } from "lucide-react";
+import { motion, useReducedMotion } from "framer-motion";
+import { Bike, Cpu, MapPinned, Smartphone } from "lucide-react";
+
+import { Footer } from "@/components/Footer";
+import { useLanguage } from "@/contexts/language-context";
+
+const EXPERTISE_KEYS = [
+  { key: "hardware", icon: Bike },
+  { key: "fleet", icon: Cpu },
+  { key: "app", icon: Smartphone },
+  { key: "ops", icon: MapPinned },
+] as const;
 
 export default function AboutPage() {
-  const { t, direction, language } = useLanguage();
+  const { t, direction } = useLanguage();
   const isRtl = direction === "rtl";
   const reduceMotion = useReducedMotion();
-
-  // Define expertise areas for each language to ensure proper display
-  const expertiseAreas = language === 'ar' ? [
-    {
-      title: "الأجهزة والهندسة",
-      description: "سكوترات كهربائية فاخرة مع بطاريات قابلة للتبديل، تعليق أمامي، وإلكترونيات مقاومة للماء — مصممة للشوارع العراقية.",
-      icon: <Lightbulb className="h-10 w-10 text-primary" />
-    },
-    {
-      title: "برمجيات الأسطول",
-      description: "لوحة مشغّل متكاملة مع GPS لحظي، حدود جغرافية، صيانة تنبؤية، وتحليلات تشغيلية.",
-      icon: <Globe className="h-10 w-10 text-primary" />
-    },
-    {
-      title: "تطبيق الراكب",
-      description: "تجربة راكب سلسة — اكتشاف، حجز، وفتح السكوتر خلال ثوانٍ بتسعير شفاف.",
-      icon: <Users className="h-10 w-10 text-primary" />
-    },
-    {
-      title: "التشغيل والامتثال",
-      description: "أدوات امتثال محلية، تحديد سرعة، مناطق وقوف، وتقارير للجهات التنظيمية في العراق.",
-      icon: <Award className="h-10 w-10 text-primary" />
-    }
-  ] : [
-    {
-      title: "Hardware & engineering",
-      description: "Premium e-scooters with swappable batteries, front suspension, and weather-sealed electronics — built for Iraqi streets.",
-      icon: <Lightbulb className="h-10 w-10 text-primary" />
-    },
-    {
-      title: "Fleet software",
-      description: "Operator dashboard with live GPS, geofencing, predictive maintenance, and operational analytics.",
-      icon: <Globe className="h-10 w-10 text-primary" />
-    },
-    {
-      title: "Rider app",
-      description: "Seamless rider experience — discover, reserve, and unlock a scooter in seconds with transparent pricing.",
-      icon: <Users className="h-10 w-10 text-primary" />
-    },
-    {
-      title: "Operations & compliance",
-      description: "Local compliance tooling, speed limiting, parking zones, and regulatory reporting for Iraq.",
-      icon: <Award className="h-10 w-10 text-primary" />
-    }
-  ];
 
   const containerVariants = useMemo(
     () => ({
@@ -80,9 +44,8 @@ export default function AboutPage() {
   );
 
   return (
-    <div className={`min-h-screen ${isRtl ? "rtl" : ""}`}>
-      {/* Hero Section */}
-      <section className="marketing-section relative pt-12 pb-12 md:pt-24 md:pb-20">
+    <div className={isRtl ? "rtl" : ""}>
+      <section className="marketing-section relative pb-12 pt-12 md:pb-20 md:pt-24">
         <div className="container relative z-10 mx-auto max-w-7xl px-4 sm:px-6">
           <motion.div
             initial={reduceMotion ? false : { opacity: 0, y: 20 }}
@@ -90,8 +53,8 @@ export default function AboutPage() {
             transition={{ duration: reduceMotion ? 0 : 0.5 }}
             className="mb-16 text-center"
           >
-            <h1 className="font-display text-4xl font-bold text-foreground md:text-5xl lg:text-6xl mb-6 tracking-tight">
-              {t("about.title") || "About Zempar"}
+            <h1 className="font-display mb-6 text-4xl font-bold tracking-tight text-foreground md:text-5xl lg:text-6xl">
+              {t("about.title")}
             </h1>
             <p className="mx-auto max-w-3xl text-xl text-muted-foreground">
               {t("about.subtitle")}
@@ -100,7 +63,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Who We Are */}
       <section className="marketing-section py-16">
         <div className="container mx-auto max-w-7xl px-4 sm:px-6">
           <motion.div
@@ -110,34 +72,35 @@ export default function AboutPage() {
             viewport={{ once: true }}
             className="mb-16 text-center"
           >
-            <h2 className="font-display text-3xl font-bold text-foreground md:text-4xl mb-6">
-              {t("about.who.title") || "Who We Are"}
+            <h2 className="font-display mb-6 text-3xl font-bold text-foreground md:text-4xl">
+              {t("about.who.title")}
             </h2>
             <p className="mx-auto max-w-3xl text-xl text-muted-foreground">
-              {t("about.who.description") || 
-                "We are a team of AI experts and solution architects who have worked on groundbreaking projects across Germany, the UK, and Canada. Our passion lies in building AI agent solutions that help businesses drive more value."}
+              {t("about.who.description")}
             </p>
           </motion.div>
 
-          <motion.div 
+          <motion.div
             variants={containerVariants}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
+            className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4"
           >
-            {expertiseAreas.map((area, index) => (
+            {EXPERTISE_KEYS.map(({ key, icon: Icon }) => (
               <motion.div
-                key={index}
+                key={key}
                 variants={itemVariants}
                 className="card-surface flex min-w-0 flex-col items-center rounded-xl p-6 text-center"
               >
-                <div className="mb-4">{area.icon}</div>
+                <div className="mb-4">
+                  <Icon className="size-10 text-primary" aria-hidden />
+                </div>
                 <h3 className="mb-3 min-w-0 max-w-full text-pretty text-xl font-bold text-foreground">
-                  {area.title}
+                  {t(`about.expertise.${key}.title`)}
                 </h3>
                 <p className="min-w-0 max-w-full text-pretty leading-relaxed text-muted-foreground">
-                  {area.description}
+                  {t(`about.expertise.${key}.description`)}
                 </p>
               </motion.div>
             ))}
@@ -145,7 +108,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Our Expertise */}
       <section className="marketing-section bg-gradient-to-b from-[rgba(6,8,12,0.6)] to-transparent py-16">
         <div className="container mx-auto max-w-7xl px-4 sm:px-6">
           <motion.div
@@ -155,112 +117,46 @@ export default function AboutPage() {
             viewport={{ once: true }}
             className="mb-16 text-center"
           >
-            <h2 className="font-display text-3xl font-bold text-foreground md:text-4xl mb-6">
-              {t("about.expertise.title") || "Our Expertise"}
+            <h2 className="font-display mb-6 text-3xl font-bold text-foreground md:text-4xl">
+              {t("about.expertise.title")}
             </h2>
             <p className="mx-auto max-w-3xl text-xl text-muted-foreground">
-              {t("about.expertise.description") || 
-                "Combining deep technical knowledge with industry experience to deliver cutting-edge AI solutions"}
+              {t("about.expertise.description")}
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <motion.div
-              initial={reduceMotion ? false : { opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: reduceMotion ? 0 : 0.5 }}
-              viewport={{ once: true }}
-              className="card-surface min-w-0 rounded-xl p-8"
-            >
-              <div className="flex min-w-0 items-start gap-4">
-                <div className="shrink-0 rounded-lg bg-primary/15 p-3">
-                  <Globe className="h-6 w-6 text-primary" aria-hidden />
-                </div>
-                <div className="min-w-0">
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+            {(
+              [
+                ["cities", "team"],
+                ["innovation", "results"],
+              ] as const
+            ).flatMap((row, rowIndex) =>
+              row.map((key, colIndex) => (
+                <motion.div
+                  key={key}
+                  initial={reduceMotion ? false : { opacity: 0, x: colIndex === 0 ? -20 : 20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{
+                    duration: reduceMotion ? 0 : 0.5,
+                    delay: reduceMotion ? 0 : rowIndex * 0.1,
+                  }}
+                  viewport={{ once: true }}
+                  className="card-surface min-w-0 rounded-xl p-8"
+                >
                   <h3 className="mb-3 text-pretty text-xl font-bold text-foreground">
-                    {t("about.expertise.global.title") || "Global Experience"}
+                    {t(`about.expertise.${key}.title`)}
                   </h3>
                   <p className="text-pretty leading-relaxed text-muted-foreground">
-                    {t("about.expertise.global.description") || 
-                      "Our team brings diverse perspectives from working on AI projects across three continents, giving us unique insights into global operational and rollout requirements."}
+                    {t(`about.expertise.${key}.description`)}
                   </p>
-                </div>
-              </div>
-            </motion.div>
-
-            <motion.div
-              initial={reduceMotion ? false : { opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: reduceMotion ? 0 : 0.5 }}
-              viewport={{ once: true }}
-              className="card-surface min-w-0 rounded-xl p-8"
-            >
-              <div className="flex min-w-0 items-start gap-4">
-                <div className="shrink-0 rounded-lg bg-primary/15 p-3">
-                  <Users className="h-6 w-6 text-primary" aria-hidden />
-                </div>
-                <div className="min-w-0">
-                  <h3 className="mb-3 text-pretty text-xl font-bold text-foreground">
-                    {t("about.expertise.team.title") || "Cross-functional Team"}
-                  </h3>
-                  <p className="text-pretty leading-relaxed text-muted-foreground">
-                    {t("about.expertise.team.description") || 
-                      "Our experts span AI research, software engineering, UX design, and business strategy - creating holistic solutions that excel technically and commercially."}
-                  </p>
-                </div>
-              </div>
-            </motion.div>
-
-            <motion.div
-              initial={reduceMotion ? false : { opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: reduceMotion ? 0 : 0.5, delay: reduceMotion ? 0 : 0.1 }}
-              viewport={{ once: true }}
-              className="card-surface min-w-0 rounded-xl p-8"
-            >
-              <div className="flex min-w-0 items-start gap-4">
-                <div className="shrink-0 rounded-lg bg-primary/15 p-3">
-                  <Lightbulb className="h-6 w-6 text-primary" aria-hidden />
-                </div>
-                <div className="min-w-0">
-                  <h3 className="mb-3 text-pretty text-xl font-bold text-foreground">
-                    {t("about.expertise.innovation.title") || "Innovation Focus"}
-                  </h3>
-                  <p className="text-pretty leading-relaxed text-muted-foreground">
-                    {t("about.expertise.innovation.description") || 
-                      "We stay at the edge of agentic AI, tool use, and workflow automation—bringing practical patterns into production, not just demos."}
-                  </p>
-                </div>
-              </div>
-            </motion.div>
-
-            <motion.div
-              initial={reduceMotion ? false : { opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: reduceMotion ? 0 : 0.5, delay: reduceMotion ? 0 : 0.1 }}
-              viewport={{ once: true }}
-              className="card-surface min-w-0 rounded-xl p-8"
-            >
-              <div className="flex min-w-0 items-start gap-4">
-                <div className="shrink-0 rounded-lg bg-primary/15 p-3">
-                  <Award className="h-6 w-6 text-primary" aria-hidden />
-                </div>
-                <div className="min-w-0">
-                  <h3 className="mb-3 text-pretty text-xl font-bold text-foreground">
-                    {t("about.expertise.results.title") || "Results-Driven"}
-                  </h3>
-                  <p className="text-pretty leading-relaxed text-muted-foreground">
-                    {t("about.expertise.results.description") || 
-                      "We measure what operations care about: cycle time, error rates, throughput, and human time saved—so automation shows up in the metrics that matter."}
-                  </p>
-                </div>
-              </div>
-            </motion.div>
+                </motion.div>
+              ))
+            )}
           </div>
         </div>
       </section>
 
-      {/* Join Us CTA */}
       <section className="marketing-section py-16">
         <div className="container mx-auto max-w-7xl px-4 sm:px-6">
           <motion.div
@@ -278,13 +174,14 @@ export default function AboutPage() {
             </p>
             <Link
               href="/contact"
-              className="inline-flex min-h-[44px] min-w-0 items-center justify-center rounded-full bg-background px-8 py-3 font-semibold text-foreground shadow-lg transition hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
+              className="inline-flex min-h-11 min-w-0 items-center justify-center rounded-full bg-background px-8 py-3 font-semibold text-foreground shadow-lg transition hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
             >
-              {t("about.cta.button") || "Contact Us Today"}
+              {t("about.cta.button")}
             </Link>
           </motion.div>
         </div>
       </section>
+      <Footer />
     </div>
   );
 }
