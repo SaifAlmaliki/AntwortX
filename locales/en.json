@@ -17,9 +17,9 @@
   },
   "home": {
     "title": "Blyzk",
-    "eyebrow": "Shared e-scooter platform",
+    "eyebrow": "Smart shared mobility",
     "subtitle": "Move smarter. Breathe better.",
-    "description": "Blyzk connects you to the nearest e-scooter in Iraq. Fast rides. Lighter footprint.",
+    "description": "Blyzk is a scooter-sharing system in Iraq — smart transport that saves you time and effort.",
     "primaryCta": "Get the app",
     "getStarted": "Get Started",
     "learnMore": "Learn More"
@@ -29,7 +29,7 @@
     "subtitle": "Electric city moves — shared scooters, a rider app, and fleet software for Iraqi streets.",
     "who": {
       "title": "Who we are",
-      "description": "Blyzk is a micromobility brand for Iraq. We pair reliable scooters with a simple rider app so cities can move faster — with a lighter footprint."
+      "description": "Blyzk is a smart mobility system in Iraq: scooter sharing that saves time and effort, with a simple app and a ready fleet in the city."
     },
     "expertise": {
       "title": "What we build",
@@ -89,7 +89,7 @@
     "emailAddress": "hello@blyzk.com"
   },
   "footer": {
-    "description": "Move smarter. Breathe better. Shared e-scooters for Iraqi cities.",
+    "description": "Move smarter. Breathe better. Scooter sharing that saves time and effort in Iraqi cities.",
     "product": "Ride",
     "partnerships": "Start riding",
     "company": "Company",
@@ -117,9 +117,9 @@
     },
     "scrollBeats": {
       "hero": {
-        "eyebrow": "Blyzk — shared e-scooters",
+        "eyebrow": "Blyzk — smart scooter sharing",
         "headline": "Move smarter. Breathe better.",
-        "sub": "Skip the jam. Ride electric. A cleaner way to move through your city."
+        "sub": "A faster trip, a lighter footprint. Shared mobility that saves you time and effort — not just a scooter."
       },
       "traffic": {
         "eyebrow": "Save your time",

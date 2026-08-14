@@ -46,7 +46,7 @@ export function StructuredData() {
       description: DEFAULT_DESCRIPTION_AR,
       provider: { "@id": orgId },
       areaServed: "IQ",
-      serviceType: "Shared electric scooter rides",
+      serviceType: "Smart shared scooter mobility",
     },
     {
       "@context": "https://schema.org",

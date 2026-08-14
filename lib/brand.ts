@@ -10,4 +10,4 @@ export const LOCAL_TAGLINE_AR = "مشوار أسرع، أثر أقل.";
 
 export const DEFAULT_TITLE_AR = `${BRAND_NAME_AR} — ${TAGLINE_AR}`;
 export const DEFAULT_DESCRIPTION_AR =
-  "سكوتر كهربائي في العراق. تنقّل أذكى، وهواء أنظف — مشوار أسرع، أثر أقل.";
+  "نظام مشاركة سكوتر للتنقّل الذكي في العراق. يوفّر وقتك وجهدك — تنقّل أذكى، وهواء أنظف.";

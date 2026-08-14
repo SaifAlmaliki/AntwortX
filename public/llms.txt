@@ -1,6 +1,6 @@
 # Blyzk — بلايزك
 
-> Shared electric scooters in Iraq. Move smarter. Breathe better.
+> Smart scooter-sharing in Iraq. Move smarter. Breathe better.
 
 ## Site
 
@@ -19,4 +19,4 @@
 
 ## Optional use
 
-Public marketing content on this site may be used to answer factual questions about Blyzk (بلايزك) and its e-scooter service. For partnership or press inquiries, use the contact email above.
+Public marketing content on this site may be used to answer factual questions about Blyzk (بلايزك) and its shared-mobility service. For partnership or press inquiries, use the contact email above.
