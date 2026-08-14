@@ -17,8 +17,8 @@ This repo is the **Blyzk / بلايزك** marketing site (`blyzk.com`) — a bil
 - Brand (EN): Blyzk
 - Brand (AR): بلايزك
 - Hero line: Move smarter. Breathe better. / تنقّل أذكى، وهواء أنظف.
-- Iraq line: مشوار أسرع، أثر أقل.
-- Do not overclaim “zero emissions”. Prefer cleaner air / lighter footprint.
+- Iraq line: مشوار أسرع، تلوث أقل.
+- Do not overclaim “zero emissions”. Prefer cleaner air / less pollution.
 
 ## Build / Lint / Test
 

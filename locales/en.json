@@ -63,8 +63,8 @@
         "description": "We keep the ride simple: scan, go, park. The intelligence stays in the fleet, not in the rider's way."
       },
       "results": {
-        "title": "A lighter footprint",
-        "description": "Every trip that skips a fuel-burning hop is a cleaner minute for the city. Fast rides. Lighter footprint."
+        "title": "Less pollution",
+        "description": "Every trip that skips a fuel-burning hop is a cleaner minute for the city. Fast rides. Less pollution."
       }
     },
     "cta": {
@@ -107,8 +107,8 @@
       "green": "Cleaner air",
       "app": "The app",
       "cities": "Cities",
-      "cta": "Start riding",
-      "ctaShort": "Ride"
+      "cta": "Download App",
+      "ctaShort": "App"
     },
     "scrollCue": "Scroll to explore",
     "markets": {
@@ -119,7 +119,9 @@
       "hero": {
         "eyebrow": "Blyzk — smart scooter sharing",
         "headline": "Move smarter. Breathe better.",
-        "sub": "A faster trip, a lighter footprint. Shared mobility that saves you time and effort — not just a scooter."
+        "sub": "A faster trip, less pollution. Shared mobility that saves you time and effort.",
+        "primaryCta": { "label": "Download the App", "href": "/#ride" },
+        "secondaryCta": { "label": "Locations", "href": "/#markets" }
       },
       "traffic": {
         "eyebrow": "Save your time",
@@ -138,7 +140,7 @@
         "bullets": [
           "Electric power instead of fossil fuel",
           "A cleaner minute for the streets you share",
-          "Fast rides. Lighter footprint."
+          "Fast rides. Less pollution."
         ]
       },
       "ride": {
@@ -193,9 +195,11 @@
       { "value": 6, "suffix": "+", "label": "Cities in Iraq", "prefix": "" }
     ],
     "appShowcase": {
-      "eyebrow": "Rider app",
-      "headline": "Find a ride nearby.",
-      "sub": "Live map, clear pricing, instant unlock — everything you need to move without a car.",
+      "eyebrow": "The app",
+      "headline": "Download the app today",
+      "sub": "Live map, instant unlock, clear pricing. Find the nearest scooter and move smarter.",
+      "appStore": "App Store",
+      "playStore": "Google Play",
       "stats": [
         { "label": "Range", "value": "40 km" },
         { "label": "Unlock", "value": "< 3 sec" },
@@ -203,29 +207,24 @@
       ]
     },
     "rideCta": {
-      "badge": "Electric · Lighter footprint",
-      "headline": "Start your first ride today",
-      "sub": "Download the Blyzk app, find the nearest scooter, and go — no traffic, no fuel.",
-      "primaryLabel": "Get the app",
-      "primaryHref": "/#technology",
-      "secondaryLabel": "See how it works",
-      "secondaryHref": "/contact",
+      "headline": "How to Blyzk",
       "footnote": "Available in Baghdad, Basra, Erbil, Mosul, Najaf, and Karbala.",
       "steps": [
         {
-          "tag": "01",
-          "title": "Download the app",
-          "detail": "Sign up in one minute and activate your account."
+          "title": "Get the app and create an account.",
+          "detail": "Download Blyzk for free, sign up in a minute, and see pricing and ride safety in your city."
         },
         {
-          "tag": "02",
-          "title": "Find a scooter",
-          "detail": "The map shows the nearest available ride."
+          "title": "Start your ride with a scooter nearby.",
+          "detail": "Find a scooter on the map, scan the QR code on the handlebar, and go."
         },
         {
-          "tag": "03",
-          "title": "Scan & ride",
-          "detail": "Scan the QR code and go — no keys, no fuel."
+          "title": "Ride responsibly.",
+          "detail": "Follow local traffic rules, use bike lanes when you can, and enjoy the ride."
+        },
+        {
+          "title": "Park clear and end your ride.",
+          "detail": "Follow the app to park out of the way of people and doorways. When you end the trip, you’re charged per minute."
         }
       ]
     },

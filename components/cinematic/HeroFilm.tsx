@@ -108,6 +108,24 @@ function HeroIntro({
         >
           {beat.sub}
         </p>
+        {beat.primaryCta ? (
+          <div className="pointer-events-auto mt-7 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center">
+            {beat.secondaryCta ? (
+              <Link
+                href={beat.secondaryCta.href}
+                className="inline-flex min-h-12 items-center justify-center rounded-full border border-white/25 bg-white/5 px-7 text-sm font-semibold text-white backdrop-blur-md transition-colors hover:bg-white/10"
+              >
+                {beat.secondaryCta.label}
+              </Link>
+            ) : null}
+            <Link
+              href={beat.primaryCta.href}
+              className="btn-mobility-primary min-h-12 px-7 text-center"
+            >
+              {beat.primaryCta.label}
+            </Link>
+          </div>
+        ) : null}
       </div>
     </motion.div>
   );

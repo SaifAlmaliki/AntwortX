@@ -1,89 +1,81 @@
 "use client";
 
-import Link from "next/link";
+import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
-import { Leaf, MapPin, QrCode, Smartphone } from "lucide-react";
 
 import { useCinematicContent } from "@/lib/use-cinematic-content";
 import { cn } from "@/lib/utils";
 
-const STEP_ICONS = [Smartphone, MapPin, QrCode] as const;
+const STEP_IMAGES = [
+  { src: "/scooter/app-ui.png", alt: "", fit: "cover" as const },
+  { src: "/scooter/hero-void.png", alt: "", fit: "contain" as const },
+  { src: "/scooter/scooter-street.jpg", alt: "", fit: "cover" as const },
+  { src: "/scooter/hero-render.png", alt: "", fit: "contain" as const },
+];
 
 export function RideCtaSection() {
   const reduceMotion = useReducedMotion();
   const { rideCta } = useCinematicContent();
 
   return (
-    <section id="ride" className="relative py-16 sm:py-24 lg:py-32">
-      <div
-        className="pointer-events-none absolute inset-0 rounded-3xl"
-        style={{
-          background:
-            "radial-gradient(ellipse 80% 60% at 50% 0%, rgba(0,230,118,0.08), transparent 60%)",
-        }}
-        aria-hidden
-      />
+    <section id="ride" className="relative bg-[#050505] py-16 sm:py-24 lg:py-28">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <motion.h2
+          initial={reduceMotion ? false : { opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.5 }}
+          className="font-display mb-10 text-[clamp(2rem,4vw+0.5rem,3.25rem)] font-bold tracking-tight text-white sm:mb-14"
+        >
+          {rideCta.headline}
+        </motion.h2>
 
-      <motion.div
-        initial={reduceMotion ? false : { opacity: 0, y: 24 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-60px" }}
-        transition={{ duration: 0.6 }}
-        className="relative overflow-hidden rounded-2xl border border-[#00E676]/15 bg-[#0A0A0C]/90 p-6 backdrop-blur-sm sm:rounded-3xl sm:p-8 lg:p-12"
-      >
-        <div className="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-16">
-          <div className="text-center lg:text-start">
-            <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-[#00E676]/25 bg-[#00E676]/10 px-3 py-1 text-xs font-semibold text-[#00E676]">
-              <Leaf className="size-3.5" aria-hidden />
-              {rideCta.badge}
-            </div>
-            <h2 className="font-display text-[clamp(1.75rem,4vw+0.5rem,2.25rem)] font-bold tracking-tight text-white/90 sm:text-4xl">
-              {rideCta.headline}
-            </h2>
-            <p className="mt-4 text-base leading-relaxed text-white/55">{rideCta.sub}</p>
-
-            <div className="mt-8 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:justify-center lg:justify-start">
-              <Link
-                href={rideCta.primaryHref}
-                className="btn-mobility-primary min-h-12 w-full px-8 text-center sm:w-auto"
+        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
+          {rideCta.steps.map((step, i) => {
+            const image = STEP_IMAGES[i];
+            return (
+              <motion.article
+                key={step.title}
+                initial={reduceMotion ? false : { opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-40px" }}
+                transition={{ duration: 0.5, delay: reduceMotion ? 0 : i * 0.08 }}
+                className="flex flex-col gap-4"
               >
-                {rideCta.primaryLabel}
-              </Link>
-              <Link
-                href={rideCta.secondaryHref}
-                className="inline-flex min-h-12 w-full items-center justify-center rounded-full border border-white/20 bg-white/5 px-8 text-sm font-semibold text-white/90 backdrop-blur-sm transition-colors hover:bg-white/10 sm:w-auto"
-              >
-                {rideCta.secondaryLabel}
-              </Link>
-            </div>
-          </div>
-
-          <div className="flex flex-col gap-4">
-            {rideCta.steps.map((step, i) => {
-              const Icon = STEP_ICONS[i] ?? Smartphone;
-              return (
                 <div
-                  key={step.title}
-                  className="flex gap-4 rounded-2xl border border-white/[0.06] bg-[#050505]/60 p-5"
+                  className={cn(
+                    "relative overflow-hidden rounded-2xl bg-[#0A0A0C]",
+                    image?.fit === "contain" && "flex items-center justify-center"
+                  )}
                 >
-                  <div className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-[#00E676]/10 text-[#00E676]">
-                    <Icon className="size-5" aria-hidden />
-                  </div>
-                  <div>
-                    <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#00E676]/70">
-                      {step.tag}
-                    </p>
-                    <p className="mt-1 font-display text-lg font-semibold text-white/90">{step.title}</p>
-                    <p className="mt-1 text-sm text-white/50">{step.detail}</p>
-                  </div>
+                  {image ? (
+                    <Image
+                      src={image.src}
+                      alt={image.alt}
+                      width={640}
+                      height={480}
+                      className={cn(
+                        "h-52 w-full sm:h-56 lg:h-48",
+                        image.fit === "contain"
+                          ? "object-contain p-4"
+                          : "object-cover"
+                      )}
+                    />
+                  ) : null}
                 </div>
-              );
-            })}
-          </div>
+                <h3 className="text-base font-semibold leading-snug text-[#00E676] sm:text-lg">
+                  {step.title}
+                </h3>
+                <p className="text-sm leading-relaxed text-white/70 sm:text-[0.9375rem]">
+                  {step.detail}
+                </p>
+              </motion.article>
+            );
+          })}
         </div>
 
-        <p className={cn("mt-8 text-center text-xs text-white/35")}>{rideCta.footnote}</p>
-      </motion.div>
+        <p className="mt-10 text-center text-xs text-white/35">{rideCta.footnote}</p>
+      </div>
     </section>
   );
 }

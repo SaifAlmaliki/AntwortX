@@ -6,7 +6,7 @@ export const BRAND_EMAIL = `hello@${BRAND_DOMAIN}`;
 
 export const TAGLINE_EN = "Move smarter. Breathe better.";
 export const TAGLINE_AR = "تنقّل أذكى، وهواء أنظف.";
-export const LOCAL_TAGLINE_AR = "مشوار أسرع، أثر أقل.";
+export const LOCAL_TAGLINE_AR = "مشوار أسرع، تلوث أقل.";
 
 export const DEFAULT_TITLE_AR = `${BRAND_NAME_AR} — ${TAGLINE_AR}`;
 export const DEFAULT_DESCRIPTION_AR =
